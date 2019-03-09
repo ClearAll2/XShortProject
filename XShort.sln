@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XShort", "XShort.csproj", "{2A6ED49A-2EF6-43F6-AE09-76587C084DF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XShort Updater", "..\XShort Updater\XShort Updater.csproj", "{51C77D44-B165-495E-90ED-C4A41B245506}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFind", "..\XShort Search\XFind.csproj", "{F7F00D1E-E1BA-49D7-B52F-D9318E13BC1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A6ED49A-2EF6-43F6-AE09-76587C084DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A6ED49A-2EF6-43F6-AE09-76587C084DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A6ED49A-2EF6-43F6-AE09-76587C084DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A6ED49A-2EF6-43F6-AE09-76587C084DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51C77D44-B165-495E-90ED-C4A41B245506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51C77D44-B165-495E-90ED-C4A41B245506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51C77D44-B165-495E-90ED-C4A41B245506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51C77D44-B165-495E-90ED-C4A41B245506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F00D1E-E1BA-49D7-B52F-D9318E13BC1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F00D1E-E1BA-49D7-B52F-D9318E13BC1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F00D1E-E1BA-49D7-B52F-D9318E13BC1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F00D1E-E1BA-49D7-B52F-D9318E13BC1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
