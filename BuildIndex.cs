@@ -18,6 +18,7 @@ namespace XShort
         bool stop = false;
         int folderNum, fileNum = 0;
         string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
+
         public BuildIndex(bool en)
         {
             InitializeComponent();

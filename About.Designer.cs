@@ -56,7 +56,7 @@
             // 
             // panelAbout
             // 
-            this.panelAbout.BackColor = System.Drawing.Color.White;
+            this.panelAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.panelAbout.Controls.Add(this.buttonClose);
             this.panelAbout.Controls.Add(this.groupBox4);
             this.panelAbout.Controls.Add(this.tabControl1);
@@ -74,7 +74,7 @@
             this.buttonClose.ForeColor = System.Drawing.Color.White;
             this.buttonClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonClose.ImageIndex = 5;
-            this.buttonClose.Location = new System.Drawing.Point(207, 399);
+            this.buttonClose.Location = new System.Drawing.Point(209, 399);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(114, 30);
             this.buttonClose.TabIndex = 31;
@@ -100,7 +100,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.label1.Location = new System.Drawing.Point(163, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(131, 57);
@@ -159,6 +159,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.tabPage1.Controls.Add(this.textBox5);
             this.tabPage1.ForeColor = System.Drawing.Color.White;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -170,10 +171,11 @@
             // 
             // textBox5
             // 
+            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.White;
+            this.textBox5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.textBox5.Location = new System.Drawing.Point(3, 3);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
@@ -186,20 +188,22 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.tabPage2.Controls.Add(this.textBox2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(446, 155);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Hotkeys";
+            this.tabPage2.Text = "Hotkeys and tips";
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.textBox2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.textBox2.Location = new System.Drawing.Point(3, 3);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
@@ -212,6 +216,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Controls.Add(this.textBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -237,9 +242,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.SystemColors.Control;
             this.textBox1.Location = new System.Drawing.Point(110, 17);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -260,7 +266,7 @@
             this.MinimizeBox = false;
             this.Name = "About";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             this.panelAbout.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);

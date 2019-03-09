@@ -49,6 +49,7 @@ namespace XShort
         bool beta = false;
         bool ggs = false;
         bool indexing = false;
+        bool dontload = false;
        
         bool detect = false;
         bool hide = false;
@@ -104,9 +105,12 @@ namespace XShort
             bwu.DoWork += Bwu_DoWork;
             bwu.RunWorkerAsync();
 
-           
+            for (int i = 0; i < listView1.Columns.Count; i++)
+                listView1.Columns[i].Width = listView1.Width / listView1.Columns.Count;
+            for (int i = 0; i < listView2.Columns.Count; i++)
+                listView2.Columns[i].Width = listView2.Width / listView2.Columns.Count;
 
-            this.Text += " - build " + this.AssemblyDescription;
+            this.Text += " Beta Test - build " + this.AssemblyDescription;
             buttonData_Click();
 
            
@@ -379,6 +383,26 @@ namespace XShort
                 indexing = false;
                 labelAutoIndex.Text = "Off";
             }
+            if (r.GetValue("DontLoad") != null)
+            {
+                dontload = true;
+               
+                buttonSave.Enabled = false;
+                buttonAddApp.Enabled = false;
+                buttonAddDir.Enabled = false;
+                buttonAddURL.Enabled = false;
+                appToolStripMenuItem.Enabled = false;
+                
+            }
+            else
+            {
+                dontload = false;
+                buttonSave.Enabled = true;
+                buttonAddApp.Enabled = true;
+                buttonAddDir.Enabled = true;
+                buttonAddURL.Enabled = true;
+                appToolStripMenuItem.Enabled = true;
+            }
 
             if (r.GetValue("Beta") != null)
             {
@@ -606,7 +630,7 @@ namespace XShort
         {
             //load data files
             ProfileOptimization.StartProfile("Startup.Profile");
-            if (File.Exists(Path.Combine(dataPath, "data1.data")))
+            if (File.Exists(Path.Combine(dataPath, "data1.data")) && !dontload)
             {
                 try
                 {
@@ -1914,6 +1938,7 @@ namespace XShort
                 toolTip1.SetToolTip(buttonImport, "Thêm dữ liệu");
                 toolTip1.SetToolTip(buttonExport, "Xuất dữ liệu");
                 toolTip1.SetToolTip(buttonMenuScan,"Quét thư mục");
+                toolTip1.SetToolTip(buttonReload, "Tải lại dữ liệu");
                 buttonScan.Text = "Quét";
                 button2.Text = "Hủy";
                 button9.Text = "Thêm";
@@ -2022,6 +2047,7 @@ namespace XShort
                 toolTip1.SetToolTip(buttonImport, "Import Data");
                 toolTip1.SetToolTip(buttonExport, "Export Data");
                 toolTip1.SetToolTip(buttonMenuScan, "Scan folder");
+                toolTip1.SetToolTip(buttonReload, "Reload data");
                 buttonScan.Text = "Scan";
                 button2.Text = "Cancel";
                 button9.Text = "Add";
@@ -2096,6 +2122,7 @@ namespace XShort
                 checkValidPathToolStripMenuItem.Text = "Check valid path";
                 createShortcutOnDesktopToolStripMenuItem.Text = "Create shortcut on Desktop";
                 cloneToolStripMenuItem.Text = "Clone shortcut";
+                openAtWindowsStartupToolStripMenuItem.Text = "Open at Windows startup";
 
                 aboutToolStripMenuItem.Text = "About";
                 mainWindowToolStripMenuItem.Text = "Main Window";
@@ -2365,11 +2392,11 @@ namespace XShort
 
 
                 
-                this.BackColor = Color.FromArgb(45, 45, 45);
+                this.BackColor = Color.FromArgb(28, 28,  28);
                 panelControl.BackColor = this.BackColor;
-                listView1.BackColor = Color.FromArgb(45, 45, 45);
+                listView1.BackColor = Color.FromArgb(28, 28,  28);
                 listView1.ForeColor = Color.White;
-                listView2.BackColor = Color.FromArgb(45, 45, 45);
+                listView2.BackColor = Color.FromArgb(28, 28,  28);
                 listView2.ForeColor = Color.White;
 
 
@@ -3440,6 +3467,12 @@ namespace XShort
         private void Stt_FormClosed(object sender, FormClosedEventArgs e)
         {
             loadSettings();
+            if (!dontload)
+            {
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += Worker_DoWork;
+                worker.RunWorkerAsync();
+            }
         }
 
         private void buttonAbout_Click(object sender, EventArgs e)
@@ -3493,6 +3526,54 @@ namespace XShort
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonReload_Click(object sender, EventArgs e)
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerAsync();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (!bw2.IsBusy)
+            {
+                f3.Show();
+                listView1.Enabled = false;
+                if (File.Exists(Path.Combine(dataPath, "data1.data")))
+                {
+                    try
+                    {
+                        back = LoadData();
+                    }
+                    catch
+                    {
+                        back = loadData();
+                    }
+                    if (back == -1)
+                    {
+                        if (en == true)
+                            MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        else
+                            MessageBox.Show("Thiếu dữ liệu - không thể hoàn thành", "Thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                }
+                listView1.Enabled = true;
+                f3.Show();
+                f3.Hide();
+                loadIcon();
+                buttonSave.Enabled = true;
+                buttonAddApp.Enabled = true;
+                buttonAddDir.Enabled = true;
+                buttonAddURL.Enabled = true;
+                appToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("Something is not right!? Please try again later", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

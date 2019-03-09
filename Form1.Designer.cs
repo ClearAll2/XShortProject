@@ -70,6 +70,7 @@
             this.buttonImport = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonMenu = new System.Windows.Forms.Button();
+            this.buttonReload = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panelScan = new System.Windows.Forms.Panel();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
@@ -368,10 +369,10 @@
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "home2.png");
-            this.imageList1.Images.SetKeyName(1, "star.png");
-            this.imageList1.Images.SetKeyName(2, "settings-work-tool.png");
+            this.imageList1.Images.SetKeyName(1, "info.png");
+            this.imageList1.Images.SetKeyName(2, "setting.png");
             this.imageList1.Images.SetKeyName(3, "menu2.png");
-            this.imageList1.Images.SetKeyName(4, "back.ico");
+            this.imageList1.Images.SetKeyName(4, "back.png");
             this.imageList1.Images.SetKeyName(5, "refresh-512.png");
             this.imageList1.Images.SetKeyName(6, "exit.png");
             this.imageList1.Images.SetKeyName(7, "Bokehlicia-Captiva-Browser-web.ico");
@@ -379,11 +380,11 @@
             this.imageList1.Images.SetKeyName(9, "save.png");
             this.imageList1.Images.SetKeyName(10, "link.png");
             this.imageList1.Images.SetKeyName(11, "app.png");
-            this.imageList1.Images.SetKeyName(12, "download.png");
-            this.imageList1.Images.SetKeyName(13, "uploading-archive.png");
+            this.imageList1.Images.SetKeyName(12, "import.png");
+            this.imageList1.Images.SetKeyName(13, "export.png");
             this.imageList1.Images.SetKeyName(14, "info.png");
-            this.imageList1.Images.SetKeyName(15, "magnifying-glass-search.png");
-            this.imageList1.Images.SetKeyName(16, "log-file-format.png");
+            this.imageList1.Images.SetKeyName(15, "search.png");
+            this.imageList1.Images.SetKeyName(16, "log.png");
             this.imageList1.Images.SetKeyName(17, "list.png");
             // 
             // buttonAddDir
@@ -590,7 +591,7 @@
             this.buttonExit.ForeColor = System.Drawing.Color.Silver;
             this.buttonExit.ImageIndex = 6;
             this.buttonExit.ImageList = this.imageList1;
-            this.buttonExit.Location = new System.Drawing.Point(317, 3);
+            this.buttonExit.Location = new System.Drawing.Point(361, 3);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(38, 38);
             this.buttonExit.TabIndex = 29;
@@ -615,6 +616,23 @@
             this.toolTip1.SetToolTip(this.buttonMenu, "Menu");
             this.buttonMenu.UseVisualStyleBackColor = false;
             this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
+            // 
+            // buttonReload
+            // 
+            this.buttonReload.FlatAppearance.BorderSize = 0;
+            this.buttonReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonReload.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReload.ForeColor = System.Drawing.Color.Silver;
+            this.buttonReload.ImageIndex = 5;
+            this.buttonReload.ImageList = this.imageList1;
+            this.buttonReload.Location = new System.Drawing.Point(317, 3);
+            this.buttonReload.Name = "buttonReload";
+            this.buttonReload.Size = new System.Drawing.Size(38, 38);
+            this.buttonReload.TabIndex = 39;
+            this.buttonReload.TabStop = false;
+            this.toolTip1.SetToolTip(this.buttonReload, "Reload data");
+            this.buttonReload.UseVisualStyleBackColor = false;
+            this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
             // 
             // panel2
             // 
@@ -643,6 +661,7 @@
             this.panelScan.Controls.Add(this.label8);
             this.panelScan.Controls.Add(this.listView2);
             this.panelScan.Controls.Add(this.button2);
+            this.panelScan.Controls.Add(this.menuStrip1);
             this.panelScan.Controls.Add(this.button9);
             this.panelScan.Controls.Add(this.buttonScan);
             this.panelScan.Controls.Add(this.label7);
@@ -695,7 +714,7 @@
             // 
             // listView2
             // 
-            this.listView2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.listView2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listView2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listView2.CheckBoxes = true;
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -703,7 +722,7 @@
             this.columnHeader5,
             this.columnHeader6});
             this.listView2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView2.ForeColor = System.Drawing.Color.White;
+            this.listView2.ForeColor = System.Drawing.SystemColors.Control;
             this.listView2.FullRowSelect = true;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(20, 95);
@@ -734,7 +753,7 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -750,7 +769,7 @@
             // 
             // button9
             // 
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button9.BackColor = System.Drawing.Color.DodgerBlue;
             this.button9.FlatAppearance.BorderSize = 0;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.ForeColor = System.Drawing.Color.White;
@@ -765,7 +784,7 @@
             // 
             // buttonScan
             // 
-            this.buttonScan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonScan.BackColor = System.Drawing.Color.DodgerBlue;
             this.buttonScan.FlatAppearance.BorderSize = 0;
             this.buttonScan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonScan.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -805,8 +824,10 @@
             // 
             // textBox4
             // 
+            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.ForeColor = System.Drawing.SystemColors.Control;
             this.textBox4.Location = new System.Drawing.Point(144, 57);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(237, 22);
@@ -825,8 +846,10 @@
             // 
             // textBox3
             // 
+            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.ForeColor = System.Drawing.SystemColors.Control;
             this.textBox3.Location = new System.Drawing.Point(144, 27);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(88, 22);
@@ -912,7 +935,7 @@
             // 
             // button12
             // 
-            this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button12.BackColor = System.Drawing.Color.DodgerBlue;
             this.button12.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -928,7 +951,7 @@
             // 
             // button10
             // 
-            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button10.BackColor = System.Drawing.Color.DodgerBlue;
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.ForeColor = System.Drawing.Color.White;
@@ -962,7 +985,7 @@
             this.columnHeader2,
             this.columnHeader3});
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.ForeColor = System.Drawing.Color.White;
+            this.listView1.ForeColor = System.Drawing.SystemColors.Control;
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(19, 5);
@@ -994,12 +1017,12 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Parameters";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader3.Width = 92;
             // 
             // panelControl
             // 
-            this.panelControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panelControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.panelControl.Controls.Add(this.buttonReload);
             this.panelControl.Controls.Add(this.buttonAbout);
             this.panelControl.Controls.Add(this.buttonSettings);
             this.panelControl.Controls.Add(this.buttonImport);
@@ -1024,7 +1047,6 @@
             this.panelData.Controls.Add(this.buttonAddDir);
             this.panelData.Controls.Add(this.buttonAddApp);
             this.panelData.Controls.Add(this.listView1);
-            this.panelData.Controls.Add(this.menuStrip1);
             this.panelData.Location = new System.Drawing.Point(12, 47);
             this.panelData.Name = "panelData";
             this.panelData.Size = new System.Drawing.Size(529, 405);
@@ -1032,13 +1054,14 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.appToolStripMenuItem,
             this.actToolStripMenuItem,
             this.controlToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(6, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(529, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(139, 24);
             this.menuStrip1.TabIndex = 28;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.Visible = false;
@@ -1218,8 +1241,10 @@
             // 
             // listBox1
             // 
+            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox1.ForeColor = System.Drawing.SystemColors.Control;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 16;
@@ -1244,7 +1269,7 @@
             // 
             // button4
             // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button4.BackColor = System.Drawing.Color.DodgerBlue;
             this.button4.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1260,7 +1285,7 @@
             // 
             // buttonDeleteLog
             // 
-            this.buttonDeleteLog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonDeleteLog.BackColor = System.Drawing.Color.DodgerBlue;
             this.buttonDeleteLog.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonDeleteLog.FlatAppearance.BorderSize = 0;
             this.buttonDeleteLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1354,7 +1379,7 @@
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.CancelButton = this.button4;
             this.ClientSize = new System.Drawing.Size(550, 449);
             this.Controls.Add(this.buttonMenu);
@@ -1382,7 +1407,6 @@
             this.panelScan.PerformLayout();
             this.panelControl.ResumeLayout(false);
             this.panelData.ResumeLayout(false);
-            this.panelData.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1500,6 +1524,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.Button buttonReload;
     }
 }
 

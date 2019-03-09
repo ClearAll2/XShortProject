@@ -34,6 +34,7 @@ namespace XShort
                 checkBox5.Text = "Ẩn biểu tượng khay";
                 checkBox6.Text = "Tự động tạo mục lục khi máy tính không làm việc";
                 checkBox7.Text = "Tự động phát hiện lối tắt không khả dụng";
+                checkBox8.Text = "Không tải danh sách chính khi mở";
 
                 radioButton1.Text = "Tiếng Anh";
                 radioButton2.Text = "Tiếng Việt";
@@ -61,6 +62,7 @@ namespace XShort
                 checkBox5.Text = "Hide tray icon";
                 checkBox6.Text = "Automatically run indexing when computer is idle";
                 checkBox7.Text = "Automatically detect invalid shortcuts";
+                checkBox8.Text = "Don't load main list at startup";
 
                 radioButton1.Text = "English";
                 radioButton2.Text = "Vietnamese";
@@ -150,7 +152,9 @@ namespace XShort
                 checkBox7.Checked = true;
             if (r.GetValue("Indexing") != null)
                 checkBox6.Checked = true;
-            
+            if (r.GetValue("DontLoad") != null)
+                checkBox8.Checked = true;
+
             if (r.GetValue("Dark") != null)
             {
                 radioButton3.Checked = true;
@@ -453,6 +457,22 @@ namespace XShort
             else
             {
                 r1.DeleteValue("Indexing", false);
+            }
+            r1.Close();
+            r1.Dispose();
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            if (checkBox8.Checked)
+            {
+                r1.SetValue("DontLoad", true);
+
+            }
+            else
+            {
+                r1.DeleteValue("DontLoad", false);
             }
             r1.Close();
             r1.Dispose();

@@ -58,6 +58,7 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.panelSetting.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
@@ -67,6 +68,7 @@
             // 
             // panelSetting
             // 
+            this.panelSetting.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.panelSetting.Controls.Add(this.buttonClose);
             this.panelSetting.Controls.Add(this.groupBox1);
             this.panelSetting.Controls.Add(this.groupBox3);
@@ -85,7 +87,7 @@
             this.buttonClose.ForeColor = System.Drawing.Color.White;
             this.buttonClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonClose.ImageIndex = 5;
-            this.buttonClose.Location = new System.Drawing.Point(205, 404);
+            this.buttonClose.Location = new System.Drawing.Point(204, 409);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(114, 30);
             this.buttonClose.TabIndex = 32;
@@ -98,6 +100,7 @@
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.panelHotkey);
+            this.groupBox1.Controls.Add(this.checkBox8);
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Controls.Add(this.checkBox7);
             this.groupBox1.Controls.Add(this.checkBox5);
@@ -107,7 +110,8 @@
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox6);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(20, 10);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.groupBox1.Location = new System.Drawing.Point(27, 10);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(488, 235);
             this.groupBox1.TabIndex = 20;
@@ -135,7 +139,7 @@
             // radioButtonShift
             // 
             this.radioButtonShift.AutoSize = true;
-            this.radioButtonShift.Location = new System.Drawing.Point(338, 37);
+            this.radioButtonShift.Location = new System.Drawing.Point(338, 47);
             this.radioButtonShift.Name = "radioButtonShift";
             this.radioButtonShift.Size = new System.Drawing.Size(55, 22);
             this.radioButtonShift.TabIndex = 14;
@@ -147,7 +151,7 @@
             // radioButtonControl
             // 
             this.radioButtonControl.AutoSize = true;
-            this.radioButtonControl.Location = new System.Drawing.Point(243, 37);
+            this.radioButtonControl.Location = new System.Drawing.Point(243, 47);
             this.radioButtonControl.Name = "radioButtonControl";
             this.radioButtonControl.Size = new System.Drawing.Size(75, 22);
             this.radioButtonControl.TabIndex = 13;
@@ -159,7 +163,7 @@
             // radioButtonAlt
             // 
             this.radioButtonAlt.AutoSize = true;
-            this.radioButtonAlt.Location = new System.Drawing.Point(172, 37);
+            this.radioButtonAlt.Location = new System.Drawing.Point(172, 47);
             this.radioButtonAlt.Name = "radioButtonAlt";
             this.radioButtonAlt.Size = new System.Drawing.Size(42, 22);
             this.radioButtonAlt.TabIndex = 12;
@@ -209,7 +213,7 @@
             "X",
             "Y",
             "Z"});
-            this.comboBox2.Location = new System.Drawing.Point(174, 78);
+            this.comboBox2.Location = new System.Drawing.Point(192, 88);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(96, 26);
             this.comboBox2.TabIndex = 11;
@@ -217,7 +221,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(85, 80);
+            this.label10.Location = new System.Drawing.Point(113, 91);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(45, 18);
             this.label10.TabIndex = 7;
@@ -225,11 +229,12 @@
             // 
             // button15
             // 
-            this.button15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button15.BackColor = System.Drawing.Color.DodgerBlue;
             this.button15.FlatAppearance.BorderSize = 0;
             this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button15.Location = new System.Drawing.Point(264, 156);
+            this.button15.ForeColor = System.Drawing.Color.White;
+            this.button15.Location = new System.Drawing.Point(376, 166);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(93, 29);
             this.button15.TabIndex = 6;
@@ -239,11 +244,12 @@
             // 
             // button14
             // 
-            this.button14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button14.BackColor = System.Drawing.Color.DodgerBlue;
             this.button14.FlatAppearance.BorderSize = 0;
             this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.Location = new System.Drawing.Point(133, 156);
+            this.button14.ForeColor = System.Drawing.Color.White;
+            this.button14.Location = new System.Drawing.Point(265, 166);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(93, 29);
             this.button14.TabIndex = 5;
@@ -254,7 +260,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(85, 39);
+            this.label9.Location = new System.Drawing.Point(85, 49);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(73, 18);
             this.label9.TabIndex = 2;
@@ -284,7 +290,7 @@
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(20, 109);
+            this.checkBox7.Location = new System.Drawing.Point(20, 105);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(268, 22);
             this.checkBox7.TabIndex = 5;
@@ -295,7 +301,7 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(20, 193);
+            this.checkBox5.Location = new System.Drawing.Point(20, 189);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(117, 22);
             this.checkBox5.TabIndex = 4;
@@ -306,7 +312,7 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(20, 165);
+            this.checkBox4.Location = new System.Drawing.Point(20, 161);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(124, 22);
             this.checkBox4.TabIndex = 3;
@@ -323,12 +329,12 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Run at Windows startup";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Enter += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(20, 51);
+            this.checkBox2.Location = new System.Drawing.Point(20, 49);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(220, 22);
             this.checkBox2.TabIndex = 1;
@@ -339,7 +345,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(20, 81);
+            this.checkBox3.Location = new System.Drawing.Point(20, 77);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(227, 22);
             this.checkBox3.TabIndex = 2;
@@ -350,7 +356,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(20, 137);
+            this.checkBox6.Location = new System.Drawing.Point(20, 133);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(343, 22);
             this.checkBox6.TabIndex = 8;
@@ -366,7 +372,8 @@
             this.groupBox3.Controls.Add(this.radioButton3);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(20, 329);
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.groupBox3.Location = new System.Drawing.Point(27, 329);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(488, 62);
             this.groupBox3.TabIndex = 31;
@@ -376,7 +383,6 @@
             // radioButton5
             // 
             this.radioButton5.AutoSize = true;
-            this.radioButton5.ForeColor = System.Drawing.Color.Black;
             this.radioButton5.Location = new System.Drawing.Point(284, 23);
             this.radioButton5.Name = "radioButton5";
             this.radioButton5.Size = new System.Drawing.Size(56, 22);
@@ -388,7 +394,6 @@
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
-            this.radioButton4.ForeColor = System.Drawing.Color.Black;
             this.radioButton4.Location = new System.Drawing.Point(148, 23);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(57, 22);
@@ -400,7 +405,6 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.ForeColor = System.Drawing.Color.Black;
             this.radioButton3.Location = new System.Drawing.Point(20, 23);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(58, 22);
@@ -414,7 +418,8 @@
             this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Controls.Add(this.radioButton2);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(20, 251);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.groupBox2.Location = new System.Drawing.Point(27, 251);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(488, 72);
             this.groupBox2.TabIndex = 21;
@@ -445,6 +450,18 @@
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(226, 189);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(217, 22);
+            this.checkBox8.TabIndex = 9;
+            this.checkBox8.Text = "Don\'t load main list at startup";
+            this.toolTip1.SetToolTip(this.checkBox8, "Improve loading time");
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -455,7 +472,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Settings";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.panelSetting.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -501,5 +518,6 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox checkBox8;
     }
 }

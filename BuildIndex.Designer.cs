@@ -55,7 +55,7 @@
             // buttonBuildIndexStop
             // 
             this.buttonBuildIndexStop.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonBuildIndexStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonBuildIndexStop.BackColor = System.Drawing.Color.DodgerBlue;
             this.buttonBuildIndexStop.Enabled = false;
             this.buttonBuildIndexStop.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.buttonBuildIndexStop.FlatAppearance.BorderSize = 0;
@@ -73,7 +73,7 @@
             // buttonBuildIndex
             // 
             this.buttonBuildIndex.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonBuildIndex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonBuildIndex.BackColor = System.Drawing.Color.DodgerBlue;
             this.buttonBuildIndex.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.buttonBuildIndex.FlatAppearance.BorderSize = 0;
             this.buttonBuildIndex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -98,6 +98,7 @@
             this.groupBox1.Controls.Add(this.labelFolderfound);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.groupBox1.Location = new System.Drawing.Point(8, 10);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(326, 130);
@@ -183,7 +184,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.label1.Location = new System.Drawing.Point(12, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(326, 34);
@@ -194,7 +195,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.label2.Location = new System.Drawing.Point(12, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(326, 46);
@@ -205,6 +206,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.label3.Location = new System.Drawing.Point(12, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(326, 31);
@@ -215,7 +217,7 @@
             // labelHadIndex
             // 
             this.labelHadIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHadIndex.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.labelHadIndex.ForeColor = System.Drawing.SystemColors.Control;
             this.labelHadIndex.Location = new System.Drawing.Point(12, 197);
             this.labelHadIndex.Name = "labelHadIndex";
             this.labelHadIndex.Size = new System.Drawing.Size(149, 21);
@@ -225,7 +227,7 @@
             // buttonDeleteIndex
             // 
             this.buttonDeleteIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteIndex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.buttonDeleteIndex.BackColor = System.Drawing.Color.DodgerBlue;
             this.buttonDeleteIndex.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.buttonDeleteIndex.FlatAppearance.BorderSize = 0;
             this.buttonDeleteIndex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -243,7 +245,7 @@
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.label8.Location = new System.Drawing.Point(12, 102);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(326, 46);
@@ -267,7 +269,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.ClientSize = new System.Drawing.Size(347, 447);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label8);

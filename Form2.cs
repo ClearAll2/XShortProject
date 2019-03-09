@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Net;
+using System.Linq;
 using System.IO;
 using System.Diagnostics;
 using System.ComponentModel;
@@ -26,13 +26,14 @@ namespace XShort
         string text1, part = String.Empty;
         int newx, newy;
         string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
+        string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "firewall.cpl", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
         BackgroundWorker bw;
         public Form2(int en)
         {
             InitializeComponent();
             
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
-            
+
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
                 r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
@@ -81,11 +82,13 @@ namespace XShort
             comboBox1.SelectAll();
             if (en == 0)
             {
+                
                 label1.Text = "Mở ứng dụng/đường dẫn/địa chỉ (kể cả không có dữ liệu)";
                 label2.Text = "Không cần điền tên đầy đủ, ứng dụng sẽ nhận diện tự động";
                 label4.Text = "Nếu bạn đã tạo mục lục, bạn có thể tìm kiếm tất cả ở đây";
                 button2.Text = "Hủy";
             }
+           
 
             bw = new BackgroundWorker();
             bw.DoWork += Bw_DoWork;
@@ -147,7 +150,7 @@ namespace XShort
         {
             if (dark)
             {
-                this.BackColor = Color.FromArgb(45, 45, 45);
+                this.BackColor = Color.FromArgb(28, 28, 28);
                 label1.ForeColor = Color.White;
                 label2.ForeColor = Color.Yellow;
                 //label3.ForeColor = Color.White;
@@ -314,6 +317,18 @@ namespace XShort
         {
             if (comboBox1.Text == String.Empty) //do nothing if comboBox is empty
                 return;
+            if (sysCmd.Contains(tmp))
+            {
+                ProcessStartInfo proc = new ProcessStartInfo();
+                proc.FileName = "C:\\Windows\\System32\\cmd.exe";
+                proc.WorkingDirectory = Path.GetDirectoryName("C:\\Windows\\System32\\cmd.exe");
+                proc.Arguments = "/c " + tmp;
+                if (runas)
+                    proc.Verb = "runas";
+                Process.Start(proc);
+                this.Hide();
+                return;
+            }
             if (tmp.Contains("!") != true)
             {
                 for (int i = 0; i < sName.Count; i++)
@@ -707,8 +722,16 @@ namespace XShort
         {
             if (keyword != String.Empty)
             {
-                Search sch = new Search(keyword);
-                sch.Show();
+                if (button2.Text == "Hủy")
+                {
+                    Search sch = new Search(keyword, false);
+                    sch.Show();
+                }
+                else
+                {
+                    Search sch = new Search(keyword, true);
+                    sch.Show();
+                }
                 keyword = String.Empty;
             }
         }
@@ -717,6 +740,8 @@ namespace XShort
         {
             bool runas = (bool)e.Argument;
             string dfl = comboBox1.Text;
+            if (dfl.Contains("#"))
+                dfl = dfl.Substring(1);//remove first # character
             if (dfl.Contains("+"))
             {
                 string[] piece = dfl.Split('+');
@@ -784,8 +809,31 @@ namespace XShort
 
         private void comboBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Tab)
+            if (e.KeyCode == Keys.Tab )
             {
+                if (text.Contains("#"))
+                {
+                    for (int i = index + 1; i < sysCmd.Count(); i++)
+                    {
+                        if (sysCmd[i].Contains(part))
+                        {
+                           
+                            comboBox1.Text = text1 + sysCmd[i];
+                            index = i;
+                            //select text which not belong to "text"
+                            comboBox1.SelectionStart = comboBox1.Text.IndexOf(part) + part.Length; //index of "text" + length => position to start selection
+                            comboBox1.SelectionLength = comboBox1.Text.Length - part.Length; //length = length of combobox text - length of "text"
+                            return;
+
+                        }
+                    }
+
+                    //reset if not 
+                    comboBox1.Text = text;
+                    comboBox1.SelectionStart = comboBox1.Text.Length;
+                    comboBox1.SelectionLength = 0;
+                    index = -1; //-1 for index + 1 = 0 //fucking nice
+                }
                 if (text.Contains("\\") != true) //if not contain \
                 {
                     if (text.Contains("+") != true && text.Contains("!") != true) //if not contain , and !
@@ -974,6 +1022,15 @@ namespace XShort
         {
             if (e.KeyCode != Keys.Tab)
             {
+                if (comboBox1.Text.Contains("#"))
+                {
+                    text = comboBox1.Text;
+                    text1 = text.Substring(0, text.IndexOf("#") + 1); //from 0 to last index of ,
+                    part = text.Substring(text.IndexOf("#") + 1); //from last index of ,
+
+                    part = part.Trim();
+                    index = -1;
+                }
                 if (comboBox1.Text.Contains("+") != true && comboBox1.Text.Contains("!") != true)
                 {
                     text = comboBox1.Text;
