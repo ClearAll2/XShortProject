@@ -954,7 +954,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAQ
-        DwAAAk1TRnQBSQFMAwEBAAFAAQkBQAEJARkBAAEZAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABZAMA
+        DwAAAk1TRnQBSQFMAwEBAAFIAQkBSAEJARkBAAEZAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABZAMA
         ARkDAAEBAQABIAUAARABJy0AAQEDAgEDAwQEBQEHAwYBCAMHAQkDBwEJAwcBCQMGAQgDBQEHAwQBBQMC
         AQMDAAEB/wBVAAMBAQIDBgEIAwwBEAMSARkDFwEgAxoBJAMcAScDHAEoAxwBKAMcASgDHAEnAxoBJAMY
         ASEDEwEaAw4BEwMHAQkDAgED/wBJAAMCAQMDDQESAxoBJAMoAT0DQgF0A1ABngJYAVYBuQJdAVoBygJg
@@ -1022,7 +1022,11 @@
 </value>
   </data>
   <data name="textBox5.Text" xml:space="preserve">
-    <value>build 19131
+    <value>build 19323
+-We fixed a bug with main list items and Reload button.
+-We improved Search window's experience.
+
+build 19131
 -We added "Don't load main list at startup" option.
 -We added "Reload data button".
 
@@ -1057,12 +1061,7 @@ build 18941
 build 18935
 -We added Indexing and Search fearture. You can now use XShort Run to search files and folder.
 -We added a new option: Automatically run indexing.
--Opening a link now requires http://.
-
-build 18924
--We changed multi-call symbol from | to +.
--We added "Open as administrator" option.
--We changed UI with new design and icons.</value>
+-Opening a link now requires http://.</value>
   </data>
   <data name="textBox2.Text" xml:space="preserve">
     <value>Shortcut Keys:

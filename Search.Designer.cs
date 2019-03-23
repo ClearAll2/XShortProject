@@ -88,6 +88,14 @@
             this.labelName = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label7 = new System.Windows.Forms.Label();
             this.panelResult.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage6.SuspendLayout();
@@ -142,7 +150,7 @@
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage6.Size = new System.Drawing.Size(486, 315);
             this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Hightlight";
+            this.tabPage6.Text = "Highlight";
             this.tabPage6.ToolTipText = "Highlight results";
             // 
             // panelAll
@@ -172,12 +180,12 @@
             this.listViewFolders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listViewFolders.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewFolders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.columnHeader1,
+            this.columnHeader14});
             this.listViewFolders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewFolders.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewFolders.ForeColor = System.Drawing.Color.White;
             this.listViewFolders.FullRowSelect = true;
-            this.listViewFolders.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewFolders.HideSelection = false;
             this.listViewFolders.Location = new System.Drawing.Point(3, 3);
             this.listViewFolders.MultiSelect = false;
@@ -188,13 +196,16 @@
             this.listViewFolders.TabIndex = 0;
             this.listViewFolders.UseCompatibleStateImageBehavior = false;
             this.listViewFolders.View = System.Windows.Forms.View.Details;
+            this.listViewFolders.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewFolders.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listViewFolders.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listViewFolders.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseClick);
             this.listViewFolders.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseDoubleClick);
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Best match";
-            this.columnHeader1.Width = 460;
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 300;
             // 
             // imageListFolder
             // 
@@ -210,7 +221,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(495, 315);
+            this.tabPage2.Size = new System.Drawing.Size(486, 315);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Applications";
             this.tabPage2.ToolTipText = "Find results in Apps";
@@ -220,29 +231,32 @@
             this.listViewApps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listViewApps.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewApps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader13});
             this.listViewApps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewApps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewApps.ForeColor = System.Drawing.Color.White;
             this.listViewApps.FullRowSelect = true;
-            this.listViewApps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewApps.HideSelection = false;
             this.listViewApps.Location = new System.Drawing.Point(3, 3);
             this.listViewApps.MultiSelect = false;
             this.listViewApps.Name = "listViewApps";
             this.listViewApps.ShowItemToolTips = true;
-            this.listViewApps.Size = new System.Drawing.Size(489, 309);
+            this.listViewApps.Size = new System.Drawing.Size(480, 309);
             this.listViewApps.SmallImageList = this.imageListApps;
             this.listViewApps.TabIndex = 1;
             this.listViewApps.UseCompatibleStateImageBehavior = false;
             this.listViewApps.View = System.Windows.Forms.View.Details;
+            this.listViewApps.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewApps.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listViewApps.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listViewApps.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseClick);
             this.listViewApps.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseDoubleClick);
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Best match";
-            this.columnHeader2.Width = 460;
+            this.columnHeader2.Text = "Name";
+            this.columnHeader2.Width = 300;
             // 
             // imageListApps
             // 
@@ -257,7 +271,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(495, 315);
+            this.tabPage3.Size = new System.Drawing.Size(486, 315);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Documents";
             this.tabPage3.ToolTipText = "Find results in Documents";
@@ -267,29 +281,32 @@
             this.listViewDocs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listViewDocs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewDocs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader12});
             this.listViewDocs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewDocs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewDocs.ForeColor = System.Drawing.Color.White;
             this.listViewDocs.FullRowSelect = true;
-            this.listViewDocs.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewDocs.HideSelection = false;
             this.listViewDocs.Location = new System.Drawing.Point(3, 3);
             this.listViewDocs.MultiSelect = false;
             this.listViewDocs.Name = "listViewDocs";
             this.listViewDocs.ShowItemToolTips = true;
-            this.listViewDocs.Size = new System.Drawing.Size(489, 309);
+            this.listViewDocs.Size = new System.Drawing.Size(480, 309);
             this.listViewDocs.SmallImageList = this.imageListDocs;
             this.listViewDocs.TabIndex = 2;
             this.listViewDocs.UseCompatibleStateImageBehavior = false;
             this.listViewDocs.View = System.Windows.Forms.View.Details;
+            this.listViewDocs.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewDocs.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listViewDocs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listViewDocs.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseClick);
             this.listViewDocs.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseDoubleClick);
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Best match";
-            this.columnHeader3.Width = 460;
+            this.columnHeader3.Text = "Name";
+            this.columnHeader3.Width = 300;
             // 
             // imageListDocs
             // 
@@ -304,7 +321,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(495, 315);
+            this.tabPage5.Size = new System.Drawing.Size(486, 315);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Music";
             this.tabPage5.ToolTipText = "Find results in Music";
@@ -314,29 +331,32 @@
             this.listViewMusic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listViewMusic.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewMusic.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader11});
             this.listViewMusic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewMusic.ForeColor = System.Drawing.Color.White;
             this.listViewMusic.FullRowSelect = true;
-            this.listViewMusic.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewMusic.HideSelection = false;
             this.listViewMusic.Location = new System.Drawing.Point(3, 3);
             this.listViewMusic.MultiSelect = false;
             this.listViewMusic.Name = "listViewMusic";
             this.listViewMusic.ShowItemToolTips = true;
-            this.listViewMusic.Size = new System.Drawing.Size(489, 309);
+            this.listViewMusic.Size = new System.Drawing.Size(480, 309);
             this.listViewMusic.SmallImageList = this.imageListMusic;
             this.listViewMusic.TabIndex = 2;
             this.listViewMusic.UseCompatibleStateImageBehavior = false;
             this.listViewMusic.View = System.Windows.Forms.View.Details;
+            this.listViewMusic.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewMusic.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listViewMusic.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listViewMusic.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseClick);
             this.listViewMusic.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseDoubleClick);
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "Best match";
-            this.columnHeader5.Width = 460;
+            this.columnHeader5.Text = "Name";
+            this.columnHeader5.Width = 300;
             // 
             // imageListMusic
             // 
@@ -351,7 +371,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(495, 315);
+            this.tabPage4.Size = new System.Drawing.Size(486, 315);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Photos";
             this.tabPage4.ToolTipText = "Find results in Photos";
@@ -361,29 +381,32 @@
             this.listViewPhotos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listViewPhotos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewPhotos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader10});
             this.listViewPhotos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewPhotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewPhotos.ForeColor = System.Drawing.Color.White;
             this.listViewPhotos.FullRowSelect = true;
-            this.listViewPhotos.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewPhotos.HideSelection = false;
             this.listViewPhotos.Location = new System.Drawing.Point(3, 3);
             this.listViewPhotos.MultiSelect = false;
             this.listViewPhotos.Name = "listViewPhotos";
             this.listViewPhotos.ShowItemToolTips = true;
-            this.listViewPhotos.Size = new System.Drawing.Size(489, 309);
+            this.listViewPhotos.Size = new System.Drawing.Size(480, 309);
             this.listViewPhotos.SmallImageList = this.imageListPhotos;
             this.listViewPhotos.TabIndex = 2;
             this.listViewPhotos.UseCompatibleStateImageBehavior = false;
             this.listViewPhotos.View = System.Windows.Forms.View.Details;
+            this.listViewPhotos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewPhotos.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listViewPhotos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listViewPhotos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseClick);
             this.listViewPhotos.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseDoubleClick);
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Best match";
-            this.columnHeader4.Width = 460;
+            this.columnHeader4.Text = "Name";
+            this.columnHeader4.Width = 300;
             // 
             // imageListPhotos
             // 
@@ -398,7 +421,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(495, 315);
+            this.tabPage7.Size = new System.Drawing.Size(486, 315);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Videos";
             this.tabPage7.ToolTipText = "Find results in Videos";
@@ -408,29 +431,32 @@
             this.listViewVideos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listViewVideos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewVideos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader6});
+            this.columnHeader6,
+            this.columnHeader9});
             this.listViewVideos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewVideos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewVideos.ForeColor = System.Drawing.Color.White;
             this.listViewVideos.FullRowSelect = true;
-            this.listViewVideos.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewVideos.HideSelection = false;
             this.listViewVideos.Location = new System.Drawing.Point(3, 3);
             this.listViewVideos.MultiSelect = false;
             this.listViewVideos.Name = "listViewVideos";
             this.listViewVideos.ShowItemToolTips = true;
-            this.listViewVideos.Size = new System.Drawing.Size(489, 309);
+            this.listViewVideos.Size = new System.Drawing.Size(480, 309);
             this.listViewVideos.SmallImageList = this.imageListVideos;
             this.listViewVideos.TabIndex = 3;
             this.listViewVideos.UseCompatibleStateImageBehavior = false;
             this.listViewVideos.View = System.Windows.Forms.View.Details;
+            this.listViewVideos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewVideos.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listViewVideos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listViewVideos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseClick);
             this.listViewVideos.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseDoubleClick);
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Best match";
-            this.columnHeader6.Width = 460;
+            this.columnHeader6.Text = "Name";
+            this.columnHeader6.Width = 300;
             // 
             // imageListVideos
             // 
@@ -445,7 +471,7 @@
             this.tabPage8.Location = new System.Drawing.Point(4, 24);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(495, 315);
+            this.tabPage8.Size = new System.Drawing.Size(486, 315);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Others";
             this.tabPage8.ToolTipText = "Find results from Others";
@@ -455,29 +481,32 @@
             this.listViewOthers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.listViewOthers.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewOthers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader7});
+            this.columnHeader7,
+            this.columnHeader8});
             this.listViewOthers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewOthers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewOthers.ForeColor = System.Drawing.Color.White;
             this.listViewOthers.FullRowSelect = true;
-            this.listViewOthers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewOthers.HideSelection = false;
             this.listViewOthers.Location = new System.Drawing.Point(3, 3);
             this.listViewOthers.MultiSelect = false;
             this.listViewOthers.Name = "listViewOthers";
             this.listViewOthers.ShowItemToolTips = true;
-            this.listViewOthers.Size = new System.Drawing.Size(489, 309);
+            this.listViewOthers.Size = new System.Drawing.Size(480, 309);
             this.listViewOthers.SmallImageList = this.imageListOthers;
             this.listViewOthers.TabIndex = 3;
             this.listViewOthers.UseCompatibleStateImageBehavior = false;
             this.listViewOthers.View = System.Windows.Forms.View.Details;
+            this.listViewOthers.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewOthers.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.listViewOthers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             this.listViewOthers.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseClick);
             this.listViewOthers.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewAll_MouseDoubleClick);
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "Best match";
-            this.columnHeader7.Width = 460;
+            this.columnHeader7.Text = "Name";
+            this.columnHeader7.Width = 300;
             // 
             // imageListOthers
             // 
@@ -550,6 +579,7 @@
             // panelDetails
             // 
             this.panelDetails.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.panelDetails.Controls.Add(this.label7);
             this.panelDetails.Controls.Add(this.labelVersion);
             this.panelDetails.Controls.Add(this.buttonDelete);
             this.panelDetails.Controls.Add(this.buttonCut);
@@ -582,7 +612,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(129, 13);
             this.labelVersion.TabIndex = 17;
-            this.labelVersion.Text = "XShort Index Search v2.0";
+            this.labelVersion.Text = "XShort Index Search v2.1";
             // 
             // buttonDelete
             // 
@@ -590,7 +620,7 @@
             this.buttonDelete.FlatAppearance.BorderSize = 0;
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDelete.ForeColor = System.Drawing.Color.White;
-            this.buttonDelete.Location = new System.Drawing.Point(136, 344);
+            this.buttonDelete.Location = new System.Drawing.Point(134, 372);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(125, 23);
             this.buttonDelete.TabIndex = 16;
@@ -604,7 +634,7 @@
             this.buttonCut.FlatAppearance.BorderSize = 0;
             this.buttonCut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCut.ForeColor = System.Drawing.Color.White;
-            this.buttonCut.Location = new System.Drawing.Point(5, 373);
+            this.buttonCut.Location = new System.Drawing.Point(3, 401);
             this.buttonCut.Name = "buttonCut";
             this.buttonCut.Size = new System.Drawing.Size(125, 23);
             this.buttonCut.TabIndex = 15;
@@ -618,7 +648,7 @@
             this.buttonCopy.FlatAppearance.BorderSize = 0;
             this.buttonCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCopy.ForeColor = System.Drawing.Color.White;
-            this.buttonCopy.Location = new System.Drawing.Point(5, 344);
+            this.buttonCopy.Location = new System.Drawing.Point(3, 372);
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(125, 23);
             this.buttonCopy.TabIndex = 14;
@@ -632,7 +662,7 @@
             this.buttonProperties.FlatAppearance.BorderSize = 0;
             this.buttonProperties.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonProperties.ForeColor = System.Drawing.Color.White;
-            this.buttonProperties.Location = new System.Drawing.Point(136, 373);
+            this.buttonProperties.Location = new System.Drawing.Point(134, 401);
             this.buttonProperties.Name = "buttonProperties";
             this.buttonProperties.Size = new System.Drawing.Size(125, 23);
             this.buttonProperties.TabIndex = 13;
@@ -646,9 +676,9 @@
             this.buttonOpenFileLoc.FlatAppearance.BorderSize = 0;
             this.buttonOpenFileLoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOpenFileLoc.ForeColor = System.Drawing.Color.White;
-            this.buttonOpenFileLoc.Location = new System.Drawing.Point(136, 315);
+            this.buttonOpenFileLoc.Location = new System.Drawing.Point(134, 343);
             this.buttonOpenFileLoc.Name = "buttonOpenFileLoc";
-            this.buttonOpenFileLoc.Size = new System.Drawing.Size(123, 23);
+            this.buttonOpenFileLoc.Size = new System.Drawing.Size(125, 23);
             this.buttonOpenFileLoc.TabIndex = 12;
             this.buttonOpenFileLoc.Text = "Open file location";
             this.buttonOpenFileLoc.UseVisualStyleBackColor = false;
@@ -660,9 +690,9 @@
             this.buttonOpen.FlatAppearance.BorderSize = 0;
             this.buttonOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOpen.ForeColor = System.Drawing.Color.White;
-            this.buttonOpen.Location = new System.Drawing.Point(5, 315);
+            this.buttonOpen.Location = new System.Drawing.Point(3, 343);
             this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(123, 23);
+            this.buttonOpen.Size = new System.Drawing.Size(125, 23);
             this.buttonOpen.TabIndex = 11;
             this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = false;
@@ -672,7 +702,7 @@
             // 
             this.labelDateAccess.AutoSize = true;
             this.labelDateAccess.ForeColor = System.Drawing.Color.White;
-            this.labelDateAccess.Location = new System.Drawing.Point(97, 285);
+            this.labelDateAccess.Location = new System.Drawing.Point(95, 313);
             this.labelDateAccess.Name = "labelDateAccess";
             this.labelDateAccess.Size = new System.Drawing.Size(10, 13);
             this.labelDateAccess.TabIndex = 10;
@@ -682,7 +712,7 @@
             // 
             this.labelDateMod.AutoSize = true;
             this.labelDateMod.ForeColor = System.Drawing.Color.White;
-            this.labelDateMod.Location = new System.Drawing.Point(97, 254);
+            this.labelDateMod.Location = new System.Drawing.Point(95, 282);
             this.labelDateMod.Name = "labelDateMod";
             this.labelDateMod.Size = new System.Drawing.Size(10, 13);
             this.labelDateMod.TabIndex = 9;
@@ -692,7 +722,7 @@
             // 
             this.labelDateCreated.AutoSize = true;
             this.labelDateCreated.ForeColor = System.Drawing.Color.White;
-            this.labelDateCreated.Location = new System.Drawing.Point(97, 224);
+            this.labelDateCreated.Location = new System.Drawing.Point(95, 252);
             this.labelDateCreated.Name = "labelDateCreated";
             this.labelDateCreated.Size = new System.Drawing.Size(10, 13);
             this.labelDateCreated.TabIndex = 8;
@@ -702,7 +732,7 @@
             // 
             this.labelType.AutoSize = true;
             this.labelType.ForeColor = System.Drawing.Color.White;
-            this.labelType.Location = new System.Drawing.Point(97, 195);
+            this.labelType.Location = new System.Drawing.Point(95, 223);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(10, 13);
             this.labelType.TabIndex = 7;
@@ -712,7 +742,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(5, 285);
+            this.label5.Location = new System.Drawing.Point(3, 313);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 13);
             this.label5.TabIndex = 6;
@@ -722,7 +752,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(5, 195);
+            this.label4.Location = new System.Drawing.Point(3, 223);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 5;
@@ -732,7 +762,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(5, 254);
+            this.label3.Location = new System.Drawing.Point(3, 282);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 13);
             this.label3.TabIndex = 4;
@@ -742,7 +772,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(5, 224);
+            this.label2.Location = new System.Drawing.Point(3, 252);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 3;
@@ -754,7 +784,7 @@
             this.labelPath.ForeColor = System.Drawing.Color.White;
             this.labelPath.Location = new System.Drawing.Point(2, 97);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(259, 83);
+            this.labelPath.Size = new System.Drawing.Size(259, 112);
             this.labelPath.TabIndex = 2;
             // 
             // labelName
@@ -786,6 +816,52 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "Press enter to search, press again to stop";
             // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Type";
+            this.columnHeader8.Width = 160;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Type";
+            this.columnHeader9.Width = 160;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Type";
+            this.columnHeader10.Width = 160;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Type";
+            this.columnHeader11.Width = 160;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Type";
+            this.columnHeader12.Width = 160;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Type";
+            this.columnHeader13.Width = 160;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Type";
+            this.columnHeader14.Width = 160;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label7.Location = new System.Drawing.Point(112, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(50, 16);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Details";
+            // 
             // Search
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -805,7 +881,7 @@
             this.MinimizeBox = false;
             this.Name = "Search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Search";
+            this.Text = "XShort Index Search";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Search_FormClosing);
             this.panelResult.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -886,5 +962,13 @@
         private System.Windows.Forms.ListView listViewOthers;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ImageList imageListOthers;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.Label label7;
     }
 }

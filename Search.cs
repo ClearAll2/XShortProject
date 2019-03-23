@@ -417,7 +417,7 @@ namespace XShort
                 if (cut.Contains(keyword.ToLower()))
                 {
                     DirectoryInfo info = new DirectoryInfo(read);
-                    listViewFolders.Items.Add(new ListViewItem(new string[] { info.Name }));
+                    listViewFolders.Items.Add(new ListViewItem(new string[] { info.Name, "Folder" }));
                     listViewFolders.Items[listViewFolders.Items.Count - 1].ToolTipText = info.FullName;
                     Image temp;
                     if (Directory.Exists(read))
@@ -483,42 +483,42 @@ namespace XShort
         {
             if (appsExt.Contains(files.Extension.ToLower()))
             {
-                listViewApps.Items.Add(new ListViewItem(new string[] { files.Name }));
+                listViewApps.Items.Add(new ListViewItem(new string[] { files.Name, files.Extension }));
                 listViewApps.Items[listViewApps.Items.Count - 1].ToolTipText = files.FullName;
                 imageListApps.Images.Add(temp);
                 listViewApps.Items[listViewApps.Items.Count - 1].ImageIndex = imageListApps.Images.Count - 1;
             }
             if (photosExt.Contains(files.Extension.ToLower()))
             {
-                listViewPhotos.Items.Add(new ListViewItem(new string[] { files.Name }));
+                listViewPhotos.Items.Add(new ListViewItem(new string[] { files.Name, files.Extension }));
                 listViewPhotos.Items[listViewPhotos.Items.Count - 1].ToolTipText = files.FullName;
                 imageListPhotos.Images.Add(temp);
                 listViewPhotos.Items[listViewPhotos.Items.Count - 1].ImageIndex = imageListPhotos.Images.Count - 1;
             }
             if (musicExt.Contains(files.Extension.ToLower()))
             {
-                listViewMusic.Items.Add(new ListViewItem(new string[] { files.Name }));
+                listViewMusic.Items.Add(new ListViewItem(new string[] { files.Name, files.Extension }));
                 listViewMusic.Items[listViewMusic.Items.Count - 1].ToolTipText = files.FullName;
                 imageListMusic.Images.Add(temp);
                 listViewMusic.Items[listViewMusic.Items.Count - 1].ImageIndex = imageListMusic.Images.Count - 1;
             }
             if (docsExt.Contains(files.Extension.ToLower()))
             {
-                listViewDocs.Items.Add(new ListViewItem(new string[] { files.Name }));
+                listViewDocs.Items.Add(new ListViewItem(new string[] { files.Name, files.Extension }));
                 listViewDocs.Items[listViewDocs.Items.Count - 1].ToolTipText = files.FullName;
                 imageListDocs.Images.Add(temp);
                 listViewDocs.Items[listViewDocs.Items.Count - 1].ImageIndex = imageListDocs.Images.Count - 1;
             }
             if (videosExt.Contains(files.Extension.ToLower()))
             {
-                listViewVideos.Items.Add(new ListViewItem(new string[] { files.Name }));
+                listViewVideos.Items.Add(new ListViewItem(new string[] { files.Name, files.Extension }));
                 listViewVideos.Items[listViewVideos.Items.Count - 1].ToolTipText = files.FullName;
                 imageListVideos.Images.Add(temp);
                 listViewVideos.Items[listViewVideos.Items.Count - 1].ImageIndex = imageListVideos.Images.Count - 1;
             }
             if (othersExt.Contains(files.Extension.ToLower()))//others
             {
-                listViewOthers.Items.Add(new ListViewItem(new string[] { files.Name }));
+                listViewOthers.Items.Add(new ListViewItem(new string[] { files.Name, files.Extension }));
                 listViewOthers.Items[listViewOthers.Items.Count - 1].ToolTipText = files.FullName;
                 imageListOthers.Images.Add(temp);
                 listViewOthers.Items[listViewOthers.Items.Count - 1].ImageIndex = imageListOthers.Images.Count - 1;
@@ -762,9 +762,52 @@ namespace XShort
             labelStatus.Text = "Done";
         }
 
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listViewAll_MouseClick(sender, null);
+        }
+
+        private void listView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                listViewAll_MouseDoubleClick(sender, null);
+            }
+        }
+
+        private int sortColumn = -1;
+        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListView listView = (ListView)sender;
+            if (e.Column != sortColumn)
+            {
+                // Set the sort column to the new column.
+                sortColumn = e.Column;
+                // Set the sort order to ascending by default.
+                listView.Sorting = SortOrder.Ascending;
+            }
+            else
+            {
+                // Determine what the last sort order was and change it.
+                if (listView.Sorting == SortOrder.Ascending)
+                    listView.Sorting = SortOrder.Descending;
+                else
+                    listView.Sorting = SortOrder.Ascending;
+            }
+
+            // Call the sort method to manually sort.
+            listView.Sort();
+            // Set the ListViewItemSorter property to a new ListViewItemComparer
+            // object.
+            listView.ListViewItemSorter = new ListViewItemComparer(e.Column,
+                                                              listView.Sorting);
+        }
+
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             buttonSearchInternet.Text = textBoxSearch.Text + " - See web result";
         }
     }
+
+
 }

@@ -1109,9 +1109,9 @@ namespace XShort
             }
             fs.Close();
             sr.Close();
-            
 
 
+            listView1.Items.Clear();
             for (int j = 0; j < sName.Count; j++)
             {
                 listView1.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
@@ -3541,6 +3541,10 @@ namespace XShort
             if (!bw2.IsBusy)
             {
                 f3.Show();
+                sName.Clear();
+                sPara.Clear();
+                sPath.Clear();
+                listView1.Items.Clear();
                 listView1.Enabled = false;
                 if (File.Exists(Path.Combine(dataPath, "data1.data")))
                 {
