@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Linq;
-using System.IO;
-using System.Diagnostics;
 using System.ComponentModel;
-using Microsoft.Win32;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace XShort
 {
@@ -31,7 +31,7 @@ namespace XShort
         public Form2(int en)
         {
             InitializeComponent();
-            
+
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
 
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
@@ -50,7 +50,7 @@ namespace XShort
             {
                 ggSearch = false;
             }
-            
+
             if (r.GetValue("Case-sen") != null)
             {
                 csen = true;
@@ -82,13 +82,13 @@ namespace XShort
             comboBox1.SelectAll();
             if (en == 0)
             {
-                
+
                 label1.Text = "Mở ứng dụng/đường dẫn/địa chỉ (kể cả không có dữ liệu)";
                 label2.Text = "Không cần điền tên đầy đủ, ứng dụng sẽ nhận diện tự động";
                 label4.Text = "Nếu bạn đã tạo mục lục, bạn có thể tìm kiếm tất cả ở đây";
                 button2.Text = "Hủy";
             }
-           
+
 
             bw = new BackgroundWorker();
             bw.DoWork += Bw_DoWork;
@@ -111,7 +111,7 @@ namespace XShort
             {
                 loadData();
             }
-            
+
         }
 
         public void changeGGSeach(bool gg)
@@ -245,7 +245,7 @@ namespace XShort
             return 1;
         }
         public int LoadData()
-        {       
+        {
             comboBox1.Items.Clear();
             sName.Clear();
             sPara.Clear(); //fucking forget to clear haha
@@ -269,7 +269,7 @@ namespace XShort
             fs.Close();
             sr.Close();
 
-            
+
             try
             {
                 fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
@@ -286,7 +286,7 @@ namespace XShort
             fs.Close();
             sr.Close();
 
-            
+
             try
             {
                 fs = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.Open, FileAccess.Read);
@@ -431,9 +431,9 @@ namespace XShort
                                 Process.Start(proc);
 
                             }
-                            
+
                             this.Hide();
-                            
+
                         }
                         catch
                         {
@@ -468,9 +468,9 @@ namespace XShort
                                     proc.Verb = "runas";
                                 Process.Start(proc);
                             }
-                           
+
                             this.Hide();
-                            
+
                         }
                         catch
                         {
@@ -584,7 +584,7 @@ namespace XShort
                             }
 
                             this.Hide();
-                           
+
                         }
                         catch
                         {
@@ -619,9 +619,9 @@ namespace XShort
                                     proc.Verb = "runas";
                                 Process.Start(proc);
                             }
-                            
+
                             this.Hide();
-                            
+
                         }
                         catch
                         {
@@ -676,7 +676,7 @@ namespace XShort
             }
             if (ggSearch == true)
             {
-                
+
                 try
                 {
                     if (File.Exists(dataPath + "\\indexFol"))
@@ -688,17 +688,17 @@ namespace XShort
                             return;
                         }
                     }
-                        
+
                     Process.Start("https://www.google.com/search?q=" + tmp);
                     this.Hide();
                     return;
-                        
+
                 }
                 catch
                 {
                     //
                 }
-                
+
             }
             MessageBox.Show("Unavailable shortcut name!?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -715,9 +715,9 @@ namespace XShort
             tbw.DoWork += Tbw_DoWork;
             tbw.RunWorkerAsync(false);
             tbw.RunWorkerCompleted += Tbw_RunWorkerCompleted;
-             
+
         }
-        
+
         private void Tbw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (keyword != String.Empty)
@@ -794,7 +794,7 @@ namespace XShort
 
         }
 
-       
+
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -809,7 +809,7 @@ namespace XShort
 
         private void comboBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Tab )
+            if (e.KeyCode == Keys.Tab)
             {
                 if (text.Contains("#"))
                 {
@@ -817,7 +817,7 @@ namespace XShort
                     {
                         if (sysCmd[i].Contains(part))
                         {
-                           
+
                             comboBox1.Text = text1 + sysCmd[i];
                             index = i;
                             //select text which not belong to "text"
@@ -891,7 +891,7 @@ namespace XShort
                                 comboBox1.SelectionStart = comboBox1.Text.Length;
                                 comboBox1.SelectionLength = 0;
 
-                              
+
 
                                 return;
                             }
@@ -903,7 +903,7 @@ namespace XShort
                         comboBox1.SelectionLength = 0;
                         index = -1; //-1 for index + 1 = 0 //fucking nice
                     }
-                   
+
                 }
                 else if (text.Contains("\\"))
                 {
@@ -1015,7 +1015,7 @@ namespace XShort
                     }
                 }
             }
-            
+
         }
 
         private void comboBox1_KeyUp(object sender, KeyEventArgs e)
@@ -1059,12 +1059,12 @@ namespace XShort
                 }
                 else if (comboBox1.Text.Contains("+") && comboBox1.Text.Contains("!") != true)
                 {
-                    
+
                     text = comboBox1.Text;
                     text1 = text.Substring(0, text.LastIndexOf("+") + 1); //from 0 to last index of ,
                     part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
-                    
-                    part = part.Trim();                    
+
+                    part = part.Trim();
                     index = -1;
                     if (part.Contains("\\")) //if input is a directory or a file
                     {
@@ -1088,11 +1088,11 @@ namespace XShort
                             }
                         }
                     }
-                    
+
                 }
                 else if (comboBox1.Text.Contains("+") != true && comboBox1.Text.Contains("!"))
                 {
-                    
+
                     text = comboBox1.Text;
                     text1 = text.Substring(0, text.LastIndexOf("!") + 1); //from 0 to last index of !
                     part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !
@@ -1122,7 +1122,7 @@ namespace XShort
                         }
                     }
                 }
-                
+
 
             }
             if (e.KeyCode == Keys.Left) //set pointer to end of text 
@@ -1130,7 +1130,7 @@ namespace XShort
                 if (comboBox1.SelectionStart == 0)
                     comboBox1.SelectionStart = comboBox1.Text.Length;
             }
-           
+
         }
 
         private void searchDir(string _path)
@@ -1149,8 +1149,8 @@ namespace XShort
             }
         }
 
-        private void comboBox1_KeyDown(object sender, KeyEventArgs e)  
-        {  
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {
             //comboBox1.DroppedDown = true;
             if (e.KeyCode != Keys.Back)
             {
@@ -1160,7 +1160,7 @@ namespace XShort
 
 
                 }
-                
+
             }
             if (e.KeyCode == Keys.ControlKey)
             {
@@ -1180,17 +1180,17 @@ namespace XShort
                     {
                         comboBox1.Text = sName[i];
                         comboBox1.SelectAll();
-                        
+
                         return;
                     }
                 }
             }
-            
+
             if (e.KeyCode == Keys.Alt | e.KeyCode == Keys.Enter)
             {
                 openAsAdministratorToolStripMenuItem_Click(null, null);
             }
-           
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1221,7 +1221,7 @@ namespace XShort
             tbw.RunWorkerAsync(true);
             tbw.RunWorkerCompleted += Tbw_RunWorkerCompleted;
         }
-        
+
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {

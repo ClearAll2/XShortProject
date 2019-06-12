@@ -1,12 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace XShort
@@ -51,7 +45,7 @@ namespace XShort
                 groupBox3.Text = "Nền";
                 labelHotKeyConfig.Text = "Cài đặt phím tắt XShort Run";
                 linkLabel1.Text = "Nâng cao";
-    
+
             }
             else
             {
@@ -88,7 +82,7 @@ namespace XShort
                 r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
 
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(Keys));
-            
+
             //new register hook key
             if (r.GetValue("HKey") != null)
             {
@@ -118,7 +112,7 @@ namespace XShort
             if (r.GetValue("Alt") != null)
             {
                 radioButtonAlt.Checked = true;
-               // hook.RegisterHotKey(global::ModifierKeys.Alt, k);
+                // hook.RegisterHotKey(global::ModifierKeys.Alt, k);
                 gmk = global::ModifierKeys.Alt;
             }
             else if (r.GetValue("Shift") != null)
@@ -136,7 +130,7 @@ namespace XShort
             else //default value
             {
                 radioButtonAlt.Checked = true;
-               // hook.RegisterHotKey(global::ModifierKeys.Alt, k);
+                // hook.RegisterHotKey(global::ModifierKeys.Alt, k);
                 gmk = global::ModifierKeys.Alt;
             }
             //
@@ -159,7 +153,7 @@ namespace XShort
             {
                 radioButton3.Checked = true;
 
-               
+
             }
             else if (r.GetValue("Light") != null)
             {
@@ -201,7 +195,7 @@ namespace XShort
             }
             r.Close();
             r.Dispose();
-            
+
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -220,7 +214,7 @@ namespace XShort
             }
             r1.Close();
             r1.Dispose();
-            
+
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
@@ -235,7 +229,7 @@ namespace XShort
 
             r1.Close();
             r1.Dispose();
-            
+
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
@@ -251,7 +245,7 @@ namespace XShort
 
             r1.Close();
             r1.Dispose();
-            
+
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -368,7 +362,7 @@ namespace XShort
             }
             r1.Close();
             r1.Dispose();
-            
+
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -410,7 +404,7 @@ namespace XShort
             }
             r1.Close();
             r1.Dispose();
-            
+
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)

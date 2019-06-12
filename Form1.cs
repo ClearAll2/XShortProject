@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Shell32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Threading;
 using System.Diagnostics;
-using System.Windows.Forms;
+using System.Drawing;
 using System.IO;
-using Shell32;
-using System.Security.Cryptography;
+using System.Linq;
 using System.Net;
-using Microsoft.Win32;
+using System.Reflection;
 using System.Runtime;
 using System.Runtime.InteropServices;
-using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace XShort
 {
@@ -50,7 +50,7 @@ namespace XShort
         bool ggs = false;
         bool indexing = false;
         bool dontload = false;
-       
+
         bool detect = false;
         bool hide = false;
         bool cases = false;
@@ -60,16 +60,16 @@ namespace XShort
         BackgroundWorker bw2;
         int newx, newy;
         int back;
-        
+
         ImageList img;
         ImageList img2;
 
-     
+
         public Form1()
         {
-            
+
             InitializeComponent();
-            
+
             // label3.Visible = false;
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             System.IO.Directory.CreateDirectory(dataPath);
@@ -113,10 +113,10 @@ namespace XShort
             this.Text += " Beta Test - build " + this.AssemblyDescription;
             buttonData_Click();
 
-           
+
         }
 
-        
+
         internal struct LASTINPUTINFO
         {
             public uint cbSize;
@@ -181,7 +181,7 @@ namespace XShort
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             foreach (DriveInfo d in allDrives)
             {
-                
+
                 fileSmartSearch(d.Name);
                 folderSmartSearch(d.Name);
                 if (exit)
@@ -195,7 +195,7 @@ namespace XShort
 
             File.WriteAllText(dataPath + "\\temp.txt", String.Empty);
             labelAutoIndex.Text = "Completed";
-            
+
             //goto begin;
         }
 
@@ -206,10 +206,10 @@ namespace XShort
                 DirectoryInfo di = new DirectoryInfo(dir);
                 DirectoryInfo[] dir1 = di.GetDirectories("*" + "*.*");
                 string alldir = String.Empty;
-                for (int i=0;i<dir1.Count();i++)
+                for (int i = 0; i < dir1.Count(); i++)
                 {
                     alldir += dir1[i].FullName + Environment.NewLine;
-                   
+
                 }
                 File.AppendAllText(dataPath + "\\temp1", alldir);
                 //Thread.Sleep(30);
@@ -256,7 +256,7 @@ namespace XShort
                 DirectoryInfo di = new DirectoryInfo(dir);
                 FileInfo[] files = di.GetFiles("*" + "*.*");
                 string allfiles = String.Empty;
-                for (int i=0;i<files.Count();i++)
+                for (int i = 0; i < files.Count(); i++)
                 {
                     allfiles += files[i].FullName + Environment.NewLine;
                 }
@@ -299,7 +299,7 @@ namespace XShort
         }
 
         private void loadSettings()
-        { 
+        {
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
                 r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
@@ -315,12 +315,12 @@ namespace XShort
             {
                 string hkey = (string)r.GetValue("HKey");
                 k = (Keys)converter.ConvertFromString(hkey);
-                
+
             }
             else
             {
                 k = Keys.A;
-               
+
             }
             if (r.GetValue("Alt") != null)
             {
@@ -386,13 +386,13 @@ namespace XShort
             if (r.GetValue("DontLoad") != null)
             {
                 dontload = true;
-               
+
                 buttonSave.Enabled = false;
                 buttonAddApp.Enabled = false;
                 buttonAddDir.Enabled = false;
                 buttonAddURL.Enabled = false;
                 appToolStripMenuItem.Enabled = false;
-                
+
             }
             else
             {
@@ -427,8 +427,8 @@ namespace XShort
             {
                 dal = true;
             }
-            
-                
+
+
             r.Close();
             r.Dispose();
 
@@ -496,7 +496,7 @@ namespace XShort
                 button2_Click_2(null, null);
                 comboBox3.SelectedIndex = 2;
                 buttonScan_Click(null, null);
-               
+
             }
 
 
@@ -589,9 +589,9 @@ namespace XShort
             string ver = "https://download-cas.000webhostapp.com/download/beta.txt";
             WebClient wc = new WebClient();
             try
-            {                
+            {
                 string sver = wc.DownloadString(ver);
-                int isLatest = latest_build.CompareTo(sver);               
+                int isLatest = latest_build.CompareTo(sver);
                 if (isLatest < 0) //if current of build is less than latest build
                 {
                     if (en)
@@ -619,11 +619,11 @@ namespace XShort
                 wc.Dispose();
                 return;
 
-            }            
+            }
             wc.Dispose();
         }
 
-        
+
 
         //load data
         private void Bw2_DoWork(object sender, DoWorkEventArgs e)
@@ -696,7 +696,7 @@ namespace XShort
                 fs.Dispose();
 
                 startup.CollectionChanged += Startup_CollectionChanged;
-               
+
                 //optimize from foreach
                 for (int i = 0; i < listView1.Items.Count; i++)
                 {
@@ -727,7 +727,7 @@ namespace XShort
             f3.Hide();
             loadIcon();
 
-          
+
         }
 
         //detect change in startup file
@@ -738,8 +738,8 @@ namespace XShort
             StreamWriter sw1;
             fs1 = new FileStream(Path.Combine(dataPath, "startup.txt"), FileMode.Open, FileAccess.Write);
             sw1 = new StreamWriter(fs1);
-            for (int i=0;i<startup.Count;i++)
-            { 
+            for (int i = 0; i < startup.Count; i++)
+            {
                 sw1.WriteLine(startup[i]);
             }
             sw1.Close();
@@ -753,8 +753,8 @@ namespace XShort
             StreamWriter sw;
             fs = new FileStream(Path.Combine(dataPath, "log.txt"), FileMode.OpenOrCreate, FileAccess.Write);
             sw = new StreamWriter(fs);
-            for (int i=0;i<history.Count;i++)
-            { 
+            for (int i = 0; i < history.Count; i++)
+            {
                 sw.WriteLine(history[i]);
             }
             sw.Close();
@@ -763,7 +763,7 @@ namespace XShort
 
         private void Run(string s)
         {
-            for (int i=0;i<sName.Count;i++)
+            for (int i = 0; i < sName.Count; i++)
             {
                 if (s == sName[i])
                 {
@@ -803,10 +803,10 @@ namespace XShort
                 return;
                 //if (en)
                 //    MessageBox.Show("Make sure you have a valid internet connection!", "Can not connect to server", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                 //else
                 //    MessageBox.Show("Hãy đảm bảo bạn có kết nối internet!", "Không thể kết nối tới máy chủ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
             }
             string ver = "https://drive.google.com/uc?export=download&id=1enOPUAXdYCq6MZNnMJuZ0yqt4eVaJBzr";
             string chlog = "https://drive.google.com/uc?export=download&id=1m8EWUOGwoWY8jTL3BSIYIzLV12A6ruXr";
@@ -853,11 +853,11 @@ namespace XShort
                 }
             }
             wc.Dispose();
-            
-           // buttonC4U2.Enabled = true;
+
+            // buttonC4U2.Enabled = true;
 
 
-            
+
 
         }
 
@@ -871,14 +871,14 @@ namespace XShort
             }
             if (e.Key == Keys.Tab)
             {
-                mainWindowToolStripMenuItem_Click(null, null);  
+                mainWindowToolStripMenuItem_Click(null, null);
             }
-            
+
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             bw2.RunWorkerAsync();
             if (hide)
             {
@@ -919,11 +919,11 @@ namespace XShort
                     {
                         img.Images.Add(Properties.Resources.question_help_mark_balloon_512);
                     }
-                        
+
                 }
                 listView1.Items[i].ImageIndex = i;
                 //
-                
+
             }
             if (detect)
                 autoCheckValid();
@@ -936,7 +936,7 @@ namespace XShort
             BackgroundWorker abw = new BackgroundWorker();
             abw.DoWork += Abw_DoWork;
             abw.RunWorkerAsync();
-            
+
         }
 
         private void Abw_DoWork(object sender, DoWorkEventArgs e)
@@ -946,18 +946,18 @@ namespace XShort
                 if (!sPath[i].Contains("http"))
                     if (checkValid(sPath[i]) == -1)
                         changeColorListViewItem(Color.Red, i);
-                    
+
 
             }
         }
 
-        private  void changeColorListViewItem(Color cl, int i)
+        private void changeColorListViewItem(Color cl, int i)
         {
             listView1.Items[i].ForeColor = cl;
         }
 
         private int checkValid(string text)
-        {        
+        {
             if (File.Exists(text))
             {
                 return 0;
@@ -972,7 +972,7 @@ namespace XShort
                 {
                     return -1;
                 }
-            }          
+            }
         }
 
         //no cipher
@@ -1045,14 +1045,14 @@ namespace XShort
             for (int j = 0; j < sName.Count; j++)
             {
                 listView1.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
-                
+
             }
             return 1;
         }
         //cipher data
         private int LoadData()
         {
-            
+
             FileStream fs;
             StreamReader sr;
             f3.changeDisplay(1);
@@ -1068,8 +1068,8 @@ namespace XShort
 
             while (!sr.EndOfStream)
             {
-                
-                sName.Add(StringCipher.Decrypt(sr.ReadLine(), pass));               
+
+                sName.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
             }
             fs.Close();
             sr.Close();
@@ -1086,8 +1086,8 @@ namespace XShort
             }
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
-            {        
-                sPath.Add(StringCipher.Decrypt(sr.ReadLine(), pass));               
+            {
+                sPath.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
             }
             fs.Close();
             sr.Close();
@@ -1104,8 +1104,8 @@ namespace XShort
             }
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
-            {              
-                sPara.Add(StringCipher.Decrypt(sr.ReadLine(), pass));        
+            {
+                sPara.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
             }
             fs.Close();
             sr.Close();
@@ -1261,17 +1261,17 @@ namespace XShort
                 else
                 {
                     listView1.Items.Add(new ListViewItem(new string[] { tName[j], tPath[j], tPara[j] }));
-                    history.Add("[" + DateTime.Now + "] " + "You import an item name " + tName[j]  + ", path: " + tPath[j] + ", para: " + tPara[j]);
+                    history.Add("[" + DateTime.Now + "] " + "You import an item name " + tName[j] + ", path: " + tPath[j] + ", para: " + tPara[j]);
                 }
             }
-           
+
             return 1;
         }
 
         //ok button of add/edit shortcuts
         private void button10_Click_1(object sender, EventArgs e)
         {
-             //name
+            //name
             if (textBoxName.Text != String.Empty)
             {
                 if (textBoxName.Text.Contains("!") || textBoxName.Text.Contains("|") || textBoxName.Text.Contains(">"))
@@ -1308,7 +1308,7 @@ namespace XShort
                                 }
                             }
                         }
-                    }                 
+                    }
                 }
                 else
                 {
@@ -1339,7 +1339,7 @@ namespace XShort
                         history.Add("[" + DateTime.Now + "]" + " You edit name of " + old_Name + " to " + textBoxName.Text);
                         yet = "edit";
                     }
-                }          
+                }
             }
             else
             {
@@ -1367,13 +1367,13 @@ namespace XShort
                     {
                         listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, "None" }));
                         yet = "app";
-                        
+
                     }
                     else
                     {
                         listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, textBoxPara.Text }));
                         yet = "dir";
-                        
+
                     }
                     history.Add("[" + DateTime.Now + "] " + "You add an item name " + textBoxName.Text + ", path: " + textBoxPath.Text + ", para: " + textBoxPara.Text);
                     panel2.Hide();
@@ -1389,7 +1389,7 @@ namespace XShort
                             return;
                         }
                     }
-                    
+
                 }
                 else
                 {
@@ -1442,7 +1442,7 @@ namespace XShort
                             return;
                         }
                     }
-                   
+
                 }
                 else
                 {
@@ -1467,7 +1467,7 @@ namespace XShort
                 panel1.Hide();
                 edit = false;
             }
-            
+
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -1511,12 +1511,12 @@ namespace XShort
                 }
                 fb.Dispose();
             }
-           
+
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if ( panel1.Visible != true)
+            if (panel1.Visible != true)
             {
                 edit = false;
                 comboBox1.SelectedIndex = 0;
@@ -1540,7 +1540,7 @@ namespace XShort
                 textBoxName.Focus();
                 textBoxName.Text = String.Empty;
                 textBoxPath.Text = String.Empty;
-                
+
             }
         }
 
@@ -1566,10 +1566,10 @@ namespace XShort
                 history.Add("[" + DateTime.Now + "] " + "You remove an item name " + listView1.FocusedItem.SubItems[0].Text + ", path: " + listView1.FocusedItem.SubItems[1].Text + ", para: " + listView1.FocusedItem.SubItems[2].Text);
                 listView1.Items.Remove(listView1.FocusedItem);
                 yet = "rm";
-                
+
             }
         }
-           
+
 
         private void listView1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -1624,11 +1624,11 @@ namespace XShort
             }
         }
 
-        
+
         private void button4_Click(object sender, EventArgs e)
         {
             panel1.Hide();
-            
+
         }
 
 
@@ -1639,10 +1639,10 @@ namespace XShort
             f3.TopMost = false;
             f3.Show();
 
-          
-           
+
+
             //button11.Enabled = false;
-           
+
             //button8.Enabled = false;
             //button7.Enabled = false;
             //panelSub.Enabled = false;
@@ -1653,10 +1653,10 @@ namespace XShort
             bwt.RunWorkerAsync();
             history.Add("[" + DateTime.Now + "] " + "You save the new list");
         }
-             
+
 
         private void Bwt_DoWork(object sender, DoWorkEventArgs e)
-        {     
+        {
             sName.Clear();
             sPath.Clear();
             sPara.Clear();
@@ -1716,7 +1716,7 @@ namespace XShort
             for (int j = 0; j < sName.Count; j++)
             {
                 listView1.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
-                   
+
             }
 
             if (detect)
@@ -1748,10 +1748,10 @@ namespace XShort
             loadIcon();
 
             f3.Hide();
-          
 
-           
-           // button11.Enabled = true;
+
+
+            // button11.Enabled = true;
             //button8.Enabled = true;
             //button7.Enabled = true;
             //panelSub.Enabled = true;
@@ -1769,7 +1769,7 @@ namespace XShort
         {
             this.Hide();
             if (en == true)
-                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort is running in background\nPress " + gmk.ToString() + " + " + k.ToString()  + " to open run box", ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.Info);
             else
                 notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort đang chạy ẩn\nNhấn " + gmk.ToString() + " + " + k.ToString() + " để mở hộp thoại run", ToolTipIcon.Info);
         }
@@ -1840,7 +1840,7 @@ namespace XShort
                     f3.closeForm();
                     Application.Exit();
                 }
-                
+
             }
             else
             {
@@ -1917,7 +1917,7 @@ namespace XShort
                 runBoxToolStripMenuItem_Click(null, null);
         }
 
-       
+
 
         private void changeLanguages()
         {
@@ -1937,7 +1937,7 @@ namespace XShort
                 toolTip1.SetToolTip(buttonBuildIndex, "Tạo mục lục");
                 toolTip1.SetToolTip(buttonImport, "Thêm dữ liệu");
                 toolTip1.SetToolTip(buttonExport, "Xuất dữ liệu");
-                toolTip1.SetToolTip(buttonMenuScan,"Quét thư mục");
+                toolTip1.SetToolTip(buttonMenuScan, "Quét thư mục");
                 toolTip1.SetToolTip(buttonReload, "Tải lại dữ liệu");
                 buttonScan.Text = "Quét";
                 button2.Text = "Hủy";
@@ -1956,19 +1956,19 @@ namespace XShort
                 buttonSave.Text = "Lưu lối tắt";
                 buttonDeleteLog.Text = "Xóa ghi chép";
 
-                
+
                 //groupBox3.Text = "Nền";
                 //radioButton3.Text = "Tối";
                 //radioButton4.Text = "Sáng";
                 //radioButton5.Text = "Tự động";
-                
+
 
                 labelShortcutType.Text = "Loại";
                 labelName.Text = "Tên gọi";
                 labelPath.Text = "Đường dẫn";
                 labelPara.Text = "Tham số";
                 button12.Text = "Hủy";
-               
+
 
                 listView1.Columns[0].Text = "Tên gọi";
                 listView1.Columns[1].Text = "Đường dẫn";
@@ -2002,7 +2002,7 @@ namespace XShort
 
                 openToolStripMenuItem.Text = "Mở";
                 openFileLocationToolStripMenuItem.Text = "Mở thư mục chứa";
-                propertyToolStripMenuItem.Text = "Thông tin tập tin";                
+                propertyToolStripMenuItem.Text = "Thông tin tập tin";
 
                 addToolStripMenuItem1.Text = "Xoá";
                 detailsToolStripMenuItem.Text = "Chỉnh sửa";
@@ -2030,7 +2030,7 @@ namespace XShort
 
                 //tabPage1.Text = "Có gì mới";
                 //tabPage2.Text = "Phím tắt";
-                
+
             }
             else
             {
@@ -2142,8 +2142,8 @@ namespace XShort
                 //tabPage1.Text = "Changelog";
                 //tabPage2.Text = "Hotkeys";
             }
-            
-            
+
+
         }
 
         private int sortColumn = -1;
@@ -2182,12 +2182,12 @@ namespace XShort
                 return;
             }
 
-           
+
         }
 
-        
 
-        
+
+
 
         private void checkValidPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2228,13 +2228,13 @@ namespace XShort
                     }
                 }
             }
-            
+
         }
-        
-        
+
+
         private void button7_Click(object sender, EventArgs e)
         {
-           
+
             if (yet != String.Empty)
             {
                 if (yet == "rm")
@@ -2310,20 +2310,20 @@ namespace XShort
                         return;
                 }
             }
-            
-            panelScan.Hide();
-            
 
-          
-            
+            panelScan.Hide();
+
+
+
+
         }
 
 
         private void button8_Click(object sender, EventArgs e)
         {
-           
+
             WindowState = FormWindowState.Minimized;
-            
+
         }
 
         private void panelControl_MouseDown(object sender, MouseEventArgs e)
@@ -2341,11 +2341,11 @@ namespace XShort
             f3.closeForm();
             Application.Exit();
         }
-      
 
-        
 
-       
+
+
+
 
 
         private void changeSkin(bool dark)
@@ -2357,7 +2357,7 @@ namespace XShort
             if (!dark)
             {
 
-                
+
                 this.BackColor = Color.White;
                 panelControl.BackColor = this.BackColor;
                 listView1.BackColor = Color.White;
@@ -2380,7 +2380,7 @@ namespace XShort
                 buttonSave.ForeColor = Color.Black;
 
 
-                
+
                 label2.ForeColor = Color.Black;
 
 
@@ -2391,12 +2391,12 @@ namespace XShort
             {
 
 
-                
-                this.BackColor = Color.FromArgb(28, 28,  28);
+
+                this.BackColor = Color.FromArgb(28, 28, 28);
                 panelControl.BackColor = this.BackColor;
-                listView1.BackColor = Color.FromArgb(28, 28,  28);
+                listView1.BackColor = Color.FromArgb(28, 28, 28);
                 listView1.ForeColor = Color.White;
-                listView2.BackColor = Color.FromArgb(28, 28,  28);
+                listView2.BackColor = Color.FromArgb(28, 28, 28);
                 listView2.ForeColor = Color.White;
 
 
@@ -2418,14 +2418,14 @@ namespace XShort
                 label6.ForeColor = Color.White;
 
             }
-           
-        }    
+
+        }
 
         private void CreateShortcut(string name, string path, string para)
         {
             try
             {
-                object shDesktop = (object)"Desktop";
+                object shDesktop = "Desktop";
                 IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
                 string shortcutAddress = (string)shell.SpecialFolders.Item(ref shDesktop) + "\\" + name + ".lnk";
                 IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
@@ -2434,7 +2434,7 @@ namespace XShort
                 shortcut.TargetPath = path;
                 shortcut.Arguments = para;
                 shortcut.Save();
-               
+
             }
             catch (Exception e)
             {
@@ -2446,7 +2446,7 @@ namespace XShort
             CreateShortcut(listView1.FocusedItem.SubItems[0].Text, listView1.FocusedItem.SubItems[1].Text, listView1.FocusedItem.SubItems[2].Text);
             history.Add("[" + DateTime.Now + "]" + " You create a shortcut on desktop name " + listView1.FocusedItem.SubItems[0].Text + ", path: " + listView1.FocusedItem.SubItems[1].Text + ", para: " + listView1.FocusedItem.SubItems[2].Text);
         }
-       
+
         private void listView1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -2464,7 +2464,7 @@ namespace XShort
             history.Add("[" + DateTime.Now + "] " + "You clone a shortcut name " + listView1.FocusedItem.SubItems[0].Text);
             listView1.Items.Add(new ListViewItem(new string[] { listView1.FocusedItem.SubItems[0].Text + "_clone", listView1.FocusedItem.SubItems[1].Text, listView1.FocusedItem.SubItems[2].Text }));
             listView1.Focus();
-            listView1.Items[listView1.Items.Count-1].Selected = true;
+            listView1.Items[listView1.Items.Count - 1].Selected = true;
             listView1.EnsureVisible(listView1.Items.Count - 1);
             yet = "cl";
         }
@@ -2538,19 +2538,19 @@ namespace XShort
                         history.Add("[" + DateTime.Now + "] " + "You add an item name " + docPath[0].Substring(docPath[0].LastIndexOf("\\") + 1) + ", path: " + docPath[0] + ", para: None");
                     }
                 }
-                
+
             }
-            
+
         }
 
         private void listView1_DragEnter(object sender, DragEventArgs e)
         {
-            
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 e.Effect = DragDropEffects.Link;
-            
+
         }
-       
+
 
         private void button2_Click_1(object sender, EventArgs e)
         {
@@ -2695,13 +2695,13 @@ namespace XShort
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            
+
             if (f3.Visible)
             {
                 f3.TopMost = true;
                 f3.WindowState = FormWindowState.Normal;
                 f3.TopMost = false;
-                
+
             }
         }
 
@@ -2723,17 +2723,17 @@ namespace XShort
 
             panel1.Show();
             panel2.Show();
-            
+
             panelScan.Show();
 
         }
-     
+
 
         private void buttonScan_Click(object sender, EventArgs e)
-        {                             
+        {
             listView2.Items.Clear();
             //sea.Clear();
-           
+
             img2.Images.Clear();
             img2.Dispose();
             img2 = new ImageList();
@@ -2754,7 +2754,7 @@ namespace XShort
                 {
                     textBox3.Text = "*";
                 }
-                
+
                 f3.TopMost = false;
                 f3.changeDisplay(5);
                 f3.Show();
@@ -2774,7 +2774,7 @@ namespace XShort
             }
         }
 
-        
+
 
         private void Bwt_DoWork1(object sender, DoWorkEventArgs e)
         {
@@ -2802,7 +2802,7 @@ namespace XShort
                     label8.Text = "Found " + listView2.Items.Count + " items";
 
                 }
-                
+
                 nameSearch(textBox4.Text);
             }
             else
@@ -2812,28 +2812,28 @@ namespace XShort
                 getInstalledApps32Current();
                 getInstalledApps64();
             }
-            
+
             for (int i = 0; i < listView2.Items.Count; i++)
             {
                 listView2.Items[i].ImageIndex = i;
             }
             f3.Show();
             f3.Hide();
-            
-            
-          
+
+
+
             //button8.Enabled = true;
             //button7.Enabled = true;
 
-            
+
             label8.Text = "Found " + listView2.Items.Count + " items";
-           
+
 
         }
 
         private bool isInList(string path)
         {
-            for (int i=0;i<listView2.Items.Count;i++)
+            for (int i = 0; i < listView2.Items.Count; i++)
             {
                 if (listView2.Items[i].SubItems[1].Text == path)
                     return true;
@@ -2863,7 +2863,7 @@ namespace XShort
                     }
                 }
             }
-           
+
         }
 
         private void getInstalledApps32()
@@ -2893,7 +2893,7 @@ namespace XShort
                                         listView2.Items.Add(item);
                                     }
                                 }
-                              
+
 
                             }
                         }
@@ -2901,7 +2901,7 @@ namespace XShort
                         { }
                     }
                 }
-                
+
             }
         }
 
@@ -3013,16 +3013,16 @@ namespace XShort
             try
             {
                 string[] sdir = Directory.GetDirectories(dir);
-                for (int i=0; i<sdir.Count();i++)
+                for (int i = 0; i < sdir.Count(); i++)
                 {
                     string[] sfile = Directory.GetFiles(sdir[i], "*." + textBox3.Text);
-                    for (int j=0; j<sfile.Count();j++)
+                    for (int j = 0; j < sfile.Count(); j++)
                     {
                         //sea.Add(sfile[j]);
                         listView2.Items.Add(new ListViewItem(new string[] { sfile[j].Substring(sfile[j].LastIndexOf("\\") + 1), sfile[j], Path.GetExtension(sfile[j]) }));
                         img2.Images.Add(Icon.ExtractAssociatedIcon(sfile[j]));
                         label8.Text = "Found " + listView2.Items.Count + " items";
-                        
+
                     }
                     fileSearch(sdir[i]);
                 }
@@ -3103,7 +3103,7 @@ namespace XShort
                 if (listView2.FocusedItem.Bounds.Contains(e.Location) == true)
                 {
                     contextMenuStrip3.Show(Cursor.Position);
-                    
+
                 }
             }
         }
@@ -3161,7 +3161,7 @@ namespace XShort
 
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            edit = true;                       
+            edit = true;
             if (listView1.FocusedItem.SubItems[2].Text == "Not Available")
             {
                 if (listView1.FocusedItem.SubItems[1].Text.Contains("http"))
@@ -3188,7 +3188,7 @@ namespace XShort
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
             if (comboBox1.SelectedIndex == 0)
             {
                 what = "app";
@@ -3212,8 +3212,8 @@ namespace XShort
                 if (textBoxPath.Text == String.Empty)
                     textBoxPath.Text = "http://";
             }
-            
-            
+
+
         }
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -3276,10 +3276,10 @@ namespace XShort
 
         private void buttonLog_Click(object sender, EventArgs e)
         {
-            
+
             buttonData_Click();
             listBox1.Items.Clear();
-            foreach(string s in history)
+            foreach (string s in history)
             {
                 listBox1.Items.Add(s);
             }
@@ -3291,7 +3291,7 @@ namespace XShort
         private string[] splitString(string s)
         {
             string[] res = s.Split(',');
-            res[0] = res[0].Substring(res[0].IndexOf("name")+5);
+            res[0] = res[0].Substring(res[0].IndexOf("name") + 5);
             res[1] = res[1].Substring(res[1].IndexOf(":") + 2);
             res[2] = res[2].Substring(res[2].IndexOf(":") + 2);
             if (res[2] == String.Empty)
@@ -3360,7 +3360,7 @@ namespace XShort
             if (index != ListBox.NoMatches)
             {
                 listBox1.SelectedIndex = index;
-                string tmp = listBox1.Items[index].ToString();              
+                string tmp = listBox1.Items[index].ToString();
                 if (tmp.Contains("remove") || tmp.Contains("add") || tmp.Contains("import"))
                     contextMenuStrip4.Show(Cursor.Position);
 
@@ -3369,7 +3369,7 @@ namespace XShort
 
         //beta test program
 
-      
+
 
         private void openAtWindowsStartupToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -3388,10 +3388,10 @@ namespace XShort
                 else
                     listView1.FocusedItem.ForeColor = Color.White;
             }
-            
+
         }
 
-        
+
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -3503,7 +3503,7 @@ namespace XShort
             }
             else
             {
-                
+
                 panelControl.Visible = false;
                 buttonMenu.ImageIndex = 3;
             }
@@ -3591,7 +3591,7 @@ namespace XShort
             }
         }
 
-        
+
     }
 
     //this class for sort listview

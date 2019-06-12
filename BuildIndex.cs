@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace XShort
@@ -81,7 +76,7 @@ namespace XShort
                     }
                     File.AppendAllText(path + "\\indexFol", dir1[i].FullName + Environment.NewLine);
                     folderNum += 1;
-                    
+
 
                 }
                 labelFolderfound.Text = folderNum.ToString();
@@ -119,7 +114,7 @@ namespace XShort
                     }
                     File.AppendAllText(path + "\\indexFil", files[i].FullName + Environment.NewLine);
                     fileNum += 1;
-                    
+
 
                 }
                 labelFilefound.Text = fileNum.ToString();
@@ -161,18 +156,18 @@ namespace XShort
                 buttonBuildIndex.Text = "Pause";
             }
         }
-        
+
         private void BuildIndex_DoWork(object sender, DoWorkEventArgs e)
         {
             int numdisk = 0;
             int percent = 0;
             int completed = 0;
             DriveInfo[] drives = DriveInfo.GetDrives();
-            for (int i=0;i<drives.Length;i++)
+            for (int i = 0; i < drives.Length; i++)
             {
                 numdisk++;
             }
-            percent = (int)(100/numdisk)/2;
+            percent = 100 / numdisk / 2;
             buttonBuildIndexStop.Enabled = true;
             this.ControlBox = false;
             DriveInfo[] allDrives = DriveInfo.GetDrives();
@@ -186,7 +181,7 @@ namespace XShort
                     break;
                 if (pause)
                     Thread.Sleep(1000);
-                
+
             }
             labelPercent.Text = "100%";
             stop = true;
@@ -209,7 +204,7 @@ namespace XShort
                     buttonDeleteIndex.Visible = false;
                     labelHadIndex.Text = "Found no index files";
                     buttonBuildIndex.Enabled = true;
-                    this.Height+= panel1.Height;
+                    this.Height += panel1.Height;
                     panel1.Visible = true;
                 }
                 catch (Exception ex)
@@ -229,16 +224,16 @@ namespace XShort
             {
                 File.Delete(path + "\\indexFol");
                 File.Delete(path + "\\indexFil");
-                
+
             }
             catch
             {
-                
+
             }
             this.Close();
         }
 
-        
+
     }
 
 

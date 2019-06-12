@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace XShort
@@ -19,18 +14,18 @@ namespace XShort
         bool typing, exit = false;
         BackgroundWorker bw;
         string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
-        string[] appsExt = {".exe", ".inf", ".isu", ".msi", ".wsf"};
-        string[] docsExt = {".doc", ".docx", ".docm", ".dotx", ".dotm", ".docb", ".xls", ".xlt", ".xlm", ".xlsx" ,".xlsm", ".xltx", ".xltm", ".xlsb", ".xla", ".xlam", ".xll", ".xlw", ".ppt", ".pot", ".pps", ".pptx", ".pptm", ".potx", ".potm", ".ppam", ".ppsx", ".ppsm", ".sldx", ".sldm", ".adn", ".accdb", ".accdr", ".accdt", ".accda", ".accde", ".pdf", ".rtf", ".wpd", ".wks", ".wps"  };
-        string[] photosExt = {".ai", ".bmp", ".gif", ".ico", ".jpeg", ".jpg", ".png", ".ps", ".psd", ".svg", ".tif", ".tiff" };
-        string[] musicExt = {".aif", ".cda", ".mid", ".midi", ".mp3", ".m4a", ".ogg", ".wav",  ".wma", ".wpl" };
-        string[] videosExt = {".3g2", ".3gp", ".avi", ".flv", ".h264", ".m4v", ".mkv", ".mov", ".mp4", ".mpg", ".mpeg", ".rm", ".swf", ".vob", ".wmv" };
-        string[] othersExt = { ".7z", ".rar", ".zip", ".tar.gz", ".z", ".pkg", ".deb", ".arj", ".rpm", ".bin", ".dmg", ".iso", ".toast", ".bat", ".db", ".txt", ".log", ".sql", ".xml", ".asp", ".aspx", ".htm", ".html", ".js", ".c", ".cpp", ".php", ".py", ".class", ".cs", ".h", ".vb", ".java", ".swift"};
+        string[] appsExt = { ".exe", ".inf", ".isu", ".msi", ".wsf" };
+        string[] docsExt = { ".doc", ".docx", ".docm", ".dotx", ".dotm", ".docb", ".xls", ".xlt", ".xlm", ".xlsx", ".xlsm", ".xltx", ".xltm", ".xlsb", ".xla", ".xlam", ".xll", ".xlw", ".ppt", ".pot", ".pps", ".pptx", ".pptm", ".potx", ".potm", ".ppam", ".ppsx", ".ppsm", ".sldx", ".sldm", ".adn", ".accdb", ".accdr", ".accdt", ".accda", ".accde", ".pdf", ".rtf", ".wpd", ".wks", ".wps" };
+        string[] photosExt = { ".ai", ".bmp", ".gif", ".ico", ".jpeg", ".jpg", ".png", ".ps", ".psd", ".svg", ".tif", ".tiff" };
+        string[] musicExt = { ".aif", ".cda", ".mid", ".midi", ".mp3", ".m4a", ".ogg", ".wav", ".wma", ".wpl" };
+        string[] videosExt = { ".3g2", ".3gp", ".avi", ".flv", ".h264", ".m4v", ".mkv", ".mov", ".mp4", ".mpg", ".mpeg", ".rm", ".swf", ".vob", ".wmv" };
+        string[] othersExt = { ".7z", ".rar", ".zip", ".tar.gz", ".z", ".pkg", ".deb", ".arj", ".rpm", ".bin", ".dmg", ".iso", ".toast", ".bat", ".db", ".txt", ".log", ".sql", ".xml", ".asp", ".aspx", ".htm", ".html", ".js", ".c", ".cpp", ".php", ".py", ".class", ".cs", ".h", ".vb", ".java", ".swift" };
         public Search(string kw, bool en)
         {
-            
+
             InitializeComponent();
             textBoxSearch.Text = kw;
-            
+
 
             this.Left = 0;
             this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
@@ -284,7 +279,7 @@ namespace XShort
 
             toolTip1.SetToolTip(btt, "Find results in " + type);
         }
-        
+
         private void createNewItem(string loc)
         {
             ImageList img = new ImageList();
@@ -326,8 +321,8 @@ namespace XShort
             toolTip1.SetToolTip(details, "Details");
 
             btt.Controls.Add(details);
-            
-            
+
+
 
 
         }
@@ -392,14 +387,14 @@ namespace XShort
         private void Btt_Click(object sender, EventArgs e)
         {
             Button btt = (Button)sender;
-            for (int i=0;i<tabControl1.TabPages.Count;i++)
+            for (int i = 0; i < tabControl1.TabPages.Count; i++)
             {
                 if (btt.Text == tabControl1.TabPages[i].Text)
                     tabControl1.SelectedIndex = i;
             }
         }
 
-        
+
 
         private void IndexSearch()
         {
@@ -408,7 +403,7 @@ namespace XShort
 
             if (typing || exit)
                 return;
-            
+
             StreamReader sr = new StreamReader(path + "\\indexFol");
             while (!sr.EndOfStream)
             {
@@ -428,15 +423,15 @@ namespace XShort
                     listViewFolders.Items[listViewFolders.Items.Count - 1].ImageIndex = imageListFolder.Images.Count - 1;
 
                     temp.Dispose();
-                   
+
                 }
                 if (typing || exit)
                     goto toend;
             }
             sr.Close();
             sr.Dispose();
-            
-            
+
+
             //
             sr = new StreamReader(path + "\\indexFil");
             while (!sr.EndOfStream)
@@ -445,7 +440,7 @@ namespace XShort
                 string cut = read.Substring(read.LastIndexOf("\\") + 1).ToLower();
                 if (cut.Contains(keyword.ToLower()))
                 {
-                    
+
                     FileInfo files = new FileInfo(read);
                     Image temp;
                     if (File.Exists(read))
@@ -455,24 +450,24 @@ namespace XShort
 
                     AddNewListViewItem(temp, files);
                     temp.Dispose();
-                    
+
 
                 }
-                
+
                 if (typing || exit)
                     goto toend;
             }
-            //RemoveDup(listViewFolders);
-            //RemoveDup(listViewApps);
-            //RemoveDup(listViewDocs);
-            //RemoveDup(listViewPhotos);
-            //RemoveDup(listViewMusic);
-            //RemoveDup(listViewVideos);
-            //RemoveDup(listViewOthers);
+        //RemoveDup(listViewFolders);
+        //RemoveDup(listViewApps);
+        //RemoveDup(listViewDocs);
+        //RemoveDup(listViewPhotos);
+        //RemoveDup(listViewMusic);
+        //RemoveDup(listViewVideos);
+        //RemoveDup(listViewOthers);
 
 
         toend:
-            
+
             sr.Close();
             sr.Dispose();
 
@@ -527,9 +522,9 @@ namespace XShort
 
         private ListView RemoveDup(ListView listView)
         {
-            for (int i=0;i<listView.Items.Count;i++)
+            for (int i = 0; i < listView.Items.Count; i++)
             {
-                for (int j=i+1;j<listView.Items.Count;j++)
+                for (int j = i + 1; j < listView.Items.Count; j++)
                 {
                     if (listView.Items[i].ToolTipText == listView.Items[j].ToolTipText)
                     {
@@ -552,7 +547,7 @@ namespace XShort
                         return;
                     }
                     typing = false;
-                    
+
                     bw = new BackgroundWorker();//prevent do twice
                     bw.DoWork += Bw_DoWork;
                     bw.RunWorkerAsync();
@@ -587,7 +582,7 @@ namespace XShort
             }
         }
 
-        
+
 
         private void listViewAll_MouseClick(object sender, MouseEventArgs e)
         {
@@ -624,7 +619,7 @@ namespace XShort
                     else
                     {
                         pictureBox1.Image = global::XShort.Properties.Resources.question_help_mark_balloon_512;
-                        
+
                         labelType.Text = "This file is deleted or moved";
                         labelDateCreated.Text = "N/A";
                         labelDateMod.Text = "N/A";
@@ -693,7 +688,7 @@ namespace XShort
             }
         }
 
-       
+
         private void buttonSearchInternet_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.google.com/search?q=" + textBoxSearch.Text);
