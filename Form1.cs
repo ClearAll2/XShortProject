@@ -64,6 +64,8 @@ namespace XShort
         ImageList img;
         ImageList img2;
 
+        PerformanceCounter DiskCounter = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
+        PerformanceCounter CpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
         public Form1()
         {
@@ -201,6 +203,7 @@ namespace XShort
 
         void folderSmartSearch(string dir)
         {
+            bool isReady = false;
             try
             {
                 DirectoryInfo di = new DirectoryInfo(dir);
@@ -212,29 +215,36 @@ namespace XShort
 
                 }
                 File.AppendAllText(dataPath + "\\temp1", alldir);
-                //Thread.Sleep(30);
-                //for (int i = 0; i < dir1.Count(); i++)
-                //{
-                //    if (exit)
-                //        return;
 
-                //    File.AppendAllText(dataPath + "\\temp1", dir1[i].FullName + Environment.NewLine);
-                //    Thread.Sleep(10);
-                //}
-
-                //Scan recursively
                 DirectoryInfo[] dirs = di.GetDirectories();
                 if (dirs == null || dirs.Length < 1)
                     return;
                 foreach (DirectoryInfo sdir in dirs)
                 {
                     folderSmartSearch(sdir.FullName);
-                    while (indexing != true || GetIdleTime() <= 60000)
+                    while (indexing != true || isReady != true || GetIdleTime() <= 60000)
                     {
                         if (!indexing)
                             labelAutoIndex.Text = "Off";
                         else
-                            labelAutoIndex.Text = "Resume in " + (60000 - GetIdleTime()) / 1000 + "s";
+                        {
+                            if (GetIdleTime() <= 60000)
+                                labelAutoIndex.Text = "Resume in " + (60000 - GetIdleTime()) / 1000 + "s";
+                            else
+                            {
+                                float disk = DiskCounter.NextValue();
+                                float cpu = CpuCounter.NextValue();
+                                if (cpu > 50 || disk >= 100)
+                                {
+                                    isReady = false;
+                                    labelAutoIndex.Text = "Waiting for stable cpu and disk";
+                                }
+                                else
+                                {
+                                    isReady = true;
+                                }
+                            }
+                        }
                         Thread.Sleep(1000);
                         if (exit)
                             return;
@@ -251,6 +261,7 @@ namespace XShort
 
         void fileSmartSearch(string dir)
         {
+            bool isReady = false;
             try
             {
                 DirectoryInfo di = new DirectoryInfo(dir);
@@ -261,16 +272,6 @@ namespace XShort
                     allfiles += files[i].FullName + Environment.NewLine;
                 }
                 File.AppendAllText(dataPath + "\\temp2", allfiles);
-                //Thread.Sleep(30);
-                //for (int i = 0; i < files.Count(); i++)
-                //{
-                //    if (exit)
-                //        return;
-
-                //    File.AppendAllText(dataPath + "\\temp2", files[i].FullName + Environment.NewLine);
-                //    Thread.Sleep(0);
-                //}
-
                 //Scan recursively
                 DirectoryInfo[] dirs = di.GetDirectories();
                 if (dirs == null || dirs.Length < 1)
@@ -278,12 +279,29 @@ namespace XShort
                 foreach (DirectoryInfo sdir in dirs)
                 {
                     fileSmartSearch(sdir.FullName);
-                    while (indexing != true || GetIdleTime() <= 60000)
-                    {
+                    while (indexing != true || isReady != true || GetIdleTime() <= 60000)
+                    { 
                         if (!indexing)
                             labelAutoIndex.Text = "Off";
                         else
-                            labelAutoIndex.Text = "Resume in " + (60000 - GetIdleTime()) / 1000 + "s";
+                        {
+                            if (GetIdleTime() <= 60000)
+                                labelAutoIndex.Text = "Resume in " + (60000 - GetIdleTime()) / 1000 + "s";
+                            else
+                            {
+                                float disk = DiskCounter.NextValue();
+                                float cpu = CpuCounter.NextValue();
+                                if (cpu > 50 || disk >= 100)
+                                {
+                                    isReady = false;
+                                    labelAutoIndex.Text = "Waiting for stable cpu and disk";
+                                }
+                                else
+                                {
+                                    isReady = true;
+                                }
+                            }
+                        }
                         Thread.Sleep(1000);
                         if (exit)
                             return;

@@ -117,6 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBox5.Text" xml:space="preserve">
+    <value>build 19613
+-We improved Auto-Index.
+
+build 19323
+-We fixed a bug with main list items and Reload button.
+-We improved Search window's experience.
+
+build 19131
+-We added "Don't load main list at startup" option.
+-We added "Reload data button".
+
+build 18981
+-We fixed Run at Windows startup checkbox.
+
+build 18978
+-We fixed icons.
+-We changed dark mode color.
+-We applied dark mode to all windows.
+-We added Vietnamese to Search.
+-We added system commands to XShort Run. 
++To use tab function with system commands, a # character must be placed at first. 
+
+build 18966
+-We increased size and improved Search window.
+
+build 18963
+-We added delete log button.
+-We added Open file location to main list menu.
+-We added Open as Administrator to XShort Run. Press Alt + Enter or right-click to use.
+-We increased size of icon in table.
+-We changed and added some hotkeys.
+-We changed icon.
+
+build 18945
+-We added Programs option in Scan Folder.
+
+build 18941
+-We changed auto-indexing: it will run when your computer is idle.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -954,7 +994,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAQ
-        DwAAAk1TRnQBSQFMAwEBAAFIAQkBSAEJARkBAAEZAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABZAMA
+        DwAAAk1TRnQBSQFMAwEBAAFQAQkBUAEJARkBAAEZAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABZAMA
         ARkDAAEBAQABIAUAARABJy0AAQEDAgEDAwQEBQEHAwYBCAMHAQkDBwEJAwcBCQMGAQgDBQEHAwQBBQMC
         AQMDAAEB/wBVAAMBAQIDBgEIAwwBEAMSARkDFwEgAxoBJAMcAScDHAEoAxwBKAMcASgDHAEnAxoBJAMY
         ASEDEwEaAw4BEwMHAQkDAgED/wBJAAMCAQMDDQESAxoBJAMoAT0DQgF0A1ABngJYAVYBuQJdAVoBygJg
@@ -1020,48 +1060,6 @@
         AYAMAAGADwABgA8AAYCfAAGADwABgA8AAYACAAGADAABgAIAAYAMAAHAAQABAQGADAAB4AEAAQMBgAwA
         AfABAAEDAYAMAAH+AQABPwGADAAL
 </value>
-  </data>
-  <data name="textBox5.Text" xml:space="preserve">
-    <value>build 19323
--We fixed a bug with main list items and Reload button.
--We improved Search window's experience.
-
-build 19131
--We added "Don't load main list at startup" option.
--We added "Reload data button".
-
-build 18981
--We fixed Run at Windows startup checkbox.
-
-build 18978
--We fixed icons.
--We changed dark mode color.
--We applied dark mode to all windows.
--We added Vietnamese to Search.
--We added system commands to XShort Run. 
-+To use tab function with system commands, a # character must be placed at first. 
-
-build 18966
--We increased size and improved Search window.
-
-build 18963
--We added delete log button.
--We added Open file location to main list menu.
--We added Open as Administrator to XShort Run. Press Alt + Enter or right-click to use.
--We increased size of icon in table.
--We changed and added some hotkeys.
--We changed icon.
-
-build 18945
--We added Programs option in Scan Folder.
-
-build 18941
--We changed auto-indexing: it will run when your computer is idle.
-
-build 18935
--We added Indexing and Search fearture. You can now use XShort Run to search files and folder.
--We added a new option: Automatically run indexing.
--Opening a link now requires http://.</value>
   </data>
   <data name="textBox2.Text" xml:space="preserve">
     <value>Shortcut Keys:
