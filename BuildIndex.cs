@@ -20,9 +20,15 @@ namespace XShort
             if (File.Exists(path + "\\indexFol") && File.Exists(path + "\\indexFil"))
             {
                 if (en)
+                {
                     labelHadIndex.Text = "Found index files";
+                    this.Text = "Last successful build: " + File.GetLastWriteTime(path + "\\indexFol").ToShortDateString();
+                }
                 else
+                {
                     labelHadIndex.Text = "Tìm thấy tập tin mục lục";
+                    this.Text = "Lần chạy thành công cuối: " + File.GetLastWriteTime(path + "\\indexFol").ToShortDateString();
+                }
                 buttonDeleteIndex.Visible = true;
                 buttonBuildIndex.Enabled = false;
                 this.Height -= panel1.Height;
@@ -31,7 +37,9 @@ namespace XShort
             else
             {
                 if (en)
+                {
                     labelHadIndex.Text = "Found no index files";
+                }
                 else
                     labelHadIndex.Text = "Không tìm thấy tập tin mục lục";
             }

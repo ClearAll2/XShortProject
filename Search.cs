@@ -754,6 +754,13 @@ namespace XShort
             imageListMusic.Images.Clear();
             imageListOthers.Images.Clear();
             imageListVideos.Images.Clear();
+            for (int i = 0; i < panelAll.Controls.Count; i++)
+            {
+                panelAll.Controls[i].Dispose();
+
+            }
+            pos = 0;
+            panelAll.Controls.Clear();
             labelStatus.Text = "Done";
         }
 

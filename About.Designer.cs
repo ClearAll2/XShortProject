@@ -35,7 +35,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonHomepage = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -87,11 +86,10 @@
             // 
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.pictureBox1);
-            this.groupBox4.Controls.Add(this.buttonHomepage);
             this.groupBox4.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.groupBox4.Location = new System.Drawing.Point(40, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(454, 186);
+            this.groupBox4.Size = new System.Drawing.Size(454, 130);
             this.groupBox4.TabIndex = 29;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "About this app";
@@ -118,26 +116,6 @@
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             // 
-            // buttonHomepage
-            // 
-            this.buttonHomepage.BackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonHomepage.FlatAppearance.BorderSize = 0;
-            this.buttonHomepage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonHomepage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHomepage.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHomepage.ForeColor = System.Drawing.Color.White;
-            this.buttonHomepage.ImageIndex = 0;
-            this.buttonHomepage.ImageList = this.imageList1;
-            this.buttonHomepage.Location = new System.Drawing.Point(102, 128);
-            this.buttonHomepage.Name = "buttonHomepage";
-            this.buttonHomepage.Size = new System.Drawing.Size(258, 38);
-            this.buttonHomepage.TabIndex = 30;
-            this.buttonHomepage.TabStop = false;
-            this.buttonHomepage.Text = "Freedom Software Homepage";
-            this.buttonHomepage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonHomepage.UseVisualStyleBackColor = false;
-            this.buttonHomepage.Click += new System.EventHandler(this.buttonHomepage_Click);
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -149,11 +127,11 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(40, 204);
+            this.tabControl1.Location = new System.Drawing.Point(40, 148);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(454, 181);
+            this.tabControl1.Size = new System.Drawing.Size(454, 237);
             this.tabControl1.TabIndex = 30;
             this.tabControl1.TabStop = false;
             // 
@@ -165,7 +143,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(446, 155);
+            this.tabPage1.Size = new System.Drawing.Size(446, 211);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Changelog";
             // 
@@ -181,7 +159,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
             this.textBox5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox5.Size = new System.Drawing.Size(440, 149);
+            this.textBox5.Size = new System.Drawing.Size(440, 205);
             this.textBox5.TabIndex = 0;
             this.textBox5.TabStop = false;
             this.textBox5.Text = resources.GetString("textBox5.Text");
@@ -289,7 +267,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button buttonHomepage;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox textBox5;

@@ -67,6 +67,7 @@ namespace XShort
         PerformanceCounter DiskCounter = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
         PerformanceCounter CpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
+
         public Form1()
         {
 
@@ -76,6 +77,16 @@ namespace XShort
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             System.IO.Directory.CreateDirectory(dataPath);
 
+            contextMenuStrip5.ImageList = imageList1;
+            aboutToolStripMenuItem1.ImageIndex = 1;
+            settingsToolStripMenuItem1.ImageIndex = 2;
+            exportToolStripMenuItem1.ImageIndex = 13;
+            importToolStripMenuItem1.ImageIndex = 12;
+            scanToolStripMenuItem.ImageIndex = 15;
+            logToolStripMenuItem1.ImageIndex = 16;
+            buildIndexToolStripMenuItem.ImageIndex = 17;
+            reloadDataToolStripMenuItem.ImageIndex = 5;
+            exitToolStripMenuItem2.ImageIndex = 6;
 
 
             bw = new BackgroundWorker();
@@ -164,6 +175,7 @@ namespace XShort
 
         private void AutoIndexService_DoWork(object sender, DoWorkEventArgs e)
         {
+            int percent = 0;
             if (File.Exists(dataPath + "\\temp.txt"))
             {
                 if (File.GetLastWriteTime(dataPath + "\\temp.txt").Date == DateTime.Now.Date)
@@ -183,7 +195,6 @@ namespace XShort
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             foreach (DriveInfo d in allDrives)
             {
-
                 fileSmartSearch(d.Name);
                 folderSmartSearch(d.Name);
                 if (exit)
@@ -203,7 +214,6 @@ namespace XShort
 
         void folderSmartSearch(string dir)
         {
-            bool isReady = false;
             try
             {
                 DirectoryInfo di = new DirectoryInfo(dir);
@@ -222,35 +232,49 @@ namespace XShort
                 foreach (DirectoryInfo sdir in dirs)
                 {
                     folderSmartSearch(sdir.FullName);
-                    while (indexing != true || isReady != true || GetIdleTime() <= 60000)
+                    while (!indexing)
                     {
-                        if (!indexing)
-                            labelAutoIndex.Text = "Off";
-                        else
-                        {
-                            if (GetIdleTime() <= 60000)
-                                labelAutoIndex.Text = "Resume in " + (60000 - GetIdleTime()) / 1000 + "s";
-                            else
-                            {
-                                float disk = DiskCounter.NextValue();
-                                float cpu = CpuCounter.NextValue();
-                                if (cpu > 50 || disk >= 100)
-                                {
-                                    isReady = false;
-                                    labelAutoIndex.Text = "Waiting for stable cpu and disk";
-                                }
-                                else
-                                {
-                                    isReady = true;
-                                }
-                            }
-                        }
+                        labelAutoIndex.Text = "Off";
                         Thread.Sleep(1000);
                         if (exit)
                             return;
                     }
-                    labelAutoIndex.Text = "Running";
-                    Thread.Sleep(0);
+                    
+                    while (true)
+                    {
+                        float disk = DiskCounter.NextValue();
+                        float cpu = CpuCounter.NextValue();
+                        if (GetIdleTime() > 10000)
+                        {
+                            if (cpu > 50 || disk >= 100)
+                            {
+                                Thread.Sleep(1000);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            if (exit)
+                                return;
+                          
+                            Thread.Sleep(0);
+                        }
+                        else
+                        {
+                            if (cpu > 25 || disk >= 50)
+                            {
+                                Thread.Sleep(1000);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            if (exit)
+                                return;
+                            Thread.Sleep(200);
+                        }
+                    }
+                    labelAutoIndex.Text = sdir.FullName;
                 }
             }
             catch
@@ -261,7 +285,6 @@ namespace XShort
 
         void fileSmartSearch(string dir)
         {
-            bool isReady = false;
             try
             {
                 DirectoryInfo di = new DirectoryInfo(dir);
@@ -269,6 +292,7 @@ namespace XShort
                 string allfiles = String.Empty;
                 for (int i = 0; i < files.Count(); i++)
                 {
+                    
                     allfiles += files[i].FullName + Environment.NewLine;
                 }
                 File.AppendAllText(dataPath + "\\temp2", allfiles);
@@ -279,35 +303,49 @@ namespace XShort
                 foreach (DirectoryInfo sdir in dirs)
                 {
                     fileSmartSearch(sdir.FullName);
-                    while (indexing != true || isReady != true || GetIdleTime() <= 60000)
-                    { 
-                        if (!indexing)
-                            labelAutoIndex.Text = "Off";
-                        else
-                        {
-                            if (GetIdleTime() <= 60000)
-                                labelAutoIndex.Text = "Resume in " + (60000 - GetIdleTime()) / 1000 + "s";
-                            else
-                            {
-                                float disk = DiskCounter.NextValue();
-                                float cpu = CpuCounter.NextValue();
-                                if (cpu > 50 || disk >= 100)
-                                {
-                                    isReady = false;
-                                    labelAutoIndex.Text = "Waiting for stable cpu and disk";
-                                }
-                                else
-                                {
-                                    isReady = true;
-                                }
-                            }
-                        }
+                    while (!indexing)
+                    {
+                        labelAutoIndex.Text = "Off";
                         Thread.Sleep(1000);
                         if (exit)
                             return;
                     }
-                    labelAutoIndex.Text = "Running";
-                    Thread.Sleep(0);
+
+                    while (true)
+                    {
+                        float disk = DiskCounter.NextValue();
+                        float cpu = CpuCounter.NextValue();
+                        if (GetIdleTime() > 10000)
+                        {
+                            if (cpu > 50 || disk >= 100)
+                            {
+                                Thread.Sleep(1000);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            if (exit)
+                                return;
+
+                            Thread.Sleep(0);
+                        }
+                        else
+                        {
+                            if (cpu > 25 || disk >= 50)
+                            {
+                                Thread.Sleep(1000);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            if (exit)
+                                return;
+                            Thread.Sleep(200);
+                        }
+                    }
+                    labelAutoIndex.Text = sdir.FullName;
                 }
             }
             catch
@@ -394,7 +432,7 @@ namespace XShort
             if (r.GetValue("Indexing") != null)
             {
                 indexing = true;
-                labelAutoIndex.Text = "Running";
+                //labelAutoIndex.Text = "Running";
             }
             else
             {
@@ -1652,24 +1690,28 @@ namespace XShort
 
         private void saveShortcutsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            yet = String.Empty;
-            f3.changeDisplay(4);
-            f3.TopMost = false;
-            f3.Show();
+            if (buttonSave.Enabled)
+            {
+                yet = String.Empty;
+                f3.changeDisplay(4);
+                f3.TopMost = false;
+                f3.Show();
 
 
 
-            //button11.Enabled = false;
+                //button11.Enabled = false;
 
-            //button8.Enabled = false;
-            //button7.Enabled = false;
-            //panelSub.Enabled = false;
-            panelData.Enabled = false;
+                //button8.Enabled = false;
+                //button7.Enabled = false;
+                //panelSub.Enabled = false;
+                panelData.Enabled = false;
 
-            BackgroundWorker bwt = new BackgroundWorker();
-            bwt.DoWork += Bwt_DoWork;
-            bwt.RunWorkerAsync();
-            history.Add("[" + DateTime.Now + "] " + "You save the new list");
+                BackgroundWorker bwt = new BackgroundWorker();
+                bwt.DoWork += Bwt_DoWork;
+                bwt.RunWorkerAsync();
+                history.Add("[" + DateTime.Now + "] " + "You save the new list");
+            }
+            
         }
 
 
@@ -1947,16 +1989,8 @@ namespace XShort
                     f2.changeLanguages(0);
                 }
 
-                toolTip1.SetToolTip(buttonLog, "Ghi chép");
-
-                toolTip1.SetToolTip(buttonAbout, "Thông tin");
-                toolTip1.SetToolTip(buttonSettings, "Cài đặt");
-                toolTip1.SetToolTip(buttonExit, "Thoát");
-                toolTip1.SetToolTip(buttonBuildIndex, "Tạo mục lục");
-                toolTip1.SetToolTip(buttonImport, "Thêm dữ liệu");
-                toolTip1.SetToolTip(buttonExport, "Xuất dữ liệu");
-                toolTip1.SetToolTip(buttonMenuScan, "Quét thư mục");
-                toolTip1.SetToolTip(buttonReload, "Tải lại dữ liệu");
+             
+              
                 buttonScan.Text = "Quét";
                 button2.Text = "Hủy";
                 button9.Text = "Thêm";
@@ -2057,15 +2091,7 @@ namespace XShort
                 {
                     f2.changeLanguages(1);
                 }
-                toolTip1.SetToolTip(buttonLog, "Log");
-                toolTip1.SetToolTip(buttonAbout, "About");
-                toolTip1.SetToolTip(buttonSettings, "Settings");
-                toolTip1.SetToolTip(buttonExit, "Exit");
-                toolTip1.SetToolTip(buttonBuildIndex, "Build Index");
-                toolTip1.SetToolTip(buttonImport, "Import Data");
-                toolTip1.SetToolTip(buttonExport, "Export Data");
-                toolTip1.SetToolTip(buttonMenuScan, "Scan folder");
-                toolTip1.SetToolTip(buttonReload, "Reload data");
+               
                 buttonScan.Text = "Scan";
                 button2.Text = "Cancel";
                 button9.Text = "Add";
@@ -2377,7 +2403,7 @@ namespace XShort
 
 
                 this.BackColor = Color.White;
-                panelControl.BackColor = this.BackColor;
+                //panelControl.BackColor = this.BackColor;
                 listView1.BackColor = Color.White;
                 listView1.ForeColor = Color.Black;
 
@@ -2411,7 +2437,7 @@ namespace XShort
 
 
                 this.BackColor = Color.FromArgb(28, 28, 28);
-                panelControl.BackColor = this.BackColor;
+                //panelControl.BackColor = this.BackColor;
                 listView1.BackColor = Color.FromArgb(28, 28, 28);
                 listView1.ForeColor = Color.White;
                 listView2.BackColor = Color.FromArgb(28, 28, 28);
@@ -3514,17 +3540,10 @@ namespace XShort
 
         private void buttonMenu_Click(object sender, EventArgs e)
         {
-            if (panelControl.Visible != true)
-            {
-                panelControl.Visible = true;
-                buttonMenu.ImageIndex = 4;
-            }
-            else
-            {
-
-                panelControl.Visible = false;
-                buttonMenu.ImageIndex = 3;
-            }
+            Button btnSender = (Button)sender;
+            System.Drawing.Point ptLowerLeft = new System.Drawing.Point(0, btnSender.Height);
+            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
+            contextMenuStrip5.Show(ptLowerLeft);
         }
 
         private void buttonDeleteLog_Click(object sender, EventArgs e)

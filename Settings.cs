@@ -26,7 +26,7 @@ namespace XShort
                 checkBox3.Text = "Tự động tìm kiếm nếu không có dữ liệu";
                 checkBox4.Text = "Phân biệt hoa - thường";
                 checkBox5.Text = "Ẩn biểu tượng khay";
-                checkBox6.Text = "Tự động tạo mục lục khi máy tính không làm việc";
+                checkBox6.Text = "Tự động chạy trình tạo mục lục";
                 checkBox7.Text = "Tự động phát hiện lối tắt không khả dụng";
                 checkBox8.Text = "Không tải danh sách chính khi mở";
 
@@ -54,7 +54,7 @@ namespace XShort
                 checkBox3.Text = "Automatically search if no data";
                 checkBox4.Text = "Case-sensitive";
                 checkBox5.Text = "Hide tray icon";
-                checkBox6.Text = "Automatically run indexing when computer is idle";
+                checkBox6.Text = "Automatically run indexing";
                 checkBox7.Text = "Automatically detect invalid shortcuts";
                 checkBox8.Text = "Don't load main list at startup";
 

@@ -42,6 +42,7 @@
             this.button14 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.labelHotKeyConfig = new System.Windows.Forms.Label();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -58,7 +59,6 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.panelSetting.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
@@ -275,6 +275,18 @@
             this.labelHotKeyConfig.TabIndex = 1;
             this.labelHotKeyConfig.Text = "XShort Run Hotkey Configuration";
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(226, 189);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(217, 22);
+            this.checkBox8.TabIndex = 9;
+            this.checkBox8.Text = "Don\'t load main list at startup";
+            this.toolTip1.SetToolTip(this.checkBox8, "Improve loading time");
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -358,9 +370,9 @@
             this.checkBox6.AutoSize = true;
             this.checkBox6.Location = new System.Drawing.Point(20, 133);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(343, 22);
+            this.checkBox6.Size = new System.Drawing.Size(196, 22);
             this.checkBox6.TabIndex = 8;
-            this.checkBox6.Text = "Automatically run indexing when computer is idle";
+            this.checkBox6.Text = "Automatically run indexing";
             this.toolTip1.SetToolTip(this.checkBox6, "When computer is idle, auto-indexing will run");
             this.checkBox6.UseVisualStyleBackColor = true;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
@@ -449,18 +461,6 @@
             this.radioButton2.Text = "Vietnamese";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(226, 189);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(217, 22);
-            this.checkBox8.TabIndex = 9;
-            this.checkBox8.Text = "Don\'t load main list at startup";
-            this.toolTip1.SetToolTip(this.checkBox8, "Improve loading time");
-            this.checkBox8.UseVisualStyleBackColor = true;
-            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // Settings
             // 
