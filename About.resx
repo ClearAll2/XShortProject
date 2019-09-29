@@ -117,6 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBox5.Text" xml:space="preserve">
+    <value>build 19929
+-We fixed hotkey issue.
+-We changed a little with UI.
+-We updated new version of Updater.
+
+build 19921
+-Auto-Index now always run in background, increases speed when computer is idle.
+
+build 19727
+-We added detail about last successful build of index files.
+
+build 19613
+-We improved Auto-Index.
+
+build 19323
+-We fixed a bug with main list items and Reload button.
+-We improved Search window's experience.
+
+build 19131
+-We added "Don't load main list at startup" option.
+-We added "Reload data button".
+
+build 18981
+-We fixed Run at Windows startup checkbox.
+
+build 18978
+-We fixed icons.
+-We changed dark mode color.
+-We applied dark mode to all windows.
+-We added Vietnamese to Search.
+-We added system commands to XShort Run. 
++To use tab function with system commands, a # character must be placed at first. </value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -946,68 +980,6 @@
         qf8HL2hb8I7yEXMAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="textBox5.Text" xml:space="preserve">
-    <value>build 19929
--We changed a little with UI.
--We fixed hotkey issue.
--We updated new version of Updater.
-
-build 19921
--Auto-Index now always run in background, increases speed when computer is idle.
-
-build 19727
--We added detail about last successful build of index files.
-
-build 19613
--We improved Auto-Index.
-
-build 19323
--We fixed a bug with main list items and Reload button.
--We improved Search window's experience.
-
-build 19131
--We added "Don't load main list at startup" option.
--We added "Reload data button".
-
-build 18981
--We fixed Run at Windows startup checkbox.
-
-build 18978
--We fixed icons.
--We changed dark mode color.
--We applied dark mode to all windows.
--We added Vietnamese to Search.
--We added system commands to XShort Run. 
-+To use tab function with system commands, a # character must be placed at first. </value>
-  </data>
-  <data name="textBox2.Text" xml:space="preserve">
-    <value>Shortcut Keys:
-Ctrl + Shift + A to add new application/file
-Ctrl + Shift + D to add new directory
-Ctrl + Shift + C to add new URL
-Ctrl + Shift+ S to save shortcuts
----------------------------
-Ctrl + A to open About
-Ctrl + S to open Settings
-Ctrl + X to open Build Index
-Ctrl + I to import data
-Ctrl + E to export data
-Ctrl + F to scan folder
-Ctrl + U to check for updates
-Ctrl + H to go to homepage
-Ctrl + L to open log
-Alt + F4 to exit
-Alt + Q to minimize and hide
----------------------------
-Alt + A to show run box (you can change this)
-Ctrl + Tab to show main window
----------------------------
-Tab to use tab function
-Control to extract call name to path and copy to clipboard
----------------------------
-Use + between call names to activate multi-call
-Use &gt; after a word to activate translate function</value>
-  </data>
   <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -1082,5 +1054,33 @@ Use &gt; after a word to activate translate function</value>
         AYAMAAGADwABgA8AAYCfAAGADwABgA8AAYACAAGADAABgAIAAYAMAAHAAQABAQGADAAB4AEAAQMBgAwA
         AfABAAEDAYAMAAH+AQABPwGADAAL
 </value>
+  </data>
+  <data name="textBox2.Text" xml:space="preserve">
+    <value>Shortcut Keys:
+Ctrl + Shift + A to add new application/file
+Ctrl + Shift + D to add new directory
+Ctrl + Shift + C to add new URL
+Ctrl + Shift+ S to save shortcuts
+---------------------------
+Ctrl + A to open About
+Ctrl + S to open Settings
+Ctrl + X to open Build Index
+Ctrl + I to import data
+Ctrl + E to export data
+Ctrl + F to scan folder
+Ctrl + U to check for updates
+Ctrl + H to go to homepage
+Ctrl + L to open log
+Alt + F4 to exit
+Alt + Q to minimize and hide
+---------------------------
+Alt + A to show run box (you can change this)
+Ctrl + Tab to show main window
+---------------------------
+Tab to use tab function
+Control to extract call name to path and copy to clipboard
+---------------------------
+Use + between call names to activate multi-call
+Use &gt; after a word to activate translate function</value>
   </data>
 </root>
