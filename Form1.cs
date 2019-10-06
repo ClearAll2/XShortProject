@@ -123,7 +123,7 @@ namespace XShort
             for (int i = 0; i < listView2.Columns.Count; i++)
                 listView2.Columns[i].Width = listView2.Width / listView2.Columns.Count;
 
-            this.Text += " Beta Test - build " + this.AssemblyDescription;
+            //this.Text += " Beta Test - build " + this.AssemblyDescription;
             buttonData_Click();
 
 
@@ -3568,12 +3568,12 @@ namespace XShort
         private void Stt_FormClosed(object sender, FormClosedEventArgs e)
         {
             loadSettings();
-            if (!dontload)
-            {
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += Worker_DoWork;
-                worker.RunWorkerAsync();
-            }
+            //if (!dontload)
+            //{
+            //    BackgroundWorker worker = new BackgroundWorker();
+            //    worker.DoWork += Worker_DoWork;
+            //    worker.RunWorkerAsync();
+            //}
         }
 
         private void buttonAbout_Click(object sender, EventArgs e)
