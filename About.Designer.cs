@@ -35,7 +35,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -44,6 +43,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panelAbout.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -116,12 +116,6 @@
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Bokehlicia-Captiva-Browser-web.ico");
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -171,7 +165,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(446, 155);
+            this.tabPage2.Size = new System.Drawing.Size(446, 211);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Hotkeys and tips";
             // 
@@ -187,7 +181,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(440, 149);
+            this.textBox2.Size = new System.Drawing.Size(440, 205);
             this.textBox2.TabIndex = 27;
             this.textBox2.Text = resources.GetString("textBox2.Text");
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -200,7 +194,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(446, 155);
+            this.tabPage3.Size = new System.Drawing.Size(446, 211);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Beta Test Program";
             // 
@@ -210,7 +204,7 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(110, 89);
+            this.button3.Location = new System.Drawing.Point(110, 120);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(230, 43);
             this.button3.TabIndex = 1;
@@ -224,7 +218,7 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.SystemColors.Control;
-            this.textBox1.Location = new System.Drawing.Point(110, 17);
+            this.textBox1.Location = new System.Drawing.Point(110, 48);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(230, 55);
@@ -232,6 +226,12 @@
             this.textBox1.Text = "Be the one of the first to see future updates and improvements to XShort and prov" +
     "ide feedback.";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Bokehlicia-Captiva-Browser-web.ico");
             // 
             // About
             // 

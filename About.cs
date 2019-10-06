@@ -19,7 +19,7 @@ namespace XShort
                 button3.Text = "Leave the Beta Test Program";
             }
             r.Close();
-            label1.Text = "XShort v" + Application.ProductVersion + " build " + this.AssemblyDescription + "\nCopyright © 2018 - 2019\nXShort Project\nFreedom Software";
+            label1.Text = "XShort v" + Application.ProductVersion /*+ " build " + this.AssemblyDescription*/ + "\nCopyright © 2018 - 2019\nXShort Project\nFreedom Software";
         }
 
         public string AssemblyDescription

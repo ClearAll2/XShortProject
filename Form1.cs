@@ -175,7 +175,6 @@ namespace XShort
 
         private void AutoIndexService_DoWork(object sender, DoWorkEventArgs e)
         {
-            int percent = 0;
             if (File.Exists(dataPath + "\\temp.txt"))
             {
                 if (File.GetLastWriteTime(dataPath + "\\temp.txt").Date == DateTime.Now.Date)
@@ -195,8 +194,9 @@ namespace XShort
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             foreach (DriveInfo d in allDrives)
             {
-                fileSmartSearch(d.Name);
-                folderSmartSearch(d.Name);
+                //fileSmartSearch(d.Name);
+                //folderSmartSearch(d.Name);
+                SmartSearchFileAndFolder(d.Name);//new smart search
                 if (exit)
                     return;
 
@@ -212,7 +212,79 @@ namespace XShort
             //goto begin;
         }
 
-        void folderSmartSearch(string dir)
+
+        private void SmartSearchFileAndFolder(string dir)
+        {
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(dir);
+                DirectoryInfo[] dir1 = di.GetDirectories("*" + "*.*");
+                string alldir = String.Empty;
+                for (int i = 0; i < dir1.Count(); i++)
+                {
+                    alldir += dir1[i].FullName + Environment.NewLine;
+
+                }
+                File.AppendAllText(dataPath + "\\temp1", alldir);
+
+                FileInfo[] files = di.GetFiles("*" + "*.*");
+                string allfiles = String.Empty;
+                for (int i = 0; i < files.Count(); i++)
+                {
+                    allfiles += files[i].FullName + Environment.NewLine;
+                }
+                File.AppendAllText(dataPath + "\\temp2", allfiles);
+
+                DirectoryInfo[] dirs = di.GetDirectories();
+                if (dirs == null || dirs.Length < 1)
+                    return;
+                foreach (DirectoryInfo sdir in dirs)
+                {
+                    SmartSearchFileAndFolder(sdir.FullName);
+                    while (!indexing)
+                    {
+                        labelAutoIndex.Text = "Off";
+                        Thread.Sleep(1000);
+                        if (exit)
+                            return;
+                    }
+
+                loop:
+
+                    float disk = DiskCounter.NextValue();
+                    float cpu = CpuCounter.NextValue();
+                    if (GetIdleTime() > 10000)
+                    {
+                        if (cpu > 50 || disk >= 100)
+                        {
+                            Thread.Sleep(1000);
+                            if (exit)
+                                return;
+                            goto loop;
+                        }
+                        Thread.Sleep(0);
+                    }
+                    else
+                    {
+                        if (cpu > 25 || disk >= 50)
+                        {
+                            Thread.Sleep(1000);
+                            if (exit)
+                                return;
+                            goto loop;
+                        }
+                        Thread.Sleep(200);
+                    }
+                    labelAutoIndex.Text = sdir.FullName;
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void folderSmartSearch(string dir)
         {
             try
             {
@@ -239,40 +311,32 @@ namespace XShort
                         if (exit)
                             return;
                     }
-                    
-                    while (true)
+
+                loop:
+
+                    float disk = DiskCounter.NextValue();
+                    float cpu = CpuCounter.NextValue();
+                    if (GetIdleTime() > 10000)
                     {
-                        float disk = DiskCounter.NextValue();
-                        float cpu = CpuCounter.NextValue();
-                        if (GetIdleTime() > 10000)
+                        if (cpu > 50 || disk >= 100)
                         {
-                            if (cpu > 50 || disk >= 100)
-                            {
-                                Thread.Sleep(1000);
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            Thread.Sleep(1000);
                             if (exit)
                                 return;
-                          
-                            Thread.Sleep(0);
+                            goto loop;
                         }
-                        else
+                        Thread.Sleep(0);
+                    }
+                    else
+                    {
+                        if (cpu > 25 || disk >= 50)
                         {
-                            if (cpu > 25 || disk >= 50)
-                            {
-                                Thread.Sleep(1000);
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            Thread.Sleep(1000);
                             if (exit)
                                 return;
-                            Thread.Sleep(200);
+                            goto loop;
                         }
+                        Thread.Sleep(200);
                     }
                     labelAutoIndex.Text = sdir.FullName;
                 }
@@ -283,7 +347,7 @@ namespace XShort
             }
         }
 
-        void fileSmartSearch(string dir)
+        private void fileSmartSearch(string dir)
         {
             try
             {
@@ -311,40 +375,33 @@ namespace XShort
                             return;
                     }
 
-                    while (true)
+                loop:
+                   
+                    float disk = DiskCounter.NextValue();
+                    float cpu = CpuCounter.NextValue();
+                    if (GetIdleTime() > 10000)
                     {
-                        float disk = DiskCounter.NextValue();
-                        float cpu = CpuCounter.NextValue();
-                        if (GetIdleTime() > 10000)
+                        if (cpu > 50 || disk >= 100)
                         {
-                            if (cpu > 50 || disk >= 100)
-                            {
-                                Thread.Sleep(1000);
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            Thread.Sleep(1000);
                             if (exit)
                                 return;
-
-                            Thread.Sleep(0);
+                            goto loop;
                         }
-                        else
-                        {
-                            if (cpu > 25 || disk >= 50)
-                            {
-                                Thread.Sleep(1000);
-                            }
-                            else
-                            {
-                                break;
-                            }
-                            if (exit)
-                                return;
-                            Thread.Sleep(200);
-                        }
+                        Thread.Sleep(0);
                     }
+                    else
+                    {
+                        if (cpu > 25 || disk >= 50)
+                        {
+                            Thread.Sleep(1000);
+                            if (exit)
+                                return;
+                            goto loop;
+                        }
+                        Thread.Sleep(200);
+                    }
+                    
                     labelAutoIndex.Text = sdir.FullName;
                 }
             }
