@@ -156,79 +156,44 @@ namespace XShort
                 if (listViewFolders.Items.Count > 0)
                 {
                     createNewField("Folders");
-                    if (listViewFolders.Items.Count <= 30)
-                    {
-                        int closest = FindClosest(listViewFolders);
-                        createNewItem(listViewFolders.Items[closest].ToolTipText);
-                    }
-                    else
-                        createNewItem(listViewFolders.Items[0].ToolTipText);
+
+                    createNewItem(listViewFolders.Items[0].ToolTipText);
                 }
                 if (listViewApps.Items.Count > 0)
                 {
                     createNewField("Applications");
-                    if (listViewApps.Items.Count <= 30)
-                    {
-                        int closest = FindClosest(listViewApps);
-                        createNewItem(listViewApps.Items[closest].ToolTipText);
-                    }
-                    else
-                        createNewItem(listViewApps.Items[0].ToolTipText);
+
+                    createNewItem(listViewApps.Items[0].ToolTipText);
                 }
                 if (listViewDocs.Items.Count > 0)
                 {
                     createNewField("Documents");
-                    if (listViewDocs.Items.Count <= 30)
-                    {
-                        int closest = FindClosest(listViewDocs);
-                        createNewItem(listViewDocs.Items[closest].ToolTipText);
-                    }
-                    else
-                        createNewItem(listViewDocs.Items[0].ToolTipText);
+
+                    createNewItem(listViewDocs.Items[0].ToolTipText);
                 }
                 if (listViewPhotos.Items.Count > 0)
                 {
                     createNewField("Photos");
-                    if (listViewPhotos.Items.Count <= 30)
-                    {
-                        int closest = FindClosest(listViewPhotos);
-                        createNewItem(listViewPhotos.Items[closest].ToolTipText);
-                    }
-                    else
-                        createNewItem(listViewPhotos.Items[0].ToolTipText);
+
+                    createNewItem(listViewPhotos.Items[0].ToolTipText);
                 }
                 if (listViewMusic.Items.Count > 0)
                 {
                     createNewField("Music");
-                    if (listViewMusic.Items.Count <= 30)
-                    {
-                        int closest = FindClosest(listViewMusic);
-                        createNewItem(listViewMusic.Items[closest].ToolTipText);
-                    }
-                    else
-                        createNewItem(listViewMusic.Items[0].ToolTipText);
+
+                    createNewItem(listViewMusic.Items[0].ToolTipText);
                 }
                 if (listViewVideos.Items.Count > 0)
                 {
                     createNewField("Videos");
-                    if (listViewVideos.Items.Count <= 30)
-                    {
-                        int closest = FindClosest(listViewVideos);
-                        createNewItem(listViewVideos.Items[closest].ToolTipText);
-                    }
-                    else
-                        createNewItem(listViewVideos.Items[0].ToolTipText);
+
+                    createNewItem(listViewVideos.Items[0].ToolTipText);
                 }
                 if (listViewOthers.Items.Count > 0)
                 {
                     createNewField("Others");
-                    if (listViewOthers.Items.Count <= 30)
-                    {
-                        int closest = FindClosest(listViewOthers);
-                        createNewItem(listViewOthers.Items[closest].ToolTipText);
-                    }
-                    else
-                        createNewItem(listViewOthers.Items[0].ToolTipText);
+
+                    createNewItem(listViewOthers.Items[0].ToolTipText);
                 }
             }
         }

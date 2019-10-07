@@ -373,7 +373,6 @@
             this.checkBox6.Size = new System.Drawing.Size(196, 22);
             this.checkBox6.TabIndex = 8;
             this.checkBox6.Text = "Automatically run indexing";
-            this.toolTip1.SetToolTip(this.checkBox6, "When computer is idle, auto-indexing will run");
             this.checkBox6.UseVisualStyleBackColor = true;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
