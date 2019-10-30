@@ -50,7 +50,7 @@ namespace XShort
         bool ggs = false;
         bool indexing = false;
         bool dontload = false;
-        
+
         bool detect = false;
         bool hide = false;
         bool cases = false;
@@ -353,7 +353,7 @@ namespace XShort
                 string allfiles = String.Empty;
                 for (int i = 0; i < files.Count(); i++)
                 {
-                    
+
                     allfiles += files[i].FullName + Environment.NewLine;
                 }
                 File.AppendAllText(dataPath + "\\temp2", allfiles);
@@ -373,7 +373,7 @@ namespace XShort
                     }
 
                 loop:
-                   
+
                     float disk = DiskCounter.NextValue();
                     float cpu = CpuCounter.NextValue();
                     if (GetIdleTime() > 10000)
@@ -398,7 +398,7 @@ namespace XShort
                         }
                         Thread.Sleep(200);
                     }
-                    
+
                     labelAutoIndex.Text = sdir.FullName;
                 }
             }
@@ -1756,7 +1756,7 @@ namespace XShort
                 bwt.RunWorkerAsync();
                 history.Add("[" + DateTime.Now + "] " + "You save the new list");
             }
-            
+
         }
 
 
@@ -2034,8 +2034,8 @@ namespace XShort
                     f2.changeLanguages(0);
                 }
 
-             
-              
+
+
                 buttonScan.Text = "Quét";
                 button2.Text = "Hủy";
                 button9.Text = "Thêm";
@@ -2136,7 +2136,7 @@ namespace XShort
                 {
                     f2.changeLanguages(1);
                 }
-               
+
                 buttonScan.Text = "Scan";
                 button2.Text = "Cancel";
                 button9.Text = "Add";
@@ -3667,7 +3667,7 @@ namespace XShort
                     }
                 }
 
-                
+
 
                 buttonSave.Enabled = true;
                 buttonAddApp.Enabled = true;
