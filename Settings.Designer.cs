@@ -340,6 +340,7 @@
             this.checkBox1.Size = new System.Drawing.Size(185, 22);
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Run at Windows startup";
+            this.toolTip1.SetToolTip(this.checkBox1, "Automatically run this application when you start Windows");
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -362,6 +363,7 @@
             this.checkBox3.Size = new System.Drawing.Size(227, 22);
             this.checkBox3.TabIndex = 2;
             this.checkBox3.Text = "Automatically search if no data";
+            this.toolTip1.SetToolTip(this.checkBox3, "This will use Index Search");
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
@@ -370,9 +372,9 @@
             this.checkBox6.AutoSize = true;
             this.checkBox6.Location = new System.Drawing.Point(20, 133);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(196, 22);
+            this.checkBox6.Size = new System.Drawing.Size(343, 22);
             this.checkBox6.TabIndex = 8;
-            this.checkBox6.Text = "Automatically run indexing";
+            this.checkBox6.Text = "Automatically run indexing when computer is idle";
             this.checkBox6.UseVisualStyleBackColor = true;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
@@ -399,6 +401,7 @@
             this.radioButton5.Size = new System.Drawing.Size(56, 22);
             this.radioButton5.TabIndex = 11;
             this.radioButton5.Text = "Auto";
+            this.toolTip1.SetToolTip(this.radioButton5, "Automatically change color (base on time of the day)");
             this.radioButton5.UseVisualStyleBackColor = true;
             this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
             // 

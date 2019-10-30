@@ -94,12 +94,8 @@ namespace XShort
             bw.DoWork += Bw_DoWork;
             bw.RunWorkerAsync();
 
-            //if (File.Exists(Application.StartupPath + "\\xfind.exe"))
-            //    checkBox1.Show();
-            //else
-            //    checkBox1.Hide();
-
         }
+
 
         private void Bw_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -111,7 +107,44 @@ namespace XShort
             {
                 loadData();
             }
+            if (File.Exists(Path.Combine(dataPath, "startup.txt")))
+            {
+                List<string> startup = new List<string>();
+                FileStream fs;
+                StreamReader sr;
+                fs = new FileStream(Path.Combine(dataPath, "startup.txt"), FileMode.Open, FileAccess.Read);
+                sr = new StreamReader(fs);
+                while (!sr.EndOfStream)
+                {
+                    startup.Add(sr.ReadLine());
+                }
+                sr.Close();
+                fs.Close();
+                sr.Dispose();
+                fs.Dispose();
 
+                for (int i=0;i<startup.Count;i++)
+                {
+                    if (Program.FileName == "startup")//manual open -> no FileName
+                    {
+                        SimpleRun(startup[i]);
+                    }
+                }
+            }
+        }
+
+        private void SimpleRun(string s)
+        {
+            for (int i = 0; i < sName.Count; i++)
+            {
+                if (s == sName[i])
+                {
+                    if (sPara[i] != "None" && sPara[i] != "Not Available")
+                        Process.Start(sPath[i], sPara[i]);
+                    else
+                        Process.Start(sPath[i]);
+                }
+            }
         }
 
         public void changeGGSeach(bool gg)

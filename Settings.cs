@@ -17,7 +17,7 @@ namespace XShort
             loadSettings();
         }
 
-        private void changeLang(bool en)
+        private void ChangeLang(bool en)
         {
             if (!en)
             {
@@ -26,7 +26,7 @@ namespace XShort
                 checkBox3.Text = "Tự động tìm kiếm nếu không có dữ liệu";
                 checkBox4.Text = "Phân biệt hoa - thường";
                 checkBox5.Text = "Ẩn biểu tượng khay";
-                checkBox6.Text = "Tự động chạy trình tạo mục lục";
+                checkBox6.Text = "Tự động chạy trình tạo mục lục khi máy tính rảnh";
                 checkBox7.Text = "Tự động phát hiện lối tắt không khả dụng";
                 checkBox8.Text = "Không tải danh sách chính khi mở";
 
@@ -54,7 +54,7 @@ namespace XShort
                 checkBox3.Text = "Automatically search if no data";
                 checkBox4.Text = "Case-sensitive";
                 checkBox5.Text = "Hide tray icon";
-                checkBox6.Text = "Automatically run indexing";
+                checkBox6.Text = "Automatically run indexing when computer is idle";
                 checkBox7.Text = "Automatically detect invalid shortcuts";
                 checkBox8.Text = "Don't load main list at startup";
 
@@ -186,12 +186,12 @@ namespace XShort
             if (r.GetValue("EN") != null)
             {
                 radioButton1.Checked = true;
-                changeLang(true);
+                ChangeLang(true);
             }
             else
             {
                 radioButton2.Checked = true;
-                changeLang(false);
+                ChangeLang(false);
             }
             r.Close();
             r.Dispose();
@@ -371,7 +371,7 @@ namespace XShort
             if (radioButton1.Checked)
             {
                 r1.SetValue("EN", true);
-                changeLang(true);
+                ChangeLang(true);
             }
 
             r1.Close();
@@ -384,7 +384,7 @@ namespace XShort
             if (radioButton2.Checked)
             {
                 r1.DeleteValue("EN", false);
-                changeLang(false);
+                ChangeLang(false);
             }
 
             r1.Close();

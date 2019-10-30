@@ -50,7 +50,7 @@ namespace XShort
         bool ggs = false;
         bool indexing = false;
         bool dontload = false;
-
+        
         bool detect = false;
         bool hide = false;
         bool cases = false;
@@ -215,6 +215,7 @@ namespace XShort
 
         private void SmartSearchFileAndFolder(string dir)
         {
+            bool isReady = false;
             try
             {
                 DirectoryInfo di = new DirectoryInfo(dir);
@@ -240,42 +241,38 @@ namespace XShort
                     return;
                 foreach (DirectoryInfo sdir in dirs)
                 {
+                    labelAutoIndex.Text = sdir.FullName;
                     SmartSearchFileAndFolder(sdir.FullName);
-                    while (!indexing)
+
+                    while (indexing != true || isReady != true || GetIdleTime() <= 10000)
                     {
-                        labelAutoIndex.Text = "Off";
+                        if (!indexing)
+                            labelAutoIndex.Text = "Off";
+                        else
+                        {
+                            if (GetIdleTime() <= 10000)
+                                labelAutoIndex.Text = "Resume in " + (10000 - GetIdleTime()) / 1000 + "s";
+                            else
+                            {
+                                float disk = DiskCounter.NextValue();
+                                float cpu = CpuCounter.NextValue();
+                                if (cpu > 50 || disk >= 100)
+                                {
+                                    isReady = false;
+                                    labelAutoIndex.Text = "Waiting for better condition...";
+                                }
+                                else
+                                {
+                                    isReady = true;
+                                }
+                            }
+                        }
                         Thread.Sleep(1000);
                         if (exit)
                             return;
                     }
+                    Thread.Sleep(0);
 
-                loop:
-
-                    float disk = DiskCounter.NextValue();
-                    float cpu = CpuCounter.NextValue();
-                    if (GetIdleTime() > 10000)
-                    {
-                        if (cpu > 50 || disk >= 100)
-                        {
-                            Thread.Sleep(1000);
-                            if (exit)
-                                return;
-                            goto loop;
-                        }
-                        Thread.Sleep(0);
-                    }
-                    else
-                    {
-                        if (cpu > 25 || disk >= 50)
-                        {
-                            Thread.Sleep(1000);
-                            if (exit)
-                                return;
-                            goto loop;
-                        }
-                        Thread.Sleep(200);
-                    }
-                    labelAutoIndex.Text = sdir.FullName;
                 }
             }
             catch
@@ -792,6 +789,7 @@ namespace XShort
 
             }
 
+
             //load startup file
             if (File.Exists(Path.Combine(dataPath, "startup.txt")))
             {
@@ -811,30 +809,17 @@ namespace XShort
                 startup.CollectionChanged += Startup_CollectionChanged;
 
                 //optimize from foreach
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < startup.Count; i++)
                 {
-                    for (int j = 0; j < startup.Count; j++)
+                    for (int j = 0; j < listView1.Items.Count; j++)
                     {
-                        if (startup[j] == listView1.Items[i].SubItems[0].Text)
+                        if (startup[i] == listView1.Items[j].SubItems[0].Text)
                         {
-                            listView1.Items[i].ForeColor = Color.SlateBlue;
-                            if (Program.FileName == "startup")//manual open -> no FileName
-                            {
-                                Run(startup[j]);
-                            }
+                            listView1.Items[j].ForeColor = Color.SlateBlue;
                         }
                     }
                 }
-
             }
-
-            //beta test program
-            //if (button3.BackColor == Color.Red)
-            //{
-            //    BackgroundWorker bw3 = new BackgroundWorker();
-            //    bw3.DoWork += Bw3_DoWork;
-            //    bw3.RunWorkerAsync();
-            //}
 
             f3.Show();
             f3.Hide();
@@ -880,7 +865,10 @@ namespace XShort
             {
                 if (s == sName[i])
                 {
-                    Process.Start(sPath[i]);
+                    if (sPara[i] != "None" && sPara[i] != "Not Available")
+                        Process.Start(sPath[i], sPara[i]);
+                    else
+                        Process.Start(sPath[i]);
                 }
             }
         }
@@ -2461,6 +2449,8 @@ namespace XShort
 
                 this.BackColor = Color.White;
                 //panelControl.BackColor = this.BackColor;
+                listBox1.BackColor = Color.White;
+                listBox1.ForeColor = Color.Black;
                 listView1.BackColor = Color.White;
                 listView1.ForeColor = Color.Black;
 
@@ -2495,6 +2485,8 @@ namespace XShort
 
                 this.BackColor = Color.FromArgb(28, 28, 28);
                 //panelControl.BackColor = this.BackColor;
+                listBox1.BackColor = Color.FromArgb(28, 28, 28);
+                listBox1.ForeColor = Color.White;
                 listView1.BackColor = Color.FromArgb(28, 28, 28);
                 listView1.ForeColor = Color.White;
                 listView2.BackColor = Color.FromArgb(28, 28, 28);
@@ -3489,7 +3481,6 @@ namespace XShort
                 else
                     listView1.FocusedItem.ForeColor = Color.White;
             }
-
         }
 
 
@@ -3663,6 +3654,21 @@ namespace XShort
                 f3.Show();
                 f3.Hide();
                 loadIcon();
+
+                //load startup file
+                for (int i = 0; i < listView1.Items.Count; i++)
+                {
+                    for (int j = 0; j < startup.Count; j++)
+                    {
+                        if (startup[j] == listView1.Items[i].SubItems[0].Text)
+                        {
+                            listView1.Items[i].ForeColor = Color.SlateBlue;
+                        }
+                    }
+                }
+
+                
+
                 buttonSave.Enabled = true;
                 buttonAddApp.Enabled = true;
                 buttonAddDir.Enabled = true;
