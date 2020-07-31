@@ -39,7 +39,7 @@ namespace XShort
 
             if (m_Mutex.WaitOne(0, false))
             {
-                Application.Run(new Form1());
+                Application.Run(new MainForm());
             }
             else
             {

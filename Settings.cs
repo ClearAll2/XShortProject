@@ -17,64 +17,6 @@ namespace XShort
             loadSettings();
         }
 
-        private void ChangeLang(bool en)
-        {
-            if (!en)
-            {
-                checkBox1.Text = "Khởi động cùng Windows";
-                checkBox2.Text = "Ẩn cửa sổ khi mở";
-                checkBox3.Text = "Tự động tìm kiếm nếu không có dữ liệu";
-                checkBox4.Text = "Phân biệt hoa - thường";
-                checkBox5.Text = "Ẩn biểu tượng khay";
-                checkBox6.Text = "Tự động chạy trình tạo mục lục khi máy tính rảnh";
-                checkBox7.Text = "Tự động phát hiện lối tắt không khả dụng";
-                checkBox8.Text = "Không tải danh sách chính khi mở";
-
-                radioButton1.Text = "Tiếng Anh";
-                radioButton2.Text = "Tiếng Việt";
-                radioButton3.Text = "Tối";
-                radioButton4.Text = "Sáng";
-                radioButton5.Text = "Tự động";
-
-                buttonClose.Text = "Đóng";
-                button14.Text = "Áp dụng";
-                button15.Text = "Hủy";
-
-                groupBox1.Text = "Chung";
-                groupBox2.Text = "Ngôn ngữ";
-                groupBox3.Text = "Nền";
-                labelHotKeyConfig.Text = "Cài đặt phím tắt XShort Run";
-                linkLabel1.Text = "Nâng cao";
-
-            }
-            else
-            {
-                checkBox1.Text = "Run at Windows startup";
-                checkBox2.Text = "Hide dialog box at startup";
-                checkBox3.Text = "Automatically search if no data";
-                checkBox4.Text = "Case-sensitive";
-                checkBox5.Text = "Hide tray icon";
-                checkBox6.Text = "Automatically run indexing when computer is idle";
-                checkBox7.Text = "Automatically detect invalid shortcuts";
-                checkBox8.Text = "Don't load main list at startup";
-
-                radioButton1.Text = "English";
-                radioButton2.Text = "Vietnamese";
-                radioButton3.Text = "Dark";
-                radioButton4.Text = "Light";
-                radioButton5.Text = "Auto";
-
-                buttonClose.Text = "Close";
-                button14.Text = "Apply";
-                button15.Text = "Cancel";
-
-                groupBox1.Text = "General";
-                groupBox2.Text = "Languages";
-                groupBox3.Text = "Skin";
-                labelHotKeyConfig.Text = "XShort Run Hotkey Configuration";
-                linkLabel1.Text = "Advanced";
-            }
-        }
         private void loadSettings()
         {
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
@@ -144,25 +86,10 @@ namespace XShort
                 checkBox5.Checked = true;
             if (r.GetValue("Detect") != null)
                 checkBox7.Checked = true;
-            if (r.GetValue("Indexing") != null)
-                checkBox6.Checked = true;
             if (r.GetValue("DontLoad") != null)
                 checkBox8.Checked = true;
 
-            if (r.GetValue("Dark") != null)
-            {
-                radioButton3.Checked = true;
-
-
-            }
-            else if (r.GetValue("Light") != null)
-            {
-                radioButton4.Checked = true;
-            }
-            else
-            {
-                radioButton5.Checked = true;
-            }
+            
 
             r.Close();
             r.Dispose();
@@ -179,23 +106,6 @@ namespace XShort
             r.Close();
             r.Dispose();
 
-
-            //never put this to top, must create form before check language!
-            r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-
-            if (r.GetValue("EN") != null)
-            {
-                radioButton1.Checked = true;
-                ChangeLang(true);
-            }
-            else
-            {
-                radioButton2.Checked = true;
-                ChangeLang(false);
-            }
-            r.Close();
-            r.Dispose();
-
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -203,50 +113,6 @@ namespace XShort
             this.Close();
         }
 
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (radioButton3.Checked)
-            {
-                r1.SetValue("Dark", true);
-                r1.DeleteValue("Light", false);
-                r1.DeleteValue("DaL", false);
-            }
-            r1.Close();
-            r1.Dispose();
-
-        }
-
-        private void radioButton4_CheckedChanged(object sender, EventArgs e)
-        {
-            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (radioButton4.Checked)
-            {
-                r1.SetValue("Light", true);
-                r1.DeleteValue("Dark", false);
-                r1.DeleteValue("DaL", false);
-            }
-
-            r1.Close();
-            r1.Dispose();
-
-        }
-
-        private void radioButton5_CheckedChanged(object sender, EventArgs e)
-        {
-            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (radioButton5.Checked)
-            {
-                r1.SetValue("DaL", true);
-                r1.DeleteValue("Dark", false);
-                r1.DeleteValue("Light", false);
-            }
-
-
-            r1.Close();
-            r1.Dispose();
-
-        }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -365,32 +231,6 @@ namespace XShort
 
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (radioButton1.Checked)
-            {
-                r1.SetValue("EN", true);
-                ChangeLang(true);
-            }
-
-            r1.Close();
-            r1.Dispose();
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (radioButton2.Checked)
-            {
-                r1.DeleteValue("EN", false);
-                ChangeLang(false);
-            }
-
-            r1.Close();
-            r1.Dispose();
-        }
-
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
             r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
@@ -435,22 +275,6 @@ namespace XShort
             else
             {
                 r1.DeleteValue("Detect", false);
-            }
-            r1.Close();
-            r1.Dispose();
-        }
-
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
-        {
-            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (checkBox6.Checked)
-            {
-                r1.SetValue("Indexing", true);
-
-            }
-            else
-            {
-                r1.DeleteValue("Indexing", false);
             }
             r1.Close();
             r1.Dispose();

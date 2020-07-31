@@ -2,11 +2,11 @@
 
 namespace XShort
 {
-    public partial class Form3 : Form
+    public partial class ProgressForm : Form
     {
         bool close = false;
         bool en = true;
-        public Form3(bool lan)
+        public ProgressForm(bool lan)
         {
             InitializeComponent();
             en = lan;

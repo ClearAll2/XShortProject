@@ -14,13 +14,12 @@ using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace XShort
 {
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         KeyboardHook hook = new KeyboardHook();
         List<String> sName = new List<String>();
@@ -32,8 +31,8 @@ namespace XShort
         ObservableCollection<String> startup = new ObservableCollection<string>();
         global::ModifierKeys gmk;
         Keys k;
-        Form2 f2;
-        Form3 f3;
+        RunForm f2;
+        ProgressForm f3;
         RegistryKey r;
         string old_Name = String.Empty;
         string old_Path = String.Empty;
@@ -46,29 +45,22 @@ namespace XShort
         bool en = true;
         bool exit = false;
         bool edit = false;
-        bool beta = false;
+        
         bool ggs = false;
-        bool indexing = false;
         bool dontload = false;
 
         bool detect = false;
         bool hide = false;
         bool cases = false;
         bool start = false;
-        bool dal = false;
         BackgroundWorker bw;
         BackgroundWorker bw2;
-        int newx, newy;
         int back;
 
         ImageList img;
         ImageList img2;
 
-        PerformanceCounter DiskCounter = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
-        PerformanceCounter CpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-
-
-        public Form1()
+        public MainForm()
         {
 
             InitializeComponent();
@@ -82,15 +74,12 @@ namespace XShort
             settingsToolStripMenuItem1.ImageIndex = 2;
             exportToolStripMenuItem1.ImageIndex = 13;
             importToolStripMenuItem1.ImageIndex = 12;
-            scanToolStripMenuItem.ImageIndex = 15;
-            logToolStripMenuItem1.ImageIndex = 16;
-            buildIndexToolStripMenuItem.ImageIndex = 17;
             reloadDataToolStripMenuItem.ImageIndex = 5;
             exitToolStripMenuItem2.ImageIndex = 6;
 
 
             bw = new BackgroundWorker();
-            bw.DoWork += Bw_DoWork;
+            //bw.DoWork += Bw_DoWork;
 
 
             bw2 = new BackgroundWorker();
@@ -105,12 +94,12 @@ namespace XShort
 
 
 
-            f3 = new Form3(en);
+            f3 = new ProgressForm(en);
 
             if (en == true)
-                f2 = new Form2(1);
+                f2 = new RunForm(1);
             else
-                f2 = new Form2(0);
+                f2 = new RunForm(0);
 
             loadSettings();
 
@@ -120,11 +109,10 @@ namespace XShort
 
             for (int i = 0; i < listView1.Columns.Count; i++)
                 listView1.Columns[i].Width = listView1.Width / listView1.Columns.Count;
-            for (int i = 0; i < listView2.Columns.Count; i++)
-                listView2.Columns[i].Width = listView2.Width / listView2.Columns.Count;
+            
 
             //this.Text += " Beta Test - build " + this.AssemblyDescription;
-            buttonData_Click();
+            //buttonData_Click();
 
 
         }
@@ -171,241 +159,6 @@ namespace XShort
 
             //file is not locked
             return false;
-        }
-
-        private void AutoIndexService_DoWork(object sender, DoWorkEventArgs e)
-        {
-            if (File.Exists(dataPath + "\\temp.txt"))
-            {
-                if (File.GetLastWriteTime(dataPath + "\\temp.txt").Date == DateTime.Now.Date)
-                {
-                    labelAutoIndex.Text = "Completed";
-                    return;
-                }
-            }
-            while (indexing != true)
-            {
-                Thread.Sleep(1000);
-                if (exit)
-                    return;
-            }
-            File.WriteAllText(dataPath + "\\temp1", String.Empty);
-            File.WriteAllText(dataPath + "\\temp2", String.Empty);
-            DriveInfo[] allDrives = DriveInfo.GetDrives();
-            foreach (DriveInfo d in allDrives)
-            {
-                //fileSmartSearch(d.Name);
-                //folderSmartSearch(d.Name);
-                SmartSearchFileAndFolder(d.Name);//new smart search
-                if (exit)
-                    return;
-
-            }
-            while (IsFileLocked(new FileInfo(dataPath + "\\indexFol"))) ;
-            File.Replace(dataPath + "\\temp1", dataPath + "\\indexFol", null);
-            while (IsFileLocked(new FileInfo(dataPath + "\\indexFil"))) ;
-            File.Replace(dataPath + "\\temp2", dataPath + "\\indexFil", null);
-
-            File.WriteAllText(dataPath + "\\temp.txt", String.Empty);
-            labelAutoIndex.Text = "Completed";
-
-            //goto begin;
-        }
-
-
-        private void SmartSearchFileAndFolder(string dir)
-        {
-            bool isReady = false;
-            try
-            {
-                DirectoryInfo di = new DirectoryInfo(dir);
-                DirectoryInfo[] dir1 = di.GetDirectories("*" + "*.*");
-                string alldir = String.Empty;
-                for (int i = 0; i < dir1.Count(); i++)
-                {
-                    alldir += dir1[i].FullName + Environment.NewLine;
-
-                }
-                File.AppendAllText(dataPath + "\\temp1", alldir);
-
-                FileInfo[] files = di.GetFiles("*" + "*.*");
-                string allfiles = String.Empty;
-                for (int i = 0; i < files.Count(); i++)
-                {
-                    allfiles += files[i].FullName + Environment.NewLine;
-                }
-                File.AppendAllText(dataPath + "\\temp2", allfiles);
-
-                DirectoryInfo[] dirs = di.GetDirectories();
-                if (dirs == null || dirs.Length < 1)
-                    return;
-                foreach (DirectoryInfo sdir in dirs)
-                {
-                    labelAutoIndex.Text = sdir.FullName;
-                    SmartSearchFileAndFolder(sdir.FullName);
-
-                    while (indexing != true || isReady != true || GetIdleTime() <= 10000)
-                    {
-                        if (!indexing)
-                            labelAutoIndex.Text = "Off";
-                        else
-                        {
-                            if (GetIdleTime() <= 10000)
-                                labelAutoIndex.Text = "Resume in " + (10000 - GetIdleTime()) / 1000 + "s";
-                            else
-                            {
-                                float disk = DiskCounter.NextValue();
-                                float cpu = CpuCounter.NextValue();
-                                if (cpu > 50 || disk >= 100)
-                                {
-                                    isReady = false;
-                                    labelAutoIndex.Text = "Waiting for better condition...";
-                                }
-                                else
-                                {
-                                    isReady = true;
-                                }
-                            }
-                        }
-                        Thread.Sleep(1000);
-                        if (exit)
-                            return;
-                    }
-                    Thread.Sleep(0);
-
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        private void folderSmartSearch(string dir)
-        {
-            try
-            {
-                DirectoryInfo di = new DirectoryInfo(dir);
-                DirectoryInfo[] dir1 = di.GetDirectories("*" + "*.*");
-                string alldir = String.Empty;
-                for (int i = 0; i < dir1.Count(); i++)
-                {
-                    alldir += dir1[i].FullName + Environment.NewLine;
-
-                }
-                File.AppendAllText(dataPath + "\\temp1", alldir);
-
-                DirectoryInfo[] dirs = di.GetDirectories();
-                if (dirs == null || dirs.Length < 1)
-                    return;
-                foreach (DirectoryInfo sdir in dirs)
-                {
-                    folderSmartSearch(sdir.FullName);
-                    while (!indexing)
-                    {
-                        labelAutoIndex.Text = "Off";
-                        Thread.Sleep(1000);
-                        if (exit)
-                            return;
-                    }
-
-                loop:
-
-                    float disk = DiskCounter.NextValue();
-                    float cpu = CpuCounter.NextValue();
-                    if (GetIdleTime() > 10000)
-                    {
-                        if (cpu > 50 || disk >= 100)
-                        {
-                            Thread.Sleep(1000);
-                            if (exit)
-                                return;
-                            goto loop;
-                        }
-                        Thread.Sleep(0);
-                    }
-                    else
-                    {
-                        if (cpu > 25 || disk >= 50)
-                        {
-                            Thread.Sleep(1000);
-                            if (exit)
-                                return;
-                            goto loop;
-                        }
-                        Thread.Sleep(200);
-                    }
-                    labelAutoIndex.Text = sdir.FullName;
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        private void fileSmartSearch(string dir)
-        {
-            try
-            {
-                DirectoryInfo di = new DirectoryInfo(dir);
-                FileInfo[] files = di.GetFiles("*" + "*.*");
-                string allfiles = String.Empty;
-                for (int i = 0; i < files.Count(); i++)
-                {
-
-                    allfiles += files[i].FullName + Environment.NewLine;
-                }
-                File.AppendAllText(dataPath + "\\temp2", allfiles);
-                //Scan recursively
-                DirectoryInfo[] dirs = di.GetDirectories();
-                if (dirs == null || dirs.Length < 1)
-                    return;
-                foreach (DirectoryInfo sdir in dirs)
-                {
-                    fileSmartSearch(sdir.FullName);
-                    while (!indexing)
-                    {
-                        labelAutoIndex.Text = "Off";
-                        Thread.Sleep(1000);
-                        if (exit)
-                            return;
-                    }
-
-                loop:
-
-                    float disk = DiskCounter.NextValue();
-                    float cpu = CpuCounter.NextValue();
-                    if (GetIdleTime() > 10000)
-                    {
-                        if (cpu > 50 || disk >= 100)
-                        {
-                            Thread.Sleep(1000);
-                            if (exit)
-                                return;
-                            goto loop;
-                        }
-                        Thread.Sleep(0);
-                    }
-                    else
-                    {
-                        if (cpu > 25 || disk >= 50)
-                        {
-                            Thread.Sleep(1000);
-                            if (exit)
-                                return;
-                            goto loop;
-                        }
-                        Thread.Sleep(200);
-                    }
-
-                    labelAutoIndex.Text = sdir.FullName;
-                }
-            }
-            catch
-            {
-                return;
-            }
         }
 
         private void loadSettings()
@@ -483,16 +236,7 @@ namespace XShort
             }
             else
                 detect = false;
-            if (r.GetValue("Indexing") != null)
-            {
-                indexing = true;
-                //labelAutoIndex.Text = "Running";
-            }
-            else
-            {
-                indexing = false;
-                labelAutoIndex.Text = "Off";
-            }
+            
             if (r.GetValue("DontLoad") != null)
             {
                 dontload = true;
@@ -514,31 +258,7 @@ namespace XShort
                 appToolStripMenuItem.Enabled = true;
             }
 
-            if (r.GetValue("Beta") != null)
-            {
-                beta = true;
-
-            }
-            else
-                beta = false;
-
-            dal = false;
-            if (r.GetValue("Dark") != null)
-            {
-                ///radioButton3.Checked = true;
-
-                changeSkin(true);
-            }
-            else if (r.GetValue("Light") != null)
-            {
-                changeSkin(false);
-            }
-            else if (r.GetValue("DaL") != null)
-            {
-                dal = true;
-            }
-
-
+           
             r.Close();
             r.Dispose();
 
@@ -558,20 +278,20 @@ namespace XShort
 
 
             //never put this to top, must create form before check language!
-            r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            //r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
 
-            if (r.GetValue("EN") != null)
-            {
-                en = true;
-                changeLanguages();
-            }
-            else
-            {
-                en = false;
-                changeLanguages();
-            }
-            r.Close();
-            r.Dispose();
+            //if (r.GetValue("EN") != null)
+            //{
+            //    en = true;
+            //    changeLanguages();
+            //}
+            //else
+            //{
+            //    en = false;
+            //    changeLanguages();
+            //}
+            //r.Close();
+            //r.Dispose();
 
             if (f2 != null && f2.IsDisposed != true)
             {
@@ -604,16 +324,8 @@ namespace XShort
             else
             {
                 button2_Click_2(null, null);
-                comboBox3.SelectedIndex = 2;
-                buttonScan_Click(null, null);
 
             }
-
-
-            BackgroundWorker autoIndexService = new BackgroundWorker();
-            autoIndexService.DoWork += AutoIndexService_DoWork;
-            autoIndexService.RunWorkerAsync();
-
         }
 
         private string GetProductVersion(string s)
@@ -649,34 +361,7 @@ namespace XShort
                 //return;
             }
             wc.Dispose();
-            while (true)
-            {
-                if (dal)
-                {
-                    if (DateTime.Now.Hour >= 18 || DateTime.Now.Hour <= 6)
-                    {
-                        if (this.BackColor == Color.White)
-                            changeSkin(true);
-                        //make sure for form 2
-                        if (f2 != null && f2.IsDisposed != true)
-                        {
-                            if (f2.BackColor == Color.White)
-                                f2.changeSkin(true);
-                        }
-                    }
-                    else
-                    {
-                        if (this.BackColor != Color.White)
-                            changeSkin(false);
-                        if (f2 != null && f2.IsDisposed != true)
-                        {
-                            if (f2.BackColor != Color.White)
-                                f2.changeSkin(false);
-                        }
-                    }
-                }
-                Thread.Sleep(1000);
-            }
+            
         }
 
         public string AssemblyDescription
@@ -690,47 +375,6 @@ namespace XShort
                 }
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
-        }
-
-        //download beta test
-        private void Bw3_DoWork(object sender, DoWorkEventArgs e)
-        {
-            string latest_build = this.AssemblyDescription;
-            string ver = "https://download-cas.000webhostapp.com/download/beta.txt";
-            WebClient wc = new WebClient();
-            try
-            {
-                string sver = wc.DownloadString(ver);
-                int isLatest = latest_build.CompareTo(sver);
-                if (isLatest < 0) //if current of build is less than latest build
-                {
-                    if (en)
-                    {
-                        if (MessageBox.Show("New build " + sver + " is available. Would you like to download now? ", "Beta Test Program", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            //Process.Start("https://clearallsoft.cf/get/xshort_beta_get");
-                            Process.Start(Application.StartupPath + "\\XShort Updater.exe", Application.ExecutablePath);
-                            exitToolStripMenuItem1_Click(null, null);
-                        }
-                    }
-                    else
-                    {
-                        if (MessageBox.Show("Bản thử mới " + sver + " đã có. Bạn có muốn tải ngay không?", "Beta Test Program", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            //Process.Start("https://clearallsoft.cf/get/xshort_beta_get");
-                            Process.Start(Application.StartupPath + "\\XShort Updater.exe", Application.ExecutablePath);
-                            exitToolStripMenuItem1_Click(null, null);
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                wc.Dispose();
-                return;
-
-            }
-            wc.Dispose();
         }
 
 
@@ -937,20 +581,6 @@ namespace XShort
                         exit = true;
                         exitToolStripMenuItem1_Click(null, null);
                     }
-                }
-            }
-            else
-            {
-                if (!beta)
-                {
-                    wc.Dispose();
-                    return;
-                }
-                else
-                {
-                    BackgroundWorker bw3 = new BackgroundWorker();
-                    bw3.DoWork += Bw3_DoWork;
-                    bw3.RunWorkerAsync();
                 }
             }
             wc.Dispose();
@@ -1478,7 +1108,6 @@ namespace XShort
                     }
                     history.Add("[" + DateTime.Now + "] " + "You add an item name " + textBoxName.Text + ", path: " + textBoxPath.Text + ", para: " + textBoxPara.Text);
                     panel2.Hide();
-                    panel1.Hide();
                     for (int i = 0; i < listView1.Items.Count; i++)
                     {
                         if (listView1.Items[i].SubItems[0].Text == textBoxName.Text)
@@ -1532,7 +1161,6 @@ namespace XShort
                     else
                         listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, "http://" + textBoxPath.Text, textBoxPara.Text }));
                     panel2.Hide();
-                    panel1.Hide();
                     for (int i = 0; i < listView1.Items.Count; i++)
                     {
                         if (listView1.Items[i].SubItems[0].Text == textBoxName.Text)
@@ -1565,7 +1193,6 @@ namespace XShort
             if (edit)
             {
                 panel2.Hide();
-                panel1.Hide();
                 edit = false;
             }
 
@@ -1574,7 +1201,6 @@ namespace XShort
         private void button12_Click(object sender, EventArgs e)
         {
             panel2.Hide();
-            panel1.Hide();
             edit = false;
         }
 
@@ -1617,47 +1243,38 @@ namespace XShort
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (panel1.Visible != true)
-            {
-                edit = false;
-                comboBox1.SelectedIndex = 0;
-                panel1.Show();
-                panel2.Show();
-                textBoxName.Focus();
-                textBoxName.Text = String.Empty;
-                textBoxPath.Text = String.Empty;
-                textBoxPara.Text = String.Empty;
-            }
+            
+            edit = false;
+            comboBox1.SelectedIndex = 0;
+            panel2.Show();
+            textBoxName.Focus();
+            textBoxName.Text = String.Empty;
+            textBoxPath.Text = String.Empty;
+            textBoxPara.Text = String.Empty;
+            
         }
 
         private void addDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (/*panelSetting.Visible != true && */panel1.Visible != true)
-            {
-                edit = false;
-                comboBox1.SelectedIndex = 1;
-                panel1.Show();
-                panel2.Show();
-                textBoxName.Focus();
-                textBoxName.Text = String.Empty;
-                textBoxPath.Text = String.Empty;
+          
+            edit = false;
+            comboBox1.SelectedIndex = 1;
+            panel2.Show();
+            textBoxName.Focus();
+            textBoxName.Text = String.Empty;
+            textBoxPath.Text = String.Empty;
 
-            }
+            
         }
 
         private void addURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (panel1.Visible != true)
-            {
-                edit = false;
-                comboBox1.SelectedIndex = 2;
-                panel1.Show();
-                panel2.Show();
-                textBoxName.Focus();
-                textBoxName.Text = String.Empty;
-                textBoxPath.Text = "http://";
-            }
-
+            edit = false;
+            comboBox1.SelectedIndex = 2;
+            panel2.Show();
+            textBoxName.Focus();
+            textBoxName.Text = String.Empty;
+            textBoxPath.Text = "http://";
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1723,13 +1340,6 @@ namespace XShort
                     }
                 }
             }
-        }
-
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            panel1.Hide();
-
         }
 
 
@@ -1874,9 +1484,9 @@ namespace XShort
         {
             this.Hide();
             if (en == true)
-                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.None);
             else
-                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort đang chạy ẩn\nNhấn " + gmk.ToString() + " + " + k.ToString() + " để mở hộp thoại run", ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort đang chạy ẩn\nNhấn " + gmk.ToString() + " + " + k.ToString() + " để mở hộp thoại run", ToolTipIcon.None);
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1981,9 +1591,9 @@ namespace XShort
             else
             {
                 if (en == true)
-                    f2 = new Form2(1);
+                    f2 = new RunForm(1);
                 else
-                    f2 = new Form2(0);
+                    f2 = new RunForm(0);
                 f2.Show();
                 f2.Activate();
             }
@@ -2022,218 +1632,6 @@ namespace XShort
                 runBoxToolStripMenuItem_Click(null, null);
         }
 
-
-
-        private void changeLanguages()
-        {
-            f3.changeLanguge(en);
-            if (en == false)
-            {
-                if (f2 != null && f2.IsDisposed != true)
-                {
-                    f2.changeLanguages(0);
-                }
-
-
-
-                buttonScan.Text = "Quét";
-                button2.Text = "Hủy";
-                button9.Text = "Thêm";
-
-                //label5.Text = "Tên mở rộng:";
-                comboBox3.Items[0] = "Tên mở rộng";
-                comboBox3.Items[1] = "Tên tập tin";
-                comboBox3.Items[2] = "Chương trình";
-                label6.Text = "Thư mục quét:";
-                label7.Text = "(exe, mp3,..., * cho tất cả)";
-
-                buttonAddApp.Text = "Thêm App/File";
-                buttonAddDir.Text = "Thêm đường dẫn";
-                buttonAddURL.Text = "Thêm địa chỉ";
-                buttonSave.Text = "Lưu lối tắt";
-                buttonDeleteLog.Text = "Xóa ghi chép";
-
-
-                //groupBox3.Text = "Nền";
-                //radioButton3.Text = "Tối";
-                //radioButton4.Text = "Sáng";
-                //radioButton5.Text = "Tự động";
-
-
-                labelShortcutType.Text = "Loại";
-                labelName.Text = "Tên gọi";
-                labelPath.Text = "Đường dẫn";
-                labelPara.Text = "Tham số";
-                button12.Text = "Hủy";
-
-
-                listView1.Columns[0].Text = "Tên gọi";
-                listView1.Columns[1].Text = "Đường dẫn";
-                listView1.Columns[2].Text = "Tham số";
-
-                listView2.Columns[0].Text = "Tên";
-                listView2.Columns[1].Text = "Đường dẫn";
-                listView2.Columns[2].Text = "Đuôi mở rộng";
-
-                //button1.Text = "Trang chủ";
-                button4.Text = "Quay lại";
-
-                //button14.Text = "Áp dụng";
-                //button15.Text = "Hủy";
-                //labelHotKeyConfig.Text = "Tùy chỉnh phím tắt XShort Run";
-                //linkLabel1.Text = "Nâng cao>>";
-
-                //groupBox1.Text = "Cài đặt chung";
-                //checkBox1.Text = "Khởi động cùng Windows";
-                //checkBox2.Text = "Ẩn hộp thoại này khi khởi động";
-                //checkBox3.Text = "Tự động tìm trên mạng nếu không tìm thấy";
-                //checkBox4.Text = "Phân biệt hoa thường";
-                //checkBox5.Text = "Ẩn biểu tượng khay";
-                //checkBox6.Text = "Chọn hết";
-                //checkBox7.Text = "Tự động phát hiện lối tắt không hoạt động";
-
-                //groupBox2.Text = "Ngôn ngữ";
-                //radioButton1.Text = "Tiếng Anh";
-                //radioButton2.Text = "Tiếng Việt";
-                openFileLocationToolStripMenuItem1.Text = "Mở thư mục chứa";
-
-                openToolStripMenuItem.Text = "Mở";
-                openFileLocationToolStripMenuItem.Text = "Mở thư mục chứa";
-                propertyToolStripMenuItem.Text = "Thông tin tập tin";
-
-                addToolStripMenuItem1.Text = "Xoá";
-                detailsToolStripMenuItem.Text = "Chỉnh sửa";
-                propertiesToolStripMenuItem.Text = "Thông tin chi tiết";
-                openToolStripMenuItem1.Text = "Mở";
-                openAsAdministratorToolStripMenuItem.Text = "Mở dưới quyền người quản trị";
-                checkValidPathToolStripMenuItem.Text = "Kiểm tra đường dẫn";
-                createShortcutOnDesktopToolStripMenuItem.Text = "Tạo lối tắt ngoài Desktop";
-                cloneToolStripMenuItem.Text = "Tạo bản sao lối tắt";
-                openAtWindowsStartupToolStripMenuItem.Text = "Mở cùng Windows";
-
-                aboutToolStripMenuItem.Text = "Giới thiệu";
-                mainWindowToolStripMenuItem.Text = "Cửa sổ chính";
-                runBoxToolStripMenuItem.Text = "Cửa sổ chạy";
-                settingsToolStripMenuItem.Text = "Cài Đặt";
-                exitToolStripMenuItem1.Text = "Thoát";
-
-                undoToolStripMenuItem.Text = "Hoàn tác";
-
-                notifyIcon1.Text = "Nhấn Alt + A hoặc bấm vào để mở";
-                //toolStripTextBox1.ToolTipText = "Điền địa chỉ sau đó bấm enter để thêm";
-
-                openToolStripMenuItem.Text = "Mở";
-                propertyToolStripMenuItem.Text = "Thông tin chi tiết";
-
-                //tabPage1.Text = "Có gì mới";
-                //tabPage2.Text = "Phím tắt";
-
-            }
-            else
-            {
-
-                if (f2 != null && f2.IsDisposed != true)
-                {
-                    f2.changeLanguages(1);
-                }
-
-                buttonScan.Text = "Scan";
-                button2.Text = "Cancel";
-                button9.Text = "Add";
-
-                //label5.Text = "File Extension:";
-                comboBox3.Items[0] = "File Extension";
-                comboBox3.Items[1] = "File Name";
-                comboBox3.Items[2] = "Programs";
-                label6.Text = "Scan Folder:";
-                label7.Text = "(exe, mp3,..., * for all)";
-
-
-                buttonAddApp.Text = "Add App/File";
-                buttonAddDir.Text = "Add Directory";
-                buttonAddURL.Text = "Add URL";
-                buttonSave.Text = "Save shortcuts";
-                buttonDeleteLog.Text = "Delete log";
-                openFileLocationToolStripMenuItem1.Text = "Open file location";
-
-                //groupBox3.Text = "Skin";
-                //radioButton3.Text = "Dark";
-                //radioButton4.Text = "Light";
-                //radioButton5.Text = "Auto";
-
-                labelShortcutType.Text = "Shortcut Type";
-                labelName.Text = "Call name";
-                labelPath.Text = "Path";
-                labelPara.Text = "Parameter";
-                button12.Text = "Cancel";
-
-
-                listView1.Columns[0].Text = "Call name";
-                listView1.Columns[1].Text = "Path";
-                listView1.Columns[2].Text = "Parameters";
-
-                listView2.Columns[0].Text = "Name";
-                listView2.Columns[1].Text = "Path";
-                listView2.Columns[2].Text = "Extension";
-
-                //button1.Text = "Homepage";
-                button4.Text = "Back";
-
-                //button14.Text = "Apply";
-                //button15.Text = "Canel";
-                //labelHotKeyConfig.Text = "XShort Run Hotkey Configuration";
-                //linkLabel1.Text = "Advanced>>";
-
-                //groupBox1.Text = "General";
-                //checkBox1.Text = "Run at Windows startup";
-                //checkBox2.Text = "Hide this dialog box at startup";
-                //checkBox3.Text = "Automatically search internet if no data";
-                //checkBox4.Text = "Case-sensitive";
-                //checkBox5.Text = "Hide tray icon";
-                //checkBox6.Text = "Select all";
-                //checkBox7.Text = "Automatically detect invalid shortcuts";
-                //openAtWindowsStartupToolStripMenuItem.Text = "Open at Windows startup";
-
-                //groupBox2.Text = "Languages";
-                //radioButton1.Text = "English";
-                //radioButton2.Text = "Vietnamese";
-
-                openToolStripMenuItem.Text = "Open";
-                propertyToolStripMenuItem.Text = "Properties";
-
-
-                addToolStripMenuItem1.Text = "Remove";
-                detailsToolStripMenuItem.Text = "Edit";
-                propertiesToolStripMenuItem.Text = "Properties";
-                openToolStripMenuItem1.Text = "Open";
-                openAsAdministratorToolStripMenuItem.Text = "Open as administrator";
-
-                checkValidPathToolStripMenuItem.Text = "Check valid path";
-                createShortcutOnDesktopToolStripMenuItem.Text = "Create shortcut on Desktop";
-                cloneToolStripMenuItem.Text = "Clone shortcut";
-                openAtWindowsStartupToolStripMenuItem.Text = "Open at Windows startup";
-
-                aboutToolStripMenuItem.Text = "About";
-                mainWindowToolStripMenuItem.Text = "Main Window";
-                runBoxToolStripMenuItem.Text = "Run Box";
-                settingsToolStripMenuItem.Text = "Settings";
-                exitToolStripMenuItem1.Text = "Exit";
-
-                undoToolStripMenuItem.Text = "Undo";
-
-                notifyIcon1.Text = "Press Alt + A or click to run";
-                //toolStripTextBox1.ToolTipText = "Type your url here then enter to add";
-
-                openToolStripMenuItem.Text = "Open";
-                openFileLocationToolStripMenuItem.Text = "Open file location";
-                propertyToolStripMenuItem.Text = "Properties";
-
-                //tabPage1.Text = "Changelog";
-                //tabPage2.Text = "Hotkeys";
-            }
-
-
-        }
 
         private int sortColumn = -1;
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -2376,13 +1774,11 @@ namespace XShort
 
         private void buttonData_Click()
         {
-            if (panel1.Visible || buttonScan.Visible)
-            {
+           
                 if (en)
                 {
                     if (MessageBox.Show("You are editing something, you want to quit?", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        panel1.Hide();
                         panel2.Hide();
                     }
                     else
@@ -2392,127 +1788,17 @@ namespace XShort
                 {
                     if (MessageBox.Show("Bạn đang chỉnh sửa một cái gì đó, bạn có chắc muốn dừng việc đó?", "Chắc chưa?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        panel1.Hide();
                         panel2.Hide();
                     }
                     else
                         return;
                 }
-            }
-
-            panelScan.Hide();
-
-
-
+            
 
         }
 
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-            WindowState = FormWindowState.Minimized;
-
-        }
-
-        private void panelControl_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                newx = e.X;
-                newy = e.Y;
-            }
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            exit = true;
-            f3.closeForm();
-            Application.Exit();
-        }
-
-
-
-
-
-
-
-        private void changeSkin(bool dark)
-        {
-            if (f2 != null && f2.IsDisposed != true)
-            {
-                f2.changeSkin(dark);
-            }
-            if (!dark)
-            {
-
-
-                this.BackColor = Color.White;
-                //panelControl.BackColor = this.BackColor;
-                listBox1.BackColor = Color.White;
-                listBox1.ForeColor = Color.Black;
-                listView1.BackColor = Color.White;
-                listView1.ForeColor = Color.Black;
-
-                listView2.BackColor = Color.White;
-                listView2.ForeColor = Color.Black;
-
-                checkBox6.ForeColor = Color.Black;
-
-                labelShortcutType.ForeColor = Color.Black;
-                labelName.ForeColor = Color.Black;
-                labelPath.ForeColor = Color.Black;
-                labelPara.ForeColor = Color.Black;
-
-
-                buttonAddApp.ForeColor = Color.Black;
-                buttonAddDir.ForeColor = Color.Black;
-                buttonAddURL.ForeColor = Color.Black;
-                buttonSave.ForeColor = Color.Black;
-
-
-
-                label2.ForeColor = Color.Black;
-
-
-                label6.ForeColor = Color.Black;
-
-            }
-            else
-            {
-
-
-
-                this.BackColor = Color.FromArgb(28, 28, 28);
-                //panelControl.BackColor = this.BackColor;
-                listBox1.BackColor = Color.FromArgb(28, 28, 28);
-                listBox1.ForeColor = Color.White;
-                listView1.BackColor = Color.FromArgb(28, 28, 28);
-                listView1.ForeColor = Color.White;
-                listView2.BackColor = Color.FromArgb(28, 28, 28);
-                listView2.ForeColor = Color.White;
-
-
-                labelShortcutType.ForeColor = Color.White;
-                labelName.ForeColor = Color.White;
-                labelPath.ForeColor = Color.White;
-                labelPara.ForeColor = Color.White;
-
-                buttonAddApp.ForeColor = Color.White;
-                buttonAddDir.ForeColor = Color.White;
-                buttonAddURL.ForeColor = Color.White;
-                buttonSave.ForeColor = Color.White;
-
-                checkBox6.ForeColor = Color.White;
-
-                label2.ForeColor = Color.FromArgb(255, 255, 128);
-
-                //label5.ForeColor = Color.White;
-                label6.ForeColor = Color.White;
-
-            }
-
-        }
+   
 
         private void CreateShortcut(string name, string path, string para)
         {
@@ -2540,17 +1826,6 @@ namespace XShort
             history.Add("[" + DateTime.Now + "]" + " You create a shortcut on desktop name " + listView1.FocusedItem.SubItems[0].Text + ", path: " + listView1.FocusedItem.SubItems[1].Text + ", para: " + listView1.FocusedItem.SubItems[2].Text);
         }
 
-        private void listView1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                removeToolStripMenuItem_Click(null, null);
-            }
-            if (e.KeyCode == Keys.Enter)
-            {
-                openToolStripMenuItem1_Click(null, null);
-            }
-        }
 
         private void cloneToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2798,414 +2073,17 @@ namespace XShort
             }
         }
 
-        private void buttonFileSearch_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog fd = new FolderBrowserDialog();
-            fd.RootFolder = Environment.SpecialFolder.Desktop;
-            fd.ShowNewFolderButton = false;
-            if (fd.ShowDialog() == DialogResult.OK)
-            {
-                textBox4.Text = fd.SelectedPath;
-            }
-            fd.Dispose();
-        }
-
+       
         private void button2_Click_2(object sender, EventArgs e)
         {
-            comboBox3.SelectedIndex = 0;
-
-            panel1.Show();
+           
             panel2.Show();
 
-            panelScan.Show();
 
         }
 
 
-        private void buttonScan_Click(object sender, EventArgs e)
-        {
-            listView2.Items.Clear();
-            //sea.Clear();
-
-            img2.Images.Clear();
-            img2.Dispose();
-            img2 = new ImageList();
-            img2.ColorDepth = ColorDepth.Depth32Bit;
-            img2.ImageSize = new Size(25, 25);
-            listView2.SmallImageList = img2;
-            if (textBox4.Text == String.Empty && comboBox3.SelectedIndex != 2)
-            {
-                if (en)
-                    MessageBox.Show("Scan folder is empty?!", "Empty", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show("Thư mục để quét trống?!", "Trống", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else
-            {
-                if (textBox3.Text == String.Empty)
-                {
-                    textBox3.Text = "*";
-                }
-
-                f3.TopMost = false;
-                f3.changeDisplay(5);
-                f3.Show();
-
-
-
-
-                //button8.Enabled = false;
-                //button7.Enabled = false;
-
-                BackgroundWorker bwt = new BackgroundWorker();
-                bwt.DoWork += Bwt_DoWork1;
-                bwt.RunWorkerAsync();
-
-
-
-            }
-        }
-
-
-
-        private void Bwt_DoWork1(object sender, DoWorkEventArgs e)
-        {
-            if (comboBox3.SelectedIndex == 0)
-            {
-                foreach (string f in Directory.GetFiles(textBox4.Text, "*." + textBox3.Text)) //search its file before search subdir
-                {
-                    listView2.Items.Add(new ListViewItem(new string[] { f.Substring(f.LastIndexOf("\\") + 1), f, Path.GetExtension(f) }));
-                    img2.Images.Add(Icon.ExtractAssociatedIcon(f));
-                    label8.Text = "Found " + listView2.Items.Count + " items";
-                }
-
-                fileSearch(textBox4.Text);
-            }
-            else if (comboBox3.SelectedIndex == 1)
-            {
-                DirectoryInfo info = new DirectoryInfo(textBox4.Text);
-                FileInfo[] sfile = info.GetFiles("*" + textBox3.Text + "*.*");
-                for (int j = 0; j < sfile.Count(); j++)
-                {
-                    //sea.Add(sfile[j]);
-                    string fullname = sfile[j].FullName;
-                    listView2.Items.Add(new ListViewItem(new string[] { fullname.Substring(fullname.LastIndexOf("\\") + 1), fullname, Path.GetExtension(fullname) }));
-                    img2.Images.Add(Icon.ExtractAssociatedIcon(fullname));
-                    label8.Text = "Found " + listView2.Items.Count + " items";
-
-                }
-
-                nameSearch(textBox4.Text);
-            }
-            else
-            {
-                GetPathForExe32();
-                getInstalledApps32();
-                getInstalledApps32Current();
-                getInstalledApps64();
-            }
-
-            for (int i = 0; i < listView2.Items.Count; i++)
-            {
-                listView2.Items[i].ImageIndex = i;
-            }
-            f3.Show();
-            f3.Hide();
-
-
-
-            //button8.Enabled = true;
-            //button7.Enabled = true;
-
-
-            label8.Text = "Found " + listView2.Items.Count + " items";
-
-
-        }
-
-        private bool isInList(string path)
-        {
-            for (int i = 0; i < listView2.Items.Count; i++)
-            {
-                if (listView2.Items[i].SubItems[1].Text == path)
-                    return true;
-            }
-            return false;
-        }
-
-        private void GetPathForExe32()
-        {
-            const string keyBase = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths";
-            using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(keyBase))
-            {
-                foreach (string skName in rk.GetSubKeyNames())
-                {
-                    using (RegistryKey sk = rk.OpenSubKey(skName))
-                    {
-                        try
-                        {
-                            string apath = sk.GetValue(null).ToString();
-                            if (!isInList(apath))
-                            {
-                                listView2.Items.Add(new ListViewItem(new string[] { apath.Substring(apath.LastIndexOf("\\") + 1), apath, Path.GetExtension(apath) }));
-                                img2.Images.Add(Icon.ExtractAssociatedIcon(apath));
-                            }
-                        }
-                        catch { }
-                    }
-                }
-            }
-
-        }
-
-        private void getInstalledApps32()
-        {
-            string uninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(uninstallKey))
-            {
-                foreach (string skName in rk.GetSubKeyNames())
-                {
-                    using (RegistryKey sk = rk.OpenSubKey(skName))
-                    {
-                        try
-                        {
-
-                            var displayName = sk.GetValue("DisplayName");
-                            var displayIcon = sk.GetValue("DisplayIcon");
-
-                            ListViewItem item;
-                            if (displayName != null)
-                            {
-                                if (displayIcon != null)
-                                {
-                                    if (!isInList(displayIcon.ToString()))
-                                    {
-                                        item = new ListViewItem(new string[] { displayName.ToString(), displayIcon.ToString(), Path.GetExtension(displayIcon.ToString()) });
-                                        img2.Images.Add(Icon.ExtractAssociatedIcon(displayIcon.ToString()));
-                                        listView2.Items.Add(item);
-                                    }
-                                }
-
-
-                            }
-                        }
-                        catch
-                        { }
-                    }
-                }
-
-            }
-        }
-
-        private void getInstalledApps64()
-        {
-            string uninstallKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
-            using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(uninstallKey))
-            {
-                foreach (string skName in rk.GetSubKeyNames())
-                {
-                    using (RegistryKey sk = rk.OpenSubKey(skName))
-                    {
-                        try
-                        {
-
-                            var displayName = sk.GetValue("DisplayName");
-                            var displayIcon = sk.GetValue("DisplayIcon");
-
-                            ListViewItem item;
-                            if (displayName != null)
-                            {
-                                if (displayIcon != null)
-                                {
-                                    if (!isInList(displayIcon.ToString()))
-                                    {
-                                        item = new ListViewItem(new string[] { displayName.ToString(), displayIcon.ToString(), Path.GetExtension(displayIcon.ToString()) });
-                                        img2.Images.Add(Icon.ExtractAssociatedIcon(displayIcon.ToString()));
-                                        listView2.Items.Add(item);
-                                    }
-                                }
-
-                            }
-                        }
-                        catch
-                        { }
-                    }
-                }
-
-            }
-        }
-
-        private void getInstalledApps32Current()
-        {
-            string uninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            using (RegistryKey rk = Registry.CurrentUser.OpenSubKey(uninstallKey))
-            {
-                foreach (string skName in rk.GetSubKeyNames())
-                {
-                    using (RegistryKey sk = rk.OpenSubKey(skName))
-                    {
-                        try
-                        {
-
-                            var displayName = sk.GetValue("DisplayName");
-                            var displayIcon = sk.GetValue("DisplayIcon");
-
-                            ListViewItem item;
-                            if (displayName != null)
-                            {
-                                if (displayIcon != null)
-                                {
-                                    if (!isInList(displayIcon.ToString()))
-                                    {
-                                        item = new ListViewItem(new string[] { displayName.ToString(), displayIcon.ToString(), Path.GetExtension(displayIcon.ToString()) });
-                                        img2.Images.Add(Icon.ExtractAssociatedIcon(displayIcon.ToString()));
-                                        listView2.Items.Add(item);
-                                    }
-                                }
-
-                            }
-                        }
-                        catch
-                        { }
-                    }
-                }
-
-            }
-        }
-
-        void nameSearch(string dir)
-        {
-            try
-            {
-                string[] sdir = Directory.GetDirectories(dir);
-                for (int i = 0; i < sdir.Count(); i++)
-                {
-                    DirectoryInfo info = new DirectoryInfo(sdir[i]);
-                    FileInfo[] sfile = info.GetFiles("*" + textBox3.Text + "*.*");
-                    for (int j = 0; j < sfile.Count(); j++)
-                    {
-                        //sea.Add(sfile[j]);
-                        string fullname = sfile[j].FullName;
-                        listView2.Items.Add(new ListViewItem(new string[] { fullname.Substring(fullname.LastIndexOf("\\") + 1), fullname, Path.GetExtension(fullname) }));
-                        img2.Images.Add(Icon.ExtractAssociatedIcon(fullname));
-                        label8.Text = "Found " + listView2.Items.Count + " items";
-
-                    }
-                    nameSearch(sdir[i]);
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        void fileSearch(string dir)
-        {
-            try
-            {
-                string[] sdir = Directory.GetDirectories(dir);
-                for (int i = 0; i < sdir.Count(); i++)
-                {
-                    string[] sfile = Directory.GetFiles(sdir[i], "*." + textBox3.Text);
-                    for (int j = 0; j < sfile.Count(); j++)
-                    {
-                        //sea.Add(sfile[j]);
-                        listView2.Items.Add(new ListViewItem(new string[] { sfile[j].Substring(sfile[j].LastIndexOf("\\") + 1), sfile[j], Path.GetExtension(sfile[j]) }));
-                        img2.Images.Add(Icon.ExtractAssociatedIcon(sfile[j]));
-                        label8.Text = "Found " + listView2.Items.Count + " items";
-
-                    }
-                    fileSearch(sdir[i]);
-                }
-            }
-            catch
-            {
-                return;
-            }
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            int count = 0;
-            if (listView2.Items.Count > 0)
-            {
-                for (int i = 0; i < listView2.Items.Count; i++)
-                {
-                    if (listView2.Items[i].Checked == true)
-                    {
-                        listView1.Items.Add(new ListViewItem(new string[] { listView2.Items[i].SubItems[0].Text, listView2.Items[i].SubItems[1].Text, "None" }));
-                        count += 1;
-                        history.Add("[" + DateTime.Now + "] " + "You add an item name " + listView2.Items[i].SubItems[0].Text + ", path: " + listView2.Items[i].SubItems[1].Text + ", para: ");
-                    }
-                }
-                if (en)
-                    MessageBox.Show("Added " + count + " items to database!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                    MessageBox.Show("Đã thêm " + count + " thứ vào cơ sở dữ liệu", "Hoàn thành", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //buttonData_Click(null, null);
-            }
-            foreach (ListViewItem item in listView2.Items)
-            {
-                if (item.Checked)
-                {
-                    listView2.Items.Remove(item);
-                }
-            }
-        }
-
-        private void scanFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            comboBox3.SelectedIndex = 0;
-            panel1.Show();
-            panel2.Show();
-            panelScan.Show();
-        }
-
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox6.Checked)
-            {
-                if (listView2.Items.Count != 0)
-                {
-                    foreach (ListViewItem i in listView2.Items)
-                    {
-                        i.Checked = true;
-                    }
-                }
-                else
-                    checkBox6.Checked = false;
-            }
-            else
-            {
-                if (listView2.Items.Count != 0)
-                {
-                    foreach (ListViewItem i in listView2.Items)
-                    {
-                        i.Checked = false;
-                    }
-                }
-            }
-        }
-
-        private void listView2_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (listView2.FocusedItem.Bounds.Contains(e.Location) == true)
-                {
-                    contextMenuStrip3.Show(Cursor.Position);
-
-                }
-            }
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(listView2.FocusedItem.SubItems[1].Text);
-        }
-
+       
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
         static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
 
@@ -3247,10 +2125,6 @@ namespace XShort
             return ShellExecuteEx(ref info);
         }
 
-        private void propertyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowFileProperties(listView2.FocusedItem.SubItems[1].Text);
-        }
 
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -3275,7 +2149,6 @@ namespace XShort
             old_Para = textBoxPara.Text;
             old_Path = textBoxPath.Text;
 
-            panel1.Show();
             panel2.Show();
         }
 
@@ -3341,128 +2214,6 @@ namespace XShort
             ShowFileProperties(listView1.FocusedItem.SubItems[1].Text);
         }
 
-        private void listView2_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            if (e.Column != sortColumn)
-            {
-                // Set the sort column to the new column.
-                sortColumn = e.Column;
-                // Set the sort order to ascending by default.
-                listView2.Sorting = SortOrder.Ascending;
-            }
-            else
-            {
-                // Determine what the last sort order was and change it.
-                if (listView2.Sorting == SortOrder.Ascending)
-                    listView2.Sorting = SortOrder.Descending;
-                else
-                    listView2.Sorting = SortOrder.Ascending;
-            }
-
-            // Call the sort method to manually sort.
-            listView2.Sort();
-            // Set the ListViewItemSorter property to a new ListViewItemComparer
-            // object.
-            listView2.ListViewItemSorter = new ListViewItemComparer(e.Column,
-                                                              listView2.Sorting);
-        }
-
-        private void buttonLog_Click(object sender, EventArgs e)
-        {
-
-            buttonData_Click();
-            listBox1.Items.Clear();
-            foreach (string s in history)
-            {
-                listBox1.Items.Add(s);
-            }
-            listBox1.SelectedIndex = listBox1.Items.Count - 1;
-            panel1.Show();
-            panel2.Hide();
-        }
-
-        private string[] splitString(string s)
-        {
-            string[] res = s.Split(',');
-            res[0] = res[0].Substring(res[0].IndexOf("name") + 5);
-            res[1] = res[1].Substring(res[1].IndexOf(":") + 2);
-            res[2] = res[2].Substring(res[2].IndexOf(":") + 2);
-            if (res[2] == String.Empty)
-            {
-                res[2] = "None";
-            }
-            return res;
-        }
-
-        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string[] res = splitString(listBox1.Items[listBox1.SelectedIndex].ToString());
-            string logLine = listBox1.Items[listBox1.SelectedIndex].ToString();
-            if (logLine.Contains("add"))
-            {
-                foreach (ListViewItem i in listView1.Items)
-                {
-                    if (i.SubItems[0].Text == res[0])
-                    {
-                        listView1.Items.Remove(i);
-                        history.Add("[" + DateTime.Now + "] " + "[Undo Add] You remove an item name " + res[0] + ", path: " + res[1] + ", para: " + res[2]);
-                        yet = "undo";
-                    }
-                }
-            }
-            else if (logLine.Contains("import"))
-            {
-                foreach (ListViewItem i in listView1.Items)
-                {
-                    if (i.SubItems[0].Text == res[0])
-                    {
-                        listView1.Items.Remove(i);
-                        history.Add("[" + DateTime.Now + "] " + "[Undo Import] You remove an item name " + res[0] + ", path: " + res[1] + ", para: " + res[2]);
-                        yet = "undo";
-                    }
-                }
-            }
-            else if (logLine.Contains("remove"))
-            {
-                foreach (ListViewItem i in listView1.Items)
-                {
-                    if (i.SubItems[0].Text == res[0])
-                    {
-                        MessageBox.Show("This item is already in the table!?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                listView1.Items.Add(new ListViewItem(new string[] { res[0], res[1], res[2] }));
-                history.Add("[" + DateTime.Now + "] " + "[Undo Remove] You add an item name " + res[0] + ", path: " + res[1] + ", para: " + res[2]);
-                yet = "undo";
-            }
-            listBox1.Items.Clear();
-            foreach (string s in history)
-            {
-                listBox1.Items.Add(s);
-            }
-            listBox1.SelectedIndex = listBox1.Items.Count - 1;
-        }
-
-        private void listBox1_MouseDown_1(object sender, MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Right)
-                return;
-            var index = listBox1.IndexFromPoint(e.Location);
-
-            if (index != ListBox.NoMatches)
-            {
-                listBox1.SelectedIndex = index;
-                string tmp = listBox1.Items[index].ToString();
-                if (tmp.Contains("remove") || tmp.Contains("add") || tmp.Contains("import"))
-                    contextMenuStrip4.Show(Cursor.Position);
-
-            }
-        }
-
-        //beta test program
-
-
 
         private void openAtWindowsStartupToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -3490,31 +2241,6 @@ namespace XShort
             openToolStripMenuItem1_Click(null, null);
         }
 
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBox3.SelectedIndex == 0)
-                label7.Visible = true;
-            else
-                label7.Visible = false;
-            if (comboBox3.SelectedIndex == 2)
-            {
-                textBox3.Enabled = false;
-                textBox4.Enabled = false;
-                buttonFileSearch.Enabled = false;
-            }
-            else
-            {
-                textBox3.Enabled = true;
-                textBox4.Enabled = true;
-                buttonFileSearch.Enabled = true;
-            }
-        }
-
-        private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string argument = "/select, \"" + listView2.FocusedItem.SubItems[1].Text + "\"";
-            Process.Start("explorer.exe", argument);
-        }
 
         private void openAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -3544,11 +2270,6 @@ namespace XShort
             }
         }
 
-        private void button2_Click_3(object sender, EventArgs e)
-        {
-            buttonData_Click();
-        }
-
         private void buttonSettings_Click(object sender, EventArgs e)
         {
             Settings stt = new Settings();
@@ -3575,15 +2296,6 @@ namespace XShort
 
         private void buttonBuildIndex_Click(object sender, EventArgs e)
         {
-            indexing = false;
-            BuildIndex bid = new BuildIndex(en);
-            bid.FormClosed += Bid_FormClosed;
-            bid.ShowDialog();
-        }
-
-        private void Bid_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            loadSettings();
         }
 
         private void buttonMenu_Click(object sender, EventArgs e)
@@ -3594,12 +2306,6 @@ namespace XShort
             contextMenuStrip5.Show(ptLowerLeft);
         }
 
-        private void buttonDeleteLog_Click(object sender, EventArgs e)
-        {
-            history.Clear();
-            listBox1.Items.Clear();
-            File.WriteAllText(dataPath + "\\log.txt", String.Empty);
-        }
 
         private void openFileLocationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -3681,17 +2387,11 @@ namespace XShort
             }
         }
 
-        private void panelControl_MouseMove(object sender, MouseEventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                Left = Left + (e.X - newx);
-                Top = Top + (e.Y - newy);
-                f3.Location = new Point(this.Location.X + (this.Width - f3.Width) / 2, this.Location.Y + (this.Height - f3.Height) / 2);
-            }
+            for (int i = 0; i < listView1.Columns.Count; i++)
+                listView1.Columns[i].Width = listView1.Width / listView1.Columns.Count;
         }
-
-
     }
 
     //this class for sort listview

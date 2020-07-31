@@ -3,32 +3,29 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace XShort
 {
-    public partial class Form2 : Form
+    public partial class RunForm : Form
     {
-        int index = 0;
-        List<String> dir = new List<String>();
-        List<String> sName = new List<String>();
-        List<String> sPath = new List<String>();
-        List<String> sPara = new List<String>();
-        RegistryKey r;
-        string dataPath;
-        string keyword = String.Empty;
-        bool ggSearch = true;
-        bool csen = false;
-        string text = String.Empty;
-        string text1, part = String.Empty;
-        int newx, newy;
-        string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
-        string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "firewall.cpl", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
-        BackgroundWorker bw;
-        public Form2(int en)
+        private int index = 0;
+        private List<String> dir = new List<String>();
+        private List<String> sName = new List<String>();
+        private List<String> sPath = new List<String>();
+        private List<String> sPara = new List<String>();
+        private RegistryKey r;
+        private string dataPath;
+        private bool ggSearch = true;
+        private bool csen = false;
+        private string text = String.Empty;
+        private string text1, part = String.Empty;
+        private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
+        private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "firewall.cpl", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
+        private BackgroundWorker bw;
+        public RunForm(int en)
         {
             InitializeComponent();
 
@@ -59,22 +56,8 @@ namespace XShort
             {
                 csen = false;
             }
-            if (r.GetValue("Dark") != null)
-            {
-                changeSkin(true);
-            }
-            else if (r.GetValue("Light") != null)
-            {
-                changeSkin(false);
-            }
-            else
-            {
-                changeSkin(false);
-            }
-            if (r.GetValue("xfind") != null)
-            {
-                checkBox1.Checked = true;
-            }
+            
+          
             r.Close();
             r.Dispose();
 
@@ -155,52 +138,6 @@ namespace XShort
         public void changeSensitive(bool Csen)
         {
             csen = Csen;
-        }
-
-        public void changeLanguages(int en)
-        {
-            if (en == 0)
-            {
-                label1.Text = "Mở ứng dụng/đường dẫn/địa chỉ (kể cả không có dữ liệu)";
-                label2.Text = "Không cần điền tên đầy đủ, ứng dụng sẽ nhận diện tự động";
-                button2.Text = "Hủy";
-                label4.Text = "Nếu bạn đã tạo mục lục, bạn có thể tìm kiếm tất cả ở đây";
-                checkBox1.Text = "Sử dụng XFind";
-                openAsAdministratorToolStripMenuItem.Text = "Mở dưới quyền người quản trị";
-            }
-            else
-            {
-                label1.Text = "Open app/directory/url (even not in database):";
-                label2.Text = "No need to write full call name, app will detect automatically";
-                label4.Text = "If you built index files, you can search files and folders here";
-                button2.Text = "Cancel";
-                checkBox1.Text = "Use XFind";
-                openAsAdministratorToolStripMenuItem.Text = "Open as Administrator";
-            }
-        }
-
-        public void changeSkin(bool dark)
-        {
-            if (dark)
-            {
-                this.BackColor = Color.FromArgb(28, 28, 28);
-                label1.ForeColor = Color.White;
-                label2.ForeColor = Color.Yellow;
-                //label3.ForeColor = Color.White;
-                button1.ForeColor = Color.White;
-                button2.ForeColor = Color.White;
-                checkBox1.ForeColor = Color.White;
-            }
-            else
-            {
-                this.BackColor = Color.White;
-                label1.ForeColor = Color.Black;
-                label2.ForeColor = Color.Blue;
-                //label3.ForeColor = Color.Black;
-                button1.ForeColor = Color.Black;
-                button2.ForeColor = Color.Black;
-                checkBox1.ForeColor = Color.Black;
-            }
         }
 
         private int loadData()
@@ -712,16 +649,6 @@ namespace XShort
 
                 try
                 {
-                    if (File.Exists(dataPath + "\\indexFol"))
-                    {
-                        if (File.Exists(dataPath + "\\indexFil"))
-                        {
-                            keyword = tmp;
-                            this.Hide();
-                            return;
-                        }
-                    }
-
                     Process.Start("https://www.google.com/search?q=" + tmp);
                     this.Hide();
                     return;
@@ -747,26 +674,6 @@ namespace XShort
             BackgroundWorker tbw = new BackgroundWorker();
             tbw.DoWork += Tbw_DoWork;
             tbw.RunWorkerAsync(false);
-            tbw.RunWorkerCompleted += Tbw_RunWorkerCompleted;
-
-        }
-
-        private void Tbw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (keyword != String.Empty)
-            {
-                if (button2.Text == "Hủy")
-                {
-                    Search sch = new Search(keyword, false);
-                    sch.Show();
-                }
-                else
-                {
-                    Search sch = new Search(keyword, true);
-                    sch.Show();
-                }
-                keyword = String.Empty;
-            }
         }
 
         private void Tbw_DoWork(object sender, DoWorkEventArgs e)
@@ -1226,52 +1133,12 @@ namespace XShort
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (checkBox1.Checked)
-            {
-                r.SetValue("xfind", true);
-            }
-            else
-            {
-                r.DeleteValue("xfind", false);
-
-            }
-            r.Close();
-            r.Dispose();
-        }
-
         private void openAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BackgroundWorker tbw = new BackgroundWorker();
             tbw.DoWork += Tbw_DoWork;
             tbw.RunWorkerAsync(true);
-            tbw.RunWorkerCompleted += Tbw_RunWorkerCompleted;
         }
 
-
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                newx = e.X;
-                newy = e.Y;
-            }
-        }
-
-        private void panel1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                Left = Left + (e.X - newx);
-                Top = Top + (e.Y - newy);
-            }
-        }
     }
 }

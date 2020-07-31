@@ -1,6 +1,6 @@
 ﻿namespace XShort
 {
-    partial class Form3
+    partial class ProgressForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressForm));
             this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.SuspendLayout();
             // 

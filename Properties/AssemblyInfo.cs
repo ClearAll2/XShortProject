@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XShort")]
-[assembly: AssemblyDescription("B19940")]
+[assembly: AssemblyTitle("XShort Lite")]
+[assembly: AssemblyDescription("B20731")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Freedom Software")]
-[assembly: AssemblyProduct("XShort")]
-[assembly: AssemblyCopyright("Copyright © 2017 - 2019")]
+[assembly: AssemblyProduct("XShort Lite")]
+[assembly: AssemblyCopyright("Copyright © 2020")]
 [assembly: AssemblyTrademark("Clear All Soft (CAS)")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.4.0.3")]
-[assembly: AssemblyFileVersion("1.4.0.3")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
