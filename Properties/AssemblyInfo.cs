@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XShort Lite")]
-[assembly: AssemblyDescription("B20731")]
+[assembly: AssemblyTitle("XShort Core")]
+[assembly: AssemblyDescription("A20731")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Freedom Software")]
-[assembly: AssemblyProduct("XShort Lite")]
+[assembly: AssemblyProduct("XShort Core")]
 [assembly: AssemblyCopyright("Copyright © 2020")]
 [assembly: AssemblyTrademark("Clear All Soft (CAS)")]
 [assembly: AssemblyCulture("")]

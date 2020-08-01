@@ -55,12 +55,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonAddApp = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.buttonAddDir = new System.Windows.Forms.Button();
-            this.buttonAddURL = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonMenu = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.appToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,6 +107,11 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.labelShortcutType = new System.Windows.Forms.Label();
+            this.buttonMenu = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonAddURL = new System.Windows.Forms.Button();
+            this.buttonAddDir = new System.Windows.Forms.Button();
+            this.buttonAddApp = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -318,26 +318,6 @@
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
-            // buttonAddApp
-            // 
-            this.buttonAddApp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddApp.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonAddApp.FlatAppearance.BorderSize = 0;
-            this.buttonAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddApp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonAddApp.ImageIndex = 11;
-            this.buttonAddApp.ImageList = this.imageList1;
-            this.buttonAddApp.Location = new System.Drawing.Point(21, 364);
-            this.buttonAddApp.Name = "buttonAddApp";
-            this.buttonAddApp.Size = new System.Drawing.Size(118, 28);
-            this.buttonAddApp.TabIndex = 29;
-            this.buttonAddApp.TabStop = false;
-            this.buttonAddApp.Text = "Add App/File";
-            this.buttonAddApp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip1.SetToolTip(this.buttonAddApp, "Add App/File");
-            this.buttonAddApp.UseVisualStyleBackColor = true;
-            this.buttonAddApp.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -361,83 +341,6 @@
             this.imageList1.Images.SetKeyName(16, "log.png");
             this.imageList1.Images.SetKeyName(17, "list.png");
             // 
-            // buttonAddDir
-            // 
-            this.buttonAddDir.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddDir.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonAddDir.FlatAppearance.BorderSize = 0;
-            this.buttonAddDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddDir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonAddDir.ImageIndex = 8;
-            this.buttonAddDir.ImageList = this.imageList1;
-            this.buttonAddDir.Location = new System.Drawing.Point(145, 364);
-            this.buttonAddDir.Name = "buttonAddDir";
-            this.buttonAddDir.Size = new System.Drawing.Size(127, 28);
-            this.buttonAddDir.TabIndex = 30;
-            this.buttonAddDir.TabStop = false;
-            this.buttonAddDir.Text = "Add Directory";
-            this.buttonAddDir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip1.SetToolTip(this.buttonAddDir, "Add Directory");
-            this.buttonAddDir.UseVisualStyleBackColor = true;
-            this.buttonAddDir.Click += new System.EventHandler(this.addDirectoryToolStripMenuItem_Click);
-            // 
-            // buttonAddURL
-            // 
-            this.buttonAddURL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddURL.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonAddURL.FlatAppearance.BorderSize = 0;
-            this.buttonAddURL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddURL.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonAddURL.ImageIndex = 10;
-            this.buttonAddURL.ImageList = this.imageList1;
-            this.buttonAddURL.Location = new System.Drawing.Point(278, 364);
-            this.buttonAddURL.Name = "buttonAddURL";
-            this.buttonAddURL.Size = new System.Drawing.Size(111, 28);
-            this.buttonAddURL.TabIndex = 31;
-            this.buttonAddURL.TabStop = false;
-            this.buttonAddURL.Text = "Add URL";
-            this.buttonAddURL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip1.SetToolTip(this.buttonAddURL, "Add URL");
-            this.buttonAddURL.UseVisualStyleBackColor = true;
-            this.buttonAddURL.Click += new System.EventHandler(this.addURLToolStripMenuItem_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonSave.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonSave.FlatAppearance.BorderSize = 0;
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSave.ImageIndex = 9;
-            this.buttonSave.ImageList = this.imageList1;
-            this.buttonSave.Location = new System.Drawing.Point(395, 364);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(111, 28);
-            this.buttonSave.TabIndex = 32;
-            this.buttonSave.TabStop = false;
-            this.buttonSave.Text = "Save shortcuts";
-            this.buttonSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolTip1.SetToolTip(this.buttonSave, "Save shortcuts");
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.saveShortcutsToolStripMenuItem_Click);
-            // 
-            // buttonMenu
-            // 
-            this.buttonMenu.FlatAppearance.BorderSize = 0;
-            this.buttonMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonMenu.ForeColor = System.Drawing.Color.Silver;
-            this.buttonMenu.ImageIndex = 3;
-            this.buttonMenu.ImageList = this.imageList1;
-            this.buttonMenu.Location = new System.Drawing.Point(32, 12);
-            this.buttonMenu.Name = "buttonMenu";
-            this.buttonMenu.Size = new System.Drawing.Size(25, 25);
-            this.buttonMenu.TabIndex = 39;
-            this.buttonMenu.TabStop = false;
-            this.toolTip1.SetToolTip(this.buttonMenu, "Menu");
-            this.buttonMenu.UseVisualStyleBackColor = false;
-            this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
-            // 
             // button13
             // 
             this.button13.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -445,7 +348,7 @@
             this.button13.FlatAppearance.BorderSize = 0;
             this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button13.ForeColor = System.Drawing.Color.White;
-            this.button13.Location = new System.Drawing.Point(398, 160);
+            this.button13.Location = new System.Drawing.Point(470, 162);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(27, 19);
             this.button13.TabIndex = 10;
@@ -814,7 +717,7 @@
             this.panel2.Controls.Add(this.button12);
             this.panel2.Controls.Add(this.button10);
             this.panel2.Controls.Add(this.labelShortcutType);
-            this.panel2.Location = new System.Drawing.Point(6, 43);
+            this.panel2.Location = new System.Drawing.Point(6, 42);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(535, 407);
             this.panel2.TabIndex = 29;
@@ -829,9 +732,9 @@
             "App/File",
             "Directory",
             "URL"});
-            this.comboBox1.Location = new System.Drawing.Point(205, 69);
+            this.comboBox1.Location = new System.Drawing.Point(124, 69);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(220, 21);
+            this.comboBox1.Size = new System.Drawing.Size(373, 21);
             this.comboBox1.TabIndex = 11;
             this.comboBox1.TabStop = false;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -841,7 +744,7 @@
             this.labelPara.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPara.AutoSize = true;
             this.labelPara.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPara.Location = new System.Drawing.Point(108, 212);
+            this.labelPara.Location = new System.Drawing.Point(33, 208);
             this.labelPara.Name = "labelPara";
             this.labelPara.Size = new System.Drawing.Size(71, 16);
             this.labelPara.TabIndex = 9;
@@ -852,7 +755,7 @@
             this.labelPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPath.AutoSize = true;
             this.labelPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPath.Location = new System.Drawing.Point(108, 161);
+            this.labelPath.Location = new System.Drawing.Point(33, 161);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(35, 16);
             this.labelPath.TabIndex = 8;
@@ -863,7 +766,7 @@
             this.labelName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelName.Location = new System.Drawing.Point(108, 118);
+            this.labelName.Location = new System.Drawing.Point(33, 114);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(71, 16);
             this.labelName.TabIndex = 7;
@@ -874,9 +777,9 @@
             this.textBoxPara.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxPara.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPara.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPara.Location = new System.Drawing.Point(205, 206);
+            this.textBoxPara.Location = new System.Drawing.Point(124, 206);
             this.textBoxPara.Name = "textBoxPara";
-            this.textBoxPara.Size = new System.Drawing.Size(220, 22);
+            this.textBoxPara.Size = new System.Drawing.Size(373, 22);
             this.textBoxPara.TabIndex = 6;
             this.textBoxPara.TabStop = false;
             // 
@@ -885,9 +788,9 @@
             this.textBoxPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPath.Location = new System.Drawing.Point(205, 159);
+            this.textBoxPath.Location = new System.Drawing.Point(124, 159);
             this.textBoxPath.Name = "textBoxPath";
-            this.textBoxPath.Size = new System.Drawing.Size(185, 22);
+            this.textBoxPath.Size = new System.Drawing.Size(340, 22);
             this.textBoxPath.TabIndex = 5;
             this.textBoxPath.TabStop = false;
             // 
@@ -896,9 +799,9 @@
             this.textBoxName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxName.Location = new System.Drawing.Point(205, 112);
+            this.textBoxName.Location = new System.Drawing.Point(124, 112);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(220, 22);
+            this.textBoxName.Size = new System.Drawing.Size(373, 22);
             this.textBoxName.TabIndex = 4;
             this.textBoxName.TabStop = false;
             // 
@@ -910,7 +813,7 @@
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.Location = new System.Drawing.Point(334, 270);
+            this.button12.Location = new System.Drawing.Point(284, 303);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(91, 34);
             this.button12.TabIndex = 3;
@@ -926,7 +829,7 @@
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.Location = new System.Drawing.Point(205, 270);
+            this.button10.Location = new System.Drawing.Point(163, 303);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(91, 34);
             this.button10.TabIndex = 2;
@@ -940,11 +843,104 @@
             this.labelShortcutType.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelShortcutType.AutoSize = true;
             this.labelShortcutType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelShortcutType.Location = new System.Drawing.Point(108, 70);
+            this.labelShortcutType.Location = new System.Drawing.Point(33, 70);
             this.labelShortcutType.Name = "labelShortcutType";
             this.labelShortcutType.Size = new System.Drawing.Size(85, 16);
             this.labelShortcutType.TabIndex = 12;
             this.labelShortcutType.Text = "Shortcut type";
+            // 
+            // buttonMenu
+            // 
+            this.buttonMenu.FlatAppearance.BorderSize = 0;
+            this.buttonMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonMenu.ForeColor = System.Drawing.Color.Silver;
+            this.buttonMenu.ImageIndex = 3;
+            this.buttonMenu.ImageList = this.imageList1;
+            this.buttonMenu.Location = new System.Drawing.Point(32, 12);
+            this.buttonMenu.Name = "buttonMenu";
+            this.buttonMenu.Size = new System.Drawing.Size(25, 25);
+            this.buttonMenu.TabIndex = 39;
+            this.buttonMenu.TabStop = false;
+            this.toolTip1.SetToolTip(this.buttonMenu, "Menu");
+            this.buttonMenu.UseVisualStyleBackColor = false;
+            this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonSave.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonSave.FlatAppearance.BorderSize = 0;
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.ImageIndex = 9;
+            this.buttonSave.ImageList = this.imageList1;
+            this.buttonSave.Location = new System.Drawing.Point(395, 364);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(111, 28);
+            this.buttonSave.TabIndex = 32;
+            this.buttonSave.TabStop = false;
+            this.buttonSave.Text = "Save shortcuts";
+            this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonSave, "Save shortcuts");
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.saveShortcutsToolStripMenuItem_Click);
+            // 
+            // buttonAddURL
+            // 
+            this.buttonAddURL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonAddURL.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonAddURL.FlatAppearance.BorderSize = 0;
+            this.buttonAddURL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddURL.ImageIndex = 10;
+            this.buttonAddURL.ImageList = this.imageList1;
+            this.buttonAddURL.Location = new System.Drawing.Point(278, 364);
+            this.buttonAddURL.Name = "buttonAddURL";
+            this.buttonAddURL.Size = new System.Drawing.Size(111, 28);
+            this.buttonAddURL.TabIndex = 31;
+            this.buttonAddURL.TabStop = false;
+            this.buttonAddURL.Text = "Add URL";
+            this.buttonAddURL.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonAddURL, "Add URL");
+            this.buttonAddURL.UseVisualStyleBackColor = true;
+            this.buttonAddURL.Click += new System.EventHandler(this.addURLToolStripMenuItem_Click);
+            // 
+            // buttonAddDir
+            // 
+            this.buttonAddDir.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonAddDir.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonAddDir.FlatAppearance.BorderSize = 0;
+            this.buttonAddDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddDir.ImageIndex = 8;
+            this.buttonAddDir.ImageList = this.imageList1;
+            this.buttonAddDir.Location = new System.Drawing.Point(145, 364);
+            this.buttonAddDir.Name = "buttonAddDir";
+            this.buttonAddDir.Size = new System.Drawing.Size(127, 28);
+            this.buttonAddDir.TabIndex = 30;
+            this.buttonAddDir.TabStop = false;
+            this.buttonAddDir.Text = "Add Directory";
+            this.buttonAddDir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonAddDir, "Add Directory");
+            this.buttonAddDir.UseVisualStyleBackColor = true;
+            this.buttonAddDir.Click += new System.EventHandler(this.addDirectoryToolStripMenuItem_Click);
+            // 
+            // buttonAddApp
+            // 
+            this.buttonAddApp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonAddApp.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonAddApp.FlatAppearance.BorderSize = 0;
+            this.buttonAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddApp.ImageIndex = 11;
+            this.buttonAddApp.ImageList = this.imageList1;
+            this.buttonAddApp.Location = new System.Drawing.Point(21, 364);
+            this.buttonAddApp.Name = "buttonAddApp";
+            this.buttonAddApp.Size = new System.Drawing.Size(118, 28);
+            this.buttonAddApp.TabIndex = 29;
+            this.buttonAddApp.TabStop = false;
+            this.buttonAddApp.Text = "Add App/File";
+            this.buttonAddApp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonAddApp, "Add App/File");
+            this.buttonAddApp.UseVisualStyleBackColor = true;
+            this.buttonAddApp.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -959,7 +955,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "XShort Lite";
+            this.Text = "XShort Core";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);

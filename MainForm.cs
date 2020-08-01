@@ -26,8 +26,6 @@ namespace XShort
         List<String> sPath = new List<String>();
         List<String> sPara = new List<String>();
         List<String> dir = new List<String>();
-        //List<String> sea = new List<String>();
-        ObservableCollection<String> history = new ObservableCollection<string>();
         ObservableCollection<String> startup = new ObservableCollection<string>();
         global::ModifierKeys gmk;
         Keys k;
@@ -42,7 +40,6 @@ namespace XShort
         string text = String.Empty;
         string dataPath;
         string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
-        bool en = true;
         bool exit = false;
         bool edit = false;
         
@@ -94,12 +91,9 @@ namespace XShort
 
 
 
-            f3 = new ProgressForm(en);
-
-            if (en == true)
-                f2 = new RunForm(1);
-            else
-                f2 = new RunForm(0);
+            f3 = new ProgressForm(true);
+            f2 = new RunForm(1);
+           
 
             loadSettings();
 
@@ -276,23 +270,6 @@ namespace XShort
             r.Close();
             r.Dispose();
 
-
-            //never put this to top, must create form before check language!
-            //r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-
-            //if (r.GetValue("EN") != null)
-            //{
-            //    en = true;
-            //    changeLanguages();
-            //}
-            //else
-            //{
-            //    en = false;
-            //    changeLanguages();
-            //}
-            //r.Close();
-            //r.Dispose();
-
             if (f2 != null && f2.IsDisposed != true)
             {
                 if (ggs)
@@ -396,43 +373,9 @@ namespace XShort
                 }
                 if (back == -1)
                 {
-                    if (en == true)
-                        MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    else
-                        MessageBox.Show("Thiếu dữ liệu - không thể hoàn thành", "Thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-            //load log file
-            if (File.Exists(Path.Combine(dataPath, "log.txt")))
-            {
-                FileStream fs;
-                StreamReader sr;
-
-                fs = new FileStream(Path.Combine(dataPath, "log.txt"), FileMode.Open, FileAccess.Read);
-
-                sr = new StreamReader(fs);
-                while (!sr.EndOfStream)
-                {
-                    history.Add(sr.ReadLine());
-                }
-                sr.Close();
-                fs.Close();
-                sr.Dispose();
-                fs.Dispose();
-
-                history.CollectionChanged += History_CollectionChanged;
-
-                if (history.Count > 0)
-                {
-                    if (history[history.Count - 1].Contains("remove") || history[history.Count - 1].Contains("add") || history[history.Count - 1].Contains("import") || history[history.Count - 1].Contains("edit"))
-                    {
-                        history.Add("[NOTE - DO YOU KNOW?] You didn't save the last time before shutting down the computer");
-                    }
-                }
-
-
-            }
-
 
             //load startup file
             if (File.Exists(Path.Combine(dataPath, "startup.txt")))
@@ -488,20 +431,6 @@ namespace XShort
             fs1.Close();
         }
 
-        //detect change in log file
-        private void History_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            FileStream fs;
-            StreamWriter sw;
-            fs = new FileStream(Path.Combine(dataPath, "log.txt"), FileMode.OpenOrCreate, FileAccess.Write);
-            sw = new StreamWriter(fs);
-            for (int i = 0; i < history.Count; i++)
-            {
-                sw.WriteLine(history[i]);
-            }
-            sw.Close();
-            fs.Close();
-        }
 
         private void Run(string s)
         {
@@ -560,28 +489,16 @@ namespace XShort
             int isLatest = Application.ProductVersion.CompareTo(sver);
             if (isLatest < 0) //if current version is less than latest version
             {
-                if (en)
+                
+                if (MessageBox.Show("You are running old version!\nWould you like to download new version?\nChangelog:\n" + schlog, "XShort Updater", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    if (MessageBox.Show("You are running old version!\nWould you like to download new version?\nChangelog:\n" + schlog, "XShort Updater", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        //Process.Start("https://clearallsoft.cf/get/xshort_get");
-                        Process.Start(Application.StartupPath + "\\XShort Updater.exe", Application.ExecutablePath);
-                        yet = String.Empty;
-                        exit = true;
-                        exitToolStripMenuItem1_Click(null, null);
-                    }
+                    //Process.Start("https://clearallsoft.cf/get/xshort_get");
+                    Process.Start(Application.StartupPath + "\\XShort Updater.exe", Application.ExecutablePath);
+                    yet = String.Empty;
+                    exit = true;
+                    exitToolStripMenuItem1_Click(null, null);
                 }
-                else
-                {
-                    if (MessageBox.Show("Bạn đang chạy phiên bản cũ!\nBạn có muốn tải phiên bản mới?\nChangelog:\n" + schlog, "XShort Updater", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        //Process.Start("https://clearallsoft.cf/get/xshort_get");
-                        Process.Start(Application.StartupPath + "\\XShort Updater.exe", Application.ExecutablePath);
-                        yet = String.Empty;
-                        exit = true;
-                        exitToolStripMenuItem1_Click(null, null);
-                    }
-                }
+                
             }
             wc.Dispose();
 
@@ -907,20 +824,6 @@ namespace XShort
             fs.Close();
             sr.Close();
 
-
-            for (int j = 0; j < tName.Count; j++)
-            {
-                if (tName[j].Contains("!") || tName[j].Contains(","))
-                {
-                    listView1.Items.Add(new ListViewItem(new string[] { "Please rename this!", tPath[j], tPara[j] }));
-                    history.Add("[" + DateTime.Now + "] " + "You import an item name " + tName[j] + "_need_to_rename" + ", path: " + tPath[j] + ", para: " + tPara[j]);
-                }
-                else
-                {
-                    listView1.Items.Add(new ListViewItem(new string[] { tName[j], tPath[j], tPara[j] }));
-                    history.Add("[" + DateTime.Now + "] " + "You import an item name " + tName[j] + ", path: " + tPath[j] + ", para: " + tPara[j]);
-                }
-            }
             return 1;
         }
 
@@ -981,21 +884,6 @@ namespace XShort
             fs.Close();
             sr.Close();
 
-
-            for (int j = 0; j < tName.Count; j++)
-            {
-                if (tName[j].Contains("!") || tName[j].Contains(","))
-                {
-                    listView1.Items.Add(new ListViewItem(new string[] { "Please rename this!", tPath[j], tPara[j] }));
-                    history.Add("[" + DateTime.Now + "] " + "You import an item name " + tName[j] + "_need_to_rename" + ", path: " + tPath[j] + ", para: " + tPara[j]);
-                }
-                else
-                {
-                    listView1.Items.Add(new ListViewItem(new string[] { tName[j], tPath[j], tPara[j] }));
-                    history.Add("[" + DateTime.Now + "] " + "You import an item name " + tName[j] + ", path: " + tPath[j] + ", para: " + tPara[j]);
-                }
-            }
-
             return 1;
         }
 
@@ -1007,16 +895,8 @@ namespace XShort
             {
                 if (textBoxName.Text.Contains("!") || textBoxName.Text.Contains("|") || textBoxName.Text.Contains(">"))
                 {
-                    if (en)
-                    {
-                        MessageBox.Show("Your call name contains character \"! or | or >\"\nPlease rename!", "Special Character", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Tên bạn đặt có chứa kí tự \"! hoặc | hoặc >\"\nHãy đổi lại!", "Kí tự đắc biệt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
-                    }
+                    MessageBox.Show("Your call name contains character \"! or | or >\"\nPlease rename!", "Special Character", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return; 
                 }
                 if (!edit)
                 {
@@ -1024,20 +904,11 @@ namespace XShort
                     {
                         if (listView1.Items[i].SubItems[0].Text == textBoxName.Text)
                         {
-                            if (en == true)
+                            if (MessageBox.Show("This name is already taken?!\nDo you want to rename? The program will open the first name appear in table", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                             {
-                                if (MessageBox.Show("This name is already taken?!\nDo you want to rename? The program will open the first name appear in table", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
-                                {
-                                    return;
-                                }
+                                return;
                             }
-                            else
-                            {
-                                if (MessageBox.Show("Tên này đã có trong bảng?!\nBạn có muốn đổi tên? Chương trình sẽ mở tên đầu tiên xuất hiện trong bảng", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
-                                {
-                                    return;
-                                }
-                            }
+                            
                         }
                     }
                 }
@@ -1047,19 +918,9 @@ namespace XShort
                     {
                         if (listView1.Items[i].SubItems[0].Text == textBoxName.Text && listView1.FocusedItem.Index != i)
                         {
-                            if (en == true)
+                            if (MessageBox.Show("This name is already taken?!\nDo you want to rename? The program will open the first name appear in table", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                             {
-                                if (MessageBox.Show("This name is already taken?!\nDo you want to rename? The program will open the first name appear in table", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
-                                {
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                if (MessageBox.Show("Tên này đã có trong bảng?!\nBạn có muốn đổi tên? Chương trình sẽ mở tên đầu tiên xuất hiện trong bảng", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
-                                {
-                                    return;
-                                }
+                                return;
                             }
                         }
                     }
@@ -1067,26 +928,19 @@ namespace XShort
                     //check changes
                     if (textBoxName.Text != old_Name)
                     {
-                        history.Add("[" + DateTime.Now + "]" + " You edit name of " + old_Name + " to " + textBoxName.Text);
                         yet = "edit";
                     }
                 }
             }
             else
             {
-                if (en == true)
-                    MessageBox.Show("Your new name is empty?!", "New Name?", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show("Tên mới để trống!?", "Tên mới?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Your new name is empty?!", "New Name?", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             //path
             if (textBoxPath.Text == String.Empty)
             {
-                if (en == true)
-                    MessageBox.Show("You new path is empty?!", "New Path?", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show("Đường dẫn mới còn trống?!", "Đường dẫn mới?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You new path is empty?!", "New Path?", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (what != "url")
@@ -1106,7 +960,6 @@ namespace XShort
                         yet = "dir";
 
                     }
-                    history.Add("[" + DateTime.Now + "] " + "You add an item name " + textBoxName.Text + ", path: " + textBoxPath.Text + ", para: " + textBoxPara.Text);
                     panel2.Hide();
                     for (int i = 0; i < listView1.Items.Count; i++)
                     {
@@ -1143,8 +996,6 @@ namespace XShort
                     //check changes
                     if (textBoxPath.Text != old_Path || textBoxPara.Text != old_Para)
                     {
-                        history.Add("[" + DateTime.Now + "]" + " You edit path of " + old_Path + " to " + textBoxPath.Text);
-                        history.Add("[" + DateTime.Now + "]" + " You edit para of " + old_Para + " to " + textBoxPara.Text);
                         yet = "edit";
                     }
 
@@ -1155,7 +1006,6 @@ namespace XShort
                 if (!edit)
                 {
                     yet = "url";
-                    history.Add("[" + DateTime.Now + "] " + "You add an item name " + textBoxName.Text + ", path: " + textBoxPath.Text + ", para: " + textBoxPara.Text);
                     if (textBoxPath.Text.Contains("http://") || textBoxPath.Text.Contains("https://"))
                         listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, textBoxPara.Text }));
                     else
@@ -1184,8 +1034,6 @@ namespace XShort
                     //check changes
                     if (textBoxPath.Text != old_Path || textBoxPara.Text != old_Para)
                     {
-                        history.Add("[" + DateTime.Now + "]" + " You edit path of " + old_Path + " to " + textBoxPath.Text);
-                        history.Add("[" + DateTime.Now + "]" + " You edit para of " + old_Para + " to " + textBoxPara.Text);
                         yet = "edit";
                     }
                 }
@@ -1212,10 +1060,8 @@ namespace XShort
                 of.CheckFileExists = true;
                 of.CheckPathExists = true;
                 of.Filter = "All file type (*.*)|*.*";
-                if (en == true)
-                    of.Title = "Select your file...";
-                else
-                    of.Title = "Chọn fle...";
+                of.Title = "Select your file...";
+               
                 of.Multiselect = false;
                 if (of.ShowDialog() == DialogResult.OK)
                 {
@@ -1227,10 +1073,8 @@ namespace XShort
             else if (what == "dir")
             {
                 FolderBrowserDialog fb = new FolderBrowserDialog();
-                if (en == true)
-                    fb.Description = "Select folder...";
-                else
-                    fb.Description = "Chọn thư mục...";
+                fb.Description = "Select folder...";
+                
                 fb.RootFolder = Environment.SpecialFolder.Desktop;
                 if (fb.ShowDialog() == DialogResult.OK)
                 {
@@ -1281,7 +1125,6 @@ namespace XShort
         {
             if (listView1.FocusedItem != null)
             {
-                history.Add("[" + DateTime.Now + "] " + "You remove an item name " + listView1.FocusedItem.SubItems[0].Text + ", path: " + listView1.FocusedItem.SubItems[1].Text + ", para: " + listView1.FocusedItem.SubItems[2].Text);
                 listView1.Items.Remove(listView1.FocusedItem);
                 yet = "rm";
 
@@ -1364,7 +1207,6 @@ namespace XShort
                 BackgroundWorker bwt = new BackgroundWorker();
                 bwt.DoWork += Bwt_DoWork;
                 bwt.RunWorkerAsync();
-                history.Add("[" + DateTime.Now + "] " + "You save the new list");
             }
 
         }
@@ -1483,10 +1325,8 @@ namespace XShort
         private void minimizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            if (en == true)
-                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.None);
-            else
-                notifyIcon1.ShowBalloonTip(1000, "XShort", "XShort đang chạy ẩn\nNhấn " + gmk.ToString() + " + " + k.ToString() + " để mở hộp thoại run", ToolTipIcon.None);
+            notifyIcon1.ShowBalloonTip(1000, "XShort Core", "XShort Core is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.None);
+           
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1550,7 +1390,6 @@ namespace XShort
                 }
                 else
                 {
-                    history.Add("[" + DateTime.Now + "] " + "You do not save the new list");
                     exit = true;
                     f3.closeForm();
                     Application.Exit();
@@ -1590,10 +1429,8 @@ namespace XShort
             }
             else
             {
-                if (en == true)
-                    f2 = new RunForm(1);
-                else
-                    f2 = new RunForm(0);
+               
+                f2 = new RunForm(1);
                 f2.Show();
                 f2.Activate();
             }
@@ -1682,35 +1519,19 @@ namespace XShort
             {
                 if (File.Exists(listView1.FocusedItem.SubItems[1].Text))
                 {
-                    if (en)
-                        MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else
-                        MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " là một đường dẫn có tồn tại.", "Thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     if (Directory.Exists(listView1.FocusedItem.SubItems[1].Text))
                     {
-                        if (en)
-                            MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        else
-                            MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " là một đường dẫn có tồn tại.", "Thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        if (en)
+                        if (MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is an invalid path.\nDo you want to remove it from list now?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            if (MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is an invalid path.\nDo you want to remove it from list now?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                                listView1.FocusedItem.Remove();
-                            }
-                        }
-                        else
-                        {
-                            if (MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " là một đường dẫn không tồn tại.\nBạn có muốn xóa nó khỏi danh sách ngay bây giờ không?", "Thông tin", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                            {
-                                listView1.FocusedItem.Remove();
-                            }
+                            listView1.FocusedItem.Remove();
                         }
                     }
                 }
@@ -1774,27 +1595,15 @@ namespace XShort
 
         private void buttonData_Click()
         {
-           
-                if (en)
+            if (panel2.Visible)
+            {
+                if (MessageBox.Show("You are editing something, you want to quit?", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    if (MessageBox.Show("You are editing something, you want to quit?", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        panel2.Hide();
-                    }
-                    else
-                        return;
+                    panel2.Hide();
                 }
                 else
-                {
-                    if (MessageBox.Show("Bạn đang chỉnh sửa một cái gì đó, bạn có chắc muốn dừng việc đó?", "Chắc chưa?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        panel2.Hide();
-                    }
-                    else
-                        return;
-                }
-            
-
+                    return;
+            }
         }
 
 
@@ -1823,13 +1632,11 @@ namespace XShort
         private void createShortcutOnDesktopToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateShortcut(listView1.FocusedItem.SubItems[0].Text, listView1.FocusedItem.SubItems[1].Text, listView1.FocusedItem.SubItems[2].Text);
-            history.Add("[" + DateTime.Now + "]" + " You create a shortcut on desktop name " + listView1.FocusedItem.SubItems[0].Text + ", path: " + listView1.FocusedItem.SubItems[1].Text + ", para: " + listView1.FocusedItem.SubItems[2].Text);
         }
 
 
         private void cloneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            history.Add("[" + DateTime.Now + "] " + "You clone a shortcut name " + listView1.FocusedItem.SubItems[0].Text);
             listView1.Items.Add(new ListViewItem(new string[] { listView1.FocusedItem.SubItems[0].Text + "_clone", listView1.FocusedItem.SubItems[1].Text, listView1.FocusedItem.SubItems[2].Text }));
             listView1.Focus();
             listView1.Items[listView1.Items.Count - 1].Selected = true;
@@ -1874,7 +1681,6 @@ namespace XShort
                                 listView1.Items[listView1.Items.Count - 1].Selected = true;
                                 listView1.EnsureVisible(listView1.Items.Count - 1);
                                 yet = "app";
-                                history.Add("[" + DateTime.Now + "] " + "You add an item name " + targetPath + ", path: " + targetPath + ", para: Not Available");
                             }
                             else
                             {
@@ -1883,7 +1689,6 @@ namespace XShort
                                 listView1.Items[listView1.Items.Count - 1].Selected = true;
                                 listView1.EnsureVisible(listView1.Items.Count - 1);
                                 yet = "app";
-                                history.Add("[" + DateTime.Now + "] " + "You add an item name " + targetPath + ", path: " + targetPath + ", para: None");
                             }
                         }
                     }
@@ -1894,7 +1699,7 @@ namespace XShort
                         listView1.Items[listView1.Items.Count - 1].Selected = true;
                         listView1.EnsureVisible(listView1.Items.Count - 1);
                         yet = "dir";
-                        history.Add("[" + DateTime.Now + "] " + "You add an item name " + docPath[0] + ", path: " + docPath[0] + ", para: Not Available");
+                        
                     }
                     else
                     {
@@ -1903,7 +1708,6 @@ namespace XShort
                         listView1.Items[listView1.Items.Count - 1].Selected = true;
                         listView1.EnsureVisible(listView1.Items.Count - 1);
                         yet = "app";
-                        history.Add("[" + DateTime.Now + "] " + "You add an item name " + docPath[0].Substring(docPath[0].LastIndexOf("\\") + 1) + ", path: " + docPath[0] + ", para: None");
                     }
                 }
 
@@ -1923,10 +1727,7 @@ namespace XShort
         private void button2_Click_1(object sender, EventArgs e)
         {
             FolderBrowserDialog fb = new FolderBrowserDialog();
-            if (en == true)
-                fb.Description = "Select folder of data you want to import";
-            else
-                fb.Description = "Chọn thư mục có dữ liệu bạn muốn thêm";
+            fb.Description = "Select folder of data you want to import";
             fb.RootFolder = Environment.SpecialFolder.Desktop;
             if (fb.ShowDialog() == DialogResult.OK)
             {
@@ -1942,36 +1743,19 @@ namespace XShort
 
                 if (ret == 0)
                 {
-                    if (en)
-                    {
-                        MessageBox.Show("Fail to import data! Make sure you have a valid data!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Có lỗi đã xảy ra trong lúc thêm dữ liệu! Hãy đảm bảo bạn có dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Fail to import data! Make sure you have a valid data!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (ret == -1)
                 {
-                    if (en)
-                    {
-                        MessageBox.Show("Fail to import data! Make sure you have a valid data!", "Error Missing Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Có lỗi đã xảy ra trong lúc thêm dữ liệu! Hãy đảm bảo bạn có dữ liệu!", "Lỗi thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    
+                    MessageBox.Show("Fail to import data! Make sure you have a valid data!", "Error Missing Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                 }
                 else
                 {
-                    if (en)
-                    {
-                        MessageBox.Show("Import data done!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Hoàn thành thêm dữ liệu", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    
+                    MessageBox.Show("Import data done!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
                 }
             }
         }
@@ -1981,10 +1765,8 @@ namespace XShort
             FolderBrowserDialog fd = new FolderBrowserDialog();
             fd.ShowNewFolderButton = true;
             fd.RootFolder = Environment.SpecialFolder.Desktop;
-            if (en)
-                fd.Description = "Select folder to export";
-            else
-                fd.Description = "Chọn thư mục để xuất dữ liệu";
+            fd.Description = "Select folder to export";
+            
             if (fd.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1997,10 +1779,9 @@ namespace XShort
                 {
 
                     MessageBox.Show(ex.ToString(), "Error");
-                    if (en)
-                        MessageBox.Show("Fail to export data!", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    else
-                        MessageBox.Show("Xuất dữ liệu thất bại!", "Không thành công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
+                    MessageBox.Show("Fail to export data!", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                     return;
                 }
 
@@ -2052,12 +1833,9 @@ namespace XShort
                 sw2.Close();
                 fs2.Close();
 
-                if (en)
-                    MessageBox.Show("Export data done!\n The data are 3 files: data1, data2, data3.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                    MessageBox.Show("Xuất dữ liệu hoàn thành!\n Dữ liệu là 3 file data1, data2, data3.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
+                MessageBox.Show("Export data done!\n The data are 3 files: data1, data2, data3.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                history.Add("[" + DateTime.Now + "] " + "You export your data");
             }
         }
 
@@ -2349,11 +2127,8 @@ namespace XShort
                     }
                     if (back == -1)
                     {
-                        if (en == true)
-                            MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        else
-                            MessageBox.Show("Thiếu dữ liệu - không thể hoàn thành", "Thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
+                       
+                        MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
                 listView1.Enabled = true;
