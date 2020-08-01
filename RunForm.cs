@@ -34,11 +34,6 @@ namespace XShort
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
                 r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
-            if (r.GetValue("Left") != null)
-            {
-                Top = (int)r.GetValue("Top");
-                Left = (int)r.GetValue("Left");
-            }
             if (r.GetValue("ggSearch") != null)
             {
                 ggSearch = true;
@@ -63,15 +58,6 @@ namespace XShort
 
             comboBox1.Focus();
             comboBox1.SelectAll();
-            if (en == 0)
-            {
-
-                label1.Text = "Mở ứng dụng/đường dẫn/địa chỉ (kể cả không có dữ liệu)";
-                label2.Text = "Không cần điền tên đầy đủ, ứng dụng sẽ nhận diện tự động";
-                label4.Text = "Nếu bạn đã tạo mục lục, bạn có thể tìm kiếm tất cả ở đây";
-                button2.Text = "Hủy";
-            }
-
 
             bw = new BackgroundWorker();
             bw.DoWork += Bw_DoWork;
@@ -1131,6 +1117,11 @@ namespace XShort
                 openAsAdministratorToolStripMenuItem_Click(null, null);
             }
 
+        }
+
+        private void RunForm_Deactivate(object sender, EventArgs e)
+        {
+            this.Hide();
         }
 
         private void openAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
