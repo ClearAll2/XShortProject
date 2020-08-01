@@ -37,6 +37,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panelSuggestions = new System.Windows.Forms.Panel();
+            this.labelPlaceHolder = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(513, 120);
+            this.button1.Location = new System.Drawing.Point(513, 154);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 24);
             this.button1.TabIndex = 1;
@@ -58,11 +59,14 @@
             // comboBox1
             // 
             this.comboBox1.ContextMenuStrip = this.contextMenuStrip1;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 25);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(578, 21);
+            this.comboBox1.Size = new System.Drawing.Size(578, 39);
             this.comboBox1.TabIndex = 0;
+            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             this.comboBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
             this.comboBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyUp);
             this.comboBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.comboBox1_PreviewKeyDown);
@@ -89,7 +93,7 @@
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(427, 120);
+            this.button2.Location = new System.Drawing.Point(427, 154);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(80, 24);
             this.button2.TabIndex = 2;
@@ -110,10 +114,22 @@
             // 
             // panelSuggestions
             // 
-            this.panelSuggestions.Location = new System.Drawing.Point(12, 52);
+            this.panelSuggestions.Location = new System.Drawing.Point(12, 70);
             this.panelSuggestions.Name = "panelSuggestions";
             this.panelSuggestions.Size = new System.Drawing.Size(578, 50);
             this.panelSuggestions.TabIndex = 8;
+            // 
+            // labelPlaceHolder
+            // 
+            this.labelPlaceHolder.AutoSize = true;
+            this.labelPlaceHolder.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.labelPlaceHolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlaceHolder.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.labelPlaceHolder.Location = new System.Drawing.Point(240, 28);
+            this.labelPlaceHolder.Name = "labelPlaceHolder";
+            this.labelPlaceHolder.Size = new System.Drawing.Size(124, 31);
+            this.labelPlaceHolder.TabIndex = 9;
+            this.labelPlaceHolder.Text = "Search...";
             // 
             // RunForm
             // 
@@ -122,13 +138,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(605, 112);
+            this.ClientSize = new System.Drawing.Size(605, 126);
+            this.Controls.Add(this.labelPlaceHolder);
             this.Controls.Add(this.panelSuggestions);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
-            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -141,6 +157,7 @@
             this.Activated += new System.EventHandler(this.Form2_Activated);
             this.Deactivate += new System.EventHandler(this.RunForm_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.RunForm_Paint);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -155,5 +172,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem;
         private System.Windows.Forms.Panel panelSuggestions;
+        private System.Windows.Forms.Label labelPlaceHolder;
     }
 }

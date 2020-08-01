@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -200,6 +201,9 @@ namespace XShort
 
             return 1;
         }
+
+
+
         public int LoadData()
         {
             comboBox1.Items.Clear();
@@ -1078,7 +1082,7 @@ namespace XShort
         private void comboBox1_KeyDown(object sender, KeyEventArgs e)
         {
             //comboBox1.DroppedDown = true;
-            if (e.KeyCode != Keys.Back)
+            if (e.KeyCode != Keys.Back && e.KeyCode != Keys.Space && e.KeyCode != Keys.Delete)
             {
                 if (comboBox1.SelectionLength != 0)
                 {
@@ -1122,6 +1126,24 @@ namespace XShort
         private void RunForm_Deactivate(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void RunForm_Paint(object sender, PaintEventArgs e)
+        {
+            Form frm = (Form)sender;
+            ControlPaint.DrawBorder(e.Graphics, frm.ClientRectangle,
+            Color.LightBlue, 1, ButtonBorderStyle.Solid,
+            Color.LightBlue, 1, ButtonBorderStyle.Solid,
+            Color.LightBlue, 1, ButtonBorderStyle.Solid,
+            Color.LightBlue, 1, ButtonBorderStyle.Solid);
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text.Length == 0)
+                labelPlaceHolder.Show();
+            else
+                labelPlaceHolder.Hide();
         }
 
         private void openAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
