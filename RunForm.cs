@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace XShort
@@ -13,10 +14,12 @@ namespace XShort
     public partial class RunForm : Form
     {
         private int index = 0;
+        private int rel = 0;
         private List<String> dir = new List<String>();
         private List<String> sName = new List<String>();
         private List<String> sPath = new List<String>();
         private List<String> sPara = new List<String>();
+        private List<Suggestions> suggestions = new List<Suggestions>();
         private RegistryKey r;
         private string dataPath;
         private bool ggSearch = true;
@@ -26,10 +29,10 @@ namespace XShort
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
         private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "firewall.cpl", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
         private BackgroundWorker bw;
+
         public RunForm(int en)
         {
             InitializeComponent();
-
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
 
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
@@ -63,9 +66,151 @@ namespace XShort
             bw = new BackgroundWorker();
             bw.DoWork += Bw_DoWork;
             bw.RunWorkerAsync();
+            LoadSuggestions();
 
         }
 
+        private int CheckExistSuggestion(string loc)
+        {
+            for (int i = 0; i < suggestions.Count; i++)
+            {
+                if (loc.Equals(suggestions[i].loc))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+
+        private void ReloadSuggestions()
+        {
+            rel = 0;
+            panelSuggestions.Controls.Clear();
+            if (suggestions.Count > 0)
+            {
+                for (int i = 0; i < suggestions.Count; i++)
+                {
+                    AddNewSuggestionsItems(suggestions[i].loc);
+                    if (rel >= 6)
+                        break;
+                }
+
+            }
+        }
+
+        private void LoadSuggestions()
+        {
+            List<string> addedSuggestion = new List<string>();
+            if (System.IO.File.Exists(dataPath + "\\suggestions"))
+            {
+                FileStream fs = new FileStream(dataPath + "\\suggestions", FileMode.Open, FileAccess.Read);
+                StreamReader sr = new StreamReader(fs);
+                while (!sr.EndOfStream)
+                {
+                    string read = sr.ReadLine();
+                    string[] cut = read.Split('|');
+                    if (!addedSuggestion.Contains(cut[0]))
+                    {
+                        suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
+                        if (rel < 6)//fixed only load 6 items from file
+                        {
+                            AddNewSuggestionsItems(cut[0]);
+                            addedSuggestion.Add(cut[0]);
+                        }
+                    }
+                }
+                sr.Close();
+                fs.Close();
+            }
+
+        }
+
+        private void AddNewSuggestionsItems(string text)
+        {
+            int recentWidth = panelSuggestions.Height * 3;
+            Button newsuggestion = new Button
+            {
+                ForeColor = SystemColors.ControlDarkDark,
+                BackColor = System.Drawing.Color.Transparent,
+                FlatStyle = FlatStyle.Flat
+            };
+            //newrecent.FlatAppearance.MouseOverBackColor = SystemColors.Control;
+            newsuggestion.FlatAppearance.BorderSize = 0;
+            newsuggestion.FlatAppearance.BorderColor = Color.White;
+            newsuggestion.ImageList = imageList1;
+            newsuggestion.Left = rel * recentWidth;
+            newsuggestion.Text = text.Substring(text.LastIndexOf("\\") + 1);
+            newsuggestion.TabStop = false;
+            newsuggestion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            if (newsuggestion.Text.Length >= 16)
+            {
+                newsuggestion.TextImageRelation = TextImageRelation.Overlay;
+                newsuggestion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                newsuggestion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            }
+
+            newsuggestion.Width = recentWidth;
+            newsuggestion.Height = panelSuggestions.Height;
+            toolTip1.SetToolTip(newsuggestion, text);
+            newsuggestion.Click += Newsuggestion_Click;
+            newsuggestion.MouseDown += Newsuggestion_MouseDown;
+            panelSuggestions.Controls.Add(newsuggestion);
+            rel += 1;
+        }
+
+        private void Newsuggestion_MouseDown(object sender, MouseEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Newsuggestion_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SortSuggestions()
+        {
+            if (suggestions.Count > 1)
+            {
+                for (int i = 0; i < suggestions.Count - 1; i++)//sort by number for all items first
+                {
+                    for (int j = i + 1; j < suggestions.Count; j++)
+                    {
+                        if (suggestions[i].count < suggestions[j].count)
+                        {
+                            Suggestions temp = suggestions[i];
+                            suggestions[i] = suggestions[j];
+                            suggestions[j] = temp;
+                        }
+                        else if (suggestions[i].count == suggestions[j].count)
+                        {
+                            if (suggestions[i].lasttime.CompareTo(suggestions[j].lasttime) < 0)
+                            {
+                                Suggestions temp = suggestions[i];
+                                suggestions[i] = suggestions[j];
+                                suggestions[j] = temp;
+                            }
+                        }
+                    }
+                }
+                if (suggestions.Count >= 5)//fix recent < 5
+                {
+                    for (int i = 0; i < 4; i++)//sort by time for 5 first items
+                    {
+                        for (int j = i + 1; j < 5; j++)
+                        {
+                            if (suggestions[i].lasttime.CompareTo(suggestions[j].lasttime) < 0)
+                            {
+                                Suggestions temp = suggestions[i];
+                                suggestions[i] = suggestions[j];
+                                suggestions[j] = temp;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private void Bw_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -113,6 +258,23 @@ namespace XShort
                         Process.Start(sPath[i], sPara[i]);
                     else
                         Process.Start(sPath[i]);
+
+                    //for suggestions
+                    if (suggestions.Count > 0)
+                    {
+                        int position = CheckExistSuggestion(sName[i]);
+                        if (position != -1)
+                        {
+                            suggestions[position].count += 1;
+                            suggestions[position].lasttime = DateTime.Now;
+                        }
+                        else
+                            suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                    }
+                    else
+                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                    SortSuggestions();
+                    ReloadSuggestions();
                 }
             }
         }
@@ -320,6 +482,23 @@ namespace XShort
                                     Process.Start(proc);
                                 }
                                 this.Hide();
+
+                                //for suggestions
+                                if (suggestions.Count > 0)
+                                {
+                                    int position = CheckExistSuggestion(sName[i]);
+                                    if (position != -1)
+                                    {
+                                        suggestions[position].count += 1;
+                                        suggestions[position].lasttime = DateTime.Now;
+                                    }
+                                    else
+                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                SortSuggestions();
+                                ReloadSuggestions();
                             }
                             catch
                             {
@@ -355,6 +534,23 @@ namespace XShort
                                     Process.Start(proc);
                                 }
                                 this.Hide();
+
+                                //for suggestions
+                                if (suggestions.Count > 0)
+                                {
+                                    int position = CheckExistSuggestion(sName[i]);
+                                    if (position != -1)
+                                    {
+                                        suggestions[position].count += 1;
+                                        suggestions[position].lasttime = DateTime.Now;
+                                    }
+                                    else
+                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                SortSuggestions();
+                                ReloadSuggestions();
                             }
                             catch
                             {
@@ -394,6 +590,23 @@ namespace XShort
 
                             this.Hide();
 
+                            //for suggestions
+                            if (suggestions.Count > 0)
+                            {
+                                int position = CheckExistSuggestion(sName[i]);
+                                if (position != -1)
+                                {
+                                    suggestions[position].count += 1;
+                                    suggestions[position].lasttime = DateTime.Now;
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            }
+                            else
+                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            SortSuggestions();
+                            ReloadSuggestions();
+
                         }
                         catch
                         {
@@ -430,6 +643,23 @@ namespace XShort
                             }
 
                             this.Hide();
+
+                            //for suggestions
+                            if (suggestions.Count > 0)
+                            {
+                                int position = CheckExistSuggestion(sName[i]);
+                                if (position != -1)
+                                {
+                                    suggestions[position].count += 1;
+                                    suggestions[position].lasttime = DateTime.Now;
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            }
+                            else
+                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            SortSuggestions();
+                            ReloadSuggestions();
 
                         }
                         catch
@@ -474,6 +704,23 @@ namespace XShort
                                     Process.Start(proc);
                                 }
                                 this.Hide();
+
+                                //for suggestions
+                                if (suggestions.Count > 0)
+                                {
+                                    int position = CheckExistSuggestion(sName[i]);
+                                    if (position != -1)
+                                    {
+                                        suggestions[position].count += 1;
+                                        suggestions[position].lasttime = DateTime.Now;
+                                    }
+                                    else
+                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                SortSuggestions();
+                                ReloadSuggestions();
                                 return;
                             }
                             catch
@@ -508,6 +755,23 @@ namespace XShort
                                     Process.Start(proc);
                                 }
                                 this.Hide();
+
+                                //for suggestions
+                                if (suggestions.Count > 0)
+                                {
+                                    int position = CheckExistSuggestion(sName[i]);
+                                    if (position != -1)
+                                    {
+                                        suggestions[position].count += 1;
+                                        suggestions[position].lasttime = DateTime.Now;
+                                    }
+                                    else
+                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                SortSuggestions();
+                                ReloadSuggestions();
                                 return;
                             }
                             catch
@@ -544,7 +808,22 @@ namespace XShort
                             }
 
                             this.Hide();
-
+                            //for suggestions
+                            if (suggestions.Count > 0)
+                            {
+                                int position = CheckExistSuggestion(sName[i]);
+                                if (position != -1)
+                                {
+                                    suggestions[position].count += 1;
+                                    suggestions[position].lasttime = DateTime.Now;
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            }
+                            else
+                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            SortSuggestions();
+                            ReloadSuggestions();
                         }
                         catch
                         {
@@ -581,7 +860,22 @@ namespace XShort
                             }
 
                             this.Hide();
-
+                            //for suggestions
+                            if (suggestions.Count > 0)
+                            {
+                                int position = CheckExistSuggestion(sName[i]);
+                                if (position != -1)
+                                {
+                                    suggestions[position].count += 1;
+                                    suggestions[position].lasttime = DateTime.Now;
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            }
+                            else
+                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            SortSuggestions();
+                            ReloadSuggestions();
                         }
                         catch
                         {
@@ -714,13 +1008,24 @@ namespace XShort
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (r == null)
-                r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
-            r.SetValue("Left", this.Left);
-            r.SetValue("Top", this.Top);
-            r.Close();
-            r.Dispose();
+            if (suggestions.Count > 0)
+            {
+                System.IO.File.WriteAllText(dataPath + "\\suggestions", String.Empty);
+                if (suggestions.Count > 20)
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < suggestions.Count; i++)
+                    {
+                        System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
+                    }
+                }
+            }
 
         }
 
@@ -1136,15 +1441,12 @@ namespace XShort
             Color.LightBlue, 1, ButtonBorderStyle.Solid,
             Color.LightBlue, 1, ButtonBorderStyle.Solid,
             Color.LightBlue, 1, ButtonBorderStyle.Solid);
+            
         }
 
-        private void comboBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (comboBox1.Text.Length == 0)
-                labelPlaceHolder.Show();
-            else
-                labelPlaceHolder.Hide();
-        }
+
+        
+       
 
         private void openAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1153,5 +1455,6 @@ namespace XShort
             tbw.RunWorkerAsync(true);
         }
 
+       
     }
 }

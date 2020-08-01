@@ -37,7 +37,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panelSuggestions = new System.Windows.Forms.Panel();
-            this.labelPlaceHolder = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,15 +59,16 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.ContextMenuStrip = this.contextMenuStrip1;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 25);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(578, 39);
+            this.comboBox1.Size = new System.Drawing.Size(532, 39);
             this.comboBox1.TabIndex = 0;
-            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             this.comboBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
             this.comboBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyUp);
             this.comboBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.comboBox1_PreviewKeyDown);
@@ -114,22 +116,17 @@
             // 
             // panelSuggestions
             // 
+            this.panelSuggestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSuggestions.Location = new System.Drawing.Point(12, 70);
             this.panelSuggestions.Name = "panelSuggestions";
-            this.panelSuggestions.Size = new System.Drawing.Size(578, 50);
+            this.panelSuggestions.Size = new System.Drawing.Size(532, 44);
             this.panelSuggestions.TabIndex = 8;
             // 
-            // labelPlaceHolder
+            // imageList1
             // 
-            this.labelPlaceHolder.AutoSize = true;
-            this.labelPlaceHolder.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.labelPlaceHolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlaceHolder.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.labelPlaceHolder.Location = new System.Drawing.Point(240, 28);
-            this.labelPlaceHolder.Name = "labelPlaceHolder";
-            this.labelPlaceHolder.Size = new System.Drawing.Size(124, 31);
-            this.labelPlaceHolder.TabIndex = 9;
-            this.labelPlaceHolder.Text = "Search...";
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(40, 40);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // RunForm
             // 
@@ -138,8 +135,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(605, 126);
-            this.Controls.Add(this.labelPlaceHolder);
+            this.ClientSize = new System.Drawing.Size(556, 126);
             this.Controls.Add(this.panelSuggestions);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
@@ -172,6 +168,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem;
         private System.Windows.Forms.Panel panelSuggestions;
-        private System.Windows.Forms.Label labelPlaceHolder;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
