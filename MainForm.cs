@@ -103,11 +103,6 @@ namespace XShort
 
             for (int i = 0; i < listView1.Columns.Count; i++)
                 listView1.Columns[i].Width = listView1.Width / listView1.Columns.Count;
-            
-
-            //this.Text += " Beta Test - build " + this.AssemblyDescription;
-            //buttonData_Click();
-
 
         }
 
@@ -1407,8 +1402,9 @@ namespace XShort
 
         private void mainWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.TopMost = true;
             this.Show();
-            WindowState = FormWindowState.Normal;
+            this.TopMost = false;
             buttonData_Click();
         }
 

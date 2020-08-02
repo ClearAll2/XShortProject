@@ -60,13 +60,12 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.ContextMenuStrip = this.contextMenuStrip1;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 25);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(532, 39);
+            this.comboBox1.Size = new System.Drawing.Size(529, 39);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
             this.comboBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyUp);
@@ -118,7 +117,7 @@
             this.panelSuggestions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSuggestions.Location = new System.Drawing.Point(12, 70);
             this.panelSuggestions.Name = "panelSuggestions";
-            this.panelSuggestions.Size = new System.Drawing.Size(532, 44);
+            this.panelSuggestions.Size = new System.Drawing.Size(529, 44);
             this.panelSuggestions.TabIndex = 8;
             // 
             // RunForm
@@ -128,7 +127,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(556, 126);
+            this.ClientSize = new System.Drawing.Size(553, 126);
             this.Controls.Add(this.panelSuggestions);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
