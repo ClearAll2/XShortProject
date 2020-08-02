@@ -38,7 +38,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panelSuggestions = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,12 +121,6 @@
             this.panelSuggestions.Size = new System.Drawing.Size(532, 44);
             this.panelSuggestions.TabIndex = 8;
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(40, 40);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // RunForm
             // 
             this.AcceptButton = this.button1;
@@ -169,6 +162,5 @@
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem;
         private System.Windows.Forms.Panel panelSuggestions;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ImageList imageList1;
     }
 }

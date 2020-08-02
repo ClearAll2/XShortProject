@@ -19,6 +19,7 @@ namespace XShort
         private List<String> sName = new List<String>();
         private List<String> sPath = new List<String>();
         private List<String> sPara = new List<String>();
+        private ImageList sImage = new ImageList();
         private List<Suggestions> suggestions = new List<Suggestions>();
         private RegistryKey r;
         private string dataPath;
@@ -34,6 +35,8 @@ namespace XShort
         {
             InitializeComponent();
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
+            sImage.ImageSize = new Size(30, 30);
+            sImage.ColorDepth = ColorDepth.Depth32Bit;
 
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
@@ -66,8 +69,43 @@ namespace XShort
             bw = new BackgroundWorker();
             bw.DoWork += Bw_DoWork;
             bw.RunWorkerAsync();
-            LoadSuggestions();
+            bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
+            
 
+        }
+
+        private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            LoadSuggestions();
+        }
+
+        private void LoadIcon()
+        {
+            for (int i = 0; i < sPath.Count; i++)
+            {
+                try
+                {
+                    sImage.Images.Add(Icon.ExtractAssociatedIcon(sPath[i]));
+                }
+                catch
+                {
+                    if (sPath[i].Contains("http"))
+                        sImage.Images.Add(Properties.Resources.internet);
+                    else if (sPath[i].Contains("\\"))
+                    {
+                        if (Directory.Exists(sPath[i]))
+                            sImage.Images.Add(Properties.Resources.dir);
+                        else
+                            sImage.Images.Add(Properties.Resources.error);
+                    }
+                    else
+                    {
+                        sImage.Images.Add(Properties.Resources.question_help_mark_balloon_512);
+                    }
+
+                }
+                
+            }
         }
 
         private int CheckExistSuggestion(string loc)
@@ -135,13 +173,14 @@ namespace XShort
                 BackColor = System.Drawing.Color.Transparent,
                 FlatStyle = FlatStyle.Flat
             };
-            //newrecent.FlatAppearance.MouseOverBackColor = SystemColors.Control;
             newsuggestion.FlatAppearance.BorderSize = 0;
             newsuggestion.FlatAppearance.BorderColor = Color.White;
-            newsuggestion.ImageList = imageList1;
+            newsuggestion.ImageList = sImage;
+            newsuggestion.ImageIndex = sName.IndexOf(text);
             newsuggestion.Left = rel * recentWidth;
-            newsuggestion.Text = text.Substring(text.LastIndexOf("\\") + 1);
+            newsuggestion.Text = text;
             newsuggestion.TabStop = false;
+            newsuggestion.ContextMenuStrip = contextMenuStrip1;
             newsuggestion.TextImageRelation = TextImageRelation.ImageBeforeText;
             if (newsuggestion.Text.Length >= 16)
             {
@@ -152,7 +191,7 @@ namespace XShort
 
             newsuggestion.Width = recentWidth;
             newsuggestion.Height = panelSuggestions.Height;
-            toolTip1.SetToolTip(newsuggestion, text);
+            toolTip1.SetToolTip(newsuggestion, sPath[newsuggestion.ImageIndex]);
             newsuggestion.Click += Newsuggestion_Click;
             newsuggestion.MouseDown += Newsuggestion_MouseDown;
             panelSuggestions.Controls.Add(newsuggestion);
@@ -161,12 +200,27 @@ namespace XShort
 
         private void Newsuggestion_MouseDown(object sender, MouseEventArgs e)
         {
-            throw new NotImplementedException();
+            Button button = (Button)sender;
+            string location = toolTip1.GetToolTip(button);
+            if (e.Button == MouseButtons.Middle)
+            {
+                try
+                {
+                    string argument = "/select, \"" + location + "\"";
+                    Process.Start("explorer.exe", argument);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void Newsuggestion_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Button button = (Button)sender;
+            SimpleRun(button.Text);
+            ReloadSuggestions();
         }
 
         private void SortSuggestions()
@@ -222,6 +276,7 @@ namespace XShort
             {
                 loadData();
             }
+            LoadIcon();
             if (File.Exists(Path.Combine(dataPath, "startup.txt")))
             {
                 List<string> startup = new List<string>();
@@ -274,7 +329,6 @@ namespace XShort
                     else
                         suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                     SortSuggestions();
-                    ReloadSuggestions();
                 }
             }
         }
@@ -498,7 +552,6 @@ namespace XShort
                                 else
                                     suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                                 SortSuggestions();
-                                ReloadSuggestions();
                             }
                             catch
                             {
@@ -550,7 +603,6 @@ namespace XShort
                                 else
                                     suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                                 SortSuggestions();
-                                ReloadSuggestions();
                             }
                             catch
                             {
@@ -605,7 +657,6 @@ namespace XShort
                             else
                                 suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                             SortSuggestions();
-                            ReloadSuggestions();
 
                         }
                         catch
@@ -659,7 +710,6 @@ namespace XShort
                             else
                                 suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                             SortSuggestions();
-                            ReloadSuggestions();
 
                         }
                         catch
@@ -720,7 +770,6 @@ namespace XShort
                                 else
                                     suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                                 SortSuggestions();
-                                ReloadSuggestions();
                                 return;
                             }
                             catch
@@ -771,7 +820,6 @@ namespace XShort
                                 else
                                     suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                                 SortSuggestions();
-                                ReloadSuggestions();
                                 return;
                             }
                             catch
@@ -823,7 +871,6 @@ namespace XShort
                             else
                                 suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                             SortSuggestions();
-                            ReloadSuggestions();
                         }
                         catch
                         {
@@ -875,7 +922,6 @@ namespace XShort
                             else
                                 suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                             SortSuggestions();
-                            ReloadSuggestions();
                         }
                         catch
                         {
@@ -958,6 +1004,12 @@ namespace XShort
             BackgroundWorker tbw = new BackgroundWorker();
             tbw.DoWork += Tbw_DoWork;
             tbw.RunWorkerAsync(false);
+            tbw.RunWorkerCompleted += Tbw_RunWorkerCompleted;
+        }
+
+        private void Tbw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ReloadSuggestions();
         }
 
         private void Tbw_DoWork(object sender, DoWorkEventArgs e)
@@ -1444,12 +1496,25 @@ namespace XShort
             
         }
 
-
-        
-       
-
         private void openAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ToolStripItem menuItem = sender as ToolStripItem;
+            if (menuItem != null)
+            {
+                // Retrieve the ContextMenuStrip that owns this ToolStripItem
+                ContextMenuStrip owner = menuItem.Owner as ContextMenuStrip;
+                if (owner != null)
+                {
+                    Control sourceControl = owner.SourceControl;
+                    if (sourceControl != comboBox1)
+                    {
+                        Button btt = (Button)sourceControl;
+                        comboBox1.Text = btt.Text;
+                    }
+
+                }
+            }
+
             BackgroundWorker tbw = new BackgroundWorker();
             tbw.DoWork += Tbw_DoWork;
             tbw.RunWorkerAsync(true);
