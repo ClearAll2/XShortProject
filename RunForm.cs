@@ -37,6 +37,7 @@ namespace XShort
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             sImage.ImageSize = new Size(30, 30);
             sImage.ColorDepth = ColorDepth.Depth32Bit;
+            comboBox1.DropDownHeight = comboBox1.Font.Height * 5;
 
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
@@ -70,8 +71,6 @@ namespace XShort
             bw.DoWork += Bw_DoWork;
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
-            
-
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -81,6 +80,7 @@ namespace XShort
 
         private void LoadIcon()
         {
+            sImage.Images.Clear();
             for (int i = 0; i < sPath.Count; i++)
             {
                 try
@@ -120,8 +120,7 @@ namespace XShort
             return -1;
         }
 
-
-        private void ReloadSuggestions()
+        public void ReloadSuggestions()
         {
             rel = 0;
             panelSuggestions.Controls.Clear();
@@ -129,8 +128,9 @@ namespace XShort
             {
                 for (int i = 0; i < suggestions.Count; i++)
                 {
-                    AddNewSuggestionsItems(suggestions[i].loc);
-                    if (rel >= 6)
+                    if (sName.Contains(suggestions[i].loc))
+                        AddNewSuggestionsItems(suggestions[i].loc);
+                    if (rel >= 4)
                         break;
                 }
 
@@ -148,10 +148,10 @@ namespace XShort
                 {
                     string read = sr.ReadLine();
                     string[] cut = read.Split('|');
-                    if (!addedSuggestion.Contains(cut[0]))
+                    if (!addedSuggestion.Contains(cut[0]) && sName.Contains(cut[0]))
                     {
                         suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
-                        if (rel < 6)//fixed only load 6 items from file
+                        if (rel < 4)//fixed only load 6 items from file
                         {
                             AddNewSuggestionsItems(cut[0]);
                             addedSuggestion.Add(cut[0]);
@@ -219,7 +219,10 @@ namespace XShort
         private void Newsuggestion_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            SimpleRun(button.Text);
+            if (sName.Contains(button.Text))
+            {
+                SimpleRun(button.Text);
+            }
             ReloadSuggestions();
         }
 
@@ -276,7 +279,7 @@ namespace XShort
             {
                 loadData();
             }
-            LoadIcon();
+            
             if (File.Exists(Path.Combine(dataPath, "startup.txt")))
             {
                 List<string> startup = new List<string>();
@@ -414,7 +417,7 @@ namespace XShort
             {
                 comboBox1.Items.Add(sName[i]);
             }
-
+            LoadIcon();
             return 1;
         }
 
@@ -484,7 +487,7 @@ namespace XShort
             {
                 comboBox1.Items.Add(sName[i]);
             }
-
+            LoadIcon();
             return 1;
 
         }

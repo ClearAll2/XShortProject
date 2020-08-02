@@ -35,7 +35,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openAsAdministratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelInstruction = new System.Windows.Forms.Label();
             this.panelSuggestions = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStrip1.SuspendLayout();
@@ -102,15 +102,15 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label4
+            // labelInstruction
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(12, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(212, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Press Tab to search similar names/shorcuts";
+            this.labelInstruction.AutoSize = true;
+            this.labelInstruction.ForeColor = System.Drawing.Color.Gray;
+            this.labelInstruction.Location = new System.Drawing.Point(12, 9);
+            this.labelInstruction.Name = "labelInstruction";
+            this.labelInstruction.Size = new System.Drawing.Size(212, 13);
+            this.labelInstruction.TabIndex = 7;
+            this.labelInstruction.Text = "Press Tab to search similar names/shorcuts";
             // 
             // panelSuggestions
             // 
@@ -129,7 +129,7 @@
             this.CancelButton = this.button2;
             this.ClientSize = new System.Drawing.Size(553, 126);
             this.Controls.Add(this.panelSuggestions);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.labelInstruction);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
@@ -156,7 +156,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelInstruction;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem;
         private System.Windows.Forms.Panel panelSuggestions;

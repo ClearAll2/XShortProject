@@ -509,8 +509,11 @@ namespace XShort
         {
             if (e.Key == k)
             {
-                SendKeys.Send(""); //do not remove this
-                runBoxToolStripMenuItem_Click(null, null);
+                if (!f3.Visible)
+                {
+                    SendKeys.Send(""); //do not remove this
+                    runBoxToolStripMenuItem_Click(null, null);
+                }
             }
             if (e.Key == Keys.Tab)
             {
@@ -1202,10 +1205,15 @@ namespace XShort
                 BackgroundWorker bwt = new BackgroundWorker();
                 bwt.DoWork += Bwt_DoWork;
                 bwt.RunWorkerAsync();
+                bwt.RunWorkerCompleted += Bwt_RunWorkerCompleted;
             }
 
         }
 
+        private void Bwt_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            f2.ReloadSuggestions();
+        }
 
         private void Bwt_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -1291,7 +1299,7 @@ namespace XShort
             if (f2 != null)
             {
                 f2.LoadData();
-
+                
             }
             img.Dispose();
             img = new ImageList();
@@ -1301,12 +1309,6 @@ namespace XShort
 
             f3.Hide();
 
-
-
-            // button11.Enabled = true;
-            //button8.Enabled = true;
-            //button7.Enabled = true;
-            //panelSub.Enabled = true;
             panelData.Enabled = true;
 
             if (exit == true)
