@@ -477,8 +477,8 @@ namespace XShort
                 //    MessageBox.Show("Hãy đảm bảo bạn có kết nối internet!", "Không thể kết nối tới máy chủ", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
-            string ver = "https://drive.google.com/uc?export=download&id=1enOPUAXdYCq6MZNnMJuZ0yqt4eVaJBzr";
-            string chlog = "https://drive.google.com/uc?export=download&id=1m8EWUOGwoWY8jTL3BSIYIzLV12A6ruXr";
+            string ver = "https://download-cas.000webhostapp.com/download/XShortCore/version";
+            string chlog = "https://download-cas.000webhostapp.com/download/XShortCore/changelog";
             string sver = wc.DownloadString(ver);
             string schlog = wc.DownloadString(chlog);
             int isLatest = Application.ProductVersion.CompareTo(sver);
@@ -496,12 +496,6 @@ namespace XShort
                 
             }
             wc.Dispose();
-
-            // buttonC4U2.Enabled = true;
-
-
-
-
         }
 
 

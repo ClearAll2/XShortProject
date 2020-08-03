@@ -55,8 +55,13 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.button13 = new System.Windows.Forms.Button();
+            this.buttonMenu = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonAddURL = new System.Windows.Forms.Button();
+            this.buttonAddDir = new System.Windows.Forms.Button();
+            this.buttonAddApp = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.appToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,12 +85,6 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelData = new System.Windows.Forms.Panel();
-            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.propertyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip4 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip5 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,17 +106,10 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.labelShortcutType = new System.Windows.Forms.Label();
-            this.buttonMenu = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonAddURL = new System.Windows.Forms.Button();
-            this.buttonAddDir = new System.Windows.Forms.Button();
-            this.buttonAddApp = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panelData.SuspendLayout();
-            this.contextMenuStrip3.SuspendLayout();
-            this.contextMenuStrip4.SuspendLayout();
             this.contextMenuStrip5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -318,6 +310,40 @@
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
+            // button13
+            // 
+            this.button13.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button13.BackColor = System.Drawing.Color.DodgerBlue;
+            this.button13.FlatAppearance.BorderSize = 0;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.ForeColor = System.Drawing.Color.White;
+            this.button13.Location = new System.Drawing.Point(470, 162);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(27, 19);
+            this.button13.TabIndex = 10;
+            this.button13.TabStop = false;
+            this.button13.Text = "...";
+            this.toolTip1.SetToolTip(this.button13, "Search");
+            this.button13.UseVisualStyleBackColor = false;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // buttonMenu
+            // 
+            this.buttonMenu.FlatAppearance.BorderSize = 0;
+            this.buttonMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonMenu.ForeColor = System.Drawing.Color.Silver;
+            this.buttonMenu.ImageIndex = 3;
+            this.buttonMenu.ImageList = this.imageList1;
+            this.buttonMenu.Location = new System.Drawing.Point(32, 12);
+            this.buttonMenu.Name = "buttonMenu";
+            this.buttonMenu.Size = new System.Drawing.Size(25, 25);
+            this.buttonMenu.TabIndex = 39;
+            this.buttonMenu.TabStop = false;
+            this.toolTip1.SetToolTip(this.buttonMenu, "Menu");
+            this.buttonMenu.UseVisualStyleBackColor = false;
+            this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
+            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -341,22 +367,81 @@
             this.imageList1.Images.SetKeyName(16, "log.png");
             this.imageList1.Images.SetKeyName(17, "list.png");
             // 
-            // button13
+            // buttonSave
             // 
-            this.button13.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button13.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.ForeColor = System.Drawing.Color.White;
-            this.button13.Location = new System.Drawing.Point(470, 162);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(27, 19);
-            this.button13.TabIndex = 10;
-            this.button13.TabStop = false;
-            this.button13.Text = "...";
-            this.toolTip1.SetToolTip(this.button13, "Search");
-            this.button13.UseVisualStyleBackColor = false;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonSave.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonSave.FlatAppearance.BorderSize = 0;
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.ImageIndex = 9;
+            this.buttonSave.ImageList = this.imageList1;
+            this.buttonSave.Location = new System.Drawing.Point(395, 364);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(111, 28);
+            this.buttonSave.TabIndex = 32;
+            this.buttonSave.TabStop = false;
+            this.buttonSave.Text = "Save shortcuts";
+            this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonSave, "Save shortcuts");
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.saveShortcutsToolStripMenuItem_Click);
+            // 
+            // buttonAddURL
+            // 
+            this.buttonAddURL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonAddURL.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonAddURL.FlatAppearance.BorderSize = 0;
+            this.buttonAddURL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddURL.ImageIndex = 10;
+            this.buttonAddURL.ImageList = this.imageList1;
+            this.buttonAddURL.Location = new System.Drawing.Point(278, 364);
+            this.buttonAddURL.Name = "buttonAddURL";
+            this.buttonAddURL.Size = new System.Drawing.Size(111, 28);
+            this.buttonAddURL.TabIndex = 31;
+            this.buttonAddURL.TabStop = false;
+            this.buttonAddURL.Text = "Add URL";
+            this.buttonAddURL.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonAddURL, "Add URL");
+            this.buttonAddURL.UseVisualStyleBackColor = true;
+            this.buttonAddURL.Click += new System.EventHandler(this.addURLToolStripMenuItem_Click);
+            // 
+            // buttonAddDir
+            // 
+            this.buttonAddDir.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonAddDir.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonAddDir.FlatAppearance.BorderSize = 0;
+            this.buttonAddDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddDir.ImageIndex = 8;
+            this.buttonAddDir.ImageList = this.imageList1;
+            this.buttonAddDir.Location = new System.Drawing.Point(145, 364);
+            this.buttonAddDir.Name = "buttonAddDir";
+            this.buttonAddDir.Size = new System.Drawing.Size(127, 28);
+            this.buttonAddDir.TabIndex = 30;
+            this.buttonAddDir.TabStop = false;
+            this.buttonAddDir.Text = "Add Directory";
+            this.buttonAddDir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonAddDir, "Add Directory");
+            this.buttonAddDir.UseVisualStyleBackColor = true;
+            this.buttonAddDir.Click += new System.EventHandler(this.addDirectoryToolStripMenuItem_Click);
+            // 
+            // buttonAddApp
+            // 
+            this.buttonAddApp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonAddApp.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.buttonAddApp.FlatAppearance.BorderSize = 0;
+            this.buttonAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddApp.ImageIndex = 11;
+            this.buttonAddApp.ImageList = this.imageList1;
+            this.buttonAddApp.Location = new System.Drawing.Point(21, 364);
+            this.buttonAddApp.Name = "buttonAddApp";
+            this.buttonAddApp.Size = new System.Drawing.Size(118, 28);
+            this.buttonAddApp.TabIndex = 29;
+            this.buttonAddApp.TabStop = false;
+            this.buttonAddApp.Text = "Add App/File";
+            this.buttonAddApp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.buttonAddApp, "Add App/File");
+            this.buttonAddApp.UseVisualStyleBackColor = true;
+            this.buttonAddApp.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
@@ -572,47 +657,6 @@
             this.panelData.Name = "panelData";
             this.panelData.Size = new System.Drawing.Size(529, 405);
             this.panelData.TabIndex = 30;
-            // 
-            // contextMenuStrip3
-            // 
-            this.contextMenuStrip3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.contextMenuStrip3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.openFileLocationToolStripMenuItem,
-            this.propertyToolStripMenuItem});
-            this.contextMenuStrip3.Name = "contextMenuStrip3";
-            this.contextMenuStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip3.Size = new System.Drawing.Size(69, 70);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
-            // 
-            // openFileLocationToolStripMenuItem
-            // 
-            this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
-            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
-            // 
-            // propertyToolStripMenuItem
-            // 
-            this.propertyToolStripMenuItem.Name = "propertyToolStripMenuItem";
-            this.propertyToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
-            // 
-            // contextMenuStrip4
-            // 
-            this.contextMenuStrip4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.contextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.undoToolStripMenuItem});
-            this.contextMenuStrip4.Name = "contextMenuStrip4";
-            this.contextMenuStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip4.Size = new System.Drawing.Size(68, 26);
-            // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(67, 22);
             // 
             // contextMenuStrip5
             // 
@@ -849,99 +893,6 @@
             this.labelShortcutType.TabIndex = 12;
             this.labelShortcutType.Text = "Shortcut type";
             // 
-            // buttonMenu
-            // 
-            this.buttonMenu.FlatAppearance.BorderSize = 0;
-            this.buttonMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonMenu.ForeColor = System.Drawing.Color.Silver;
-            this.buttonMenu.ImageIndex = 3;
-            this.buttonMenu.ImageList = this.imageList1;
-            this.buttonMenu.Location = new System.Drawing.Point(32, 12);
-            this.buttonMenu.Name = "buttonMenu";
-            this.buttonMenu.Size = new System.Drawing.Size(25, 25);
-            this.buttonMenu.TabIndex = 39;
-            this.buttonMenu.TabStop = false;
-            this.toolTip1.SetToolTip(this.buttonMenu, "Menu");
-            this.buttonMenu.UseVisualStyleBackColor = false;
-            this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonSave.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonSave.FlatAppearance.BorderSize = 0;
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.ImageIndex = 9;
-            this.buttonSave.ImageList = this.imageList1;
-            this.buttonSave.Location = new System.Drawing.Point(395, 364);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(111, 28);
-            this.buttonSave.TabIndex = 32;
-            this.buttonSave.TabStop = false;
-            this.buttonSave.Text = "Save shortcuts";
-            this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.buttonSave, "Save shortcuts");
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.saveShortcutsToolStripMenuItem_Click);
-            // 
-            // buttonAddURL
-            // 
-            this.buttonAddURL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddURL.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonAddURL.FlatAppearance.BorderSize = 0;
-            this.buttonAddURL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddURL.ImageIndex = 10;
-            this.buttonAddURL.ImageList = this.imageList1;
-            this.buttonAddURL.Location = new System.Drawing.Point(278, 364);
-            this.buttonAddURL.Name = "buttonAddURL";
-            this.buttonAddURL.Size = new System.Drawing.Size(111, 28);
-            this.buttonAddURL.TabIndex = 31;
-            this.buttonAddURL.TabStop = false;
-            this.buttonAddURL.Text = "Add URL";
-            this.buttonAddURL.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.buttonAddURL, "Add URL");
-            this.buttonAddURL.UseVisualStyleBackColor = true;
-            this.buttonAddURL.Click += new System.EventHandler(this.addURLToolStripMenuItem_Click);
-            // 
-            // buttonAddDir
-            // 
-            this.buttonAddDir.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddDir.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonAddDir.FlatAppearance.BorderSize = 0;
-            this.buttonAddDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddDir.ImageIndex = 8;
-            this.buttonAddDir.ImageList = this.imageList1;
-            this.buttonAddDir.Location = new System.Drawing.Point(145, 364);
-            this.buttonAddDir.Name = "buttonAddDir";
-            this.buttonAddDir.Size = new System.Drawing.Size(127, 28);
-            this.buttonAddDir.TabIndex = 30;
-            this.buttonAddDir.TabStop = false;
-            this.buttonAddDir.Text = "Add Directory";
-            this.buttonAddDir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.buttonAddDir, "Add Directory");
-            this.buttonAddDir.UseVisualStyleBackColor = true;
-            this.buttonAddDir.Click += new System.EventHandler(this.addDirectoryToolStripMenuItem_Click);
-            // 
-            // buttonAddApp
-            // 
-            this.buttonAddApp.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonAddApp.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonAddApp.FlatAppearance.BorderSize = 0;
-            this.buttonAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddApp.ImageIndex = 11;
-            this.buttonAddApp.ImageList = this.imageList1;
-            this.buttonAddApp.Location = new System.Drawing.Point(21, 364);
-            this.buttonAddApp.Name = "buttonAddApp";
-            this.buttonAddApp.Size = new System.Drawing.Size(118, 28);
-            this.buttonAddApp.TabIndex = 29;
-            this.buttonAddApp.TabStop = false;
-            this.buttonAddApp.Text = "Add App/File";
-            this.buttonAddApp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.buttonAddApp, "Add App/File");
-            this.buttonAddApp.UseVisualStyleBackColor = true;
-            this.buttonAddApp.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -965,8 +916,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panelData.ResumeLayout(false);
-            this.contextMenuStrip3.ResumeLayout(false);
-            this.contextMenuStrip4.ResumeLayout(false);
             this.contextMenuStrip5.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -1014,19 +963,13 @@
         private System.Windows.Forms.ToolStripMenuItem homepageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scanFolderToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem propertyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip4;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem controlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem minimizeHideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openAtWindowsStartupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem;
         private System.Windows.Forms.Button buttonMenu;
         private System.Windows.Forms.ToolStripMenuItem openSettingsToolStripMenuItem;

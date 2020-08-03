@@ -33,8 +33,8 @@
             this.panelAbout = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panelAbout.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -74,12 +74,6 @@
             this.label1.Text = "XShort v1.0\r\nCopyright ©  2017\r\nClear All Soft";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Bokehlicia-Captiva-Browser-web.ico");
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::XShort.Properties.Resources.Core;
@@ -89,6 +83,12 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Bokehlicia-Captiva-Browser-web.ico");
             // 
             // About
             // 
