@@ -12,7 +12,7 @@ namespace XShort
         public About()
         {
             InitializeComponent();
-            label1.Text = "XShort Core v" + Application.ProductVersion + " build " + this.AssemblyDescription + "\nCopyright © 2020\nXShort Project\nFreedom Software";
+            label1.Text = "XShort Core v" + Application.ProductVersion + " build " + this.AssemblyDescription + "\nCopyright © 2021\nXShort Project\nFreedom Software";
         }
 
         public string AssemblyDescription

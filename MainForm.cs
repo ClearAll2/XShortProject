@@ -97,9 +97,9 @@ namespace XShort
 
             loadSettings();
 
-            BackgroundWorker bwu = new BackgroundWorker();
-            bwu.DoWork += Bwu_DoWork;
-            bwu.RunWorkerAsync();
+            //BackgroundWorker bwu = new BackgroundWorker();
+            //bwu.DoWork += Bwu_DoWork;
+            //bwu.RunWorkerAsync();
 
             for (int i = 0; i < listView1.Columns.Count; i++)
                 listView1.Columns[i].Width = listView1.Width / listView1.Columns.Count;

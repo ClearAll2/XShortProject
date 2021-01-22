@@ -1105,7 +1105,7 @@ namespace XShort
                 {
                     for (int i = index + 1; i < sysCmd.Count(); i++)
                     {
-                        if (sysCmd[i].Contains(part))
+                        if (sysCmd[i].Contains(part) || sysCmd[i].ToLower().Contains(part.ToLower()) && !csen)
                         {
 
                             comboBox1.Text = text1 + sysCmd[i];
@@ -1130,7 +1130,7 @@ namespace XShort
                     {
                         for (int i = index + 1; i < sName.Count; i++)
                         {
-                            if (sName[i].Contains(text))
+                            if (sName[i].Contains(text) || sName[i].ToLower().Contains(text.ToLower()) && !csen)
                             {
                                 comboBox1.Text = sName[i];
                                 index = i;
@@ -1151,7 +1151,7 @@ namespace XShort
                     {
                         for (int i = index + 1; i < sName.Count; i++)
                         {
-                            if (sName[i].Contains(part))
+                            if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                             {
                                 comboBox1.Text = text1 + " " + sName[i];
                                 index = i;
@@ -1174,7 +1174,7 @@ namespace XShort
                     {
                         for (int i = index + 1; i < sName.Count; i++)
                         {
-                            if (sName[i].Contains(part))
+                            if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                             {
                                 comboBox1.Text = text1 + " " + sName[i];
                                 index = i;
@@ -1201,7 +1201,7 @@ namespace XShort
                     {
                         for (int i = index + 1; i < dir.Count; i++)
                         {
-                            if (dir[i].Contains(text))
+                            if (dir[i].Contains(text) || dir[i].ToLower().Contains(text.ToLower()) && !csen)
                             {
                                 comboBox1.Text = dir[i];
                                 index = i;
@@ -1219,11 +1219,11 @@ namespace XShort
                     }
                     else if (text.Contains("+") == true && text.Contains("!") != true)
                     {
-                        if (part.Contains("\\"))
+                        if (part.Contains("\\") )
                         {
                             for (int i = index + 1; i < dir.Count; i++)
                             {
-                                if (dir[i].Contains(part))
+                                if (dir[i].Contains(part) || dir[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
                                     comboBox1.Text = text1 + " " + dir[i];
                                     index = i;
@@ -1243,7 +1243,7 @@ namespace XShort
                         {
                             for (int i = index + 1; i < sName.Count; i++)
                             {
-                                if (sName[i].Contains(part))
+                                if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
                                     comboBox1.Text = text1 + " " + sName[i];
                                     index = i;
@@ -1266,7 +1266,7 @@ namespace XShort
                         {
                             for (int i = index + 1; i < dir.Count; i++)
                             {
-                                if (dir[i].Contains(part))
+                                if (dir[i].Contains(part) || dir[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
                                     comboBox1.Text = text1 + " " + dir[i];
                                     index = i;
@@ -1286,7 +1286,7 @@ namespace XShort
                         {
                             for (int i = index + 1; i < sName.Count; i++)
                             {
-                                if (sName[i].Contains(part))
+                                if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
                                     comboBox1.Text = text1 + " " + sName[i];
                                     index = i;
