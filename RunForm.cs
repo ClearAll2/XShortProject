@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace XShort
@@ -128,8 +127,7 @@ namespace XShort
             {
                 for (int i = 0; i < suggestions.Count; i++)
                 {
-                    if (sName.Contains(suggestions[i].loc))
-                        AddNewSuggestionsItems(suggestions[i].loc);
+                    AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
                     if (rel >= 4)
                         break;
                 }
@@ -148,12 +146,12 @@ namespace XShort
                 {
                     string read = sr.ReadLine();
                     string[] cut = read.Split('|');
-                    if (!addedSuggestion.Contains(cut[0]) && sName.Contains(cut[0]))
+                    if (!addedSuggestion.Contains(cut[0]) /*&& sName.Contains(cut[0])*/)
                     {
                         suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
                         if (rel < 4)//fixed only load 6 items from file
                         {
-                            AddNewSuggestionsItems(cut[0]);
+                            AddNewSuggestionsItems(cut[0], sName.Contains(cut[0]));
                             addedSuggestion.Add(cut[0]);
                         }
                     }
@@ -161,10 +159,9 @@ namespace XShort
                 sr.Close();
                 fs.Close();
             }
-
         }
 
-        private void AddNewSuggestionsItems(string text)
+        private void AddNewSuggestionsItems(string text, bool useImageList)
         {
             int recentWidth = panelSuggestions.Height * 3;
             Button newsuggestion = new Button
@@ -175,8 +172,18 @@ namespace XShort
             };
             newsuggestion.FlatAppearance.BorderSize = 0;
             newsuggestion.FlatAppearance.BorderColor = Color.White;
-            newsuggestion.ImageList = sImage;
-            newsuggestion.ImageIndex = sName.IndexOf(text);
+            if (useImageList)
+            {
+                newsuggestion.ImageList = sImage;
+                newsuggestion.ImageIndex = sName.IndexOf(text);
+                toolTip1.SetToolTip(newsuggestion, sPath[newsuggestion.ImageIndex]);
+            }
+            else
+            {
+                Image icon = new Bitmap(Properties.Resources.terminal, new Size(30, 30));
+                newsuggestion.Image = icon;
+                toolTip1.SetToolTip(newsuggestion, text);
+            }
             newsuggestion.Left = rel * recentWidth;
             newsuggestion.Text = text;
             newsuggestion.TabStop = false;
@@ -191,7 +198,6 @@ namespace XShort
 
             newsuggestion.Width = recentWidth;
             newsuggestion.Height = panelSuggestions.Height;
-            toolTip1.SetToolTip(newsuggestion, sPath[newsuggestion.ImageIndex]);
             newsuggestion.Click += Newsuggestion_Click;
             newsuggestion.MouseDown += Newsuggestion_MouseDown;
             panelSuggestions.Controls.Add(newsuggestion);
@@ -219,10 +225,7 @@ namespace XShort
         private void Newsuggestion_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            if (sName.Contains(button.Text))
-            {
-                SimpleRun(button.Text);
-            }
+            SimpleRun(button.Text, sName.Contains(button.Text));
             ReloadSuggestions();
         }
 
@@ -300,38 +303,71 @@ namespace XShort
                 {
                     if (Program.FileName == "startup")//manual open -> no FileName
                     {
-                        SimpleRun(startup[i]);
+                        SimpleRun(startup[i], true);
                     }
                 }
             }
         }
 
-        private void SimpleRun(string s)
+        private void SimpleRun(string s, bool isInList)
         {
-            for (int i = 0; i < sName.Count; i++)
+            if (isInList)
             {
-                if (s == sName[i])
+                for (int i = 0; i < sName.Count; i++)
                 {
-                    if (sPara[i] != "None" && sPara[i] != "Not Available")
-                        Process.Start(sPath[i], sPara[i]);
-                    else
-                        Process.Start(sPath[i]);
+                    if (s == sName[i])
+                    {
+                        if (sPara[i] != "None" && sPara[i] != "Not Available")
+                            Process.Start(sPath[i], sPara[i]);
+                        else
+                            Process.Start(sPath[i]);
+
+                        //for suggestions
+                        if (suggestions.Count > 0)
+                        {
+                            int position = CheckExistSuggestion(sName[i]);
+                            if (position != -1)
+                            {
+                                suggestions[position].count += 1;
+                                suggestions[position].lasttime = DateTime.Now;
+                            }
+                            else
+                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                        }
+                        else
+                            suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                        SortSuggestions();
+                    }
+                }
+            }
+            else
+            {
+                if (sysCmd.Contains(s))
+                {
+                    ProcessStartInfo proc = new ProcessStartInfo();
+                    proc.FileName = "C:\\Windows\\System32\\cmd.exe";
+                    proc.WorkingDirectory = Path.GetDirectoryName("C:\\Windows\\System32\\cmd.exe");
+                    proc.Arguments = "/c " + s;
+                    Process.Start(proc);
+                    this.Hide();
 
                     //for suggestions
                     if (suggestions.Count > 0)
                     {
-                        int position = CheckExistSuggestion(sName[i]);
+                        int position = CheckExistSuggestion(s);
                         if (position != -1)
                         {
                             suggestions[position].count += 1;
                             suggestions[position].lasttime = DateTime.Now;
                         }
                         else
-                            suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            suggestions.Add(new Suggestions(s, 1, DateTime.Now));
                     }
                     else
-                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                        suggestions.Add(new Suggestions(s, 1, DateTime.Now));
                     SortSuggestions();
+
+                    return;
                 }
             }
         }
@@ -506,6 +542,23 @@ namespace XShort
                     proc.Verb = "runas";
                 Process.Start(proc);
                 this.Hide();
+
+                //for suggestions
+                if (suggestions.Count > 0)
+                {
+                    int position = CheckExistSuggestion(tmp);
+                    if (position != -1)
+                    {
+                        suggestions[position].count += 1;
+                        suggestions[position].lasttime = DateTime.Now;
+                    }
+                    else
+                        suggestions.Add(new Suggestions(tmp, 1, DateTime.Now));
+                }
+                else
+                    suggestions.Add(new Suggestions(tmp, 1, DateTime.Now));
+                SortSuggestions();
+
                 return;
             }
             if (tmp.Contains("!") != true)

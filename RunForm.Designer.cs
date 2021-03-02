@@ -73,13 +73,16 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.BackColor = System.Drawing.Color.White;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openAsAdministratorToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(194, 26);
+            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(194, 48);
             // 
             // openAsAdministratorToolStripMenuItem
             // 
+            this.openAsAdministratorToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.openAsAdministratorToolStripMenuItem.Name = "openAsAdministratorToolStripMenuItem";
             this.openAsAdministratorToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.openAsAdministratorToolStripMenuItem.Text = "Open as Administrator";
