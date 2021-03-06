@@ -1507,19 +1507,22 @@ namespace XShort
         private void searchDir(string _path)
         {
             dir.Clear();
-            string[] dirArray = Directory.GetDirectories(_path);
-            for (int i = 0; i < dirArray.Length; i++)
+            try
             {
-                if (((File.GetAttributes(dirArray[i]) & FileAttributes.Hidden) != FileAttributes.Hidden))
-                    dir.Add(dirArray[i]);
+                string[] dirArray = Directory.GetDirectories(_path);
+                for (int i = 0; i < dirArray.Length; i++)
+                {
+                    if (((File.GetAttributes(dirArray[i]) & FileAttributes.Hidden) != FileAttributes.Hidden))
+                        dir.Add(dirArray[i]);
+                }
+                string[] fileArray = Directory.GetFiles(_path);
+                for (int i = 0; i < fileArray.Length; i++)
+                {
+                    if (((File.GetAttributes(fileArray[i]) & FileAttributes.Hidden) != FileAttributes.Hidden))
+                        dir.Add(fileArray[i]);
+                }
             }
-            string[] fileArray = Directory.GetFiles(_path);
-            for (int i = 0; i < fileArray.Length; i++)
-            {
-                if (((File.GetAttributes(fileArray[i]) & FileAttributes.Hidden) != FileAttributes.Hidden))
-                    dir.Add(fileArray[i]);
-            }
-            
+            catch { }
         }
 
         private void comboBox1_KeyDown(object sender, KeyEventArgs e)
@@ -1722,6 +1725,22 @@ namespace XShort
         }
 
 
+        private void buttonBackToParent_Click(object sender, EventArgs e)
+        {
+            if (!comboBox1.Text.Contains("+") && comboBox1.Text.Contains("\\"))
+            {
+                //if (comboBox1.Text.EndsWith("\\") || Path.GetExtension(comboBox1.Text) != null || Path.GetExtension(comboBox1.Text) != String.Empty)
+                    comboBox1.Text = comboBox1.Text.Substring(0, comboBox1.Text.LastIndexOf("\\"));
+                if (Directory.Exists(comboBox1.Text))
+                {
+                    comboBox1.Text = Directory.GetParent(comboBox1.Text).FullName;
+                    searchDir(comboBox1.Text);
+                    ShowResult();
+                }
+            }
+        }
+
+
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
         static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
 
@@ -1752,7 +1771,7 @@ namespace XShort
         private const int SW_SHOW = 5;
         private const uint SEE_MASK_INVOKEIDLIST = 12;
 
-        
+       
         public static bool ShowFileProperties(string Filename)
         {
             SHELLEXECUTEINFO info = new SHELLEXECUTEINFO();

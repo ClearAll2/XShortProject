@@ -46,6 +46,7 @@
             this.openAsAdministratorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonBackToParent = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -145,7 +146,7 @@
             this.listViewResult.Location = new System.Drawing.Point(12, 136);
             this.listViewResult.MultiSelect = false;
             this.listViewResult.Name = "listViewResult";
-            this.listViewResult.Size = new System.Drawing.Size(529, 216);
+            this.listViewResult.Size = new System.Drawing.Size(529, 195);
             this.listViewResult.SmallImageList = this.imageList1;
             this.listViewResult.TabIndex = 9;
             this.listViewResult.TabStop = false;
@@ -175,7 +176,7 @@
             this.propertiesToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip2.Size = new System.Drawing.Size(192, 114);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(192, 92);
             // 
             // openToolStripMenuItem
             // 
@@ -205,6 +206,21 @@
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
+            // buttonBackToParent
+            // 
+            this.buttonBackToParent.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonBackToParent.FlatAppearance.BorderSize = 0;
+            this.buttonBackToParent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBackToParent.ForeColor = System.Drawing.Color.White;
+            this.buttonBackToParent.Location = new System.Drawing.Point(12, 337);
+            this.buttonBackToParent.Name = "buttonBackToParent";
+            this.buttonBackToParent.Size = new System.Drawing.Size(80, 24);
+            this.buttonBackToParent.TabIndex = 10;
+            this.buttonBackToParent.TabStop = false;
+            this.buttonBackToParent.Text = "Back";
+            this.buttonBackToParent.UseVisualStyleBackColor = false;
+            this.buttonBackToParent.Click += new System.EventHandler(this.buttonBackToParent_Click);
+            // 
             // RunForm
             // 
             this.AcceptButton = this.button1;
@@ -212,7 +228,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(553, 364);
+            this.ClientSize = new System.Drawing.Size(553, 373);
+            this.Controls.Add(this.buttonBackToParent);
             this.Controls.Add(this.listViewResult);
             this.Controls.Add(this.panelSuggestions);
             this.Controls.Add(this.labelInstruction);
@@ -256,5 +273,6 @@
         private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem1;
+        private System.Windows.Forms.Button buttonBackToParent;
     }
 }
