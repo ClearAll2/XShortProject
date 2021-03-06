@@ -154,6 +154,7 @@
   <ItemGroup>
     <Content Include="circleicon.ico" />
     <Content Include="Core.ico" />
+    <None Include="Resources\file.png" />
     <None Include="Resources\terminal.png" />
     <None Include="Resources\Core.png" />
     <None Include="Resources\dir.png" />

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace XShort
@@ -29,14 +30,18 @@ namespace XShort
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
         private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "firewall.cpl", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
         private BackgroundWorker bw;
-
+        private int originalSize;
         public RunForm(int en)
         {
             InitializeComponent();
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             sImage.ImageSize = new Size(30, 30);
             sImage.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.Images.Add(Properties.Resources.dir);
+            imageList1.Images.Add(Properties.Resources.file);
             comboBox1.DropDownHeight = comboBox1.Font.Height * 5;
+            originalSize = this.Height;
+            this.Height -= panelSuggestions.Bottom;
 
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
@@ -1073,13 +1078,13 @@ namespace XShort
             bool runas = (bool)e.Argument;
             string dfl = comboBox1.Text;
             if (dfl.Contains("#"))
-                dfl = dfl.Substring(1);//remove first # character
+                dfl = dfl.Trim('#');//remove first # character
             if (dfl.Contains("+"))
             {
                 string[] piece = dfl.Split('+');
                 foreach (string s in piece)
                 {
-                    Run(s.Trim(' '), runas);
+                    Run(s.Trim(), runas);
                 }
             }
             else if (dfl.Contains("!") && dfl.Contains("\\") != true)
@@ -1088,7 +1093,7 @@ namespace XShort
                 string[] pieces = dfl.Split('!');
                 for (int i = 0; i < sName.Count; i++)
                 {
-                    if (pieces[1].Trim(' ') == sName[i])
+                    if (pieces[1].Trim() == sName[i])
                     {
                         Run(pieces[0] + "!" + sPath[i], runas);
                         comboBox1.Text = String.Empty;
@@ -1097,7 +1102,7 @@ namespace XShort
                 }
                 for (int i = 0; i < sName.Count; i++)
                 {
-                    if (sName[i].Contains(pieces[1].Trim(' ')))
+                    if (sName[i].Contains(pieces[1].Trim()))
                     {
                         Run(pieces[0] + "!" + sPath[i], runas);
                         comboBox1.Text = String.Empty;
@@ -1211,8 +1216,6 @@ namespace XShort
                                 comboBox1.SelectionStart = comboBox1.Text.Length;
                                 comboBox1.SelectionLength = 0;
 
-
-
                                 return;
                             }
                         }
@@ -1234,8 +1237,6 @@ namespace XShort
                                 comboBox1.SelectionStart = comboBox1.Text.Length;
                                 comboBox1.SelectionLength = 0;
 
-
-
                                 return;
                             }
                         }
@@ -1246,10 +1247,11 @@ namespace XShort
                         comboBox1.SelectionLength = 0;
                         index = -1; //-1 for index + 1 = 0 //fucking nice
                     }
-
+                    
                 }
                 else if (text.Contains("\\"))
                 {
+                    
                     if (text.Contains("+") != true && text.Contains("!") != true) //if not contain , and !
                     {
                         for (int i = index + 1; i < dir.Count; i++)
@@ -1356,6 +1358,7 @@ namespace XShort
                             index = -1; //-1 for index + 1 = 0 //fucking nice
                         }
                     }
+                    
                 }
             }
 
@@ -1368,8 +1371,8 @@ namespace XShort
                 if (comboBox1.Text.Contains("#"))
                 {
                     text = comboBox1.Text;
-                    text1 = text.Substring(0, text.IndexOf("#") + 1); //from 0 to last index of ,
-                    part = text.Substring(text.IndexOf("#") + 1); //from last index of ,
+                    text1 = text.Substring(0, text.LastIndexOf("#") + 1); //from 0 to last index of ,
+                    part = text.Substring(text.LastIndexOf("#") + 1); //from last index of ,
 
                     part = part.Trim();
                     index = -1;
@@ -1386,12 +1389,10 @@ namespace XShort
                         }
                         catch //in case user input a pre-directory text
                         {
-                            dir.Clear();
                             string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
                             try
                             {
                                 searchDir(cut);
-
                             }
                             catch
                             {
@@ -1414,16 +1415,13 @@ namespace XShort
                         try
                         {
                             searchDir(part);
-
                         }
                         catch //in case user input a pre-directory text
                         {
-                            dir.Clear();
                             string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
                             try
                             {
                                 searchDir(cut);
-
                             }
                             catch
                             {
@@ -1435,7 +1433,6 @@ namespace XShort
                 }
                 else if (comboBox1.Text.Contains("+") != true && comboBox1.Text.Contains("!"))
                 {
-
                     text = comboBox1.Text;
                     text1 = text.Substring(0, text.LastIndexOf("!") + 1); //from 0 to last index of !
                     part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !
@@ -1447,16 +1444,13 @@ namespace XShort
                         try
                         {
                             searchDir(part);
-
                         }
                         catch //in case user input a pre-directory text
                         {
-                            dir.Clear();
                             string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
                             try
                             {
                                 searchDir(cut);
-
                             }
                             catch
                             {
@@ -1465,9 +1459,9 @@ namespace XShort
                         }
                     }
                 }
-
-
+                ShowResult();
             }
+            
             if (e.KeyCode == Keys.Left) //set pointer to end of text 
             {
                 if (comboBox1.SelectionStart == 0)
@@ -1476,8 +1470,43 @@ namespace XShort
 
         }
 
+        private void ShowResult()
+        {
+            if (comboBox1.Text.Length > 0 && comboBox1.Text.Contains("\\"))
+            {
+                if (dir.Count > 0)
+                {
+                    listViewResult.Items.Clear();
+                    for (int i = 0; i < dir.Count; i++)
+                    {
+                        listViewResult.Items.Add(new ListViewItem(dir[i].Substring(dir[i].LastIndexOf("\\") + 1)));
+                        if (Path.GetExtension(dir[i]) == null || Path.GetExtension(dir[i]) == String.Empty)
+                            listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 0;
+                        else
+                            listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 1;
+                        listViewResult.Items[listViewResult.Items.Count - 1].ToolTipText = dir[i];
+                    }
+                    if (this.Height < listViewResult.Height)
+                        this.Height = originalSize;
+                }
+                else
+                {
+                    listViewResult.Items.Clear();
+                    if (this.Height > listViewResult.Height)
+                        this.Height -= panelSuggestions.Bottom;
+                }
+            }
+            else
+            {
+                listViewResult.Items.Clear();
+                if (this.Height > listViewResult.Height)
+                    this.Height -= panelSuggestions.Bottom;
+            }
+        }
+
         private void searchDir(string _path)
         {
+            dir.Clear();
             string[] dirArray = Directory.GetDirectories(_path);
             for (int i = 0; i < dirArray.Length; i++)
             {
@@ -1490,12 +1519,13 @@ namespace XShort
                 if (((File.GetAttributes(fileArray[i]) & FileAttributes.Hidden) != FileAttributes.Hidden))
                     dir.Add(fileArray[i]);
             }
+            
         }
 
         private void comboBox1_KeyDown(object sender, KeyEventArgs e)
         {
             //comboBox1.DroppedDown = true;
-            if (e.KeyCode != Keys.Back && e.KeyCode != Keys.Space && e.KeyCode != Keys.Delete)
+            if (/*e.KeyCode != Keys.Back && e.KeyCode != Keys.Space && e.KeyCode != Keys.Delete*/e.KeyValue == 220)
             {
                 if (comboBox1.SelectionLength != 0)
                 {
@@ -1549,7 +1579,110 @@ namespace XShort
             Color.LightBlue, 1, ButtonBorderStyle.Solid,
             Color.LightBlue, 1, ButtonBorderStyle.Solid,
             Color.LightBlue, 1, ButtonBorderStyle.Solid);
+
+        }
+
+        private void panelSuggestions_Paint(object sender, PaintEventArgs e)
+        {
+            Panel frm = (Panel)sender;
+            ControlPaint.DrawBorder(e.Graphics, frm.ClientRectangle,
+            Color.LightBlue, 0, ButtonBorderStyle.Solid,
+            Color.LightBlue, 0, ButtonBorderStyle.Solid,
+            Color.LightBlue, 0, ButtonBorderStyle.Solid,
+            Color.Red, 1, ButtonBorderStyle.Solid);
+        }
+
+        private void listViewResult_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (comboBox1.Text.Contains("+") != true)
+            {
+                if (Directory.Exists(listViewResult.FocusedItem.ToolTipText))
+                {
+                    comboBox1.Text += "\\";
+                    searchDir(comboBox1.Text);
+                    ShowResult();
+                }
+                else
+                {
+                    try
+                    {
+                        ProcessStartInfo proc = new ProcessStartInfo();
+                        proc.FileName = listViewResult.FocusedItem.ToolTipText;
+                        Process.Start(proc);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void listViewResult_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listViewResult.FocusedItem.Bounds.Contains(e.Location) == true)
+                {
+                    contextMenuStrip2.Show(Cursor.Position);
+                }
+            }
+            if (e.Button == MouseButtons.Left)
+            {
+                if (listViewResult.FocusedItem.Bounds.Contains(e.Location) == true)
+                {
+                    if (comboBox1.Text.Contains("+") != true)
+                    {
+                        if (comboBox1.SelectedText.Length > 0)
+                            comboBox1.SelectedText = listViewResult.FocusedItem.Text;
+                        else
+                            comboBox1.Text = listViewResult.FocusedItem.ToolTipText;
+                    }
+                }
+            }
             
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProcessStartInfo proc = new ProcessStartInfo();
+                proc.FileName = listViewResult.FocusedItem.ToolTipText;
+                Process.Start(proc);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void openAsAdministratorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProcessStartInfo proc = new ProcessStartInfo();
+                proc.FileName = listViewResult.FocusedItem.ToolTipText;
+                proc.Verb = "runas";
+                Process.Start(proc);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string argument = "/select, \"" + listViewResult.FocusedItem.ToolTipText + "\"";
+                Process.Start("explorer.exe", argument);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void openAsAdministratorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1576,6 +1709,60 @@ namespace XShort
             tbw.RunWorkerAsync(true);
         }
 
-       
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ShowFileProperties(listViewResult.FocusedItem.ToolTipText);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+        static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct SHELLEXECUTEINFO
+        {
+            public int cbSize;
+            public uint fMask;
+            public IntPtr hwnd;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpVerb;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpFile;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpParameters;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpDirectory;
+            public int nShow;
+            public IntPtr hInstApp;
+            public IntPtr lpIDList;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpClass;
+            public IntPtr hkeyClass;
+            public uint dwHotKey;
+            public IntPtr hIcon;
+            public IntPtr hProcess;
+        }
+        private const int SW_SHOW = 5;
+        private const uint SEE_MASK_INVOKEIDLIST = 12;
+
+        
+        public static bool ShowFileProperties(string Filename)
+        {
+            SHELLEXECUTEINFO info = new SHELLEXECUTEINFO();
+            info.cbSize = System.Runtime.InteropServices.Marshal.SizeOf(info);
+            info.lpVerb = "properties";
+            info.lpFile = Filename;
+            info.nShow = SW_SHOW;
+            info.fMask = SEE_MASK_INVOKEIDLIST;
+            return ShellExecuteEx(ref info);
+        }
+
     }
 }
