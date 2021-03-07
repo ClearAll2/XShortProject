@@ -46,7 +46,6 @@
             this.openAsAdministratorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonBackToParent = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +76,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(529, 39);
             this.comboBox1.TabIndex = 0;
+            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             this.comboBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
             this.comboBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyUp);
             this.comboBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.comboBox1_PreviewKeyDown);
@@ -146,7 +146,7 @@
             this.listViewResult.Location = new System.Drawing.Point(12, 136);
             this.listViewResult.MultiSelect = false;
             this.listViewResult.Name = "listViewResult";
-            this.listViewResult.Size = new System.Drawing.Size(529, 195);
+            this.listViewResult.Size = new System.Drawing.Size(529, 205);
             this.listViewResult.SmallImageList = this.imageList1;
             this.listViewResult.TabIndex = 9;
             this.listViewResult.TabStop = false;
@@ -157,7 +157,7 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "";
+            this.columnHeader1.Text = "Results";
             this.columnHeader1.Width = 507;
             // 
             // imageList1
@@ -206,21 +206,6 @@
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
-            // buttonBackToParent
-            // 
-            this.buttonBackToParent.BackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonBackToParent.FlatAppearance.BorderSize = 0;
-            this.buttonBackToParent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBackToParent.ForeColor = System.Drawing.Color.White;
-            this.buttonBackToParent.Location = new System.Drawing.Point(12, 337);
-            this.buttonBackToParent.Name = "buttonBackToParent";
-            this.buttonBackToParent.Size = new System.Drawing.Size(80, 24);
-            this.buttonBackToParent.TabIndex = 10;
-            this.buttonBackToParent.TabStop = false;
-            this.buttonBackToParent.Text = "Back";
-            this.buttonBackToParent.UseVisualStyleBackColor = false;
-            this.buttonBackToParent.Click += new System.EventHandler(this.buttonBackToParent_Click);
-            // 
             // RunForm
             // 
             this.AcceptButton = this.button1;
@@ -228,8 +213,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(553, 373);
-            this.Controls.Add(this.buttonBackToParent);
+            this.ClientSize = new System.Drawing.Size(553, 353);
             this.Controls.Add(this.listViewResult);
             this.Controls.Add(this.panelSuggestions);
             this.Controls.Add(this.labelInstruction);
@@ -273,6 +257,5 @@
         private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem1;
-        private System.Windows.Forms.Button buttonBackToParent;
     }
 }

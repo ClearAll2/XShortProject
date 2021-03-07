@@ -1470,13 +1470,23 @@ namespace XShort
 
         }
 
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text.Length == 0)
+            {
+                if (this.Height > listViewResult.Height)
+                    this.Height -= panelSuggestions.Bottom;
+            }
+        }
+
         private void ShowResult()
         {
-            if (comboBox1.Text.Length > 0 && comboBox1.Text.Contains("\\"))
+            if (comboBox1.Text.Contains("\\"))
             {
                 if (dir.Count > 0)
                 {
                     listViewResult.Items.Clear();
+                    listViewResult.SmallImageList = imageList1;
                     for (int i = 0; i < dir.Count; i++)
                     {
                         listViewResult.Items.Add(new ListViewItem(dir[i].Substring(dir[i].LastIndexOf("\\") + 1)));
@@ -1498,9 +1508,25 @@ namespace XShort
             }
             else
             {
-                listViewResult.Items.Clear();
+                //listViewResult.Items.Clear();
                 if (this.Height > listViewResult.Height)
                     this.Height -= panelSuggestions.Bottom;
+                if (comboBox1.Text.Length > 0 && !comboBox1.Text.Contains("+"))
+                {
+                    listViewResult.Items.Clear();
+                    listViewResult.SmallImageList = sImage;
+                    for (int i = 0; i < sName.Count; i++)
+                    {
+                        if (sName[i].Contains(comboBox1.Text) || sName[i].ToLower().Contains(comboBox1.Text.ToLower()) && !csen)
+                        {
+                            listViewResult.Items.Add(new ListViewItem(sName[i]));
+                            listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = i;
+                            listViewResult.Items[listViewResult.Items.Count - 1].ToolTipText = sPath[i];
+                        }
+                    }
+                    if (this.Height < listViewResult.Height)
+                        this.Height = originalSize;
+                }
             }
         }
 
@@ -1729,14 +1755,22 @@ namespace XShort
         {
             if (!comboBox1.Text.Contains("+") && comboBox1.Text.Contains("\\"))
             {
-                //if (comboBox1.Text.EndsWith("\\") || Path.GetExtension(comboBox1.Text) != null || Path.GetExtension(comboBox1.Text) != String.Empty)
-                    comboBox1.Text = comboBox1.Text.Substring(0, comboBox1.Text.LastIndexOf("\\"));
-                if (Directory.Exists(comboBox1.Text))
+                string currentPath = comboBox1.Text;
+                string parentPath = String.Empty;
+                if (Path.GetExtension(currentPath) != null && Path.GetExtension(currentPath) != String.Empty)// if it's a file path
                 {
-                    comboBox1.Text = Directory.GetParent(comboBox1.Text).FullName;
-                    searchDir(comboBox1.Text);
-                    ShowResult();
+                    currentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
+                    parentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
                 }
+                else//it's a directory
+                {
+                    if (currentPath.EndsWith("\\"))
+                        currentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
+                    parentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
+                }
+                comboBox1.Text = parentPath;
+                searchDir(parentPath);
+                ShowResult();
             }
         }
 
@@ -1771,7 +1805,8 @@ namespace XShort
         private const int SW_SHOW = 5;
         private const uint SEE_MASK_INVOKEIDLIST = 12;
 
-       
+      
+
         public static bool ShowFileProperties(string Filename)
         {
             SHELLEXECUTEINFO info = new SHELLEXECUTEINFO();
