@@ -1558,7 +1558,6 @@ namespace XShort
                     cut = cut.Trim();
                     if (cut != String.Empty)
                     {
-                        
                         for (int i = 0; i < sName.Count; i++)
                         {
                             if (sName[i].Contains(cut) || sName[i].ToLower().Contains(cut.ToLower()) && !csen)
@@ -1573,11 +1572,21 @@ namespace XShort
                                 {
                                     AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
                                 }
+                                else//break if no more space => reduce loop time
+                                    break;
                                 
                             }
                         }
                         if (rel == 0)
                             ReloadSuggestions();
+                        //else if (rel < 4)
+                        //{
+                        //    int remain = 4 - rel;
+                        //    for (int i = 0; i < remain; i++)
+                        //    {
+                        //        AddNewSuggestionsItems(suggestions[i].loc, true);
+                        //    }
+                        //}
                     }
                 }
             }

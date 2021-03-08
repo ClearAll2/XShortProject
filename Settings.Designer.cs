@@ -98,6 +98,7 @@
             this.panelHotkey.Controls.Add(this.button14);
             this.panelHotkey.Controls.Add(this.label9);
             this.panelHotkey.Controls.Add(this.labelHotKeyConfig);
+            this.panelHotkey.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHotkey.Location = new System.Drawing.Point(3, 20);
             this.panelHotkey.Name = "panelHotkey";
             this.panelHotkey.Size = new System.Drawing.Size(482, 212);
