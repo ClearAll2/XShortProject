@@ -606,137 +606,57 @@ namespace XShort
             {
                 for (int i = 0; i < sName.Count; i++)
                 {
-                    if (csen == true) //if case-sensitive is true
+                    if (tmp == sName[i] || tmp.ToLower() == sName[i].ToLower() && !csen)
                     {
-                        if (tmp == sName[i])
+                        try
                         {
-                            try
-                            {
-                                if (sPara[i] == "None" || sPara[i] == "Not Available")
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    //proc.Arguments = sPara[i];
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                else
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    proc.Arguments = sPara[i];
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                this.Hide();
+                            ProcessStartInfo proc = new ProcessStartInfo();
+                            proc.FileName = sPath[i];
+                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
+                            if (sPara[i] != "None" && sPara[i] != "Not Available")
+                                proc.Arguments = sPara[i];
+                            if (runas)
+                                proc.Verb = "runas";
+                            Process.Start(proc);
+                            this.Hide();
 
-                                //for suggestions
-                                if (suggestions.Count > 0)
+                            //for suggestions
+                            if (suggestions.Count > 0)
+                            {
+                                int position = CheckExistSuggestion(sName[i]);
+                                if (position != -1)
                                 {
-                                    int position = CheckExistSuggestion(sName[i]);
-                                    if (position != -1)
-                                    {
-                                        suggestions[position].count += 1;
-                                        suggestions[position].lasttime = DateTime.Now;
-                                    }
-                                    else
-                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                    suggestions[position].count += 1;
+                                    suggestions[position].lasttime = DateTime.Now;
                                 }
                                 else
                                     suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                                SortSuggestions();
                             }
-                            catch
-                            {
-                                return;
-                            }
-                            return;
+                            else
+                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            SortSuggestions();
                         }
-                    }
-                    else
-                    {
-                        if (tmp.ToLower() == sName[i].ToLower())
+                        catch
                         {
-                            try
-                            {
-                                if (sPara[i] == "None" || sPara[i] == "Not Available")
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    //proc.Arguments = sPara[i];
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                else
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    proc.Arguments = sPara[i];
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                this.Hide();
-
-                                //for suggestions
-                                if (suggestions.Count > 0)
-                                {
-                                    int position = CheckExistSuggestion(sName[i]);
-                                    if (position != -1)
-                                    {
-                                        suggestions[position].count += 1;
-                                        suggestions[position].lasttime = DateTime.Now;
-                                    }
-                                    else
-                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                                SortSuggestions();
-                            }
-                            catch
-                            {
-                                return;
-                            }
                             return;
                         }
+                        return;
                     }
                 }
                 for (int i = 0; i < sName.Count; i++)
                 {
-                    if (sName[i].Contains(tmp))
+                    if (sName[i].Contains(tmp) || sName[i].ToLower().Contains(tmp.ToLower()) && !csen)
                     {
                         try
                         {
-                            if (sPara[i] == "None" || sPara[i] == "Not Available")
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                //proc.Arguments = sPara[i];
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-                            }
-                            else
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
+                            ProcessStartInfo proc = new ProcessStartInfo();
+                            proc.FileName = sPath[i];
+                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
+                            if (sPara[i] != "None" && sPara[i] != "Not Available")
                                 proc.Arguments = sPara[i];
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-
-                            }
-
+                            if (runas)
+                                proc.Verb = "runas";
+                            Process.Start(proc);
                             this.Hide();
 
                             //for suggestions
@@ -766,30 +686,18 @@ namespace XShort
 
                 for (int i = 0; i < sPath.Count; i++)
                 {
-                    if (sPath[i].Contains(tmp))
+                    if (sPath[i].Contains(tmp) || sPath[i].ToLower().Contains(tmp.ToLower()) && !csen)
                     {
                         try
                         {
-                            if (sPara[i] == "None" || sPara[i] == "Not Available")
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-                            }
-                            else
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
+                            ProcessStartInfo proc = new ProcessStartInfo();
+                            proc.FileName = sPath[i];
+                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
+                            if (sPara[i] != "None" && sPara[i] != "Not Available")
                                 proc.Arguments = sPara[i];
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-                            }
-
+                            if (runas)
+                                proc.Verb = "runas";
+                            Process.Start(proc);
                             this.Hide();
 
                             //for suggestions
@@ -825,132 +733,57 @@ namespace XShort
 
                 for (int i = 0; i < sName.Count; i++)
                 {
-                    if (csen == true)
+                    if (tmp2 == sName[i] || tmp2.ToLower() == sName[i].ToLower() && !csen)
                     {
-                        if (tmp2 == sName[i])
+                        try
                         {
-                            try
-                            {
-                                if (sPara[i] != "Not Available")
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    proc.Arguments = tmp3;
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                else
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                this.Hide();
+                            ProcessStartInfo proc = new ProcessStartInfo();
+                            proc.FileName = sPath[i];
+                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
+                            if (sPara[i] != "Not Available")
+                                proc.Arguments = tmp3;
+                            if (runas)
+                                proc.Verb = "runas";
+                            Process.Start(proc);
+                            this.Hide();
 
-                                //for suggestions
-                                if (suggestions.Count > 0)
+                            //for suggestions
+                            if (suggestions.Count > 0)
+                            {
+                                int position = CheckExistSuggestion(sName[i]);
+                                if (position != -1)
                                 {
-                                    int position = CheckExistSuggestion(sName[i]);
-                                    if (position != -1)
-                                    {
-                                        suggestions[position].count += 1;
-                                        suggestions[position].lasttime = DateTime.Now;
-                                    }
-                                    else
-                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                                    suggestions[position].count += 1;
+                                    suggestions[position].lasttime = DateTime.Now;
                                 }
                                 else
                                     suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                                SortSuggestions();
-                                return;
                             }
-                            catch
-                            {
-                                return;
-                            }
+                            else
+                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            SortSuggestions();
+                            return;
                         }
-                    }
-                    else
-                    {
-                        if (tmp2.ToLower() == sName[i].ToLower())
+                        catch
                         {
-                            try
-                            {
-                                if (sPara[i] != "Not Available")
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    proc.Arguments = tmp3;
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                else
-                                {
-                                    ProcessStartInfo proc = new ProcessStartInfo();
-                                    proc.FileName = sPath[i];
-                                    proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                    if (runas)
-                                        proc.Verb = "runas";
-                                    Process.Start(proc);
-                                }
-                                this.Hide();
-
-                                //for suggestions
-                                if (suggestions.Count > 0)
-                                {
-                                    int position = CheckExistSuggestion(sName[i]);
-                                    if (position != -1)
-                                    {
-                                        suggestions[position].count += 1;
-                                        suggestions[position].lasttime = DateTime.Now;
-                                    }
-                                    else
-                                        suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                                SortSuggestions();
-                                return;
-                            }
-                            catch
-                            {
-                                return;
-                            }
+                            return;
                         }
                     }
                 }
                 for (int i = 0; i < sName.Count; i++)
                 {
-                    if (sName[i].Contains(tmp2))
+                    if (sName[i].Contains(tmp2) || sName[i].ToLower().Contains(tmp2.ToLower()) && !csen)
                     {
                         try
                         {
+                            ProcessStartInfo proc = new ProcessStartInfo();
+                            proc.FileName = sPath[i];
+                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
                             if (sPara[i] != "Not Available")
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
                                 proc.Arguments = tmp3;
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-                            }
-                            else
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-                            }
+                            if (runas)
+                                proc.Verb = "runas";
+                            Process.Start(proc);
 
                             this.Hide();
                             //for suggestions
@@ -979,30 +812,18 @@ namespace XShort
 
                 for (int i = 0; i < sPath.Count; i++)
                 {
-                    if (sPath[i].Contains(tmp2))
+                    if (sPath[i].Contains(tmp2) || sPath[i].ToLower().Contains(tmp2.ToLower()) && !csen)
                     {
                         try
                         {
+                            ProcessStartInfo proc = new ProcessStartInfo();
+                            proc.FileName = sPath[i];
+                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
                             if (sPara[i] != "Not Available")
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
                                 proc.Arguments = tmp3;
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-                            }
-                            else
-                            {
-                                ProcessStartInfo proc = new ProcessStartInfo();
-                                proc.FileName = sPath[i];
-                                proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                                if (runas)
-                                    proc.Verb = "runas";
-                                Process.Start(proc);
-                            }
-
+                            if (runas)
+                                proc.Verb = "runas";
+                            Process.Start(proc);
                             this.Hide();
                             //for suggestions
                             if (suggestions.Count > 0)
@@ -1518,7 +1339,9 @@ namespace XShort
 
         private void ShowResult()
         {
-            if (comboBox1.Text.Contains("\\"))
+            bool ifAny = false;
+            string cut = comboBox1.Text;
+            if (cut.Contains("\\"))
             {
                 if (dir.Count > 0)
                 {
@@ -1543,53 +1366,50 @@ namespace XShort
                         this.Height -= panelSuggestions.Bottom;
                 }
             }
-            else
+           
+            if (this.Height > listViewResult.Height && listViewResult.Items.Count == 0)
+                this.Height -= panelSuggestions.Bottom;
+            if (cut.Length > 0 && !cut.Contains("#"))
             {
-                bool ifAny = false;
-                string cut = comboBox1.Text;
-                if (this.Height > listViewResult.Height)
-                    this.Height -= panelSuggestions.Bottom;
-                if (cut.Length > 0 && !cut.Contains("#"))
+                if (cut.Contains("!"))
+                    cut = cut.Substring(cut.LastIndexOf("!") + 1);
+                else if (comboBox1.Text.Contains("+"))
+                    cut = cut.Substring(cut.LastIndexOf("+") + 1);
+                cut = cut.Trim();
+                if (cut != String.Empty)
                 {
-                    if (cut.Contains("!"))
-                        cut = cut.Substring(cut.LastIndexOf("!") + 1);
-                    else if (comboBox1.Text.Contains("+"))
-                        cut = cut.Substring(cut.LastIndexOf("+") + 1);
-                    cut = cut.Trim();
-                    if (cut != String.Empty)
+                    for (int i = 0; i < sName.Count; i++)
                     {
-                        for (int i = 0; i < sName.Count; i++)
+                        if (sName[i].Contains(cut) || sName[i].ToLower().Contains(cut.ToLower()) && !csen)
                         {
-                            if (sName[i].Contains(cut) || sName[i].ToLower().Contains(cut.ToLower()) && !csen)
+                            if (!ifAny)//prevent reload when nothing match
                             {
-                                if (!ifAny)//prevent reload when nothing match
-                                {
-                                    ifAny = true;
-                                    panelSuggestions.Controls.Clear();
-                                    rel = 0;
-                                }
-                                if (rel < 4)
-                                {
-                                    AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
-                                }
-                                else//break if no more space => reduce loop time
-                                    break;
-                                
+                                ifAny = true;
+                                panelSuggestions.Controls.Clear();
+                                rel = 0;
                             }
+                            if (rel < 4)
+                            {
+                                AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
+                            }
+                            else//break if no more space => reduce loop time
+                                break;
+                                
                         }
-                        if (rel == 0)
-                            ReloadSuggestions();
-                        //else if (rel < 4)
-                        //{
-                        //    int remain = 4 - rel;
-                        //    for (int i = 0; i < remain; i++)
-                        //    {
-                        //        AddNewSuggestionsItems(suggestions[i].loc, true);
-                        //    }
-                        //}
                     }
+                    if (rel == 0)
+                        ReloadSuggestions();
+                    //else if (rel < 4)
+                    //{
+                    //    int remain = 4 - rel;
+                    //    for (int i = 0; i < remain; i++)
+                    //    {
+                    //        AddNewSuggestionsItems(suggestions[i].loc, true);
+                    //    }
+                    //}
                 }
             }
+            
         }
 
         private void searchDir(string _path)
