@@ -209,6 +209,42 @@ namespace XShort
             rel += 1;
         }
 
+        private void AddNewSuggestionsItems(string text, ImageList imageList, int imageIndex, string toolTip)
+        {
+            int recentWidth = panelSuggestions.Height * 3;
+            Button newsuggestion = new Button
+            {
+                ForeColor = SystemColors.ControlDarkDark,
+                BackColor = System.Drawing.Color.Transparent,
+                FlatStyle = FlatStyle.Flat
+            };
+            newsuggestion.FlatAppearance.BorderSize = 0;
+            newsuggestion.FlatAppearance.BorderColor = Color.White;
+           
+            newsuggestion.ImageList = imageList;
+            newsuggestion.ImageIndex = imageIndex;
+            toolTip1.SetToolTip(newsuggestion, toolTip);
+            
+            newsuggestion.Left = rel * recentWidth;
+            newsuggestion.Text = text;
+            newsuggestion.TabStop = false;
+            newsuggestion.ContextMenuStrip = contextMenuStrip1;
+            newsuggestion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            if (newsuggestion.Text.Length >= 16)
+            {
+                newsuggestion.TextImageRelation = TextImageRelation.Overlay;
+                newsuggestion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                newsuggestion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            }
+
+            newsuggestion.Width = recentWidth;
+            newsuggestion.Height = panelSuggestions.Height;
+            newsuggestion.Click += Newsuggestion_Click;
+            newsuggestion.MouseDown += Newsuggestion_MouseDown;
+            panelSuggestions.Controls.Add(newsuggestion);
+            rel += 1;
+        }
+
         private void Newsuggestion_MouseDown(object sender, MouseEventArgs e)
         {
             Button button = (Button)sender;
@@ -1476,6 +1512,7 @@ namespace XShort
             {
                 if (this.Height > listViewResult.Height)
                     this.Height -= panelSuggestions.Bottom;
+                ReloadSuggestions();
             }
         }
 
@@ -1496,7 +1533,7 @@ namespace XShort
                             listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 1;
                         listViewResult.Items[listViewResult.Items.Count - 1].ToolTipText = dir[i];
                     }
-                    if (this.Height < listViewResult.Height)
+                    if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
                         this.Height = originalSize;
                 }
                 else
@@ -1508,24 +1545,40 @@ namespace XShort
             }
             else
             {
-                //listViewResult.Items.Clear();
+                bool ifAny = false;
+                string cut = comboBox1.Text;
                 if (this.Height > listViewResult.Height)
                     this.Height -= panelSuggestions.Bottom;
-                if (comboBox1.Text.Length > 0 && !comboBox1.Text.Contains("+"))
+                if (cut.Length > 0 && !cut.Contains("#"))
                 {
-                    listViewResult.Items.Clear();
-                    listViewResult.SmallImageList = sImage;
-                    for (int i = 0; i < sName.Count; i++)
+                    if (cut.Contains("!"))
+                        cut = cut.Substring(cut.LastIndexOf("!") + 1);
+                    else if (comboBox1.Text.Contains("+"))
+                        cut = cut.Substring(cut.LastIndexOf("+") + 1);
+                    cut = cut.Trim();
+                    if (cut != String.Empty)
                     {
-                        if (sName[i].Contains(comboBox1.Text) || sName[i].ToLower().Contains(comboBox1.Text.ToLower()) && !csen)
+                        
+                        for (int i = 0; i < sName.Count; i++)
                         {
-                            listViewResult.Items.Add(new ListViewItem(sName[i]));
-                            listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = i;
-                            listViewResult.Items[listViewResult.Items.Count - 1].ToolTipText = sPath[i];
+                            if (sName[i].Contains(cut) || sName[i].ToLower().Contains(cut.ToLower()) && !csen)
+                            {
+                                if (!ifAny)//prevent reload when nothing match
+                                {
+                                    ifAny = true;
+                                    panelSuggestions.Controls.Clear();
+                                    rel = 0;
+                                }
+                                if (rel < 4)
+                                {
+                                    AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
+                                }
+                                
+                            }
                         }
+                        if (rel == 0)
+                            ReloadSuggestions();
                     }
-                    if (this.Height < listViewResult.Height)
-                        this.Height = originalSize;
                 }
             }
         }
@@ -1660,13 +1713,15 @@ namespace XShort
             {
                 if (listViewResult.FocusedItem.Bounds.Contains(e.Location) == true)
                 {
-                    if (comboBox1.Text.Contains("+") != true)
+                    if (comboBox1.Text.Contains("+") != true && comboBox1.Text.Contains("#") != true && comboBox1.Text.Contains("!") != true)
                     {
                         if (comboBox1.SelectedText.Length > 0)
                             comboBox1.SelectedText = listViewResult.FocusedItem.Text;
                         else
                             comboBox1.Text = listViewResult.FocusedItem.ToolTipText;
                     }
+
+
                 }
             }
             
@@ -1736,6 +1791,7 @@ namespace XShort
             BackgroundWorker tbw = new BackgroundWorker();
             tbw.DoWork += Tbw_DoWork;
             tbw.RunWorkerAsync(true);
+            tbw.RunWorkerCompleted += Tbw_RunWorkerCompleted;
         }
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
