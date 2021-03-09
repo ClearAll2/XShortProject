@@ -1240,11 +1240,11 @@ namespace XShort
                     index = -1;
                     if (text.Contains("\\")) //if input is a directory or a file
                     {
-                        try
+                        if (Directory.Exists(text))
                         {
                             searchDir(text);
                         }
-                        catch //in case user input a pre-directory text
+                        else //in case user input a pre-directory text
                         {
                             string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
                             try
@@ -1254,6 +1254,7 @@ namespace XShort
                             catch
                             {
                                 dir.Clear();
+
                             }
                         }
                     }
@@ -1269,11 +1270,11 @@ namespace XShort
                     index = -1;
                     if (part.Contains("\\")) //if input is a directory or a file
                     {
-                        try
+                        if (Directory.Exists(part))
                         {
                             searchDir(part);
                         }
-                        catch //in case user input a pre-directory text
+                        else //in case user input a pre-directory text
                         {
                             string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
                             try
@@ -1298,11 +1299,11 @@ namespace XShort
                     index = -1;
                     if (part.Contains("\\")) //if input is a directory or a file
                     {
-                        try
+                        if (Directory.Exists(part))
                         {
                             searchDir(part);
                         }
-                        catch //in case user input a pre-directory text
+                        else //in case user input a pre-directory text
                         {
                             string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
                             try
