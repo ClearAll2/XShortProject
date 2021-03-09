@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace XShort
 {
@@ -575,6 +576,7 @@ namespace XShort
                 return;
             if (sysCmd.Contains(tmp))
             {
+                this.Hide();
                 ProcessStartInfo proc = new ProcessStartInfo();
                 proc.FileName = "C:\\Windows\\System32\\cmd.exe";
                 proc.WorkingDirectory = Path.GetDirectoryName("C:\\Windows\\System32\\cmd.exe");
@@ -582,8 +584,6 @@ namespace XShort
                 if (runas)
                     proc.Verb = "runas";
                 Process.Start(proc);
-                this.Hide();
-
                 //for suggestions
                 if (suggestions.Count > 0)
                 {
@@ -610,6 +610,7 @@ namespace XShort
                     {
                         try
                         {
+                            this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
                             proc.FileName = sPath[i];
                             proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
@@ -618,8 +619,7 @@ namespace XShort
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
-                            this.Hide();
-
+                            
                             //for suggestions
                             if (suggestions.Count > 0)
                             {
@@ -649,6 +649,7 @@ namespace XShort
                     {
                         try
                         {
+                            this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
                             proc.FileName = sPath[i];
                             proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
@@ -657,8 +658,6 @@ namespace XShort
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
-                            this.Hide();
-
                             //for suggestions
                             if (suggestions.Count > 0)
                             {
@@ -690,6 +689,7 @@ namespace XShort
                     {
                         try
                         {
+                            this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
                             proc.FileName = sPath[i];
                             proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
@@ -698,7 +698,6 @@ namespace XShort
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
-                            this.Hide();
 
                             //for suggestions
                             if (suggestions.Count > 0)
@@ -737,6 +736,7 @@ namespace XShort
                     {
                         try
                         {
+                            this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
                             proc.FileName = sPath[i];
                             proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
@@ -745,7 +745,6 @@ namespace XShort
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
-                            this.Hide();
 
                             //for suggestions
                             if (suggestions.Count > 0)
@@ -776,6 +775,7 @@ namespace XShort
                     {
                         try
                         {
+                            this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
                             proc.FileName = sPath[i];
                             proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
@@ -785,7 +785,6 @@ namespace XShort
                                 proc.Verb = "runas";
                             Process.Start(proc);
 
-                            this.Hide();
                             //for suggestions
                             if (suggestions.Count > 0)
                             {
@@ -816,6 +815,7 @@ namespace XShort
                     {
                         try
                         {
+                            this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
                             proc.FileName = sPath[i];
                             proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
@@ -824,7 +824,6 @@ namespace XShort
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
-                            this.Hide();
                             //for suggestions
                             if (suggestions.Count > 0)
                             {
@@ -853,13 +852,13 @@ namespace XShort
             {
                 try
                 {
+                    this.Hide();
                     ProcessStartInfo proc = new ProcessStartInfo();
                     proc.FileName = tmp;
                     proc.WorkingDirectory = Path.GetDirectoryName(tmp);
                     if (runas)
                         proc.Verb = "runas";
                     Process.Start(proc);
-                    this.Hide();
                     return;
                 }
                 catch
@@ -868,23 +867,26 @@ namespace XShort
                 }
 
             }
-            if (tmp.Contains(">"))
-            {
-                string[] cut = tmp.Split('>');
-                this.Hide();
-                if (cut[1] != String.Empty)
-                    TranslateText(cut[0], cut[1]);
-                else
-                    TranslateText(cut[0], "en|vi");
-                return;
-            }
-            if (tmp.Contains("http://"))
+            //deprecated
+            //if (tmp.Contains(">"))
+            //{
+            //    string[] cut = tmp.Split('>');
+            //    this.Hide();
+            //    if (cut[1] != String.Empty)
+            //        TranslateText(cut[0], cut[1]);
+            //    else
+            //        TranslateText(cut[0], "en|vi");
+            //    return;
+            //}
+            string pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
+            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            if (reg.IsMatch(tmp))
             {
                 //tmp = "http://" + tmp;
                 try
                 {
-                    Process.Start(tmp);
                     this.Hide();
+                    Process.Start(tmp);
                     return;
                 }
                 catch
@@ -897,8 +899,8 @@ namespace XShort
 
                 try
                 {
-                    Process.Start("https://www.google.com/search?q=" + tmp);
                     this.Hide();
+                    Process.Start("https://www.google.com/search?q=" + tmp);
                     return;
 
                 }
@@ -911,6 +913,7 @@ namespace XShort
             MessageBox.Show("Unavailable shortcut name!?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        //deprecated
         public void TranslateText(string input, string languagePair)
         {
             string url = String.Format("http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}", input, languagePair);
@@ -927,6 +930,9 @@ namespace XShort
 
         private void Tbw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            listViewResult.Items.Clear();
+            if (this.Height > listViewResult.Height)
+                this.Height -= panelSuggestions.Bottom;
             ReloadSuggestions();
         }
 
