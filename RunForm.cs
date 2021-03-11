@@ -117,14 +117,11 @@ namespace XShort
 
         private void timerSuggestions_Tick(object sender, EventArgs e)
         {
+            //MessageBox.Show(suggestions[0].lasttime.Hour.ToString());
             timeSuggestions.Clear();
             for (int i=0; i < suggestions.Count; i++)
             {
-                if (suggestions[i].lasttime.Hour == DateTime.Now.Hour)
-                {
-                    timeSuggestions.Add(suggestions[i]);
-                }
-                else if (suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1 && timeSuggestions.Count < 4)
+                if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1)
                 {
                     timeSuggestions.Add(suggestions[i]);
                 }
@@ -139,7 +136,7 @@ namespace XShort
             panelSuggestions.Controls.Clear();
             if (timeSuggestions.Count > 0)
             {
-                for (int i = 0; i < suggestions.Count; i++)
+                for (int i = 0; i < timeSuggestions.Count; i++)
                 {
                     AddNewSuggestionsItems(timeSuggestions[i].loc, sName.Contains(timeSuggestions[i].loc));
                     if (rel >= 4)
@@ -149,9 +146,13 @@ namespace XShort
             if (rel < 4)
             {
                 int remain = 4 - rel;
-                for (int i = 0; i < remain; i++)
+                if (suggestions.Count >= remain)
                 {
-                    AddNewSuggestionsItems(suggestions[i].loc, true);
+                    for (int i = 0; i < remain; i++)
+                    {
+                        if (!timeSuggestions.Contains(suggestions[i]))//prevent duplicate 
+                            AddNewSuggestionsItems(suggestions[i].loc, true);
+                    }
                 }
             }
         }
@@ -186,7 +187,6 @@ namespace XShort
 
         private void LoadSuggestions()
         {
-            List<string> addedSuggestion = new List<string>();
             if (System.IO.File.Exists(dataPath + "\\suggestions"))
             {
                 FileStream fs = new FileStream(dataPath + "\\suggestions", FileMode.Open, FileAccess.Read);
@@ -195,18 +195,20 @@ namespace XShort
                 {
                     string read = sr.ReadLine();
                     string[] cut = read.Split('|');
-                    if (!addedSuggestion.Contains(cut[0]) /*&& sName.Contains(cut[0])*/)
-                    {
-                        suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
-                        if (rel < 4)//fixed only load 6 items from file
-                        {
-                            AddNewSuggestionsItems(cut[0], sName.Contains(cut[0]));
-                            addedSuggestion.Add(cut[0]);
-                        }
-                    }
+                    suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
                 }
                 sr.Close();
                 fs.Close();
+
+                for (int i = 0; i < suggestions.Count; i++)
+                {
+                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1)
+                    {
+                        timeSuggestions.Add(suggestions[i]);
+                    }
+                }
+
+                ReloadSuggestions();
             }
         }
 

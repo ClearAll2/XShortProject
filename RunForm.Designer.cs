@@ -210,7 +210,7 @@
             // timerSuggestions
             // 
             this.timerSuggestions.Enabled = true;
-            this.timerSuggestions.Interval = 1800000;
+            this.timerSuggestions.Interval = 450000;
             this.timerSuggestions.Tick += new System.EventHandler(this.timerSuggestions_Tick);
             // 
             // RunForm
