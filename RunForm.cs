@@ -22,6 +22,7 @@ namespace XShort
         private List<String> sPara = new List<String>();
         private ImageList sImage = new ImageList();
         private List<Suggestions> suggestions = new List<Suggestions>();
+        private List<Suggestions> timeSuggestions = new List<Suggestions>();
         private RegistryKey r;
         private string dataPath;
         private bool ggSearch = true;
@@ -113,6 +114,48 @@ namespace XShort
             }
         }
 
+
+        private void timerSuggestions_Tick(object sender, EventArgs e)
+        {
+            timeSuggestions.Clear();
+            for (int i=0; i < suggestions.Count; i++)
+            {
+                if (suggestions[i].lasttime.Hour == DateTime.Now.Hour)
+                {
+                    timeSuggestions.Add(suggestions[i]);
+                }
+                else if (suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1 && timeSuggestions.Count < 4)
+                {
+                    timeSuggestions.Add(suggestions[i]);
+                }
+            }
+            
+            ReloadSuggestions();
+        }
+
+        public void ReloadSuggestions()
+        {
+            rel = 0;
+            panelSuggestions.Controls.Clear();
+            if (timeSuggestions.Count > 0)
+            {
+                for (int i = 0; i < suggestions.Count; i++)
+                {
+                    AddNewSuggestionsItems(timeSuggestions[i].loc, sName.Contains(timeSuggestions[i].loc));
+                    if (rel >= 4)
+                        break;
+                }
+            }
+            if (rel < 4)
+            {
+                int remain = 4 - rel;
+                for (int i = 0; i < remain; i++)
+                {
+                    AddNewSuggestionsItems(suggestions[i].loc, true);
+                }
+            }
+        }
+
         private int CheckExistSuggestion(string loc)
         {
             for (int i = 0; i < suggestions.Count; i++)
@@ -125,21 +168,21 @@ namespace XShort
             return -1;
         }
 
-        public void ReloadSuggestions()
-        {
-            rel = 0;
-            panelSuggestions.Controls.Clear();
-            if (suggestions.Count > 0)
-            {
-                for (int i = 0; i < suggestions.Count; i++)
-                {
-                    AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
-                    if (rel >= 4)
-                        break;
-                }
+        //public void ReloadSuggestions()
+        //{
+        //    rel = 0;
+        //    panelSuggestions.Controls.Clear();
+        //    if (suggestions.Count > 0)
+        //    {
+        //        for (int i = 0; i < suggestions.Count; i++)
+        //        {
+        //            AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
+        //            if (rel >= 4)
+        //                break;
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         private void LoadSuggestions()
         {

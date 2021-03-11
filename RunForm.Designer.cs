@@ -46,6 +46,7 @@
             this.openAsAdministratorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerSuggestions = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -206,6 +207,12 @@
             this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
+            // timerSuggestions
+            // 
+            this.timerSuggestions.Enabled = true;
+            this.timerSuggestions.Interval = 1800000;
+            this.timerSuggestions.Tick += new System.EventHandler(this.timerSuggestions_Tick);
+            // 
             // RunForm
             // 
             this.AcceptButton = this.button1;
@@ -257,5 +264,6 @@
         private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openAsAdministratorToolStripMenuItem1;
+        private System.Windows.Forms.Timer timerSuggestions;
     }
 }
