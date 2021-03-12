@@ -21,41 +21,42 @@ namespace XShort
 
     public partial class MainForm : Form
     {
-        KeyboardHook hook = new KeyboardHook();
-        List<String> sName = new List<String>();
-        List<String> sPath = new List<String>();
-        List<String> sPara = new List<String>();
-        List<String> dir = new List<String>();
-        ObservableCollection<String> startup = new ObservableCollection<string>();
-        global::ModifierKeys gmk;
-        Keys k;
-        RunForm f2;
-        ProgressForm f3;
-        RegistryKey r;
-        string old_Name = String.Empty;
-        string old_Path = String.Empty;
-        string old_Para = String.Empty;
-        string yet = String.Empty;
-        string what = String.Empty;
-        string text = String.Empty;
-        string dataPath;
-        string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
-        bool exit = false;
-        bool edit = false;
-        
-        bool ggs = false;
-        bool dontload = false;
+        private KeyboardHook hook = new KeyboardHook();
+        private List<String> sName = new List<String>();
+        private List<String> sPath = new List<String>();
+        private List<String> sPara = new List<String>();
+        private List<String> dir = new List<String>();
+        private ObservableCollection<String> startup = new ObservableCollection<string>();
+        private global::ModifierKeys gmk;
+        private Keys k;
+        private RunForm f2;
+        private ProgressForm f3;
+        private RegistryKey r;
+        private string old_Name = String.Empty;
+        private string old_Path = String.Empty;
+        private string old_Para = String.Empty;
+        private string yet = String.Empty;
+        private string what = String.Empty;
+        private string text = String.Empty;
+        private string dataPath;
+        private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
+        private bool exit = false;
+        private bool edit = false;
 
-        bool detect = false;
-        bool hide = false;
-        bool cases = false;
-        bool start = false;
-        BackgroundWorker bw;
-        BackgroundWorker bw2;
-        int back;
+        private bool ggs = false;
+        private bool dontload = false;
+        private bool suggestions = false;
 
-        ImageList img;
-        ImageList img2;
+        private bool detect = false;
+        private bool hide = false;
+        private bool cases = false;
+        private bool start = false;
+        private BackgroundWorker bw;
+        private BackgroundWorker bw2;
+        private int back;
+
+        private ImageList img;
+        private ImageList img2;
 
         public MainForm()
         {
@@ -246,7 +247,10 @@ namespace XShort
                 buttonAddURL.Enabled = true;
                 appToolStripMenuItem.Enabled = true;
             }
-
+            if (r.GetValue("Suggestions") != null)
+                suggestions = true;
+            else
+                suggestions = false;
            
             r.Close();
             r.Dispose();
@@ -267,26 +271,11 @@ namespace XShort
 
             if (f2 != null && f2.IsDisposed != true)
             {
-                if (ggs)
-                {
-                    f2.changeGGSeach(true);
-                }
-                else
-                {
-                    f2.changeGGSeach(false);
-                }
+                f2.changeGGSeach(ggs);
+                f2.changeSensitive(cases);
+                f2.changeSuggessions(suggestions);
             }
-            if (f2 != null && f2.IsDisposed != true)
-            {
-                if (cases)
-                {
-                    f2.changeSensitive(true);
-                }
-                else
-                {
-                    f2.changeSensitive(false);
-                }
-            }
+            
         }
 
         private void Bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1316,7 +1305,7 @@ namespace XShort
         private void minimizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            notifyIcon1.ShowBalloonTip(1000, "XShort Core", "XShort Core is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.None);
+            //notifyIcon1.ShowBalloonTip(1000, "XShort Core", "XShort Core is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.None);
            
         }
 

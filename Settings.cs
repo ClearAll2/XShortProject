@@ -7,10 +7,10 @@ namespace XShort
 {
     public partial class Settings : Form
     {
-        RegistryKey r;
-        RegistryKey r1;
-        global::ModifierKeys gmk;
-        Keys k;
+        private RegistryKey r;
+        private RegistryKey r1;
+        private global::ModifierKeys gmk;
+        private Keys k;
         public Settings()
         {
             InitializeComponent();
@@ -88,7 +88,8 @@ namespace XShort
                 checkBox7.Checked = true;
             if (r.GetValue("DontLoad") != null)
                 checkBox8.Checked = true;
-
+            if (r.GetValue("Suggestions") != null)
+                checkBoxSuggestions.Checked = true;
             
 
             r.Close();
@@ -291,6 +292,21 @@ namespace XShort
             else
             {
                 r1.DeleteValue("DontLoad", false);
+            }
+            r1.Close();
+            r1.Dispose();
+        }
+
+        private void checkBoxSuggestions_CheckedChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            if (checkBoxSuggestions.Checked)
+            {
+                r1.SetValue("Suggestions", true);
+            }
+            else
+            {
+                r1.DeleteValue("Suggestions", false);
             }
             r1.Close();
             r1.Dispose();

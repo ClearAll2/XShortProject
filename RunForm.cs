@@ -27,6 +27,7 @@ namespace XShort
         private string dataPath;
         private bool ggSearch = true;
         private bool csen = false;
+        private bool ss = false;
         private string text = String.Empty;
         private string text1, part = String.Empty;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
@@ -49,23 +50,19 @@ namespace XShort
             if (r == null)
                 r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
             if (r.GetValue("ggSearch") != null)
-            {
                 ggSearch = true;
-            }
             else
-            {
                 ggSearch = false;
-            }
 
             if (r.GetValue("Case-sen") != null)
-            {
                 csen = true;
-            }
             else
-            {
                 csen = false;
-            }
-            
+
+            if (r.GetValue("Suggestions") != null)
+                ss = true;
+            else
+                ss = false;
           
             r.Close();
             r.Dispose();
@@ -117,41 +114,46 @@ namespace XShort
 
         private void timerSuggestions_Tick(object sender, EventArgs e)
         {
-            //MessageBox.Show(suggestions[0].lasttime.Hour.ToString());
-            timeSuggestions.Clear();
-            for (int i=0; i < suggestions.Count; i++)
+            if (ss)
             {
-                if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1)
+                timeSuggestions.Clear();
+                for (int i = 0; i < suggestions.Count; i++)
                 {
-                    timeSuggestions.Add(suggestions[i]);
+                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1)
+                    {
+                        timeSuggestions.Add(suggestions[i]);
+                    }
                 }
+
+                ReloadSuggestions();
             }
-            
-            ReloadSuggestions();
         }
 
         public void ReloadSuggestions()
         {
-            rel = 0;
-            panelSuggestions.Controls.Clear();
-            if (timeSuggestions.Count > 0)
+            if (ss)
             {
-                for (int i = 0; i < timeSuggestions.Count; i++)
+                rel = 0;
+                panelSuggestions.Controls.Clear();
+                if (timeSuggestions.Count > 0)
                 {
-                    AddNewSuggestionsItems(timeSuggestions[i].loc, sName.Contains(timeSuggestions[i].loc));
-                    if (rel >= 4)
-                        break;
-                }
-            }
-            if (rel < 4)
-            {
-                int remain = 4 - rel;
-                if (suggestions.Count >= remain)
-                {
-                    for (int i = 0; i < remain; i++)
+                    for (int i = 0; i < timeSuggestions.Count; i++)
                     {
-                        if (!timeSuggestions.Contains(suggestions[i]))//prevent duplicate 
-                            AddNewSuggestionsItems(suggestions[i].loc, true);
+                        AddNewSuggestionsItems(timeSuggestions[i].loc, sName.Contains(timeSuggestions[i].loc));
+                        if (rel >= 4)
+                            break;
+                    }
+                }
+                if (rel < 4)
+                {
+                    int remain = 4 - rel;
+                    if (suggestions.Count >= remain)
+                    {
+                        for (int i = 0; i < remain; i++)
+                        {
+                            if (!timeSuggestions.Contains(suggestions[i]))//prevent duplicate 
+                                AddNewSuggestionsItems(suggestions[i].loc, true);
+                        }
                     }
                 }
             }
@@ -467,6 +469,11 @@ namespace XShort
         public void changeSensitive(bool Csen)
         {
             csen = Csen;
+        }
+
+        public void changeSuggessions (bool suggestions)
+        {
+            ss = suggestions;
         }
 
         private int loadData()
@@ -1451,14 +1458,7 @@ namespace XShort
                     }
                     if (rel == 0)
                         ReloadSuggestions();
-                    //else if (rel < 4)
-                    //{
-                    //    int remain = 4 - rel;
-                    //    for (int i = 0; i < remain; i++)
-                    //    {
-                    //        AddNewSuggestionsItems(suggestions[i].loc, true);
-                    //    }
-                    //}
+                    
                 }
             }
             
@@ -1547,12 +1547,15 @@ namespace XShort
 
         private void panelSuggestions_Paint(object sender, PaintEventArgs e)
         {
-            Panel frm = (Panel)sender;
-            ControlPaint.DrawBorder(e.Graphics, frm.ClientRectangle,
-            Color.LightBlue, 0, ButtonBorderStyle.Solid,
-            Color.LightBlue, 0, ButtonBorderStyle.Solid,
-            Color.LightBlue, 0, ButtonBorderStyle.Solid,
-            Color.Red, 1, ButtonBorderStyle.Solid);
+            if (ss)
+            {
+                Panel frm = (Panel)sender;
+                ControlPaint.DrawBorder(e.Graphics, frm.ClientRectangle,
+                Color.LightBlue, 0, ButtonBorderStyle.Solid,
+                Color.LightBlue, 0, ButtonBorderStyle.Solid,
+                Color.LightBlue, 0, ButtonBorderStyle.Solid,
+                Color.Red, 1, ButtonBorderStyle.Solid);
+            }
         }
 
         private void listViewResult_MouseDoubleClick(object sender, MouseEventArgs e)
