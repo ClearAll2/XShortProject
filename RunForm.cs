@@ -28,6 +28,7 @@ namespace XShort
         private bool ggSearch = true;
         private bool csen = false;
         private bool ss = false;
+        private bool sr = false;
         private string text = String.Empty;
         private string text1, part = String.Empty;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
@@ -44,7 +45,6 @@ namespace XShort
             imageList1.Images.Add(Properties.Resources.file);
             comboBox1.DropDownHeight = comboBox1.Font.Height * 5;
             originalSize = this.Height;
-            this.Height -= panelSuggestions.Bottom;
 
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
@@ -474,6 +474,17 @@ namespace XShort
         public void changeSuggessions (bool suggestions)
         {
             ss = suggestions;
+            if (ss)
+                ReloadSuggestions();
+            else
+            {
+                panelSuggestions.Controls.Clear();
+            }
+        }
+
+        public void changeShowResult(bool result)
+        {
+            sr = result;
         }
 
         private int loadData()
@@ -1391,77 +1402,79 @@ namespace XShort
             if (comboBox1.Text.Length == 0)
             {
                 if (this.Height > listViewResult.Height)
-                    this.Height -= panelSuggestions.Bottom;
+                    this.Height = originalSize;
                 ReloadSuggestions();
             }
         }
 
         private void ShowResult()
         {
-            bool ifAny = false;
-            string cut = comboBox1.Text;
-            if (cut.Contains("\\"))
+            if (sr)
             {
-                if (dir.Count > 0)
+                bool ifAny = false;
+                string cut = comboBox1.Text;
+                if (cut.Contains("\\"))
                 {
-                    listViewResult.Items.Clear();
-                    listViewResult.SmallImageList = imageList1;
-                    for (int i = 0; i < dir.Count; i++)
+                    if (dir.Count > 0)
                     {
-                        listViewResult.Items.Add(new ListViewItem(dir[i].Substring(dir[i].LastIndexOf("\\") + 1)));
-                        if (Path.GetExtension(dir[i]) == null || Path.GetExtension(dir[i]) == String.Empty)
-                            listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 0;
-                        else
-                            listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 1;
-                        listViewResult.Items[listViewResult.Items.Count - 1].ToolTipText = dir[i];
-                    }
-                    if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
-                        this.Height = originalSize;
-                }
-                else
-                {
-                    listViewResult.Items.Clear();
-                    if (this.Height > listViewResult.Height)
-                        this.Height -= panelSuggestions.Bottom;
-                }
-            }
-           
-            if (this.Height > listViewResult.Height && listViewResult.Items.Count == 0)
-                this.Height -= panelSuggestions.Bottom;
-            if (cut.Length > 0 && !cut.Contains("#"))
-            {
-                if (cut.Contains("!"))
-                    cut = cut.Substring(cut.LastIndexOf("!") + 1);
-                else if (comboBox1.Text.Contains("+"))
-                    cut = cut.Substring(cut.LastIndexOf("+") + 1);
-                cut = cut.Trim();
-                if (cut != String.Empty)
-                {
-                    for (int i = 0; i < sName.Count; i++)
-                    {
-                        if (sName[i].Contains(cut) || sName[i].ToLower().Contains(cut.ToLower()) && !csen)
+                        listViewResult.Items.Clear();
+                        listViewResult.SmallImageList = imageList1;
+                        for (int i = 0; i < dir.Count; i++)
                         {
-                            if (!ifAny)//prevent reload when nothing match
-                            {
-                                ifAny = true;
-                                panelSuggestions.Controls.Clear();
-                                rel = 0;
-                            }
-                            if (rel < 4)
-                            {
-                                AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
-                            }
-                            else//break if no more space => reduce loop time
-                                break;
-                                
+                            listViewResult.Items.Add(new ListViewItem(dir[i].Substring(dir[i].LastIndexOf("\\") + 1)));
+                            if (Path.GetExtension(dir[i]) == null || Path.GetExtension(dir[i]) == String.Empty)
+                                listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 0;
+                            else
+                                listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 1;
+                            listViewResult.Items[listViewResult.Items.Count - 1].ToolTipText = dir[i];
                         }
+                        if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
+                            this.Height += listViewResult.Height;
                     }
-                    if (rel == 0)
-                        ReloadSuggestions();
-                    
+                    else
+                    {
+                        listViewResult.Items.Clear();
+                        if (this.Height > listViewResult.Height)
+                            this.Height = originalSize;
+                    }
+                }
+
+                if (this.Height > listViewResult.Height && listViewResult.Items.Count == 0)
+                    this.Height -= panelSuggestions.Bottom;
+                if (cut.Length > 0 && !cut.Contains("#"))
+                {
+                    if (cut.Contains("!"))
+                        cut = cut.Substring(cut.LastIndexOf("!") + 1);
+                    else if (comboBox1.Text.Contains("+"))
+                        cut = cut.Substring(cut.LastIndexOf("+") + 1);
+                    cut = cut.Trim();
+                    if (cut != String.Empty)
+                    {
+                        for (int i = 0; i < sName.Count; i++)
+                        {
+                            if (sName[i].Contains(cut) || sName[i].ToLower().Contains(cut.ToLower()) && !csen)
+                            {
+                                if (!ifAny)//prevent reload when nothing match
+                                {
+                                    ifAny = true;
+                                    panelSuggestions.Controls.Clear();
+                                    rel = 0;
+                                }
+                                if (rel < 4)
+                                {
+                                    AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
+                                }
+                                else//break if no more space => reduce loop time
+                                    break;
+
+                            }
+                        }
+                        if (rel == 0)
+                            ReloadSuggestions();
+
+                    }
                 }
             }
-            
         }
 
         private void searchDir(string _path)

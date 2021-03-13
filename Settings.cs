@@ -90,7 +90,8 @@ namespace XShort
                 checkBox8.Checked = true;
             if (r.GetValue("Suggestions") != null)
                 checkBoxSuggestions.Checked = true;
-            
+            if (r.GetValue("ShowResult") != null)
+                checkBoxSearchResult.Checked = true;
 
             r.Close();
             r.Dispose();
@@ -307,6 +308,21 @@ namespace XShort
             else
             {
                 r1.DeleteValue("Suggestions", false);
+            }
+            r1.Close();
+            r1.Dispose();
+        }
+
+        private void checkBoxSearchResult_CheckedChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            if (checkBoxSearchResult.Checked)
+            {
+                r1.SetValue("ShowResult", true);
+            }
+            else
+            {
+                r1.DeleteValue("ShowResult", false);
             }
             r1.Close();
             r1.Dispose();

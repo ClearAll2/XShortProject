@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.panelSetting = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.checkBoxSuggestions = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelHotkey = new System.Windows.Forms.Panel();
             this.radioButtonShift = new System.Windows.Forms.RadioButton();
@@ -42,7 +45,6 @@
             this.button14 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.labelHotKeyConfig = new System.Windows.Forms.Label();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
@@ -50,14 +52,14 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBoxSuggestions = new System.Windows.Forms.CheckBox();
-            this.labelInfo = new System.Windows.Forms.Label();
+            this.checkBoxSearchResult = new System.Windows.Forms.CheckBox();
+            this.labelInfo1 = new System.Windows.Forms.Label();
             this.panelSetting.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSetting
@@ -68,8 +70,44 @@
             this.panelSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSetting.Location = new System.Drawing.Point(0, 0);
             this.panelSetting.Name = "panelSetting";
-            this.panelSetting.Size = new System.Drawing.Size(544, 408);
+            this.panelSetting.Size = new System.Drawing.Size(544, 482);
             this.panelSetting.TabIndex = 28;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.labelInfo1);
+            this.groupBox2.Controls.Add(this.checkBoxSearchResult);
+            this.groupBox2.Controls.Add(this.labelInfo);
+            this.groupBox2.Controls.Add(this.checkBoxSuggestions);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(27, 263);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(488, 207);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Suggestions";
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.labelInfo.Location = new System.Drawing.Point(20, 147);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(452, 46);
+            this.labelInfo.TabIndex = 11;
+            this.labelInfo.Text = "Shortcut suggestions are based on your recently called shortcuts, most-called sho" +
+    "rtcuts and routines.";
+            // 
+            // checkBoxSuggestions
+            // 
+            this.checkBoxSuggestions.AutoSize = true;
+            this.checkBoxSuggestions.Location = new System.Drawing.Point(23, 113);
+            this.checkBoxSuggestions.Name = "checkBoxSuggestions";
+            this.checkBoxSuggestions.Size = new System.Drawing.Size(207, 22);
+            this.checkBoxSuggestions.TabIndex = 10;
+            this.checkBoxSuggestions.Text = "Show shortcut suggestions";
+            this.checkBoxSuggestions.UseVisualStyleBackColor = true;
+            this.checkBoxSuggestions.CheckedChanged += new System.EventHandler(this.checkBoxSuggestions_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -249,18 +287,6 @@
             this.labelHotKeyConfig.TabIndex = 1;
             this.labelHotKeyConfig.Text = "XShort Run Hotkey Configuration";
             // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(23, 202);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(217, 22);
-            this.checkBox8.TabIndex = 9;
-            this.checkBox8.Text = "Don\'t load main list at startup";
-            this.toolTip1.SetToolTip(this.checkBox8, "This will improve loading time");
-            this.checkBox8.UseVisualStyleBackColor = true;
-            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -341,45 +367,45 @@
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
-            // groupBox2
+            // checkBox8
             // 
-            this.groupBox2.Controls.Add(this.labelInfo);
-            this.groupBox2.Controls.Add(this.checkBoxSuggestions);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(27, 263);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(488, 133);
-            this.groupBox2.TabIndex = 21;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Suggestions";
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(23, 202);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(217, 22);
+            this.checkBox8.TabIndex = 9;
+            this.checkBox8.Text = "Don\'t load main list at startup";
+            this.toolTip1.SetToolTip(this.checkBox8, "This will improve loading time");
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
-            // checkBoxSuggestions
+            // checkBoxSearchResult
             // 
-            this.checkBoxSuggestions.AutoSize = true;
-            this.checkBoxSuggestions.Location = new System.Drawing.Point(23, 33);
-            this.checkBoxSuggestions.Name = "checkBoxSuggestions";
-            this.checkBoxSuggestions.Size = new System.Drawing.Size(370, 22);
-            this.checkBoxSuggestions.TabIndex = 10;
-            this.checkBoxSuggestions.Text = "Automatically show shortcut suggestions in Run box";
-            this.checkBoxSuggestions.UseVisualStyleBackColor = true;
-            this.checkBoxSuggestions.CheckedChanged += new System.EventHandler(this.checkBoxSuggestions_CheckedChanged);
+            this.checkBoxSearchResult.AutoSize = true;
+            this.checkBoxSearchResult.Location = new System.Drawing.Point(23, 39);
+            this.checkBoxSearchResult.Name = "checkBoxSearchResult";
+            this.checkBoxSearchResult.Size = new System.Drawing.Size(268, 22);
+            this.checkBoxSearchResult.TabIndex = 12;
+            this.checkBoxSearchResult.Text = "Show result suggestions while typing";
+            this.checkBoxSearchResult.UseVisualStyleBackColor = true;
+            this.checkBoxSearchResult.CheckedChanged += new System.EventHandler(this.checkBoxSearchResult_CheckedChanged);
             // 
-            // labelInfo
+            // labelInfo1
             // 
-            this.labelInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.labelInfo.Location = new System.Drawing.Point(20, 71);
-            this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(434, 46);
-            this.labelInfo.TabIndex = 11;
-            this.labelInfo.Text = "Shortcut suggestions are based on your recently called shortcuts, most-called sho" +
-    "rtcuts and routines.";
+            this.labelInfo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInfo1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.labelInfo1.Location = new System.Drawing.Point(20, 74);
+            this.labelInfo1.Name = "labelInfo1";
+            this.labelInfo1.Size = new System.Drawing.Size(452, 26);
+            this.labelInfo1.TabIndex = 13;
+            this.labelInfo1.Text = "If enabled, this will show your shorcuts and directories while you are typing.";
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(544, 408);
+            this.ClientSize = new System.Drawing.Size(544, 482);
             this.Controls.Add(this.panelSetting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -390,12 +416,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.panelSetting.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -426,5 +452,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.CheckBox checkBoxSuggestions;
+        private System.Windows.Forms.CheckBox checkBoxSearchResult;
+        private System.Windows.Forms.Label labelInfo1;
     }
 }

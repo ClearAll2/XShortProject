@@ -220,7 +220,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(553, 353);
+            this.ClientSize = new System.Drawing.Size(553, 130);
             this.Controls.Add(this.listViewResult);
             this.Controls.Add(this.panelSuggestions);
             this.Controls.Add(this.labelInstruction);

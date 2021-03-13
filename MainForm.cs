@@ -46,6 +46,7 @@ namespace XShort
         private bool ggs = false;
         private bool dontload = false;
         private bool suggestions = false;
+        private bool showResult = false;
 
         private bool detect = false;
         private bool hide = false;
@@ -251,6 +252,11 @@ namespace XShort
                 suggestions = true;
             else
                 suggestions = false;
+
+            if (r.GetValue("ShowResult") != null)
+                showResult = true;
+            else
+                showResult = false;
            
             r.Close();
             r.Dispose();
@@ -274,6 +280,7 @@ namespace XShort
                 f2.changeGGSeach(ggs);
                 f2.changeSensitive(cases);
                 f2.changeSuggessions(suggestions);
+                f2.changeShowResult(showResult);
             }
             
         }
