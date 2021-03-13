@@ -119,7 +119,7 @@ namespace XShort
                 timeSuggestions.Clear();
                 for (int i = 0; i < suggestions.Count; i++)
                 {
-                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1)
+                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 && suggestions[i].lasttime.Minute <= 30 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1 && suggestions[i].lasttime.Minute <= 30)
                     {
                         timeSuggestions.Add(suggestions[i]);
                     }
@@ -152,7 +152,7 @@ namespace XShort
                         for (int i = 0; i < remain; i++)
                         {
                             if (!timeSuggestions.Contains(suggestions[i]))//prevent duplicate 
-                                AddNewSuggestionsItems(suggestions[i].loc, true);
+                                AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
                         }
                     }
                 }
@@ -204,7 +204,7 @@ namespace XShort
 
                 for (int i = 0; i < suggestions.Count; i++)
                 {
-                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1)
+                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 && suggestions[i].lasttime.Minute <= 30 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1 && suggestions[i].lasttime.Minute <= 30)
                     {
                         timeSuggestions.Add(suggestions[i]);
                     }
