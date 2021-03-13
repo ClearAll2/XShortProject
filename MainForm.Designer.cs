@@ -317,7 +317,7 @@
             this.button13.FlatAppearance.BorderSize = 0;
             this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button13.ForeColor = System.Drawing.Color.White;
-            this.button13.Location = new System.Drawing.Point(470, 159);
+            this.button13.Location = new System.Drawing.Point(467, 159);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(27, 22);
             this.button13.TabIndex = 10;
@@ -375,7 +375,7 @@
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSave.ImageIndex = 9;
             this.buttonSave.ImageList = this.imageList1;
-            this.buttonSave.Location = new System.Drawing.Point(395, 364);
+            this.buttonSave.Location = new System.Drawing.Point(392, 364);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(111, 28);
             this.buttonSave.TabIndex = 32;
@@ -394,7 +394,7 @@
             this.buttonAddURL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddURL.ImageIndex = 10;
             this.buttonAddURL.ImageList = this.imageList1;
-            this.buttonAddURL.Location = new System.Drawing.Point(278, 364);
+            this.buttonAddURL.Location = new System.Drawing.Point(275, 364);
             this.buttonAddURL.Name = "buttonAddURL";
             this.buttonAddURL.Size = new System.Drawing.Size(111, 28);
             this.buttonAddURL.TabIndex = 31;
@@ -413,7 +413,7 @@
             this.buttonAddDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddDir.ImageIndex = 8;
             this.buttonAddDir.ImageList = this.imageList1;
-            this.buttonAddDir.Location = new System.Drawing.Point(145, 364);
+            this.buttonAddDir.Location = new System.Drawing.Point(142, 364);
             this.buttonAddDir.Name = "buttonAddDir";
             this.buttonAddDir.Size = new System.Drawing.Size(127, 28);
             this.buttonAddDir.TabIndex = 30;
@@ -432,7 +432,7 @@
             this.buttonAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddApp.ImageIndex = 11;
             this.buttonAddApp.ImageList = this.imageList1;
-            this.buttonAddApp.Location = new System.Drawing.Point(21, 364);
+            this.buttonAddApp.Location = new System.Drawing.Point(18, 364);
             this.buttonAddApp.Name = "buttonAddApp";
             this.buttonAddApp.Size = new System.Drawing.Size(118, 28);
             this.buttonAddApp.TabIndex = 29;
@@ -617,7 +617,7 @@
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
             this.listView1.ShowItemToolTips = true;
-            this.listView1.Size = new System.Drawing.Size(488, 347);
+            this.listView1.Size = new System.Drawing.Size(482, 347);
             this.listView1.TabIndex = 18;
             this.listView1.TabStop = false;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -655,7 +655,7 @@
             this.panelData.Controls.Add(this.listView1);
             this.panelData.Location = new System.Drawing.Point(12, 47);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(529, 405);
+            this.panelData.Size = new System.Drawing.Size(523, 405);
             this.panelData.TabIndex = 30;
             // 
             // contextMenuStrip5
@@ -682,7 +682,7 @@
             this.aboutToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
             this.aboutToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.buttonAbout_Click);
             // 
@@ -691,21 +691,21 @@
             this.settingsToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
             this.settingsToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(163, 6);
             // 
             // exportToolStripMenuItem1
             // 
             this.exportToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
             this.exportToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.exportToolStripMenuItem1.Text = "Export";
             this.exportToolStripMenuItem1.Click += new System.EventHandler(this.buttonExport_Click);
             // 
@@ -714,34 +714,34 @@
             this.importToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.importToolStripMenuItem1.Name = "importToolStripMenuItem1";
             this.importToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.importToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.importToolStripMenuItem1.Text = "Import";
             this.importToolStripMenuItem1.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(163, 6);
             // 
             // reloadDataToolStripMenuItem
             // 
             this.reloadDataToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control;
             this.reloadDataToolStripMenuItem.Name = "reloadDataToolStripMenuItem";
-            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.reloadDataToolStripMenuItem.Text = "Reload data";
             this.reloadDataToolStripMenuItem.Click += new System.EventHandler(this.buttonReload_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(163, 6);
             // 
             // exitToolStripMenuItem2
             // 
             this.exitToolStripMenuItem2.ForeColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem2.Name = "exitToolStripMenuItem2";
             this.exitToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
             this.exitToolStripMenuItem2.Text = "Exit";
             this.exitToolStripMenuItem2.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
@@ -763,7 +763,7 @@
             this.panel2.Controls.Add(this.labelShortcutType);
             this.panel2.Location = new System.Drawing.Point(6, 42);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(535, 407);
+            this.panel2.Size = new System.Drawing.Size(529, 407);
             this.panel2.TabIndex = 29;
             this.panel2.Visible = false;
             // 
@@ -776,7 +776,7 @@
             "App/File",
             "Directory",
             "URL"});
-            this.comboBox1.Location = new System.Drawing.Point(124, 69);
+            this.comboBox1.Location = new System.Drawing.Point(121, 69);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(373, 21);
             this.comboBox1.TabIndex = 11;
@@ -788,7 +788,7 @@
             this.labelPara.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPara.AutoSize = true;
             this.labelPara.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPara.Location = new System.Drawing.Point(33, 208);
+            this.labelPara.Location = new System.Drawing.Point(30, 208);
             this.labelPara.Name = "labelPara";
             this.labelPara.Size = new System.Drawing.Size(71, 16);
             this.labelPara.TabIndex = 9;
@@ -799,7 +799,7 @@
             this.labelPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPath.AutoSize = true;
             this.labelPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPath.Location = new System.Drawing.Point(33, 161);
+            this.labelPath.Location = new System.Drawing.Point(30, 161);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(35, 16);
             this.labelPath.TabIndex = 8;
@@ -810,7 +810,7 @@
             this.labelName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelName.Location = new System.Drawing.Point(33, 114);
+            this.labelName.Location = new System.Drawing.Point(30, 114);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(71, 16);
             this.labelName.TabIndex = 7;
@@ -821,7 +821,7 @@
             this.textBoxPara.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxPara.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPara.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPara.Location = new System.Drawing.Point(124, 206);
+            this.textBoxPara.Location = new System.Drawing.Point(121, 206);
             this.textBoxPara.Name = "textBoxPara";
             this.textBoxPara.Size = new System.Drawing.Size(373, 22);
             this.textBoxPara.TabIndex = 6;
@@ -832,7 +832,7 @@
             this.textBoxPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPath.Location = new System.Drawing.Point(124, 159);
+            this.textBoxPath.Location = new System.Drawing.Point(121, 159);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(340, 22);
             this.textBoxPath.TabIndex = 5;
@@ -843,7 +843,7 @@
             this.textBoxName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxName.Location = new System.Drawing.Point(124, 112);
+            this.textBoxName.Location = new System.Drawing.Point(121, 112);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(373, 22);
             this.textBoxName.TabIndex = 4;
@@ -857,7 +857,7 @@
             this.button12.FlatAppearance.BorderSize = 0;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.Location = new System.Drawing.Point(284, 303);
+            this.button12.Location = new System.Drawing.Point(281, 303);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(91, 34);
             this.button12.TabIndex = 3;
@@ -873,7 +873,7 @@
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.Location = new System.Drawing.Point(163, 303);
+            this.button10.Location = new System.Drawing.Point(160, 303);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(91, 34);
             this.button10.TabIndex = 2;
@@ -887,7 +887,7 @@
             this.labelShortcutType.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelShortcutType.AutoSize = true;
             this.labelShortcutType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelShortcutType.Location = new System.Drawing.Point(33, 70);
+            this.labelShortcutType.Location = new System.Drawing.Point(30, 70);
             this.labelShortcutType.Name = "labelShortcutType";
             this.labelShortcutType.Size = new System.Drawing.Size(85, 16);
             this.labelShortcutType.TabIndex = 12;
@@ -897,7 +897,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(550, 449);
+            this.ClientSize = new System.Drawing.Size(544, 449);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonMenu);
             this.Controls.Add(this.panelData);

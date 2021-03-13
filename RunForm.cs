@@ -149,10 +149,16 @@ namespace XShort
                     int remain = 4 - rel;
                     if (suggestions.Count >= remain)
                     {
-                        for (int i = 0; i < remain; i++)
+                        for (int i = 0; i < suggestions.Count; i++)
                         {
                             if (!timeSuggestions.Contains(suggestions[i]))//prevent duplicate 
+                            {
                                 AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
+                                if (remain > 0)
+                                    remain -= 1;
+                                else
+                                    break;
+                            }
                         }
                     }
                 }

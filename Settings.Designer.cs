@@ -381,10 +381,9 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Location = new System.Drawing.Point(23, 90);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(227, 22);
+            this.checkBox3.Size = new System.Drawing.Size(280, 22);
             this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "Automatically search if no data";
-            this.toolTip1.SetToolTip(this.checkBox3, "This will use Index Search");
+            this.checkBox3.Text = "Automatically search Google if no data";
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
