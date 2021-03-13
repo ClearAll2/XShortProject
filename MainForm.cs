@@ -1397,6 +1397,7 @@ namespace XShort
             this.TopMost = true;
             this.Show();
             this.TopMost = false;
+            this.Focus();
             buttonData_Click();
         }
 

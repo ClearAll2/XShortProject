@@ -317,9 +317,9 @@
             this.button13.FlatAppearance.BorderSize = 0;
             this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button13.ForeColor = System.Drawing.Color.White;
-            this.button13.Location = new System.Drawing.Point(470, 162);
+            this.button13.Location = new System.Drawing.Point(470, 159);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(27, 19);
+            this.button13.Size = new System.Drawing.Size(27, 22);
             this.button13.TabIndex = 10;
             this.button13.TabStop = false;
             this.button13.Text = "...";
@@ -578,7 +578,7 @@
             // openAboutToolStripMenuItem
             // 
             this.openAboutToolStripMenuItem.Name = "openAboutToolStripMenuItem";
-            this.openAboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.openAboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             this.openAboutToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.openAboutToolStripMenuItem.Text = "open about";
             this.openAboutToolStripMenuItem.Click += new System.EventHandler(this.buttonAbout_Click);
@@ -681,8 +681,8 @@
             // 
             this.aboutToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.aboutToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.buttonAbout_Click);
             // 
@@ -691,21 +691,21 @@
             this.settingsToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
             this.settingsToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(177, 6);
             // 
             // exportToolStripMenuItem1
             // 
             this.exportToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
             this.exportToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exportToolStripMenuItem1.Text = "Export";
             this.exportToolStripMenuItem1.Click += new System.EventHandler(this.buttonExport_Click);
             // 
@@ -714,34 +714,34 @@
             this.importToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.Control;
             this.importToolStripMenuItem1.Name = "importToolStripMenuItem1";
             this.importToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.importToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.importToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.importToolStripMenuItem1.Text = "Import";
             this.importToolStripMenuItem1.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
             // 
             // reloadDataToolStripMenuItem
             // 
             this.reloadDataToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Control;
             this.reloadDataToolStripMenuItem.Name = "reloadDataToolStripMenuItem";
-            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.reloadDataToolStripMenuItem.Text = "Reload data";
             this.reloadDataToolStripMenuItem.Click += new System.EventHandler(this.buttonReload_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(163, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem2
             // 
             this.exitToolStripMenuItem2.ForeColor = System.Drawing.SystemColors.Control;
             this.exitToolStripMenuItem2.Name = "exitToolStripMenuItem2";
             this.exitToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+            this.exitToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem2.Text = "Exit";
             this.exitToolStripMenuItem2.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
