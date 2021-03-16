@@ -22,6 +22,7 @@ namespace XShort
             InitializeComponent();
             LoadSettings();
             LoadData();
+            ReloadBlocklist();
         }
 
         public void LoadData()
@@ -45,8 +46,14 @@ namespace XShort
             }
             fs.Close();
             sr.Close();
+        }
 
+        private void ReloadBlocklist()
+        {
             blockList.Clear();
+
+            FileStream fs;
+            StreamReader sr;
             try
             {
                 fs = new FileStream(Path.Combine(dataPath, "blocklist"), FileMode.Open, FileAccess.Read);
@@ -62,6 +69,11 @@ namespace XShort
             }
             fs.Close();
             sr.Close();
+
+            if (blockList.Count > 0)
+                buttonBlocklist.Text = "Blocklist - " + blockList.Count.ToString() + " shortcuts selected";
+            else
+                buttonBlocklist.Text = "Blocklist";
         }
 
         private void LoadSettings()
@@ -396,6 +408,7 @@ namespace XShort
                 if (listViewBlocklist.Items[i].Checked)
                     File.AppendAllText(Path.Combine(dataPath, "blocklist"), listViewBlocklist.Items[i].Text + Environment.NewLine);
             }
+            ReloadBlocklist();
         }
 
         private void checkBoxExcludeResultSuggestion_CheckedChanged(object sender, EventArgs e)
@@ -411,6 +424,11 @@ namespace XShort
             }
             r1.Close();
             r1.Dispose();
+        }
+
+        private void buttonCancelBlocklist_Click(object sender, EventArgs e)
+        {
+            Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
         }
     }
 }
