@@ -33,6 +33,7 @@
             this.panelSetting = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panelBlocklist = new System.Windows.Forms.Panel();
+            this.buttonCancelBlocklist = new System.Windows.Forms.Button();
             this.checkBoxExcludeResultSuggestion = new System.Windows.Forms.CheckBox();
             this.listViewBlocklist = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -62,7 +63,6 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonCancelBlocklist = new System.Windows.Forms.Button();
             this.panelSetting.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelBlocklist.SuspendLayout();
@@ -109,6 +109,21 @@
             this.panelBlocklist.Size = new System.Drawing.Size(482, 222);
             this.panelBlocklist.TabIndex = 15;
             this.panelBlocklist.Visible = false;
+            // 
+            // buttonCancelBlocklist
+            // 
+            this.buttonCancelBlocklist.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonCancelBlocklist.FlatAppearance.BorderSize = 0;
+            this.buttonCancelBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancelBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancelBlocklist.ForeColor = System.Drawing.Color.White;
+            this.buttonCancelBlocklist.Location = new System.Drawing.Point(376, 182);
+            this.buttonCancelBlocklist.Name = "buttonCancelBlocklist";
+            this.buttonCancelBlocklist.Size = new System.Drawing.Size(93, 29);
+            this.buttonCancelBlocklist.TabIndex = 19;
+            this.buttonCancelBlocklist.Text = "Cancel";
+            this.buttonCancelBlocklist.UseVisualStyleBackColor = false;
+            this.buttonCancelBlocklist.Click += new System.EventHandler(this.buttonCancelBlocklist_Click);
             // 
             // checkBoxExcludeResultSuggestion
             // 
@@ -482,21 +497,6 @@
             this.toolTip1.SetToolTip(this.checkBox8, "This will improve loading time");
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
-            // 
-            // buttonCancelBlocklist
-            // 
-            this.buttonCancelBlocklist.BackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonCancelBlocklist.FlatAppearance.BorderSize = 0;
-            this.buttonCancelBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancelBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancelBlocklist.ForeColor = System.Drawing.Color.White;
-            this.buttonCancelBlocklist.Location = new System.Drawing.Point(376, 182);
-            this.buttonCancelBlocklist.Name = "buttonCancelBlocklist";
-            this.buttonCancelBlocklist.Size = new System.Drawing.Size(93, 29);
-            this.buttonCancelBlocklist.TabIndex = 19;
-            this.buttonCancelBlocklist.Text = "Cancel";
-            this.buttonCancelBlocklist.UseVisualStyleBackColor = false;
-            this.buttonCancelBlocklist.Click += new System.EventHandler(this.buttonCancelBlocklist_Click);
             // 
             // Settings
             // 

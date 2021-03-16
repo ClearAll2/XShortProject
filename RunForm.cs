@@ -34,7 +34,7 @@ namespace XShort
         private string text = String.Empty;
         private string text1, part = String.Empty;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
-        private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "firewall.cpl", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
+        private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
         private BackgroundWorker bw;
         private int originalSize;
         public RunForm(int en)
@@ -484,9 +484,7 @@ namespace XShort
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
             {
-
                 sName.Add(sr.ReadLine());
-
 
             }
             fs.Close();
@@ -532,6 +530,11 @@ namespace XShort
 
             LoadIcon();
             LoadBlocklist();
+
+            for (int i=0;i<sName.Count;i++)
+            {
+                comboBox1.Items.Add(sName[i]);
+            }
             return 1;
         }
 
@@ -598,6 +601,11 @@ namespace XShort
 
             LoadIcon();
             LoadBlocklist();
+
+            for (int i = 0; i < sName.Count; i++)
+            {
+                comboBox1.Items.Add(sName[i]);
+            }
             return 1;
 
         }
@@ -1460,6 +1468,29 @@ namespace XShort
                                 else//break if no more space => reduce loop time
                                     break;
 
+                            }
+                        }
+                        if (rel < 4)//add syscmd to search
+                        {
+                            int remain = 4 - rel;
+                            for (int i = 0; i < sysCmd.Length; i++)
+                            {
+                                if (sysCmd[i].Contains(cut) || sysCmd[i].ToLower().Contains(cut.ToLower()) && !csen)
+                                {
+                                    if (!ifAny)//prevent reload when nothing match
+                                    {
+                                        ifAny = true;
+                                        panelSuggestions.Controls.Clear();
+                                        rel = 0;
+                                    }
+                                    if (remain > 0)
+                                    {
+                                        AddNewSuggestionsItems(sysCmd[i], false);
+                                        remain -= 1;
+                                    }
+                                    else//break if no more space => reduce loop time
+                                        break;
+                                }
                             }
                         }
                         if (rel == 0)
