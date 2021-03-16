@@ -20,6 +20,7 @@ namespace XShort
         private List<String> sName = new List<String>();
         private List<String> sPath = new List<String>();
         private List<String> sPara = new List<String>();
+        private List<String> blockList = new List<string>();
         private ImageList sImage = new ImageList();
         private List<Suggestions> suggestions = new List<Suggestions>();
         private List<Suggestions> timeSuggestions = new List<Suggestions>();
@@ -29,6 +30,7 @@ namespace XShort
         private bool csen = false;
         private bool ss = false;
         private bool sr = false;
+        private bool er = false;
         private string text = String.Empty;
         private string text1, part = String.Empty;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
@@ -114,19 +116,7 @@ namespace XShort
 
         private void timerSuggestions_Tick(object sender, EventArgs e)
         {
-            if (ss)
-            {
-                timeSuggestions.Clear();
-                for (int i = 0; i < suggestions.Count; i++)
-                {
-                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 && suggestions[i].lasttime.Minute <= 30 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1 && suggestions[i].lasttime.Minute <= 30)
-                    {
-                        timeSuggestions.Add(suggestions[i]);
-                    }
-                }
-
-                ReloadSuggestions();
-            }
+            ReloadSuggestions();
         }
 
         public void ReloadSuggestions()
@@ -135,6 +125,16 @@ namespace XShort
             {
                 rel = 0;
                 panelSuggestions.Controls.Clear();
+                timeSuggestions.Clear();
+                for (int i = 0; i < suggestions.Count; i++)//time-based suggestions
+                {
+                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 && suggestions[i].lasttime.Minute <= 30 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1 && suggestions[i].lasttime.Minute >= 30)
+                    {
+                        if (!blockList.Contains(suggestions[i].loc))//if it's not in blocklist
+                            timeSuggestions.Add(suggestions[i]);
+                    }
+                }
+
                 if (timeSuggestions.Count > 0)
                 {
                     for (int i = 0; i < timeSuggestions.Count; i++)
@@ -153,11 +153,14 @@ namespace XShort
                         {
                             if (!timeSuggestions.Contains(suggestions[i]))//prevent duplicate 
                             {
-                                AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
-                                if (remain > 0)
-                                    remain -= 1;
-                                else
-                                    break;
+                                if (!blockList.Contains(suggestions[i].loc))//if it's not in blocklist
+                                {
+                                    AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
+                                    if (remain > 0)
+                                        remain -= 1;
+                                    else
+                                        break;
+                                }
                             }
                         }
                     }
@@ -177,21 +180,6 @@ namespace XShort
             return -1;
         }
 
-        //public void ReloadSuggestions()
-        //{
-        //    rel = 0;
-        //    panelSuggestions.Controls.Clear();
-        //    if (suggestions.Count > 0)
-        //    {
-        //        for (int i = 0; i < suggestions.Count; i++)
-        //        {
-        //            AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
-        //            if (rel >= 4)
-        //                break;
-        //        }
-
-        //    }
-        //}
 
         private void LoadSuggestions()
         {
@@ -207,15 +195,7 @@ namespace XShort
                 }
                 sr.Close();
                 fs.Close();
-
-                for (int i = 0; i < suggestions.Count; i++)
-                {
-                    if (suggestions[i].lasttime.Hour == DateTime.Now.Hour || suggestions[i].lasttime.Hour == DateTime.Now.Hour + 1 && suggestions[i].lasttime.Minute <= 30 || suggestions[i].lasttime.Hour == DateTime.Now.Hour - 1 && suggestions[i].lasttime.Minute <= 30)
-                    {
-                        timeSuggestions.Add(suggestions[i]);
-                    }
-                }
-
+                
                 ReloadSuggestions();
             }
         }
@@ -467,30 +447,21 @@ namespace XShort
             }
         }
 
-        public void changeGGSeach(bool gg)
-        {
-            ggSearch = gg;
-        }
 
-        public void changeSensitive(bool Csen)
+        public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er)
         {
-            csen = Csen;
-        }
-
-        public void changeSuggessions (bool suggestions)
-        {
-            ss = suggestions;
+            ggSearch = _gg;
+            csen = _csen;
+            ss = _ss;
             if (ss)
                 ReloadSuggestions();
             else
             {
                 panelSuggestions.Controls.Clear();
             }
-        }
 
-        public void changeShowResult(bool result)
-        {
-            sr = result;
+            sr = _sr;
+            er = _er;
         }
 
         private int loadData()
@@ -559,12 +530,8 @@ namespace XShort
             fs.Close();
             sr.Close();
 
-
-            for (int i = 0; i < sName.Count; i++)
-            {
-                comboBox1.Items.Add(sName[i]);
-            }
             LoadIcon();
+            LoadBlocklist();
             return 1;
         }
 
@@ -629,14 +596,33 @@ namespace XShort
             fs.Close();
             sr.Close();
 
-
-            for (int i = 0; i < sName.Count; i++)
-            {
-                comboBox1.Items.Add(sName[i]);
-            }
             LoadIcon();
+            LoadBlocklist();
             return 1;
 
+        }
+
+
+        public void LoadBlocklist()
+        {
+            FileStream fs;
+            StreamReader sr;
+            blockList.Clear();
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "blocklist"), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                blockList.Add(sr.ReadLine());
+            }
+            fs.Close();
+            sr.Close();
         }
 
         private void Run(string tmp, bool runas)
@@ -1468,7 +1454,8 @@ namespace XShort
                                 }
                                 if (rel < 4)
                                 {
-                                    AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
+                                    if (!er || !blockList.Contains(sName[i]))
+                                        AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
                                 }
                                 else//break if no more space => reduce loop time
                                     break;

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
 
 namespace XShort
@@ -11,13 +13,58 @@ namespace XShort
         private RegistryKey r1;
         private global::ModifierKeys gmk;
         private Keys k;
+        private List<String> sName = new List<string>();
+        private List<String> blockList = new List<string>();
+        private string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
+        private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
         public Settings()
         {
             InitializeComponent();
-            loadSettings();
+            LoadSettings();
+            LoadData();
         }
 
-        private void loadSettings()
+        public void LoadData()
+        {
+            sName.Clear();
+
+            FileStream fs;
+            StreamReader sr;
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                sName.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
+            }
+            fs.Close();
+            sr.Close();
+
+            blockList.Clear();
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "blocklist"), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                blockList.Add(sr.ReadLine());
+            }
+            fs.Close();
+            sr.Close();
+        }
+
+        private void LoadSettings()
         {
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (r == null)
@@ -92,6 +139,8 @@ namespace XShort
                 checkBoxSuggestions.Checked = true;
             if (r.GetValue("ShowResult") != null)
                 checkBoxSearchResult.Checked = true;
+            if (r.GetValue("ExcludeResult") != null)
+                checkBoxExcludeResultSuggestion.Checked = true;
 
             r.Close();
             r.Dispose();
@@ -119,13 +168,11 @@ namespace XShort
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Util.Animate(panelHotkey, Util.Effect.Slide, 100, 180);
-            panelHotkey.Visible = true;
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
             Util.Animate(panelHotkey, Util.Effect.Slide, 100, 180);
-            panelHotkey.Visible = false;
         }
 
         private void radioButtonAlt_CheckedChanged(object sender, EventArgs e)
@@ -323,6 +370,44 @@ namespace XShort
             else
             {
                 r1.DeleteValue("ShowResult", false);
+            }
+            r1.Close();
+            r1.Dispose();
+        }
+
+        private void buttonBlocklist_Click(object sender, EventArgs e)
+        {
+            listViewBlocklist.Items.Clear();
+            for (int i = 0; i < sName.Count; i++)
+            {
+                listViewBlocklist.Items.Add(new ListViewItem(sName[i]));
+                if (blockList.Contains(listViewBlocklist.Items[listViewBlocklist.Items.Count - 1].Text))
+                    listViewBlocklist.Items[listViewBlocklist.Items.Count - 1].Checked = true;
+            }
+            Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
+        }
+
+        private void buttonSaveBlocklist_Click(object sender, EventArgs e)
+        {
+            Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
+            File.WriteAllText(Path.Combine(dataPath, "blocklist"), String.Empty);
+            for (int i = 0; i < listViewBlocklist.Items.Count; i++)
+            {
+                if (listViewBlocklist.Items[i].Checked)
+                    File.AppendAllText(Path.Combine(dataPath, "blocklist"), listViewBlocklist.Items[i].Text + Environment.NewLine);
+            }
+        }
+
+        private void checkBoxExcludeResultSuggestion_CheckedChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            if (checkBoxExcludeResultSuggestion.Checked)
+            {
+                r1.SetValue("ExcludeResult", true);
+            }
+            else
+            {
+                r1.DeleteValue("ExcludeResult", false);
             }
             r1.Close();
             r1.Dispose();

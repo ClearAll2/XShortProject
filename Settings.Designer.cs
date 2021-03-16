@@ -32,6 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.panelSetting = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panelBlocklist = new System.Windows.Forms.Panel();
+            this.listViewBlocklist = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonSaveBlocklist = new System.Windows.Forms.Button();
+            this.buttonBlocklist = new System.Windows.Forms.Button();
             this.labelInfo1 = new System.Windows.Forms.Label();
             this.checkBoxSearchResult = new System.Windows.Forms.CheckBox();
             this.labelInfo = new System.Windows.Forms.Label();
@@ -56,8 +61,10 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxExcludeResultSuggestion = new System.Windows.Forms.CheckBox();
             this.panelSetting.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panelBlocklist.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
             this.SuspendLayout();
@@ -70,11 +77,13 @@
             this.panelSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSetting.Location = new System.Drawing.Point(0, 0);
             this.panelSetting.Name = "panelSetting";
-            this.panelSetting.Size = new System.Drawing.Size(544, 482);
+            this.panelSetting.Size = new System.Drawing.Size(544, 531);
             this.panelSetting.TabIndex = 28;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.panelBlocklist);
+            this.groupBox2.Controls.Add(this.buttonBlocklist);
             this.groupBox2.Controls.Add(this.labelInfo1);
             this.groupBox2.Controls.Add(this.checkBoxSearchResult);
             this.groupBox2.Controls.Add(this.labelInfo);
@@ -82,10 +91,73 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(27, 263);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(488, 207);
+            this.groupBox2.Size = new System.Drawing.Size(488, 245);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Suggestions";
+            // 
+            // panelBlocklist
+            // 
+            this.panelBlocklist.Controls.Add(this.checkBoxExcludeResultSuggestion);
+            this.panelBlocklist.Controls.Add(this.listViewBlocklist);
+            this.panelBlocklist.Controls.Add(this.buttonSaveBlocklist);
+            this.panelBlocklist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBlocklist.Location = new System.Drawing.Point(3, 20);
+            this.panelBlocklist.Name = "panelBlocklist";
+            this.panelBlocklist.Size = new System.Drawing.Size(482, 222);
+            this.panelBlocklist.TabIndex = 15;
+            this.panelBlocklist.Visible = false;
+            // 
+            // listViewBlocklist
+            // 
+            this.listViewBlocklist.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewBlocklist.CheckBoxes = true;
+            this.listViewBlocklist.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listViewBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewBlocklist.FullRowSelect = true;
+            this.listViewBlocklist.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewBlocklist.HideSelection = false;
+            this.listViewBlocklist.Location = new System.Drawing.Point(20, 19);
+            this.listViewBlocklist.Name = "listViewBlocklist";
+            this.listViewBlocklist.Size = new System.Drawing.Size(449, 153);
+            this.listViewBlocklist.TabIndex = 17;
+            this.listViewBlocklist.UseCompatibleStateImageBehavior = false;
+            this.listViewBlocklist.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 427;
+            // 
+            // buttonSaveBlocklist
+            // 
+            this.buttonSaveBlocklist.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonSaveBlocklist.FlatAppearance.BorderSize = 0;
+            this.buttonSaveBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSaveBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSaveBlocklist.ForeColor = System.Drawing.Color.White;
+            this.buttonSaveBlocklist.Location = new System.Drawing.Point(376, 178);
+            this.buttonSaveBlocklist.Name = "buttonSaveBlocklist";
+            this.buttonSaveBlocklist.Size = new System.Drawing.Size(93, 29);
+            this.buttonSaveBlocklist.TabIndex = 15;
+            this.buttonSaveBlocklist.Text = "Close";
+            this.buttonSaveBlocklist.UseVisualStyleBackColor = false;
+            this.buttonSaveBlocklist.Click += new System.EventHandler(this.buttonSaveBlocklist_Click);
+            // 
+            // buttonBlocklist
+            // 
+            this.buttonBlocklist.FlatAppearance.BorderSize = 0;
+            this.buttonBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBlocklist.Location = new System.Drawing.Point(23, 196);
+            this.buttonBlocklist.Name = "buttonBlocklist";
+            this.buttonBlocklist.Size = new System.Drawing.Size(449, 31);
+            this.buttonBlocklist.TabIndex = 14;
+            this.buttonBlocklist.Text = "Blocklist";
+            this.buttonBlocklist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.buttonBlocklist, "List of shortcuts that you don\'t want them in Suggestions.");
+            this.buttonBlocklist.UseVisualStyleBackColor = true;
+            this.buttonBlocklist.Click += new System.EventHandler(this.buttonBlocklist_Click);
             // 
             // labelInfo1
             // 
@@ -399,12 +471,23 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
+            // checkBoxExcludeResultSuggestion
+            // 
+            this.checkBoxExcludeResultSuggestion.AutoSize = true;
+            this.checkBoxExcludeResultSuggestion.Location = new System.Drawing.Point(20, 181);
+            this.checkBoxExcludeResultSuggestion.Name = "checkBoxExcludeResultSuggestion";
+            this.checkBoxExcludeResultSuggestion.Size = new System.Drawing.Size(269, 22);
+            this.checkBoxExcludeResultSuggestion.TabIndex = 18;
+            this.checkBoxExcludeResultSuggestion.Text = "Also exclude from result suggestions";
+            this.checkBoxExcludeResultSuggestion.UseVisualStyleBackColor = true;
+            this.checkBoxExcludeResultSuggestion.CheckedChanged += new System.EventHandler(this.checkBoxExcludeResultSuggestion_CheckedChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(544, 482);
+            this.ClientSize = new System.Drawing.Size(544, 531);
             this.Controls.Add(this.panelSetting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -417,6 +500,8 @@
             this.panelSetting.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panelBlocklist.ResumeLayout(false);
+            this.panelBlocklist.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panelHotkey.ResumeLayout(false);
@@ -453,5 +538,11 @@
         private System.Windows.Forms.CheckBox checkBoxSuggestions;
         private System.Windows.Forms.CheckBox checkBoxSearchResult;
         private System.Windows.Forms.Label labelInfo1;
+        private System.Windows.Forms.Button buttonBlocklist;
+        private System.Windows.Forms.Panel panelBlocklist;
+        private System.Windows.Forms.Button buttonSaveBlocklist;
+        private System.Windows.Forms.ListView listViewBlocklist;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.CheckBox checkBoxExcludeResultSuggestion;
     }
 }
