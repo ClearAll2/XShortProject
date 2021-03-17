@@ -14,6 +14,7 @@ namespace XShort
 {
     public partial class RunForm : Form
     {
+        private int suggestNum = 8;
         private int index = 0;
         private int rel = 0;
         private List<String> dir = new List<String>();
@@ -37,7 +38,7 @@ namespace XShort
         private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
         private BackgroundWorker bw;
         private int originalSize;
-        public RunForm(int en)
+        public RunForm()
         {
             InitializeComponent();
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
@@ -47,27 +48,6 @@ namespace XShort
             imageList1.Images.Add(Properties.Resources.file);
             comboBox1.DropDownHeight = comboBox1.Font.Height * 5;
             originalSize = this.Height;
-
-            r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            if (r == null)
-                r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
-            if (r.GetValue("ggSearch") != null)
-                ggSearch = true;
-            else
-                ggSearch = false;
-
-            if (r.GetValue("Case-sen") != null)
-                csen = true;
-            else
-                csen = false;
-
-            if (r.GetValue("Suggestions") != null)
-                ss = true;
-            else
-                ss = false;
-          
-            r.Close();
-            r.Dispose();
 
             comboBox1.Focus();
             comboBox1.SelectAll();
@@ -140,13 +120,13 @@ namespace XShort
                     for (int i = 0; i < timeSuggestions.Count; i++)
                     {
                         AddNewSuggestionsItems(timeSuggestions[i].loc, sName.Contains(timeSuggestions[i].loc));
-                        if (rel >= 4)
+                        if (rel >= suggestNum)
                             break;
                     }
                 }
-                if (rel < 4)
+                if (rel < suggestNum)
                 {
-                    int remain = 4 - rel;
+                    int remain = suggestNum - rel;
                     if (suggestions.Count >= remain)
                     {
                         for (int i = 0; i < suggestions.Count; i++)
@@ -202,7 +182,7 @@ namespace XShort
 
         private void AddNewSuggestionsItems(string text, bool useImageList)
         {
-            int recentWidth = panelSuggestions.Height * 3;
+            int recentWidth = (panelSuggestions.Width / suggestNum) + (panelSuggestions.Width % suggestNum);
             Button newsuggestion = new Button
             {
                 ForeColor = SystemColors.ControlDarkDark,
@@ -223,6 +203,7 @@ namespace XShort
                 newsuggestion.Image = icon;
                 toolTip1.SetToolTip(newsuggestion, text);
             }
+            newsuggestion.AutoEllipsis = true;
             newsuggestion.Left = rel * recentWidth;
             newsuggestion.Text = text;
             newsuggestion.TabStop = false;
@@ -245,7 +226,7 @@ namespace XShort
 
         private void AddNewSuggestionsItems(string text, ImageList imageList, int imageIndex, string toolTip)
         {
-            int recentWidth = panelSuggestions.Height * 3;
+            int recentWidth = (panelSuggestions.Width / suggestNum) + (panelSuggestions.Width % suggestNum);
             Button newsuggestion = new Button
             {
                 ForeColor = SystemColors.ControlDarkDark,
@@ -258,7 +239,7 @@ namespace XShort
             newsuggestion.ImageList = imageList;
             newsuggestion.ImageIndex = imageIndex;
             toolTip1.SetToolTip(newsuggestion, toolTip);
-            
+            newsuggestion.AutoEllipsis = true;
             newsuggestion.Left = rel * recentWidth;
             newsuggestion.Text = text;
             newsuggestion.TabStop = false;
@@ -448,10 +429,13 @@ namespace XShort
         }
 
 
-        public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er)
+        public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss)
         {
+            suggestNum = maxss;
             ggSearch = _gg;
             csen = _csen;
+            sr = _sr;
+            er = _er;
             ss = _ss;
             if (ss)
                 ReloadSuggestions();
@@ -460,8 +444,8 @@ namespace XShort
                 panelSuggestions.Controls.Clear();
             }
 
-            sr = _sr;
-            er = _er;
+            
+            
         }
 
         private int loadData()
@@ -1460,7 +1444,7 @@ namespace XShort
                                     panelSuggestions.Controls.Clear();
                                     rel = 0;
                                 }
-                                if (rel < 4)
+                                if (rel < suggestNum)
                                 {
                                     if (!er || !blockList.Contains(sName[i]))
                                         AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
@@ -1470,9 +1454,9 @@ namespace XShort
 
                             }
                         }
-                        if (rel < 4)//add syscmd to search
+                        if (rel < suggestNum)//add syscmd to search
                         {
-                            int remain = 4 - rel;
+                            int remain = suggestNum - rel;
                             for (int i = 0; i < sysCmd.Length; i++)
                             {
                                 if (sysCmd[i].Contains(cut) || sysCmd[i].ToLower().Contains(cut.ToLower()) && !csen)
@@ -1588,9 +1572,9 @@ namespace XShort
             {
                 Panel frm = (Panel)sender;
                 ControlPaint.DrawBorder(e.Graphics, frm.ClientRectangle,
-                Color.LightBlue, 0, ButtonBorderStyle.Solid,
-                Color.LightBlue, 0, ButtonBorderStyle.Solid,
-                Color.LightBlue, 0, ButtonBorderStyle.Solid,
+                Color.Red, 0, ButtonBorderStyle.Solid,
+                Color.Red, 0, ButtonBorderStyle.Solid,
+                Color.Red, 0, ButtonBorderStyle.Solid,
                 Color.Red, 1, ButtonBorderStyle.Solid);
             }
         }

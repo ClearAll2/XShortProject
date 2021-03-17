@@ -63,11 +63,14 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.labelMaxSuggest = new System.Windows.Forms.Label();
+            this.numericUpDownMaxSuggestNum = new System.Windows.Forms.NumericUpDown();
             this.panelSetting.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelBlocklist.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSetting
@@ -78,12 +81,14 @@
             this.panelSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSetting.Location = new System.Drawing.Point(0, 0);
             this.panelSetting.Name = "panelSetting";
-            this.panelSetting.Size = new System.Drawing.Size(544, 531);
+            this.panelSetting.Size = new System.Drawing.Size(544, 594);
             this.panelSetting.TabIndex = 28;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.panelBlocklist);
+            this.groupBox2.Controls.Add(this.numericUpDownMaxSuggestNum);
+            this.groupBox2.Controls.Add(this.labelMaxSuggest);
             this.groupBox2.Controls.Add(this.buttonBlocklist);
             this.groupBox2.Controls.Add(this.labelInfo1);
             this.groupBox2.Controls.Add(this.checkBoxSearchResult);
@@ -92,7 +97,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(27, 263);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(488, 245);
+            this.groupBox2.Size = new System.Drawing.Size(488, 308);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Suggestions";
@@ -106,7 +111,7 @@
             this.panelBlocklist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBlocklist.Location = new System.Drawing.Point(3, 20);
             this.panelBlocklist.Name = "panelBlocklist";
-            this.panelBlocklist.Size = new System.Drawing.Size(482, 222);
+            this.panelBlocklist.Size = new System.Drawing.Size(482, 285);
             this.panelBlocklist.TabIndex = 15;
             this.panelBlocklist.Visible = false;
             // 
@@ -117,7 +122,7 @@
             this.buttonCancelBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancelBlocklist.ForeColor = System.Drawing.Color.White;
-            this.buttonCancelBlocklist.Location = new System.Drawing.Point(376, 182);
+            this.buttonCancelBlocklist.Location = new System.Drawing.Point(376, 243);
             this.buttonCancelBlocklist.Name = "buttonCancelBlocklist";
             this.buttonCancelBlocklist.Size = new System.Drawing.Size(93, 29);
             this.buttonCancelBlocklist.TabIndex = 19;
@@ -128,7 +133,7 @@
             // checkBoxExcludeResultSuggestion
             // 
             this.checkBoxExcludeResultSuggestion.AutoSize = true;
-            this.checkBoxExcludeResultSuggestion.Location = new System.Drawing.Point(20, 185);
+            this.checkBoxExcludeResultSuggestion.Location = new System.Drawing.Point(20, 246);
             this.checkBoxExcludeResultSuggestion.Name = "checkBoxExcludeResultSuggestion";
             this.checkBoxExcludeResultSuggestion.Size = new System.Drawing.Size(192, 22);
             this.checkBoxExcludeResultSuggestion.TabIndex = 18;
@@ -143,11 +148,12 @@
             this.listViewBlocklist.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listViewBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewBlocklist.FullRowSelect = true;
             this.listViewBlocklist.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewBlocklist.HideSelection = false;
             this.listViewBlocklist.Location = new System.Drawing.Point(20, 19);
             this.listViewBlocklist.Name = "listViewBlocklist";
-            this.listViewBlocklist.Size = new System.Drawing.Size(449, 153);
+            this.listViewBlocklist.Size = new System.Drawing.Size(449, 218);
             this.listViewBlocklist.TabIndex = 17;
             this.listViewBlocklist.UseCompatibleStateImageBehavior = false;
             this.listViewBlocklist.View = System.Windows.Forms.View.Details;
@@ -164,7 +170,7 @@
             this.buttonSaveBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSaveBlocklist.ForeColor = System.Drawing.Color.White;
-            this.buttonSaveBlocklist.Location = new System.Drawing.Point(265, 181);
+            this.buttonSaveBlocklist.Location = new System.Drawing.Point(265, 243);
             this.buttonSaveBlocklist.Name = "buttonSaveBlocklist";
             this.buttonSaveBlocklist.Size = new System.Drawing.Size(93, 29);
             this.buttonSaveBlocklist.TabIndex = 15;
@@ -176,9 +182,9 @@
             // 
             this.buttonBlocklist.FlatAppearance.BorderSize = 0;
             this.buttonBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBlocklist.Location = new System.Drawing.Point(23, 196);
+            this.buttonBlocklist.Location = new System.Drawing.Point(16, 254);
             this.buttonBlocklist.Name = "buttonBlocklist";
-            this.buttonBlocklist.Size = new System.Drawing.Size(449, 31);
+            this.buttonBlocklist.Size = new System.Drawing.Size(457, 31);
             this.buttonBlocklist.TabIndex = 14;
             this.buttonBlocklist.Text = "Blocklist";
             this.buttonBlocklist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -498,12 +504,48 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
+            // labelMaxSuggest
+            // 
+            this.labelMaxSuggest.AutoSize = true;
+            this.labelMaxSuggest.Location = new System.Drawing.Point(20, 203);
+            this.labelMaxSuggest.Name = "labelMaxSuggest";
+            this.labelMaxSuggest.Size = new System.Drawing.Size(174, 18);
+            this.labelMaxSuggest.TabIndex = 15;
+            this.labelMaxSuggest.Text = "Max suggestions number";
+            // 
+            // numericUpDownMaxSuggestNum
+            // 
+            this.numericUpDownMaxSuggestNum.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numericUpDownMaxSuggestNum.Location = new System.Drawing.Point(224, 204);
+            this.numericUpDownMaxSuggestNum.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxSuggestNum.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxSuggestNum.Name = "numericUpDownMaxSuggestNum";
+            this.numericUpDownMaxSuggestNum.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownMaxSuggestNum.TabIndex = 16;
+            this.numericUpDownMaxSuggestNum.TabStop = false;
+            this.numericUpDownMaxSuggestNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.numericUpDownMaxSuggestNum, "Max suggestions items in Run box");
+            this.numericUpDownMaxSuggestNum.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxSuggestNum.ValueChanged += new System.EventHandler(this.numericUpDownMaxSuggestNum_ValueChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(544, 531);
+            this.ClientSize = new System.Drawing.Size(544, 594);
             this.Controls.Add(this.panelSetting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -522,6 +564,7 @@
             this.groupBox1.PerformLayout();
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -561,5 +604,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.CheckBox checkBoxExcludeResultSuggestion;
         private System.Windows.Forms.Button buttonCancelBlocklist;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxSuggestNum;
+        private System.Windows.Forms.Label labelMaxSuggest;
     }
 }

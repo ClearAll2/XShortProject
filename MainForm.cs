@@ -56,6 +56,7 @@ namespace XShort
         private BackgroundWorker bw;
         private BackgroundWorker bw2;
         private int back;
+        private int suggestNum;
 
         private ImageList img;
         private ImageList img2;
@@ -95,7 +96,7 @@ namespace XShort
 
 
             f3 = new ProgressForm(true);
-            f2 = new RunForm(1);
+            f2 = new RunForm();
            
 
             loadSettings();
@@ -262,7 +263,12 @@ namespace XShort
                 excludeResult = true;
             else
                 excludeResult = false;
-           
+
+            if (r.GetValue("MaxSuggest") != null)
+            {
+                 suggestNum = Int32.Parse((string)r.GetValue("MaxSuggest"));
+            }
+
             r.Close();
             r.Dispose();
 
@@ -270,7 +276,7 @@ namespace XShort
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if (r.GetValue("XShort") != null)
             {
-                if (r.GetValue("XShort").ToString().Contains(Application.ExecutablePath))
+                if (r.GetValue("XShort").ToString().Equals(Application.ExecutablePath))
                 {
                     start = true;
                 }
@@ -283,7 +289,7 @@ namespace XShort
             if (f2 != null && f2.IsDisposed != true)
             {
                 f2.LoadBlocklist();
-                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult);
+                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum);
             }
             
         }
@@ -1422,7 +1428,7 @@ namespace XShort
             else
             {
                
-                f2 = new RunForm(1);
+                f2 = new RunForm();
                 f2.Show();
                 f2.Activate();
             }

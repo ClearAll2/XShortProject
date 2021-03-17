@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace XShort
 {
@@ -14,15 +15,59 @@ namespace XShort
         private global::ModifierKeys gmk;
         private Keys k;
         private List<String> sName = new List<string>();
+        private List<String> sPath = new List<String>();
+        private ImageList sImage = new ImageList();
         private List<String> blockList = new List<string>();
         private string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
+
         public Settings()
         {
             InitializeComponent();
+            sImage.ImageSize = new Size(25, 25);
+            sImage.ColorDepth = ColorDepth.Depth32Bit;
+            listViewBlocklist.SmallImageList = sImage;
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.RunWorkerAsync();
             LoadSettings();
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
             LoadData();
             ReloadBlocklist();
+            LoadIcon();
+        }
+
+        private void LoadIcon()
+        {
+            sImage.Images.Clear();
+            for (int i = 0; i < sPath.Count; i++)
+            {
+                try
+                {
+                    sImage.Images.Add(Icon.ExtractAssociatedIcon(sPath[i]));
+                }
+                catch
+                {
+                    if (sPath[i].Contains("http"))
+                        sImage.Images.Add(Properties.Resources.internet);
+                    else if (sPath[i].Contains("\\"))
+                    {
+                        if (Directory.Exists(sPath[i]))
+                            sImage.Images.Add(Properties.Resources.dir);
+                        else
+                            sImage.Images.Add(Properties.Resources.error);
+                    }
+                    else
+                    {
+                        sImage.Images.Add(Properties.Resources.question_help_mark_balloon_512);
+                    }
+
+                }
+
+            }
         }
 
         public void LoadData()
@@ -43,6 +88,22 @@ namespace XShort
             while (!sr.EndOfStream)
             {
                 sName.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
+            }
+            fs.Close();
+            sr.Close();
+
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                sPath.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
             }
             fs.Close();
             sr.Close();
@@ -71,7 +132,7 @@ namespace XShort
             sr.Close();
 
             if (blockList.Count > 0)
-                buttonBlocklist.Text = "Blocklist - " + blockList.Count.ToString() + " shortcuts selected";
+                buttonBlocklist.Text = "Blocklist - " + blockList.Count.ToString() + " shortcut(s) selected";
             else
                 buttonBlocklist.Text = "Blocklist";
         }
@@ -153,6 +214,10 @@ namespace XShort
                 checkBoxSearchResult.Checked = true;
             if (r.GetValue("ExcludeResult") != null)
                 checkBoxExcludeResultSuggestion.Checked = true;
+            if (r.GetValue("MaxSuggest") != null)
+            {
+                numericUpDownMaxSuggestNum.Value = Decimal.Parse((string)r.GetValue("MaxSuggest"));
+            }
 
             r.Close();
             r.Dispose();
@@ -393,8 +458,9 @@ namespace XShort
             for (int i = 0; i < sName.Count; i++)
             {
                 listViewBlocklist.Items.Add(new ListViewItem(sName[i]));
-                if (blockList.Contains(listViewBlocklist.Items[listViewBlocklist.Items.Count - 1].Text))
-                    listViewBlocklist.Items[listViewBlocklist.Items.Count - 1].Checked = true;
+                listViewBlocklist.Items[i].ImageIndex = i;
+                if (blockList.Contains(listViewBlocklist.Items[i].Text))
+                    listViewBlocklist.Items[i].Checked = true;
             }
             Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
         }
@@ -429,6 +495,14 @@ namespace XShort
         private void buttonCancelBlocklist_Click(object sender, EventArgs e)
         {
             Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
+        }
+
+        private void numericUpDownMaxSuggestNum_ValueChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            r1.SetValue("MaxSuggest", numericUpDownMaxSuggestNum.Value);
+            r1.Close();
+            r1.Dispose();
         }
     }
 }
