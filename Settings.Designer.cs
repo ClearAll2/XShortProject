@@ -183,7 +183,7 @@
             this.numericUpDownMaxSuggestNum.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownMaxSuggestNum.Location = new System.Drawing.Point(224, 204);
             this.numericUpDownMaxSuggestNum.Maximum = new decimal(new int[] {
-            7,
+            8,
             0,
             0,
             0});

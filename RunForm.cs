@@ -35,7 +35,7 @@ namespace XShort
         private string text = String.Empty;
         private string text1, part = String.Empty;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
-        private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "control wuaucpl.cpl", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "SystemPropertiesDataExecutionPrevention", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "%systemroot%\\system32\\migwiz\\migwiz.exe", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "control netconnections", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
+        private string[] sysCmd = { "utilman", "control access.cpl", "hdwwiz", "appwiz.cpl", "control admintools", "netplwz", "azman.msc", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "CompMgmtLauncher.exe", "compmgmt.msc", "control", "credwiz", "timedate.cpl", "hdwwiz", "devmgmt.msc", "DevicePairingWizard", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
         private BackgroundWorker bw;
         private int originalSize;
         public RunForm()
@@ -199,7 +199,13 @@ namespace XShort
             }
             else
             {
-                Image icon = new Bitmap(Properties.Resources.terminal, new Size(30, 30));
+                Size size = new Size(30, 30);
+                if (suggestNum > 6)
+                {
+                    size.Height = 20;
+                    size.Width = 20;
+                }
+                Image icon = new Bitmap(Properties.Resources.terminal, size);
                 newsuggestion.Image = icon;
                 toolTip1.SetToolTip(newsuggestion, text);
             }
@@ -209,13 +215,6 @@ namespace XShort
             newsuggestion.TabStop = false;
             newsuggestion.ContextMenuStrip = contextMenuStrip1;
             newsuggestion.TextImageRelation = TextImageRelation.ImageBeforeText;
-            if (newsuggestion.Text.Length >= 16)
-            {
-                newsuggestion.TextImageRelation = TextImageRelation.Overlay;
-                newsuggestion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                newsuggestion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            }
-
             newsuggestion.Width = recentWidth;
             newsuggestion.Height = panelSuggestions.Height;
             newsuggestion.Click += Newsuggestion_Click;
@@ -245,13 +244,6 @@ namespace XShort
             newsuggestion.TabStop = false;
             newsuggestion.ContextMenuStrip = contextMenuStrip1;
             newsuggestion.TextImageRelation = TextImageRelation.ImageBeforeText;
-            if (newsuggestion.Text.Length >= 16)
-            {
-                newsuggestion.TextImageRelation = TextImageRelation.Overlay;
-                newsuggestion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                newsuggestion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            }
-
             newsuggestion.Width = recentWidth;
             newsuggestion.Height = panelSuggestions.Height;
             newsuggestion.Click += Newsuggestion_Click;
@@ -432,6 +424,21 @@ namespace XShort
         public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss)
         {
             suggestNum = maxss;
+            if (suggestNum > 6)
+            {
+                sImage.Images.Clear();
+                sImage.ImageSize = new Size(20, 20);
+                LoadIcon();
+            }
+            else 
+            {
+                if (sImage.ImageSize.Height != 30)
+                {
+                    sImage.Images.Clear();
+                    sImage.ImageSize = new Size(30, 30);
+                    LoadIcon();
+                }
+            }
             ggSearch = _gg;
             csen = _csen;
             sr = _sr;
