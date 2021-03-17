@@ -38,6 +38,8 @@
             this.listViewBlocklist = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonSaveBlocklist = new System.Windows.Forms.Button();
+            this.numericUpDownMaxSuggestNum = new System.Windows.Forms.NumericUpDown();
+            this.labelMaxSuggest = new System.Windows.Forms.Label();
             this.buttonBlocklist = new System.Windows.Forms.Button();
             this.labelInfo1 = new System.Windows.Forms.Label();
             this.checkBoxSearchResult = new System.Windows.Forms.CheckBox();
@@ -63,14 +65,12 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelMaxSuggest = new System.Windows.Forms.Label();
-            this.numericUpDownMaxSuggestNum = new System.Windows.Forms.NumericUpDown();
             this.panelSetting.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelBlocklist.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSetting
@@ -177,6 +177,42 @@
             this.buttonSaveBlocklist.Text = "Save";
             this.buttonSaveBlocklist.UseVisualStyleBackColor = false;
             this.buttonSaveBlocklist.Click += new System.EventHandler(this.buttonSaveBlocklist_Click);
+            // 
+            // numericUpDownMaxSuggestNum
+            // 
+            this.numericUpDownMaxSuggestNum.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numericUpDownMaxSuggestNum.Location = new System.Drawing.Point(224, 204);
+            this.numericUpDownMaxSuggestNum.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxSuggestNum.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxSuggestNum.Name = "numericUpDownMaxSuggestNum";
+            this.numericUpDownMaxSuggestNum.Size = new System.Drawing.Size(50, 20);
+            this.numericUpDownMaxSuggestNum.TabIndex = 16;
+            this.numericUpDownMaxSuggestNum.TabStop = false;
+            this.numericUpDownMaxSuggestNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.numericUpDownMaxSuggestNum, "Max suggestions items in Run box");
+            this.numericUpDownMaxSuggestNum.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxSuggestNum.ValueChanged += new System.EventHandler(this.numericUpDownMaxSuggestNum_ValueChanged);
+            // 
+            // labelMaxSuggest
+            // 
+            this.labelMaxSuggest.AutoSize = true;
+            this.labelMaxSuggest.Location = new System.Drawing.Point(20, 203);
+            this.labelMaxSuggest.Name = "labelMaxSuggest";
+            this.labelMaxSuggest.Size = new System.Drawing.Size(174, 18);
+            this.labelMaxSuggest.TabIndex = 15;
+            this.labelMaxSuggest.Text = "Max suggestions number";
             // 
             // buttonBlocklist
             // 
@@ -504,42 +540,6 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
-            // labelMaxSuggest
-            // 
-            this.labelMaxSuggest.AutoSize = true;
-            this.labelMaxSuggest.Location = new System.Drawing.Point(20, 203);
-            this.labelMaxSuggest.Name = "labelMaxSuggest";
-            this.labelMaxSuggest.Size = new System.Drawing.Size(174, 18);
-            this.labelMaxSuggest.TabIndex = 15;
-            this.labelMaxSuggest.Text = "Max suggestions number";
-            // 
-            // numericUpDownMaxSuggestNum
-            // 
-            this.numericUpDownMaxSuggestNum.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numericUpDownMaxSuggestNum.Location = new System.Drawing.Point(224, 204);
-            this.numericUpDownMaxSuggestNum.Maximum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxSuggestNum.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxSuggestNum.Name = "numericUpDownMaxSuggestNum";
-            this.numericUpDownMaxSuggestNum.Size = new System.Drawing.Size(50, 20);
-            this.numericUpDownMaxSuggestNum.TabIndex = 16;
-            this.numericUpDownMaxSuggestNum.TabStop = false;
-            this.numericUpDownMaxSuggestNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip1.SetToolTip(this.numericUpDownMaxSuggestNum, "Max suggestions items in Run box");
-            this.numericUpDownMaxSuggestNum.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxSuggestNum.ValueChanged += new System.EventHandler(this.numericUpDownMaxSuggestNum_ValueChanged);
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,11 +560,11 @@
             this.groupBox2.PerformLayout();
             this.panelBlocklist.ResumeLayout(false);
             this.panelBlocklist.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).EndInit();
             this.ResumeLayout(false);
 
         }

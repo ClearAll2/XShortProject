@@ -182,7 +182,7 @@ namespace XShort
 
         private void AddNewSuggestionsItems(string text, bool useImageList)
         {
-            int recentWidth = (panelSuggestions.Width / suggestNum) + (panelSuggestions.Width % suggestNum);
+            int recentWidth = 1 + (panelSuggestions.Width - 1) / suggestNum;//https://stackoverflow.com/questions/15100685/what-is-the-right-way-to-round-dividing-to-integers
             Button newsuggestion = new Button
             {
                 ForeColor = SystemColors.ControlDarkDark,
@@ -226,7 +226,7 @@ namespace XShort
 
         private void AddNewSuggestionsItems(string text, ImageList imageList, int imageIndex, string toolTip)
         {
-            int recentWidth = (panelSuggestions.Width / suggestNum) + (panelSuggestions.Width % suggestNum);
+            int recentWidth = 1 + (panelSuggestions.Width - 1) / suggestNum;//https://stackoverflow.com/questions/15100685/what-is-the-right-way-to-round-dividing-to-integers
             Button newsuggestion = new Button
             {
                 ForeColor = SystemColors.ControlDarkDark,
