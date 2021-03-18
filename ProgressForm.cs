@@ -6,65 +6,51 @@ namespace XShort
     {
         bool close = false;
         bool en = true;
-        public ProgressForm(bool lan)
+        public ProgressForm()
         {
             InitializeComponent();
-            en = lan;
-            if (lan)
-                circularProgressBar1.Text = "Loading...";
-            else
-                circularProgressBar1.Text = "Đang tải...";
+            circularProgressBar1.Text = "Loading...";
 
         }
 
-        public void changeLanguge(bool lan)
-        {
-            en = lan;
-        }
 
         public void changeDisplay(int phase)
         {
             if (phase == 1)
             {
-                if (en)
-                    circularProgressBar1.Text = "Loading name";
-                else
-                    circularProgressBar1.Text = "Đang tải xíu";
+
+                circularProgressBar1.Text = "Loading name";
+
             }
             else if (phase == 2)
             {
-                if (en)
-                    circularProgressBar1.Text = "Loading path";
-                else
-                    circularProgressBar1.Text = "Còn tí nữa";
+
+                circularProgressBar1.Text = "Loading path";
+
             }
             else if (phase == 3)
             {
-                if (en)
-                    circularProgressBar1.Text = "Loading para";
-                else
-                    circularProgressBar1.Text = "Đang hoàn tất";
+
+                circularProgressBar1.Text = "Loading para";
+
             }
             else if (phase == 4)
             {
-                if (en)
-                    circularProgressBar1.Text = "Saving...";
-                else
-                    circularProgressBar1.Text = "Đang lưu...";
+
+                circularProgressBar1.Text = "Saving...";
+
             }
             else if (phase == 5)
             {
-                if (en)
-                    circularProgressBar1.Text = "Scanning...";
-                else
-                    circularProgressBar1.Text = "Đang dò...";
+
+                circularProgressBar1.Text = "Scanning...";
+
             }
             else if (phase == 6)
             {
-                if (en)
-                    circularProgressBar1.Text = "Checking...";
-                else
-                    circularProgressBar1.Text = "Đang kiểm tra...";
+
+                circularProgressBar1.Text = "Checking...";
+
             }
         }
 

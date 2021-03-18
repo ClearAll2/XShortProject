@@ -53,7 +53,6 @@ namespace XShort
         private bool hide = false;
         private bool cases = false;
         private bool start = false;
-        private BackgroundWorker bw;
         private BackgroundWorker bw2;
         private int back;
         private int suggestNum;
@@ -66,7 +65,6 @@ namespace XShort
 
             InitializeComponent();
 
-            // label3.Visible = false;
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             System.IO.Directory.CreateDirectory(dataPath);
 
@@ -77,11 +75,6 @@ namespace XShort
             importToolStripMenuItem1.ImageIndex = 12;
             reloadDataToolStripMenuItem.ImageIndex = 5;
             exitToolStripMenuItem2.ImageIndex = 6;
-
-
-            bw = new BackgroundWorker();
-            //bw.DoWork += Bw_DoWork;
-
 
             bw2 = new BackgroundWorker();
             bw2.DoWork += Bw2_DoWork;
@@ -95,9 +88,9 @@ namespace XShort
 
 
 
-            f3 = new ProgressForm(true);
+            f3 = new ProgressForm();
             f2 = new RunForm();
-           
+
 
             loadSettings();
 
@@ -229,7 +222,7 @@ namespace XShort
             }
             else
                 detect = false;
-            
+
             if (r.GetValue("DontLoad") != null)
             {
                 dontload = true;
@@ -266,7 +259,7 @@ namespace XShort
 
             if (r.GetValue("MaxSuggest") != null)
             {
-                 suggestNum = Int32.Parse((string)r.GetValue("MaxSuggest"));
+                suggestNum = Int32.Parse((string)r.GetValue("MaxSuggest"));
             }
 
             r.Close();
@@ -291,18 +284,18 @@ namespace XShort
                 f2.LoadBlocklist();
                 f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum);
             }
-            
+
         }
 
         private void Bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (File.Exists(dataPath + "\\data1.data"))
-                bw.RunWorkerAsync();
-            else
-            {
-                button2_Click_2(null, null);
+            //if (File.Exists(dataPath + "\\data1.data"))
+            //    bw.RunWorkerAsync();
+            //else
+            //{
+            //    button2_Click_2(null, null);
 
-            }
+            //}
         }
 
         private string GetProductVersion(string s)
@@ -338,7 +331,7 @@ namespace XShort
                 //return;
             }
             wc.Dispose();
-            
+
         }
 
         public string AssemblyDescription
@@ -489,7 +482,7 @@ namespace XShort
             int isLatest = Application.ProductVersion.CompareTo(sver);
             if (isLatest < 0) //if current version is less than latest version
             {
-                
+
                 if (MessageBox.Show("You are running old version!\nWould you like to download new version?\nChangelog:\n" + schlog, "XShort Updater", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     //Process.Start("https://clearallsoft.cf/get/xshort_get");
@@ -498,7 +491,7 @@ namespace XShort
                     exit = true;
                     exitToolStripMenuItem1_Click(null, null);
                 }
-                
+
             }
             wc.Dispose();
         }
@@ -893,7 +886,7 @@ namespace XShort
                 if (textBoxName.Text.Contains("!") || textBoxName.Text.Contains("|") || textBoxName.Text.Contains(">"))
                 {
                     MessageBox.Show("Your call name contains character \"! or | or >\"\nPlease rename!", "Special Character", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return; 
+                    return;
                 }
                 if (!edit)
                 {
@@ -905,7 +898,7 @@ namespace XShort
                             {
                                 return;
                             }
-                            
+
                         }
                     }
                 }
@@ -1058,7 +1051,7 @@ namespace XShort
                 of.CheckPathExists = true;
                 of.Filter = "All file type (*.*)|*.*";
                 of.Title = "Select your file...";
-               
+
                 of.Multiselect = false;
                 if (of.ShowDialog() == DialogResult.OK)
                 {
@@ -1071,7 +1064,7 @@ namespace XShort
             {
                 FolderBrowserDialog fb = new FolderBrowserDialog();
                 fb.Description = "Select folder...";
-                
+
                 fb.RootFolder = Environment.SpecialFolder.Desktop;
                 if (fb.ShowDialog() == DialogResult.OK)
                 {
@@ -1084,7 +1077,7 @@ namespace XShort
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             edit = false;
             comboBox1.SelectedIndex = 0;
             panel2.Show();
@@ -1092,12 +1085,12 @@ namespace XShort
             textBoxName.Text = String.Empty;
             textBoxPath.Text = String.Empty;
             textBoxPara.Text = String.Empty;
-            
+
         }
 
         private void addDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
+
             edit = false;
             comboBox1.SelectedIndex = 1;
             panel2.Show();
@@ -1105,7 +1098,7 @@ namespace XShort
             textBoxName.Text = String.Empty;
             textBoxPath.Text = String.Empty;
 
-            
+
         }
 
         private void addURLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1298,7 +1291,7 @@ namespace XShort
             if (f2 != null)
             {
                 f2.LoadData();
-                
+
             }
             img.Dispose();
             img = new ImageList();
@@ -1322,7 +1315,7 @@ namespace XShort
         {
             this.Hide();
             //notifyIcon1.ShowBalloonTip(1000, "XShort Core", "XShort Core is running in background\nPress " + gmk.ToString() + " + " + k.ToString() + " to open run box", ToolTipIcon.None);
-           
+
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1427,7 +1420,7 @@ namespace XShort
             }
             else
             {
-               
+
                 f2 = new RunForm();
                 f2.Show();
                 f2.Activate();
@@ -1441,8 +1434,8 @@ namespace XShort
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!bw.IsBusy)
-                bw.RunWorkerAsync();
+            //if (!bw.IsBusy)
+            //    bw.RunWorkerAsync();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1605,7 +1598,7 @@ namespace XShort
         }
 
 
-   
+
 
         private void CreateShortcut(string name, string path, string para)
         {
@@ -1697,7 +1690,7 @@ namespace XShort
                         listView1.Items[listView1.Items.Count - 1].Selected = true;
                         listView1.EnsureVisible(listView1.Items.Count - 1);
                         yet = "dir";
-                        
+
                     }
                     else
                     {
@@ -1745,15 +1738,15 @@ namespace XShort
                 }
                 else if (ret == -1)
                 {
-                    
+
                     MessageBox.Show("Fail to import data! Make sure you have a valid data!", "Error Missing Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                 }
                 else
                 {
-                    
+
                     MessageBox.Show("Import data done!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                 }
             }
         }
@@ -1764,7 +1757,7 @@ namespace XShort
             fd.ShowNewFolderButton = true;
             fd.RootFolder = Environment.SpecialFolder.Desktop;
             fd.Description = "Select folder to export";
-            
+
             if (fd.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -1777,9 +1770,9 @@ namespace XShort
                 {
 
                     MessageBox.Show(ex.ToString(), "Error");
-                    
+
                     MessageBox.Show("Fail to export data!", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                     return;
                 }
 
@@ -1831,7 +1824,7 @@ namespace XShort
                 sw2.Close();
                 fs2.Close();
 
-               
+
                 MessageBox.Show("Export data done!\n The data are 3 files: data1, data2, data3.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
@@ -1849,17 +1842,17 @@ namespace XShort
             }
         }
 
-       
+
         private void button2_Click_2(object sender, EventArgs e)
         {
-           
+
             panel2.Show();
 
 
         }
 
 
-       
+
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
         static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
 
@@ -2125,7 +2118,7 @@ namespace XShort
                     }
                     if (back == -1)
                     {
-                       
+
                         MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
