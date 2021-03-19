@@ -55,7 +55,7 @@ namespace XShort
         private bool start = false;
         private BackgroundWorker bw2;
         private int back;
-        private int suggestNum;
+        private int suggestNum = 4;//default = 4
 
         private ImageList img;
         private ImageList img2;

@@ -14,7 +14,7 @@ namespace XShort
 {
     public partial class RunForm : Form
     {
-        private int suggestNum = 8;
+        private int suggestNum = 4;
         private int index = 0;
         private int rel = 0;
         private List<String> dir = new List<String>();
@@ -423,7 +423,10 @@ namespace XShort
 
         public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss)
         {
-            suggestNum = maxss;
+            if (maxss >= 2 && maxss <= 8)
+                suggestNum = maxss;
+            else
+                suggestNum = 4;
             if (suggestNum > 6)
             {
                 sImage.Images.Clear();
@@ -1041,20 +1044,11 @@ namespace XShort
             if (suggestions.Count > 0)
             {
                 System.IO.File.WriteAllText(dataPath + "\\suggestions", String.Empty);
-                if (suggestions.Count > 20)
+                for (int i = 0; i < suggestions.Count; i++)
                 {
-                    for (int i = 0; i < 20; i++)
-                    {
-                        System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
-                    }
+                    System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
                 }
-                else
-                {
-                    for (int i = 0; i < suggestions.Count; i++)
-                    {
-                        System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
-                    }
-                }
+                
             }
 
         }

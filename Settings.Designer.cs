@@ -133,7 +133,7 @@
             // checkBoxExcludeResultSuggestion
             // 
             this.checkBoxExcludeResultSuggestion.AutoSize = true;
-            this.checkBoxExcludeResultSuggestion.Location = new System.Drawing.Point(20, 246);
+            this.checkBoxExcludeResultSuggestion.Location = new System.Drawing.Point(13, 246);
             this.checkBoxExcludeResultSuggestion.Name = "checkBoxExcludeResultSuggestion";
             this.checkBoxExcludeResultSuggestion.Size = new System.Drawing.Size(192, 22);
             this.checkBoxExcludeResultSuggestion.TabIndex = 18;
@@ -151,9 +151,9 @@
             this.listViewBlocklist.FullRowSelect = true;
             this.listViewBlocklist.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewBlocklist.HideSelection = false;
-            this.listViewBlocklist.Location = new System.Drawing.Point(20, 19);
+            this.listViewBlocklist.Location = new System.Drawing.Point(13, 19);
             this.listViewBlocklist.Name = "listViewBlocklist";
-            this.listViewBlocklist.Size = new System.Drawing.Size(449, 218);
+            this.listViewBlocklist.Size = new System.Drawing.Size(456, 218);
             this.listViewBlocklist.TabIndex = 17;
             this.listViewBlocklist.UseCompatibleStateImageBehavior = false;
             this.listViewBlocklist.View = System.Windows.Forms.View.Details;
