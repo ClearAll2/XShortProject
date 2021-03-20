@@ -98,8 +98,8 @@ namespace XShort
             //bwu.DoWork += Bwu_DoWork;
             //bwu.RunWorkerAsync();
 
-            for (int i = 0; i < listView1.Columns.Count; i++)
-                listView1.Columns[i].Width = listView1.Width / listView1.Columns.Count;
+            for (int i = 0; i < listViewData.Columns.Count; i++)
+                listViewData.Columns[i].Width = listViewData.Width / listViewData.Columns.Count;
 
         }
 
@@ -391,11 +391,11 @@ namespace XShort
                 //optimize from foreach
                 for (int i = 0; i < startup.Count; i++)
                 {
-                    for (int j = 0; j < listView1.Items.Count; j++)
+                    for (int j = 0; j < listViewData.Items.Count; j++)
                     {
-                        if (startup[i] == listView1.Items[j].SubItems[0].Text)
+                        if (startup[i] == listViewData.Items[j].SubItems[0].Text)
                         {
-                            listView1.Items[j].ForeColor = Color.SlateBlue;
+                            listViewData.Items[j].ForeColor = Color.SlateBlue;
                         }
                     }
                 }
@@ -534,7 +534,7 @@ namespace XShort
 
         private void loadIcon()
         {
-            listView1.SmallImageList = img;
+            listViewData.SmallImageList = img;
             img.ImageSize = new Size(25, 25);
             for (int i = 0; i < sPath.Count; i++)
             {
@@ -559,7 +559,7 @@ namespace XShort
                     }
 
                 }
-                listView1.Items[i].ImageIndex = i;
+                listViewData.Items[i].ImageIndex = i;
                 //
 
             }
@@ -579,7 +579,7 @@ namespace XShort
 
         private void Abw_DoWork(object sender, DoWorkEventArgs e)
         {
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
                 if (!sPath[i].Contains("http"))
                     if (checkValid(sPath[i]) == -1)
@@ -591,7 +591,7 @@ namespace XShort
 
         private void changeColorListViewItem(Color cl, int i)
         {
-            listView1.Items[i].ForeColor = cl;
+            listViewData.Items[i].ForeColor = cl;
         }
 
         private int checkValid(string text)
@@ -682,7 +682,7 @@ namespace XShort
 
             for (int j = 0; j < sName.Count; j++)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
+                listViewData.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
 
             }
             return 1;
@@ -749,10 +749,10 @@ namespace XShort
             sr.Close();
 
 
-            listView1.Items.Clear();
+            listViewData.Items.Clear();
             for (int j = 0; j < sName.Count; j++)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
+                listViewData.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
             }
             return 1;
         }
@@ -890,9 +890,9 @@ namespace XShort
                 }
                 if (!edit)
                 {
-                    for (int i = 0; i < listView1.Items.Count; i++)
+                    for (int i = 0; i < listViewData.Items.Count; i++)
                     {
-                        if (listView1.Items[i].SubItems[0].Text == textBoxName.Text)
+                        if (listViewData.Items[i].SubItems[0].Text == textBoxName.Text)
                         {
                             if (MessageBox.Show("This name is already taken?!\nDo you want to rename? The program will open the first name appear in table", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                             {
@@ -904,9 +904,9 @@ namespace XShort
                 }
                 else
                 {
-                    for (int i = 0; i < listView1.Items.Count; i++)
+                    for (int i = 0; i < listViewData.Items.Count; i++)
                     {
-                        if (listView1.Items[i].SubItems[0].Text == textBoxName.Text && listView1.FocusedItem.Index != i)
+                        if (listViewData.Items[i].SubItems[0].Text == textBoxName.Text && listViewData.FocusedItem.Index != i)
                         {
                             if (MessageBox.Show("This name is already taken?!\nDo you want to rename? The program will open the first name appear in table", "???", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No)
                             {
@@ -914,7 +914,7 @@ namespace XShort
                             }
                         }
                     }
-                    listView1.FocusedItem.SubItems[0].Text = textBoxName.Text;
+                    listViewData.FocusedItem.SubItems[0].Text = textBoxName.Text;
                     //check changes
                     if (textBoxName.Text != old_Name)
                     {
@@ -940,24 +940,25 @@ namespace XShort
                     //para
                     if (textBoxPara.Text == String.Empty)
                     {
-                        listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, "None" }));
+                        listViewData.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, "None" }));
                         yet = "app";
 
                     }
                     else
                     {
-                        listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, textBoxPara.Text }));
+                        listViewData.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, textBoxPara.Text }));
                         yet = "dir";
 
                     }
-                    panel2.Hide();
-                    for (int i = 0; i < listView1.Items.Count; i++)
+                    panelEditShortcut.Hide();
+                    listViewData.Enabled = true;
+                    for (int i = 0; i < listViewData.Items.Count; i++)
                     {
-                        if (listView1.Items[i].SubItems[0].Text == textBoxName.Text)
+                        if (listViewData.Items[i].SubItems[0].Text == textBoxName.Text)
                         {
-                            listView1.Focus();
-                            listView1.Items[i].Selected = true;
-                            listView1.EnsureVisible(i);
+                            listViewData.Focus();
+                            listViewData.Items[i].Selected = true;
+                            listViewData.EnsureVisible(i);
 
                             return;
                         }
@@ -966,22 +967,22 @@ namespace XShort
                 }
                 else
                 {
-                    listView1.FocusedItem.SubItems[1].Text = textBoxPath.Text;
+                    listViewData.FocusedItem.SubItems[1].Text = textBoxPath.Text;
                     if (what == "app")
                     {
                         if (textBoxPara.Text == String.Empty)
                         {
 
-                            listView1.FocusedItem.SubItems[2].Text = "None";
+                            listViewData.FocusedItem.SubItems[2].Text = "None";
                         }
                         else
                         {
-                            listView1.FocusedItem.SubItems[2].Text = textBoxPara.Text;
+                            listViewData.FocusedItem.SubItems[2].Text = textBoxPara.Text;
                         }
                     }
                     else
                     {
-                        listView1.FocusedItem.SubItems[2].Text = textBoxPara.Text;
+                        listViewData.FocusedItem.SubItems[2].Text = textBoxPara.Text;
                     }
                     //check changes
                     if (textBoxPath.Text != old_Path || textBoxPara.Text != old_Para)
@@ -997,17 +998,18 @@ namespace XShort
                 {
                     yet = "url";
                     if (textBoxPath.Text.Contains("http://") || textBoxPath.Text.Contains("https://"))
-                        listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, textBoxPara.Text }));
+                        listViewData.Items.Add(new ListViewItem(new string[] { textBoxName.Text, textBoxPath.Text, textBoxPara.Text }));
                     else
-                        listView1.Items.Add(new ListViewItem(new string[] { textBoxName.Text, "http://" + textBoxPath.Text, textBoxPara.Text }));
-                    panel2.Hide();
-                    for (int i = 0; i < listView1.Items.Count; i++)
+                        listViewData.Items.Add(new ListViewItem(new string[] { textBoxName.Text, "http://" + textBoxPath.Text, textBoxPara.Text }));
+                    panelEditShortcut.Hide();
+                    listViewData.Enabled = true;
+                    for (int i = 0; i < listViewData.Items.Count; i++)
                     {
-                        if (listView1.Items[i].SubItems[0].Text == textBoxName.Text)
+                        if (listViewData.Items[i].SubItems[0].Text == textBoxName.Text)
                         {
-                            listView1.Focus();
-                            listView1.Items[i].Selected = true;
-                            listView1.EnsureVisible(i);
+                            listViewData.Focus();
+                            listViewData.Items[i].Selected = true;
+                            listViewData.EnsureVisible(i);
                             return;
                         }
                     }
@@ -1016,10 +1018,10 @@ namespace XShort
                 else
                 {
                     if (textBoxPath.Text.Contains("http"))
-                        listView1.FocusedItem.SubItems[1].Text = textBoxPath.Text;
+                        listViewData.FocusedItem.SubItems[1].Text = textBoxPath.Text;
                     else
-                        listView1.FocusedItem.SubItems[1].Text = "http://" + textBoxPath.Text;
-                    listView1.FocusedItem.SubItems[2].Text = textBoxPara.Text;
+                        listViewData.FocusedItem.SubItems[1].Text = "http://" + textBoxPath.Text;
+                    listViewData.FocusedItem.SubItems[2].Text = textBoxPara.Text;
 
                     //check changes
                     if (textBoxPath.Text != old_Path || textBoxPara.Text != old_Para)
@@ -1030,7 +1032,8 @@ namespace XShort
             }
             if (edit)
             {
-                panel2.Hide();
+                panelEditShortcut.Hide();
+                listViewData.Enabled = true;
                 edit = false;
             }
 
@@ -1038,7 +1041,8 @@ namespace XShort
 
         private void button12_Click(object sender, EventArgs e)
         {
-            panel2.Hide();
+            panelEditShortcut.Hide();
+            listViewData.Enabled = true;
             edit = false;
         }
 
@@ -1080,7 +1084,8 @@ namespace XShort
 
             edit = false;
             comboBox1.SelectedIndex = 0;
-            panel2.Show();
+            panelEditShortcut.Show();
+            listViewData.Enabled = false;
             textBoxName.Focus();
             textBoxName.Text = String.Empty;
             textBoxPath.Text = String.Empty;
@@ -1093,7 +1098,8 @@ namespace XShort
 
             edit = false;
             comboBox1.SelectedIndex = 1;
-            panel2.Show();
+            panelEditShortcut.Show();
+            listViewData.Enabled = false;
             textBoxName.Focus();
             textBoxName.Text = String.Empty;
             textBoxPath.Text = String.Empty;
@@ -1105,17 +1111,18 @@ namespace XShort
         {
             edit = false;
             comboBox1.SelectedIndex = 2;
-            panel2.Show();
+            panelEditShortcut.Show();
+            listViewData.Enabled = false;
             textBoxName.Focus();
             textBoxName.Text = String.Empty;
-            textBoxPath.Text = "http://";
+            textBoxPath.Text = "https://";
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listView1.FocusedItem != null)
+            if (listViewData.FocusedItem != null)
             {
-                listView1.Items.Remove(listView1.FocusedItem);
+                listViewData.Items.Remove(listViewData.FocusedItem);
                 yet = "rm";
 
             }
@@ -1126,10 +1133,10 @@ namespace XShort
         {
             if (e.Button == MouseButtons.Right)
             {
-                if (listView1.FocusedItem.Bounds.Contains(e.Location) == true)
+                if (listViewData.FocusedItem.Bounds.Contains(e.Location) == true)
                 {
                     contextMenuStrip2.Show(Cursor.Position);
-                    if (listView1.FocusedItem.SubItems[2].Text == "Not Available")
+                    if (listViewData.FocusedItem.SubItems[2].Text == "Not Available")
                     {
                         openAsAdministratorToolStripMenuItem.Enabled = false;
 
@@ -1138,7 +1145,7 @@ namespace XShort
                     {
                         openAsAdministratorToolStripMenuItem.Enabled = true;
                     }
-                    if (listView1.FocusedItem.SubItems[1].Text.Contains("http") || listView1.FocusedItem.SubItems[1].Text.Contains("www"))
+                    if (listViewData.FocusedItem.SubItems[1].Text.Contains("http") || listViewData.FocusedItem.SubItems[1].Text.Contains("www"))
                     {
                         checkValidPathToolStripMenuItem.Enabled = false;
                         openFileLocationToolStripMenuItem1.Enabled = false;
@@ -1155,7 +1162,7 @@ namespace XShort
                         openAtWindowsStartupToolStripMenuItem.Enabled = true;
                         foreach (string s in startup)
                         {
-                            if (listView1.FocusedItem.SubItems[0].Text == s)
+                            if (listViewData.FocusedItem.SubItems[0].Text == s)
                             {
                                 openAtWindowsStartupToolStripMenuItem.Checked = true;
                                 return;
@@ -1216,24 +1223,24 @@ namespace XShort
             File.WriteAllText(Path.Combine(dataPath, "data2.data"), string.Empty);
             File.WriteAllText(Path.Combine(dataPath, "data3.data"), string.Empty);
 
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
-                sName.Add(listView1.Items[i].SubItems[0].Text);
+                sName.Add(listViewData.Items[i].SubItems[0].Text);
             }
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
-                sPath.Add(listView1.Items[i].SubItems[1].Text);
+                sPath.Add(listViewData.Items[i].SubItems[1].Text);
             }
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
-                if (listView1.Items[i].SubItems[2].Text != "")
-                    sPara.Add(listView1.Items[i].SubItems[2].Text);
+                if (listViewData.Items[i].SubItems[2].Text != "")
+                    sPara.Add(listViewData.Items[i].SubItems[2].Text);
                 else
                     sPara.Add("None");
             }
             FileStream fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.OpenOrCreate, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
                 sw.WriteLine(StringCipher.Encrypt(sName[i], pass));
                 //sName.Add(listView1.Items[i].SubItems[0].Text);
@@ -1245,7 +1252,7 @@ namespace XShort
 
             FileStream fs1 = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.OpenOrCreate, FileAccess.Write);
             StreamWriter sw1 = new StreamWriter(fs1);
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
                 sw1.WriteLine(StringCipher.Encrypt(sPath[i], pass));
                 //sPath.Add(listView1.Items[i].SubItems[1].Text);
@@ -1256,7 +1263,7 @@ namespace XShort
             //
             FileStream fs2 = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.OpenOrCreate, FileAccess.Write);
             StreamWriter sw2 = new StreamWriter(fs2);
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
                 sw2.WriteLine(StringCipher.Encrypt(sPara[i], pass));
                 //sPath.Add(listView1.Items[i].SubItems[1].Text);
@@ -1264,10 +1271,10 @@ namespace XShort
             sw2.Close();
             fs2.Close();
 
-            listView1.Items.Clear();
+            listViewData.Items.Clear();
             for (int j = 0; j < sName.Count; j++)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
+                listViewData.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
 
             }
 
@@ -1275,13 +1282,13 @@ namespace XShort
                 autoCheckValid();
 
             //reload startup shortcuts
-            for (int i = 0; i < listView1.Items.Count; i++)
+            for (int i = 0; i < listViewData.Items.Count; i++)
             {
                 for (int j = 0; j < startup.Count; j++)
                 {
-                    if (startup[j] == listView1.Items[i].SubItems[0].Text)
+                    if (startup[j] == listViewData.Items[i].SubItems[0].Text)
                     {
-                        listView1.Items[i].ForeColor = Color.SlateBlue;
+                        listViewData.Items[i].ForeColor = Color.SlateBlue;
                     }
                 }
             }
@@ -1399,7 +1406,7 @@ namespace XShort
             this.TopMost = true;
             this.Show();
             this.TopMost = false;
-            this.Focus();
+            this.Select();
             buttonData_Click();
         }
 
@@ -1469,23 +1476,23 @@ namespace XShort
                 // Set the sort column to the new column.
                 sortColumn = e.Column;
                 // Set the sort order to ascending by default.
-                listView1.Sorting = SortOrder.Ascending;
+                listViewData.Sorting = SortOrder.Ascending;
             }
             else
             {
                 // Determine what the last sort order was and change it.
-                if (listView1.Sorting == SortOrder.Ascending)
-                    listView1.Sorting = SortOrder.Descending;
+                if (listViewData.Sorting == SortOrder.Ascending)
+                    listViewData.Sorting = SortOrder.Descending;
                 else
-                    listView1.Sorting = SortOrder.Ascending;
+                    listViewData.Sorting = SortOrder.Ascending;
             }
 
             // Call the sort method to manually sort.
-            listView1.Sort();
+            listViewData.Sort();
             // Set the ListViewItemSorter property to a new ListViewItemComparer
             // object.
-            listView1.ListViewItemSorter = new ListViewItemComparer(e.Column,
-                                                              listView1.Sorting);
+            listViewData.ListViewItemSorter = new ListViewItemComparer(e.Column,
+                                                              listViewData.Sorting);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1506,23 +1513,23 @@ namespace XShort
 
         private void checkValidPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listView1.FocusedItem.SubItems[1].Text.Contains("\\"))
+            if (listViewData.FocusedItem.SubItems[1].Text.Contains("\\"))
             {
-                if (File.Exists(listView1.FocusedItem.SubItems[1].Text))
+                if (File.Exists(listViewData.FocusedItem.SubItems[1].Text))
                 {
-                    MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(listViewData.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    if (Directory.Exists(listView1.FocusedItem.SubItems[1].Text))
+                    if (Directory.Exists(listViewData.FocusedItem.SubItems[1].Text))
                     {
-                        MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(listViewData.FocusedItem.SubItems[1].Text + " is a valid path.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        if (MessageBox.Show(listView1.FocusedItem.SubItems[1].Text + " is an invalid path.\nDo you want to remove it from list now?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show(listViewData.FocusedItem.SubItems[1].Text + " is an invalid path.\nDo you want to remove it from list now?", "Info", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
-                            listView1.FocusedItem.Remove();
+                            listViewData.FocusedItem.Remove();
                         }
                     }
                 }
@@ -1586,11 +1593,12 @@ namespace XShort
 
         private void buttonData_Click()
         {
-            if (panel2.Visible)
+            if (panelEditShortcut.Visible)
             {
                 if (MessageBox.Show("You are editing something, you want to quit?", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    panel2.Hide();
+                    panelEditShortcut.Hide();
+                    listViewData.Enabled = true;
                 }
                 else
                     return;
@@ -1622,16 +1630,16 @@ namespace XShort
         }
         private void createShortcutOnDesktopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateShortcut(listView1.FocusedItem.SubItems[0].Text, listView1.FocusedItem.SubItems[1].Text, listView1.FocusedItem.SubItems[2].Text);
+            CreateShortcut(listViewData.FocusedItem.SubItems[0].Text, listViewData.FocusedItem.SubItems[1].Text, listViewData.FocusedItem.SubItems[2].Text);
         }
 
 
         private void cloneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listView1.Items.Add(new ListViewItem(new string[] { listView1.FocusedItem.SubItems[0].Text + "_clone", listView1.FocusedItem.SubItems[1].Text, listView1.FocusedItem.SubItems[2].Text }));
-            listView1.Focus();
-            listView1.Items[listView1.Items.Count - 1].Selected = true;
-            listView1.EnsureVisible(listView1.Items.Count - 1);
+            listViewData.Items.Add(new ListViewItem(new string[] { listViewData.FocusedItem.SubItems[0].Text + "_clone", listViewData.FocusedItem.SubItems[1].Text, listViewData.FocusedItem.SubItems[2].Text }));
+            listViewData.Focus();
+            listViewData.Items[listViewData.Items.Count - 1].Selected = true;
+            listViewData.EnsureVisible(listViewData.Items.Count - 1);
             yet = "cl";
         }
 
@@ -1667,37 +1675,37 @@ namespace XShort
                         {
                             if (Path.GetExtension(targetPath) == String.Empty) //detect shortcut of dir or app
                             {
-                                listView1.Items.Add(new ListViewItem(new string[] { targetPath, targetPath, "Not Available" }));
-                                listView1.Focus();
-                                listView1.Items[listView1.Items.Count - 1].Selected = true;
-                                listView1.EnsureVisible(listView1.Items.Count - 1);
+                                listViewData.Items.Add(new ListViewItem(new string[] { targetPath, targetPath, "Not Available" }));
+                                listViewData.Focus();
+                                listViewData.Items[listViewData.Items.Count - 1].Selected = true;
+                                listViewData.EnsureVisible(listViewData.Items.Count - 1);
                                 yet = "app";
                             }
                             else
                             {
-                                listView1.Items.Add(new ListViewItem(new string[] { targetPath, targetPath, "None" }));
-                                listView1.Focus();
-                                listView1.Items[listView1.Items.Count - 1].Selected = true;
-                                listView1.EnsureVisible(listView1.Items.Count - 1);
+                                listViewData.Items.Add(new ListViewItem(new string[] { targetPath, targetPath, "None" }));
+                                listViewData.Focus();
+                                listViewData.Items[listViewData.Items.Count - 1].Selected = true;
+                                listViewData.EnsureVisible(listViewData.Items.Count - 1);
                                 yet = "app";
                             }
                         }
                     }
                     else if (Path.GetExtension(docPath[0]) == String.Empty)
                     {
-                        listView1.Items.Add(new ListViewItem(new string[] { docPath[0], docPath[0], "Not Available" }));
-                        listView1.Focus();
-                        listView1.Items[listView1.Items.Count - 1].Selected = true;
-                        listView1.EnsureVisible(listView1.Items.Count - 1);
+                        listViewData.Items.Add(new ListViewItem(new string[] { docPath[0], docPath[0], "Not Available" }));
+                        listViewData.Focus();
+                        listViewData.Items[listViewData.Items.Count - 1].Selected = true;
+                        listViewData.EnsureVisible(listViewData.Items.Count - 1);
                         yet = "dir";
 
                     }
                     else
                     {
-                        listView1.Items.Add(new ListViewItem(new string[] { docPath[0].Substring(docPath[0].LastIndexOf("\\") + 1), docPath[0], "None" }));
-                        listView1.Focus();
-                        listView1.Items[listView1.Items.Count - 1].Selected = true;
-                        listView1.EnsureVisible(listView1.Items.Count - 1);
+                        listViewData.Items.Add(new ListViewItem(new string[] { docPath[0].Substring(docPath[0].LastIndexOf("\\") + 1), docPath[0], "None" }));
+                        listViewData.Focus();
+                        listViewData.Items[listViewData.Items.Count - 1].Selected = true;
+                        listViewData.EnsureVisible(listViewData.Items.Count - 1);
                         yet = "app";
                     }
                 }
@@ -1776,24 +1784,24 @@ namespace XShort
                     return;
                 }
 
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < listViewData.Items.Count; i++)
                 {
-                    sName.Add(listView1.Items[i].SubItems[0].Text);
+                    sName.Add(listViewData.Items[i].SubItems[0].Text);
                 }
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < listViewData.Items.Count; i++)
                 {
-                    sPath.Add(listView1.Items[i].SubItems[1].Text);
+                    sPath.Add(listViewData.Items[i].SubItems[1].Text);
                 }
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < listViewData.Items.Count; i++)
                 {
-                    if (listView1.Items[i].SubItems[2].Text != "")
-                        sPara.Add(listView1.Items[i].SubItems[2].Text);
+                    if (listViewData.Items[i].SubItems[2].Text != "")
+                        sPara.Add(listViewData.Items[i].SubItems[2].Text);
                     else
                         sPara.Add("None");
                 }
                 FileStream fs = new FileStream(Path.Combine(fd.SelectedPath, "data1.data"), FileMode.OpenOrCreate, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(fs);
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < listViewData.Items.Count; i++)
                 {
                     sw.WriteLine(StringCipher.Encrypt(sName[i], pass));
                     //sName.Add(listView1.Items[i].SubItems[0].Text);
@@ -1805,7 +1813,7 @@ namespace XShort
 
                 FileStream fs1 = new FileStream(Path.Combine(fd.SelectedPath, "data2.data"), FileMode.OpenOrCreate, FileAccess.Write);
                 StreamWriter sw1 = new StreamWriter(fs1);
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < listViewData.Items.Count; i++)
                 {
                     sw1.WriteLine(StringCipher.Encrypt(sPath[i], pass));
                     //sPath.Add(listView1.Items[i].SubItems[1].Text);
@@ -1816,7 +1824,7 @@ namespace XShort
                 //
                 FileStream fs2 = new FileStream(Path.Combine(fd.SelectedPath, "data3.data"), FileMode.OpenOrCreate, FileAccess.Write);
                 StreamWriter sw2 = new StreamWriter(fs2);
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < listViewData.Items.Count; i++)
                 {
                     sw2.WriteLine(StringCipher.Encrypt(sPara[i], pass));
                     //sPath.Add(listView1.Items[i].SubItems[1].Text);
@@ -1840,15 +1848,6 @@ namespace XShort
                 f3.TopMost = false;
 
             }
-        }
-
-
-        private void button2_Click_2(object sender, EventArgs e)
-        {
-
-            panel2.Show();
-
-
         }
 
 
@@ -1898,9 +1897,9 @@ namespace XShort
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             edit = true;
-            if (listView1.FocusedItem.SubItems[2].Text == "Not Available")
+            if (listViewData.FocusedItem.SubItems[2].Text == "Not Available")
             {
-                if (listView1.FocusedItem.SubItems[1].Text.Contains("http"))
+                if (listViewData.FocusedItem.SubItems[1].Text.Contains("http"))
                     comboBox1.SelectedIndex = 2;
                 else
                     comboBox1.SelectedIndex = 1;
@@ -1909,16 +1908,17 @@ namespace XShort
             {
                 comboBox1.SelectedIndex = 0;
             }
-            textBoxName.Text = listView1.FocusedItem.SubItems[0].Text;
-            textBoxPath.Text = listView1.FocusedItem.SubItems[1].Text;
-            textBoxPara.Text = listView1.FocusedItem.SubItems[2].Text;
+            textBoxName.Text = listViewData.FocusedItem.SubItems[0].Text;
+            textBoxPath.Text = listViewData.FocusedItem.SubItems[1].Text;
+            textBoxPara.Text = listViewData.FocusedItem.SubItems[2].Text;
 
             //this for checking changes in edit
             old_Name = textBoxName.Text;
             old_Para = textBoxPara.Text;
             old_Path = textBoxPath.Text;
 
-            panel2.Show();
+            listViewData.Enabled = false;
+            panelEditShortcut.Show();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1956,18 +1956,18 @@ namespace XShort
 
             try
             {
-                if (listView1.FocusedItem.SubItems[2].Text != "None" && listView1.FocusedItem.SubItems[2].Text != "Not Available")
+                if (listViewData.FocusedItem.SubItems[2].Text != "None" && listViewData.FocusedItem.SubItems[2].Text != "Not Available")
                 {
                     ProcessStartInfo proc = new ProcessStartInfo();
-                    proc.FileName = listView1.FocusedItem.SubItems[1].Text;
+                    proc.FileName = listViewData.FocusedItem.SubItems[1].Text;
                     proc.WorkingDirectory = Path.GetDirectoryName(proc.FileName);
-                    proc.Arguments = listView1.FocusedItem.SubItems[2].Text;
+                    proc.Arguments = listViewData.FocusedItem.SubItems[2].Text;
                     Process.Start(proc);
                 }
                 else
                 {
                     ProcessStartInfo proc = new ProcessStartInfo();
-                    proc.FileName = listView1.FocusedItem.SubItems[1].Text;
+                    proc.FileName = listViewData.FocusedItem.SubItems[1].Text;
                     proc.WorkingDirectory = Path.GetDirectoryName(proc.FileName);
                     Process.Start(proc);
                 }
@@ -1980,7 +1980,7 @@ namespace XShort
 
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowFileProperties(listView1.FocusedItem.SubItems[1].Text);
+            ShowFileProperties(listViewData.FocusedItem.SubItems[1].Text);
         }
 
 
@@ -1989,17 +1989,17 @@ namespace XShort
             if (openAtWindowsStartupToolStripMenuItem.Checked != true)
             {
                 openAtWindowsStartupToolStripMenuItem.Checked = true;
-                startup.Add(listView1.FocusedItem.SubItems[0].Text);
-                listView1.FocusedItem.ForeColor = Color.SlateBlue;
+                startup.Add(listViewData.FocusedItem.SubItems[0].Text);
+                listViewData.FocusedItem.ForeColor = Color.SlateBlue;
             }
             else
             {
                 openAtWindowsStartupToolStripMenuItem.Checked = false;
-                startup.Remove(listView1.FocusedItem.SubItems[0].Text);
+                startup.Remove(listViewData.FocusedItem.SubItems[0].Text);
                 if (this.BackColor == Color.White)
-                    listView1.FocusedItem.ForeColor = Color.Black;
+                    listViewData.FocusedItem.ForeColor = Color.Black;
                 else
-                    listView1.FocusedItem.ForeColor = Color.White;
+                    listViewData.FocusedItem.ForeColor = Color.White;
             }
         }
 
@@ -2015,19 +2015,19 @@ namespace XShort
         {
             try
             {
-                if (listView1.FocusedItem.SubItems[2].Text != "None" && listView1.FocusedItem.SubItems[2].Text != "Not Available")
+                if (listViewData.FocusedItem.SubItems[2].Text != "None" && listViewData.FocusedItem.SubItems[2].Text != "Not Available")
                 {
                     ProcessStartInfo proc = new ProcessStartInfo();
-                    proc.FileName = listView1.FocusedItem.SubItems[1].Text;
+                    proc.FileName = listViewData.FocusedItem.SubItems[1].Text;
                     proc.WorkingDirectory = Path.GetDirectoryName(proc.FileName);
-                    proc.Arguments = listView1.FocusedItem.SubItems[2].Text;
+                    proc.Arguments = listViewData.FocusedItem.SubItems[2].Text;
                     proc.Verb = "runas";
                     Process.Start(proc);
                 }
                 else
                 {
                     ProcessStartInfo proc = new ProcessStartInfo();
-                    proc.FileName = listView1.FocusedItem.SubItems[1].Text;
+                    proc.FileName = listViewData.FocusedItem.SubItems[1].Text;
                     proc.WorkingDirectory = Path.GetDirectoryName(proc.FileName);
                     proc.Verb = "runas";
                     Process.Start(proc);
@@ -2080,7 +2080,7 @@ namespace XShort
         {
             try
             {
-                string argument = "/select, \"" + listView1.FocusedItem.SubItems[1].Text + "\"";
+                string argument = "/select, \"" + listViewData.FocusedItem.SubItems[1].Text + "\"";
                 Process.Start("explorer.exe", argument);
             }
             catch (Exception ex)
@@ -2104,8 +2104,8 @@ namespace XShort
                 sName.Clear();
                 sPara.Clear();
                 sPath.Clear();
-                listView1.Items.Clear();
-                listView1.Enabled = false;
+                listViewData.Items.Clear();
+                listViewData.Enabled = false;
                 if (File.Exists(Path.Combine(dataPath, "data1.data")))
                 {
                     try
@@ -2122,19 +2122,19 @@ namespace XShort
                         MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-                listView1.Enabled = true;
+                listViewData.Enabled = true;
                 f3.Show();
                 f3.Hide();
                 loadIcon();
 
                 //load startup file
-                for (int i = 0; i < listView1.Items.Count; i++)
+                for (int i = 0; i < listViewData.Items.Count; i++)
                 {
                     for (int j = 0; j < startup.Count; j++)
                     {
-                        if (startup[j] == listView1.Items[i].SubItems[0].Text)
+                        if (startup[j] == listViewData.Items[i].SubItems[0].Text)
                         {
-                            listView1.Items[i].ForeColor = Color.SlateBlue;
+                            listViewData.Items[i].ForeColor = Color.SlateBlue;
                         }
                     }
                 }
@@ -2155,8 +2155,8 @@ namespace XShort
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            for (int i = 0; i < listView1.Columns.Count; i++)
-                listView1.Columns[i].Width = listView1.Width / listView1.Columns.Count;
+            for (int i = 0; i < listViewData.Columns.Count; i++)
+                listViewData.Columns[i].Width = listViewData.Width / listViewData.Columns.Count;
         }
     }
 

@@ -46,11 +46,11 @@ namespace XShort
             sImage.ColorDepth = ColorDepth.Depth32Bit;
             imageList1.Images.Add(Properties.Resources.dir);
             imageList1.Images.Add(Properties.Resources.file);
-            comboBox1.DropDownHeight = comboBox1.Font.Height * 5;
+            comboBoxRun.DropDownHeight = comboBoxRun.Font.Height * 5;
             originalSize = this.Height;
 
-            comboBox1.Focus();
-            comboBox1.SelectAll();
+            comboBoxRun.Focus();
+            comboBoxRun.SelectAll();
 
             bw = new BackgroundWorker();
             bw.DoWork += Bw_DoWork;
@@ -274,6 +274,7 @@ namespace XShort
         {
             Button button = (Button)sender;
             SimpleRun(button.Text, sName.Contains(button.Text));
+            comboBoxRun.Text = String.Empty;
             ReloadSuggestions();
         }
 
@@ -392,13 +393,13 @@ namespace XShort
             {
                 if (sysCmd.Contains(s))
                 {
+                    this.Hide();
                     ProcessStartInfo proc = new ProcessStartInfo();
                     proc.FileName = "C:\\Windows\\System32\\cmd.exe";
                     proc.WorkingDirectory = Path.GetDirectoryName("C:\\Windows\\System32\\cmd.exe");
                     proc.Arguments = "/c " + s;
                     Process.Start(proc);
-                    this.Hide();
-
+                    
                     //for suggestions
                     if (suggestions.Count > 0)
                     {
@@ -460,7 +461,7 @@ namespace XShort
 
         private int loadData()
         {
-            comboBox1.Items.Clear();
+            comboBoxRun.Items.Clear();
             sName.Clear();
             sPara.Clear(); //fucking forget to clear haha
             sPath.Clear();
@@ -527,7 +528,7 @@ namespace XShort
 
             for (int i=0;i<sName.Count;i++)
             {
-                comboBox1.Items.Add(sName[i]);
+                comboBoxRun.Items.Add(sName[i]);
             }
             return 1;
         }
@@ -536,7 +537,7 @@ namespace XShort
 
         public int LoadData()
         {
-            comboBox1.Items.Clear();
+            comboBoxRun.Items.Clear();
             sName.Clear();
             sPara.Clear(); //fucking forget to clear haha
             sPath.Clear();
@@ -598,7 +599,7 @@ namespace XShort
 
             for (int i = 0; i < sName.Count; i++)
             {
-                comboBox1.Items.Add(sName[i]);
+                comboBoxRun.Items.Add(sName[i]);
             }
             return 1;
 
@@ -629,7 +630,7 @@ namespace XShort
 
         private void Run(string tmp, bool runas)
         {
-            if (comboBox1.Text == String.Empty) //do nothing if comboBox is empty
+            if (comboBoxRun.Text == String.Empty) //do nothing if comboBox is empty
                 return;
             if (sysCmd.Contains(tmp))
             {
@@ -996,7 +997,7 @@ namespace XShort
         private void Tbw_DoWork(object sender, DoWorkEventArgs e)
         {
             bool runas = (bool)e.Argument;
-            string dfl = comboBox1.Text;
+            string dfl = comboBoxRun.Text;
             if (dfl.Contains("#"))
                 dfl = dfl.Trim('#');//remove first # character
             if (dfl.Contains("+"))
@@ -1016,7 +1017,7 @@ namespace XShort
                     if (pieces[1].Trim() == sName[i])
                     {
                         Run(pieces[0] + "!" + sPath[i], runas);
-                        comboBox1.Text = String.Empty;
+                        comboBoxRun.Text = String.Empty;
                         return;
                     }
                 }
@@ -1025,18 +1026,18 @@ namespace XShort
                     if (sName[i].Contains(pieces[1].Trim()))
                     {
                         Run(pieces[0] + "!" + sPath[i], runas);
-                        comboBox1.Text = String.Empty;
+                        comboBoxRun.Text = String.Empty;
                         return;
                     }
                 }
                 Run(dfl, runas);
-                comboBox1.Text = String.Empty;
+                comboBoxRun.Text = String.Empty;
                 return;
             }
 
             else
                 Run(dfl, runas);
-            comboBox1.Text = String.Empty;
+            comboBoxRun.Text = String.Empty;
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -1062,8 +1063,8 @@ namespace XShort
 
         private void Form2_Activated(object sender, EventArgs e)
         {
-            comboBox1.Focus();
-            comboBox1.SelectAll();
+            comboBoxRun.Focus();
+            comboBoxRun.SelectAll();
         }
 
         private void comboBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -1077,20 +1078,20 @@ namespace XShort
                         if (sysCmd[i].Contains(part) || sysCmd[i].ToLower().Contains(part.ToLower()) && !csen)
                         {
 
-                            comboBox1.Text = text1 + sysCmd[i];
+                            comboBoxRun.Text = text1 + sysCmd[i];
                             index = i;
                             //select text which not belong to "text"
-                            comboBox1.SelectionStart = comboBox1.Text.IndexOf(part) + part.Length; //index of "text" + length => position to start selection
-                            comboBox1.SelectionLength = comboBox1.Text.Length - part.Length; //length = length of combobox text - length of "text"
+                            comboBoxRun.SelectionStart = comboBoxRun.Text.IndexOf(part) + part.Length; //index of "text" + length => position to start selection
+                            comboBoxRun.SelectionLength = comboBoxRun.Text.Length - part.Length; //length = length of combobox text - length of "text"
                             return;
 
                         }
                     }
 
                     //reset if not 
-                    comboBox1.Text = text;
-                    comboBox1.SelectionStart = comboBox1.Text.Length;
-                    comboBox1.SelectionLength = 0;
+                    comboBoxRun.Text = text;
+                    comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                    comboBoxRun.SelectionLength = 0;
                     index = -1; //-1 for index + 1 = 0 //fucking nice
                 }
                 if (text.Contains("\\") != true) //if not contain \
@@ -1101,19 +1102,19 @@ namespace XShort
                         {
                             if (sName[i].Contains(text) || sName[i].ToLower().Contains(text.ToLower()) && !csen)
                             {
-                                comboBox1.Text = sName[i];
+                                comboBoxRun.Text = sName[i];
                                 index = i;
-                                comboBox1.SelectionStart = comboBox1.Text.Length;
-                                comboBox1.SelectionLength = 0;
+                                comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                                comboBoxRun.SelectionLength = 0;
 
                                 return;
                             }
                         }
 
                         //reset if not 
-                        comboBox1.Text = text;
-                        comboBox1.SelectionStart = comboBox1.Text.Length;
-                        comboBox1.SelectionLength = 0;
+                        comboBoxRun.Text = text;
+                        comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                        comboBoxRun.SelectionLength = 0;
                         index = -1; //-1 for index + 1 = 0 //fucking nice
                     }
                     else if (text.Contains("+") == true && text.Contains("!") != true)
@@ -1122,19 +1123,19 @@ namespace XShort
                         {
                             if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                             {
-                                comboBox1.Text = text1 + " " + sName[i];
+                                comboBoxRun.Text = text1 + " " + sName[i];
                                 index = i;
-                                comboBox1.SelectionStart = comboBox1.Text.Length;
-                                comboBox1.SelectionLength = 0;
+                                comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                                comboBoxRun.SelectionLength = 0;
 
                                 return;
                             }
                         }
 
                         //reset if not 
-                        comboBox1.Text = text;
-                        comboBox1.SelectionStart = comboBox1.Text.Length;
-                        comboBox1.SelectionLength = 0;
+                        comboBoxRun.Text = text;
+                        comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                        comboBoxRun.SelectionLength = 0;
                         index = -1; //-1 for index + 1 = 0 //fucking nice
                     }
                     else if (text.Contains("+") != true && text.Contains("!") == true)
@@ -1143,19 +1144,19 @@ namespace XShort
                         {
                             if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                             {
-                                comboBox1.Text = text1 + " " + sName[i];
+                                comboBoxRun.Text = text1 + " " + sName[i];
                                 index = i;
-                                comboBox1.SelectionStart = comboBox1.Text.Length;
-                                comboBox1.SelectionLength = 0;
+                                comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                                comboBoxRun.SelectionLength = 0;
 
                                 return;
                             }
                         }
 
                         //reset if not 
-                        comboBox1.Text = text;
-                        comboBox1.SelectionStart = comboBox1.Text.Length;
-                        comboBox1.SelectionLength = 0;
+                        comboBoxRun.Text = text;
+                        comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                        comboBoxRun.SelectionLength = 0;
                         index = -1; //-1 for index + 1 = 0 //fucking nice
                     }
                     
@@ -1169,18 +1170,18 @@ namespace XShort
                         {
                             if (dir[i].Contains(text) || dir[i].ToLower().Contains(text.ToLower()) && !csen)
                             {
-                                comboBox1.Text = dir[i];
+                                comboBoxRun.Text = dir[i];
                                 index = i;
                                 //select text which not belong to "text"
-                                comboBox1.SelectionStart = comboBox1.Text.IndexOf(text) + text.Length; //index of "text" + length => position to start selection
-                                comboBox1.SelectionLength = comboBox1.Text.Length - text.Length; //length = length of combobox text - length of "text"
+                                comboBoxRun.SelectionStart = comboBoxRun.Text.IndexOf(text) + text.Length; //index of "text" + length => position to start selection
+                                comboBoxRun.SelectionLength = comboBoxRun.Text.Length - text.Length; //length = length of combobox text - length of "text"
                                 return;
                             }
                         }
                         //reset if not
-                        comboBox1.Text = text;
-                        comboBox1.SelectionStart = comboBox1.Text.Length;
-                        comboBox1.SelectionLength = 0;
+                        comboBoxRun.Text = text;
+                        comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                        comboBoxRun.SelectionLength = 0;
                         index = -1; //-1 for index + 1 = 0 //fucking nice
                     }
                     else if (text.Contains("+") == true && text.Contains("!") != true)
@@ -1191,18 +1192,18 @@ namespace XShort
                             {
                                 if (dir[i].Contains(part) || dir[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
-                                    comboBox1.Text = text1 + " " + dir[i];
+                                    comboBoxRun.Text = text1 + " " + dir[i];
                                     index = i;
                                     //select text which not belong to "text"
-                                    comboBox1.SelectionStart = comboBox1.Text.IndexOf(part) + part.Length; //index of "text" + length => position to start selection
-                                    comboBox1.SelectionLength = comboBox1.Text.Length - part.Length; //length = length of combobox text - length of "text"
+                                    comboBoxRun.SelectionStart = comboBoxRun.Text.IndexOf(part) + part.Length; //index of "text" + length => position to start selection
+                                    comboBoxRun.SelectionLength = comboBoxRun.Text.Length - part.Length; //length = length of combobox text - length of "text"
                                     return;
                                 }
                             }
                             //reset if not
-                            comboBox1.Text = text;
-                            comboBox1.SelectionStart = comboBox1.Text.Length;
-                            comboBox1.SelectionLength = 0;
+                            comboBoxRun.Text = text;
+                            comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                            comboBoxRun.SelectionLength = 0;
                             index = -1; //-1 for index + 1 = 0 //fucking nice
                         }
                         else //if not contain \ in part
@@ -1211,18 +1212,18 @@ namespace XShort
                             {
                                 if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
-                                    comboBox1.Text = text1 + " " + sName[i];
+                                    comboBoxRun.Text = text1 + " " + sName[i];
                                     index = i;
-                                    comboBox1.SelectionStart = comboBox1.Text.Length;
-                                    comboBox1.SelectionLength = 0;
+                                    comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                                    comboBoxRun.SelectionLength = 0;
                                     return;
                                 }
                             }
 
                             //reset if not 
-                            comboBox1.Text = text;
-                            comboBox1.SelectionStart = comboBox1.Text.Length;
-                            comboBox1.SelectionLength = 0;
+                            comboBoxRun.Text = text;
+                            comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                            comboBoxRun.SelectionLength = 0;
                             index = -1; //-1 for index + 1 = 0 //fucking nice
                         }
                     }
@@ -1234,18 +1235,18 @@ namespace XShort
                             {
                                 if (dir[i].Contains(part) || dir[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
-                                    comboBox1.Text = text1 + " " + dir[i];
+                                    comboBoxRun.Text = text1 + " " + dir[i];
                                     index = i;
                                     //select text which not belong to "text"
-                                    comboBox1.SelectionStart = comboBox1.Text.IndexOf(part) + part.Length; //index of "text" + length => position to start selection
-                                    comboBox1.SelectionLength = comboBox1.Text.Length - part.Length; //length = length of combobox text - length of "text"
+                                    comboBoxRun.SelectionStart = comboBoxRun.Text.IndexOf(part) + part.Length; //index of "text" + length => position to start selection
+                                    comboBoxRun.SelectionLength = comboBoxRun.Text.Length - part.Length; //length = length of combobox text - length of "text"
                                     return;
                                 }
                             }
                             //reset if not
-                            comboBox1.Text = text;
-                            comboBox1.SelectionStart = comboBox1.Text.Length;
-                            comboBox1.SelectionLength = 0;
+                            comboBoxRun.Text = text;
+                            comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                            comboBoxRun.SelectionLength = 0;
                             index = -1; //-1 for index + 1 = 0 //fucking nice
                         }
                         else //if not contain \ in part
@@ -1254,18 +1255,18 @@ namespace XShort
                             {
                                 if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
                                 {
-                                    comboBox1.Text = text1 + " " + sName[i];
+                                    comboBoxRun.Text = text1 + " " + sName[i];
                                     index = i;
-                                    comboBox1.SelectionStart = comboBox1.Text.Length;
-                                    comboBox1.SelectionLength = 0;
+                                    comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                                    comboBoxRun.SelectionLength = 0;
                                     return;
                                 }
                             }
 
                             //reset if not 
-                            comboBox1.Text = text;
-                            comboBox1.SelectionStart = comboBox1.Text.Length;
-                            comboBox1.SelectionLength = 0;
+                            comboBoxRun.Text = text;
+                            comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
+                            comboBoxRun.SelectionLength = 0;
                             index = -1; //-1 for index + 1 = 0 //fucking nice
                         }
                     }
@@ -1279,18 +1280,18 @@ namespace XShort
         {
             if (e.KeyCode != Keys.Tab)
             {
-                if (comboBox1.Text.Contains("#"))
+                if (comboBoxRun.Text.Contains("#"))
                 {
-                    text = comboBox1.Text;
+                    text = comboBoxRun.Text;
                     text1 = text.Substring(0, text.LastIndexOf("#") + 1); //from 0 to last index of ,
                     part = text.Substring(text.LastIndexOf("#") + 1); //from last index of ,
 
                     part = part.Trim();
                     index = -1;
                 }
-                if (comboBox1.Text.Contains("+") != true && comboBox1.Text.Contains("!") != true)
+                if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!") != true)
                 {
-                    text = comboBox1.Text;
+                    text = comboBoxRun.Text;
                     index = -1;
                     if (text.Contains("\\")) //if input is a directory or a file
                     {
@@ -1313,10 +1314,10 @@ namespace XShort
                         }
                     }
                 }
-                else if (comboBox1.Text.Contains("+") && comboBox1.Text.Contains("!") != true)
+                else if (comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("!") != true)
                 {
 
-                    text = comboBox1.Text;
+                    text = comboBoxRun.Text;
                     text1 = text.Substring(0, text.LastIndexOf("+") + 1); //from 0 to last index of ,
                     part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
 
@@ -1343,9 +1344,9 @@ namespace XShort
                     }
 
                 }
-                else if (comboBox1.Text.Contains("+") != true && comboBox1.Text.Contains("!"))
+                else if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!"))
                 {
-                    text = comboBox1.Text;
+                    text = comboBoxRun.Text;
                     text1 = text.Substring(0, text.LastIndexOf("!") + 1); //from 0 to last index of !
                     part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !
                     //MessageBox.Show(text + " " + text1 + " " + part);
@@ -1376,15 +1377,15 @@ namespace XShort
             
             if (e.KeyCode == Keys.Left) //set pointer to end of text 
             {
-                if (comboBox1.SelectionStart == 0)
-                    comboBox1.SelectionStart = comboBox1.Text.Length;
+                if (comboBoxRun.SelectionStart == 0)
+                    comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
             }
 
         }
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
-            if (comboBox1.Text.Length == 0)
+            if (comboBoxRun.Text.Length == 0)
             {
                 if (this.Height > listViewResult.Height)
                     this.Height = originalSize;
@@ -1397,7 +1398,7 @@ namespace XShort
             if (sr)
             {
                 bool ifAny = false;
-                string cut = comboBox1.Text;
+                string cut = comboBoxRun.Text;
                 if (cut.Contains("\\"))
                 {
                     if (dir.Count > 0)
@@ -1430,7 +1431,7 @@ namespace XShort
                 {
                     if (cut.Contains("!"))
                         cut = cut.Substring(cut.LastIndexOf("!") + 1);
-                    else if (comboBox1.Text.Contains("+"))
+                    else if (comboBoxRun.Text.Contains("+"))
                         cut = cut.Substring(cut.LastIndexOf("+") + 1);
                     cut = cut.Trim();
                     if (cut != String.Empty)
@@ -1512,9 +1513,9 @@ namespace XShort
             //comboBox1.DroppedDown = true;
             if (/*e.KeyCode != Keys.Back && e.KeyCode != Keys.Space && e.KeyCode != Keys.Delete*/e.KeyValue == 220)
             {
-                if (comboBox1.SelectionLength != 0)
+                if (comboBoxRun.SelectionLength != 0)
                 {
-                    comboBox1.SelectionStart = comboBox1.Text.Length;
+                    comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
 
 
                 }
@@ -1524,20 +1525,20 @@ namespace XShort
             {
                 for (int i = 0; i < sName.Count; i++)
                 {
-                    if (comboBox1.Text == sName[i])
+                    if (comboBoxRun.Text == sName[i])
                     {
-                        comboBox1.Text = sPath[i];
-                        comboBox1.SelectAll();
-                        Clipboard.SetText(comboBox1.Text);
+                        comboBoxRun.Text = sPath[i];
+                        comboBoxRun.SelectAll();
+                        Clipboard.SetText(comboBoxRun.Text);
                         return;
                     }
                 }
                 for (int i = 0; i < sPath.Count; i++)
                 {
-                    if (comboBox1.Text == sPath[i])
+                    if (comboBoxRun.Text == sPath[i])
                     {
-                        comboBox1.Text = sName[i];
-                        comboBox1.SelectAll();
+                        comboBoxRun.Text = sName[i];
+                        comboBoxRun.SelectAll();
 
                         return;
                     }
@@ -1582,12 +1583,12 @@ namespace XShort
 
         private void listViewResult_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (comboBox1.Text.Contains("+") != true)
+            if (comboBoxRun.Text.Contains("+") != true)
             {
                 if (Directory.Exists(listViewResult.FocusedItem.ToolTipText))
                 {
-                    comboBox1.Text += "\\";
-                    searchDir(comboBox1.Text);
+                    comboBoxRun.Text += "\\";
+                    searchDir(comboBoxRun.Text);
                     ShowResult();
                 }
                 else
@@ -1619,12 +1620,12 @@ namespace XShort
             {
                 if (listViewResult.FocusedItem.Bounds.Contains(e.Location) == true)
                 {
-                    if (comboBox1.Text.Contains("+") != true && comboBox1.Text.Contains("#") != true && comboBox1.Text.Contains("!") != true)
+                    if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("#") != true && comboBoxRun.Text.Contains("!") != true)
                     {
-                        if (comboBox1.SelectedText.Length > 0)
-                            comboBox1.SelectedText = listViewResult.FocusedItem.Text;
+                        if (comboBoxRun.SelectedText.Length > 0)
+                            comboBoxRun.SelectedText = listViewResult.FocusedItem.Text;
                         else
-                            comboBox1.Text = listViewResult.FocusedItem.ToolTipText;
+                            comboBoxRun.Text = listViewResult.FocusedItem.ToolTipText;
                     }
 
 
@@ -1685,10 +1686,10 @@ namespace XShort
                 if (owner != null)
                 {
                     Control sourceControl = owner.SourceControl;
-                    if (sourceControl != comboBox1)
+                    if (sourceControl != comboBoxRun)
                     {
                         Button btt = (Button)sourceControl;
-                        comboBox1.Text = btt.Text;
+                        comboBoxRun.Text = btt.Text;
                     }
 
                 }
@@ -1715,9 +1716,9 @@ namespace XShort
 
         private void buttonBackToParent_Click(object sender, EventArgs e)
         {
-            if (!comboBox1.Text.Contains("+") && comboBox1.Text.Contains("\\"))
+            if (!comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("\\"))
             {
-                string currentPath = comboBox1.Text;
+                string currentPath = comboBoxRun.Text;
                 string parentPath = String.Empty;
                 if (Path.GetExtension(currentPath) != null && Path.GetExtension(currentPath) != String.Empty)// if it's a file path
                 {
@@ -1730,7 +1731,7 @@ namespace XShort
                         currentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
                     parentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
                 }
-                comboBox1.Text = parentPath;
+                comboBoxRun.Text = parentPath;
                 searchDir(parentPath);
                 ShowResult();
             }
