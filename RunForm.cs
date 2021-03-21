@@ -366,26 +366,34 @@ namespace XShort
                 {
                     if (s == sName[i])
                     {
-                        if (sPara[i] != "None" && sPara[i] != "Not Available")
-                            Process.Start(sPath[i], sPara[i]);
-                        else
-                            Process.Start(sPath[i]);
-
-                        //for suggestions
-                        if (suggestions.Count > 0)
+                        try
                         {
-                            int position = CheckExistSuggestion(sName[i]);
-                            if (position != -1)
+                            if (sPara[i] != "None" && sPara[i] != "Not Available")
+                                Process.Start(sPath[i], sPara[i]);
+                            else
+                                Process.Start(sPath[i]);
+
+                            //for suggestions
+                            if (suggestions.Count > 0)
                             {
-                                suggestions[position].count += 1;
-                                suggestions[position].lasttime = DateTime.Now;
+                                int position = CheckExistSuggestion(sName[i]);
+                                if (position != -1)
+                                {
+                                    suggestions[position].count += 1;
+                                    suggestions[position].lasttime = DateTime.Now;
+                                }
+                                else
+                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
                             }
                             else
                                 suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
+                            SortSuggestions();
                         }
-                        else
-                            suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                        SortSuggestions();
+                        catch
+                        {
+                            return;
+                        }
+                        return;
                     }
                 }
             }
@@ -393,30 +401,35 @@ namespace XShort
             {
                 if (sysCmd.Contains(s))
                 {
-                    this.Hide();
-                    ProcessStartInfo proc = new ProcessStartInfo();
-                    proc.FileName = "C:\\Windows\\System32\\cmd.exe";
-                    proc.WorkingDirectory = Path.GetDirectoryName("C:\\Windows\\System32\\cmd.exe");
-                    proc.Arguments = "/c " + s;
-                    Process.Start(proc);
-                    
-                    //for suggestions
-                    if (suggestions.Count > 0)
+                    try
                     {
-                        int position = CheckExistSuggestion(s);
-                        if (position != -1)
+                        this.Hide();
+                        ProcessStartInfo proc = new ProcessStartInfo();
+                        proc.FileName = "C:\\Windows\\System32\\cmd.exe";
+                        proc.WorkingDirectory = Path.GetDirectoryName("C:\\Windows\\System32\\cmd.exe");
+                        proc.Arguments = "/c " + s;
+                        Process.Start(proc);
+
+                        //for suggestions
+                        if (suggestions.Count > 0)
                         {
-                            suggestions[position].count += 1;
-                            suggestions[position].lasttime = DateTime.Now;
+                            int position = CheckExistSuggestion(s);
+                            if (position != -1)
+                            {
+                                suggestions[position].count += 1;
+                                suggestions[position].lasttime = DateTime.Now;
+                            }
+                            else
+                                suggestions.Add(new Suggestions(s, 1, DateTime.Now));
                         }
                         else
                             suggestions.Add(new Suggestions(s, 1, DateTime.Now));
+                        SortSuggestions();
                     }
-                    else
-                        suggestions.Add(new Suggestions(s, 1, DateTime.Now));
-                    SortSuggestions();
-
-                    return;
+                    catch
+                    {
+                        return;
+                    }
                 }
             }
         }
