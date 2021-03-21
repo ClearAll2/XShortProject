@@ -1765,76 +1765,16 @@ namespace XShort
             fd.ShowNewFolderButton = true;
             fd.RootFolder = Environment.SpecialFolder.Desktop;
             fd.Description = "Select folder to export";
-
             if (fd.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    File.WriteAllText(Path.Combine(fd.SelectedPath, "data1.data"), string.Empty);
-                    File.WriteAllText(Path.Combine(fd.SelectedPath, "data2.data"), string.Empty);
-                    File.WriteAllText(Path.Combine(fd.SelectedPath, "data3.data"), string.Empty);
-                }
-                catch (Exception ex)
-                {
+                if (File.Exists(Path.Combine(dataPath, "data1.data")))
+                    File.Move(Path.Combine(dataPath, "data1.data"), Path.Combine(fd.SelectedPath, "data1.data"));
+                if (File.Exists(Path.Combine(dataPath, "data2.data")))
+                    File.Move(Path.Combine(dataPath, "data2.data"), Path.Combine(fd.SelectedPath, "data2.data"));
+                if (File.Exists(Path.Combine(dataPath, "data3.data")))
+                    File.Move(Path.Combine(dataPath, "data3.data"), Path.Combine(fd.SelectedPath, "data3.data"));
 
-                    MessageBox.Show(ex.ToString(), "Error");
-
-                    MessageBox.Show("Fail to export data!", "Fail", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    return;
-                }
-
-                for (int i = 0; i < listViewData.Items.Count; i++)
-                {
-                    sName.Add(listViewData.Items[i].SubItems[0].Text);
-                }
-                for (int i = 0; i < listViewData.Items.Count; i++)
-                {
-                    sPath.Add(listViewData.Items[i].SubItems[1].Text);
-                }
-                for (int i = 0; i < listViewData.Items.Count; i++)
-                {
-                    if (listViewData.Items[i].SubItems[2].Text != "")
-                        sPara.Add(listViewData.Items[i].SubItems[2].Text);
-                    else
-                        sPara.Add("None");
-                }
-                FileStream fs = new FileStream(Path.Combine(fd.SelectedPath, "data1.data"), FileMode.OpenOrCreate, FileAccess.Write);
-                StreamWriter sw = new StreamWriter(fs);
-                for (int i = 0; i < listViewData.Items.Count; i++)
-                {
-                    sw.WriteLine(StringCipher.Encrypt(sName[i], pass));
-                    //sName.Add(listView1.Items[i].SubItems[0].Text);
-                }
-                sw.Close();
-                fs.Close();
-
-                //
-
-                FileStream fs1 = new FileStream(Path.Combine(fd.SelectedPath, "data2.data"), FileMode.OpenOrCreate, FileAccess.Write);
-                StreamWriter sw1 = new StreamWriter(fs1);
-                for (int i = 0; i < listViewData.Items.Count; i++)
-                {
-                    sw1.WriteLine(StringCipher.Encrypt(sPath[i], pass));
-                    //sPath.Add(listView1.Items[i].SubItems[1].Text);
-                }
-                sw1.Close();
-                fs1.Close();
-
-                //
-                FileStream fs2 = new FileStream(Path.Combine(fd.SelectedPath, "data3.data"), FileMode.OpenOrCreate, FileAccess.Write);
-                StreamWriter sw2 = new StreamWriter(fs2);
-                for (int i = 0; i < listViewData.Items.Count; i++)
-                {
-                    sw2.WriteLine(StringCipher.Encrypt(sPara[i], pass));
-                    //sPath.Add(listView1.Items[i].SubItems[1].Text);
-                }
-                sw2.Close();
-                fs2.Close();
-
-
-                MessageBox.Show("Export data done!\n The data are 3 files: data1, data2, data3.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                MessageBox.Show("Export data done!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

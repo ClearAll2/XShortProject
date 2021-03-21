@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("XShort Core")]
-[assembly: AssemblyDescription("A21320")]
+[assembly: AssemblyDescription("A21321")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Freedom Software")]
 [assembly: AssemblyProduct("XShort Core")]
