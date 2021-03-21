@@ -1768,11 +1768,11 @@ namespace XShort
             if (fd.ShowDialog() == DialogResult.OK)
             {
                 if (File.Exists(Path.Combine(dataPath, "data1.data")))
-                    File.Move(Path.Combine(dataPath, "data1.data"), Path.Combine(fd.SelectedPath, "data1.data"));
+                    File.Copy(Path.Combine(dataPath, "data1.data"), Path.Combine(fd.SelectedPath, "data1.data"));
                 if (File.Exists(Path.Combine(dataPath, "data2.data")))
-                    File.Move(Path.Combine(dataPath, "data2.data"), Path.Combine(fd.SelectedPath, "data2.data"));
+                    File.Copy(Path.Combine(dataPath, "data2.data"), Path.Combine(fd.SelectedPath, "data2.data"));
                 if (File.Exists(Path.Combine(dataPath, "data3.data")))
-                    File.Move(Path.Combine(dataPath, "data3.data"), Path.Combine(fd.SelectedPath, "data3.data"));
+                    File.Copy(Path.Combine(dataPath, "data3.data"), Path.Combine(fd.SelectedPath, "data3.data"));
 
                 MessageBox.Show("Export data done!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
