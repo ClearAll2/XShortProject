@@ -67,7 +67,7 @@ namespace XShort
                 foreach (var i in _items)
                 {
                     // if matched, add to the list of results
-                    if (i.Contains(entry))
+                    if (i.ToLower().Contains(entry.ToLower()))
                         results.Add(i);
 
                     // check if the current entry was updated in the meantime,

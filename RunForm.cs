@@ -1476,11 +1476,11 @@ namespace XShort
                         for (int i = 0; i < dir.Count; i++)
                         {
                             listViewResult.Items.Add(new ListViewItem(dir[i].Substring(dir[i].LastIndexOf("\\") + 1)));
-                            if (Path.GetExtension(dir[i]) == null || Path.GetExtension(dir[i]) == String.Empty)
-                                listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 0;
+                            if (Path.GetExtension(dir[i]) != null && Path.GetExtension(dir[i]) != String.Empty)
+                                listViewResult.Items[i].ImageIndex = 1;
                             else
-                                listViewResult.Items[listViewResult.Items.Count - 1].ImageIndex = 1;
-                            listViewResult.Items[listViewResult.Items.Count - 1].ToolTipText = dir[i];
+                                listViewResult.Items[i].ImageIndex = 0;
+                            listViewResult.Items[i].ToolTipText = dir[i];
                         }
                         if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
                             this.Height += listViewResult.Height;
@@ -1501,10 +1501,10 @@ namespace XShort
                         for (int i = 0; i < matches.Count; i++)
                         {
                             listViewResult.Items.Add(new ListViewItem(matches[i].Substring(matches[i].LastIndexOf("\\") + 1)));
-                            if (Path.GetExtension(matches[i]) == null || Path.GetExtension(matches[i]) == String.Empty)
-                                listViewResult.Items[i].ImageIndex = 0;
-                            else
+                            if (Path.GetExtension(matches[i]) != null && Path.GetExtension(matches[i]) != String.Empty)
                                 listViewResult.Items[i].ImageIndex = 1;
+                            else
+                                listViewResult.Items[i].ImageIndex = 0;
                             listViewResult.Items[i].ToolTipText = matches[i];
                         }
                         if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
