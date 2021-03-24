@@ -11,12 +11,19 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                if (_filter != null)
+                    _filter.Dispose();
+
+                // this part is added by Visual Studio designer
+                if (components != null)
+                    components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

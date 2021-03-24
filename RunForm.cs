@@ -38,6 +38,9 @@ namespace XShort
         private string[] sysCmd = { "utilman", "hdwwiz", "appwiz.cpl", "netplwz", "azman.msc", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "compmgmt.msc", "control", "credwiz", "timedate.cpl", "hdwwiz", "devmgmt.msc", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
         private BackgroundWorker bw;
         private int originalSize;
+        private List<String> indexData = new List<string>();
+        private readonly BackgroundWordFilter _filter;
+        private List<String> matches = new List<string>();
         public RunForm()
         {
             InitializeComponent();
@@ -56,6 +59,17 @@ namespace XShort
             bw.DoWork += Bw_DoWork;
             bw.RunWorkerAsync();
             bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
+
+            _filter = new BackgroundWordFilter
+            (
+                items: indexData,
+                maxItemsToMatch: 15,
+                callback: results =>
+                  this.Invoke(new Action(() => {
+                      matches.Clear();
+                      matches = results;
+                      }))
+            );
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -543,6 +557,7 @@ namespace XShort
             {
                 comboBoxRun.Items.Add(sName[i]);
             }
+            LoadIndex();
             return 1;
         }
 
@@ -614,10 +629,49 @@ namespace XShort
             {
                 comboBoxRun.Items.Add(sName[i]);
             }
+            LoadIndex();
             return 1;
 
         }
 
+        private void LoadIndex()
+        {
+            FileStream fs;
+            StreamReader sr;
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "folders"), FileMode.Open, FileAccess.Read);
+
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                indexData.Add(sr.ReadLine());
+            }
+            fs.Close();
+            sr.Close();
+
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "files"), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                indexData.Add(sr.ReadLine());
+            }
+            fs.Close();
+            sr.Close();
+
+        }
 
         public void LoadBlocklist()
         {
@@ -1398,6 +1452,7 @@ namespace XShort
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
+            _filter.SetCurrentEntry(comboBoxRun.Text);
             if (comboBoxRun.Text.Length == 0)
             {
                 if (this.Height > listViewResult.Height)
@@ -1435,6 +1490,25 @@ namespace XShort
                         listViewResult.Items.Clear();
                         if (this.Height > listViewResult.Height)
                             this.Height = originalSize;
+                    }
+                }
+                else//find result in index files
+                {
+                    if (matches.Count > 0)
+                    {
+                        listViewResult.Items.Clear();
+                        listViewResult.SmallImageList = imageList1;
+                        for (int i = 0; i < matches.Count; i++)
+                        {
+                            listViewResult.Items.Add(new ListViewItem(matches[i].Substring(matches[i].LastIndexOf("\\") + 1)));
+                            if (Path.GetExtension(matches[i]) == null || Path.GetExtension(matches[i]) == String.Empty)
+                                listViewResult.Items[i].ImageIndex = 0;
+                            else
+                                listViewResult.Items[i].ImageIndex = 1;
+                            listViewResult.Items[i].ToolTipText = matches[i];
+                        }
+                        if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
+                            this.Height += listViewResult.Height;
                     }
                 }
 
