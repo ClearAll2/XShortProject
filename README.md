@@ -1,4 +1,2 @@
-# XShortProject
-XShort Project
-
-This project has been abandoned.
+# XShort Core Project
+XShort Core Project
