@@ -352,6 +352,8 @@ namespace XShort
         //load data
         private void Bw2_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
+                Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
             //load data files
             ProfileOptimization.StartProfile("Startup.Profile");
             if (File.Exists(Path.Combine(dataPath, "data1.data")) && !dontload)

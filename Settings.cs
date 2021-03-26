@@ -305,7 +305,7 @@ namespace XShort
             r1.Close();
             r1.Dispose();
 
-            panelHotkey.Hide();
+            Util.Animate(panelHotkey, Util.Effect.Slide, 100, 180);
 
         }
 

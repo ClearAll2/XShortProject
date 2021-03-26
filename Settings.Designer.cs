@@ -138,6 +138,7 @@
             this.checkBoxExcludeResultSuggestion.Size = new System.Drawing.Size(192, 22);
             this.checkBoxExcludeResultSuggestion.TabIndex = 18;
             this.checkBoxExcludeResultSuggestion.Text = "Apply Result suggestions";
+            this.toolTip1.SetToolTip(this.checkBoxExcludeResultSuggestion, "Blocklisted shortcuts will not show in result suggestions as well");
             this.checkBoxExcludeResultSuggestion.UseVisualStyleBackColor = true;
             this.checkBoxExcludeResultSuggestion.CheckedChanged += new System.EventHandler(this.checkBoxExcludeResultSuggestion_CheckedChanged);
             // 
@@ -181,7 +182,7 @@
             // numericUpDownMaxSuggestNum
             // 
             this.numericUpDownMaxSuggestNum.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numericUpDownMaxSuggestNum.Location = new System.Drawing.Point(224, 204);
+            this.numericUpDownMaxSuggestNum.Location = new System.Drawing.Point(258, 204);
             this.numericUpDownMaxSuggestNum.Maximum = new decimal(new int[] {
             8,
             0,
@@ -210,9 +211,9 @@
             this.labelMaxSuggest.AutoSize = true;
             this.labelMaxSuggest.Location = new System.Drawing.Point(20, 203);
             this.labelMaxSuggest.Name = "labelMaxSuggest";
-            this.labelMaxSuggest.Size = new System.Drawing.Size(174, 18);
+            this.labelMaxSuggest.Size = new System.Drawing.Size(232, 18);
             this.labelMaxSuggest.TabIndex = 15;
-            this.labelMaxSuggest.Text = "Max suggestions number";
+            this.labelMaxSuggest.Text = "Max shortcut suggestions number";
             // 
             // buttonBlocklist
             // 
@@ -224,7 +225,7 @@
             this.buttonBlocklist.TabIndex = 14;
             this.buttonBlocklist.Text = "Blocklist";
             this.buttonBlocklist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip1.SetToolTip(this.buttonBlocklist, "List of shortcuts that you don\'t want them in Suggestions.");
+            this.toolTip1.SetToolTip(this.buttonBlocklist, "List of shortcuts that you don\'t want to see them in Suggestions.");
             this.buttonBlocklist.UseVisualStyleBackColor = true;
             this.buttonBlocklist.Click += new System.EventHandler(this.buttonBlocklist_Click);
             // 
