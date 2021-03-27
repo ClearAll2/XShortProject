@@ -36,6 +36,10 @@ namespace XShort
                 checkBoxUseIndex.Enabled = false;
                 labelError.Show();
             }
+            if (File.Exists(Path.Combine(dataPath, "index")))
+            {
+                labelLastUpdate.Text = "Last update: " + new FileInfo(Path.Combine(dataPath, "index")).LastAccessTime;
+            }
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
