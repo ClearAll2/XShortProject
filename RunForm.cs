@@ -32,6 +32,7 @@ namespace XShort
         private bool ss = false;
         private bool sr = false;
         private bool er = false;
+        private bool ui = false;
         private string text = String.Empty;
         private string text1, part = String.Empty;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
@@ -449,7 +450,7 @@ namespace XShort
         }
 
 
-        public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss)
+        public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss, bool _ui)
         {
             if (maxss >= 2 && maxss <= 8)
                 suggestNum = maxss;
@@ -475,6 +476,7 @@ namespace XShort
             sr = _sr;
             er = _er;
             ss = _ss;
+            ui = _ui;
             if (ss)
                 ReloadSuggestions();
             else
@@ -1494,21 +1496,24 @@ namespace XShort
                 }
                 else//find result in index files
                 {
-                    if (matches.Count > 0)
+                    if (ui)
                     {
-                        listViewResult.Items.Clear();
-                        listViewResult.SmallImageList = imageList1;
-                        for (int i = 0; i < matches.Count; i++)
+                        if (matches.Count > 0)
                         {
-                            listViewResult.Items.Add(new ListViewItem(matches[i].Substring(matches[i].LastIndexOf("\\") + 1)));
-                            if (Path.GetExtension(matches[i]) != null && Path.GetExtension(matches[i]) != String.Empty)
-                                listViewResult.Items[i].ImageIndex = 1;
-                            else
-                                listViewResult.Items[i].ImageIndex = 0;
-                            listViewResult.Items[i].ToolTipText = matches[i];
+                            listViewResult.Items.Clear();
+                            listViewResult.SmallImageList = imageList1;
+                            for (int i = 0; i < matches.Count; i++)
+                            {
+                                listViewResult.Items.Add(new ListViewItem(matches[i].Substring(matches[i].LastIndexOf("\\") + 1)));
+                                if (Path.GetExtension(matches[i]) != null && Path.GetExtension(matches[i]) != String.Empty)
+                                    listViewResult.Items[i].ImageIndex = 1;
+                                else
+                                    listViewResult.Items[i].ImageIndex = 0;
+                                listViewResult.Items[i].ToolTipText = matches[i];
+                            }
+                            if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
+                                this.Height += listViewResult.Height;
                         }
-                        if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
-                            this.Height += listViewResult.Height;
                     }
                 }
 

@@ -48,6 +48,7 @@ namespace XShort
         private bool suggestions = false;
         private bool showResult = false;
         private bool excludeResult = false;
+        private bool useIndex = false;
 
         private bool detect = false;
         private bool hide = false;
@@ -261,6 +262,10 @@ namespace XShort
             {
                 suggestNum = Int32.Parse((string)r.GetValue("MaxSuggest"));
             }
+            if (r.GetValue("UseIndex") != null)
+                useIndex = true;
+            else
+                useIndex = false;
 
             r.Close();
             r.Dispose();
@@ -282,7 +287,7 @@ namespace XShort
             if (f2 != null && f2.IsDisposed != true)
             {
                 f2.LoadBlocklist();
-                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum);
+                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             }
 
         }

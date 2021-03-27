@@ -52,11 +52,7 @@
             this.radioButtonAlt = new System.Windows.Forms.RadioButton();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.labelHotKeyConfig = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -65,27 +61,38 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxUseIndex = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelError = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panelSetting.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelBlocklist.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSetting
             // 
             this.panelSetting.BackColor = System.Drawing.Color.White;
+            this.panelSetting.Controls.Add(this.groupBox4);
+            this.panelSetting.Controls.Add(this.groupBox3);
             this.panelSetting.Controls.Add(this.groupBox2);
             this.panelSetting.Controls.Add(this.groupBox1);
             this.panelSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelSetting.Location = new System.Drawing.Point(0, 0);
             this.panelSetting.Name = "panelSetting";
-            this.panelSetting.Size = new System.Drawing.Size(544, 594);
+            this.panelSetting.Size = new System.Drawing.Size(1069, 602);
             this.panelSetting.TabIndex = 28;
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox2.Controls.Add(this.panelBlocklist);
             this.groupBox2.Controls.Add(this.numericUpDownMaxSuggestNum);
             this.groupBox2.Controls.Add(this.labelMaxSuggest);
@@ -95,7 +102,7 @@
             this.groupBox2.Controls.Add(this.labelInfo);
             this.groupBox2.Controls.Add(this.checkBoxSuggestions);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(27, 263);
+            this.groupBox2.Location = new System.Drawing.Point(24, 263);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(488, 308);
             this.groupBox2.TabIndex = 21;
@@ -274,9 +281,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.panelHotkey);
-            this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Controls.Add(this.checkBox7);
             this.groupBox1.Controls.Add(this.checkBox5);
             this.groupBox1.Controls.Add(this.checkBox4);
@@ -286,7 +292,7 @@
             this.groupBox1.Controls.Add(this.checkBox8);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(27, 10);
+            this.groupBox1.Location = new System.Drawing.Point(24, 10);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(488, 247);
             this.groupBox1.TabIndex = 20;
@@ -295,26 +301,23 @@
             // 
             // panelHotkey
             // 
+            this.panelHotkey.Controls.Add(this.label2);
             this.panelHotkey.Controls.Add(this.radioButtonShift);
             this.panelHotkey.Controls.Add(this.radioButtonControl);
             this.panelHotkey.Controls.Add(this.radioButtonAlt);
             this.panelHotkey.Controls.Add(this.comboBox2);
             this.panelHotkey.Controls.Add(this.label10);
-            this.panelHotkey.Controls.Add(this.button15);
-            this.panelHotkey.Controls.Add(this.button14);
             this.panelHotkey.Controls.Add(this.label9);
-            this.panelHotkey.Controls.Add(this.labelHotKeyConfig);
             this.panelHotkey.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHotkey.Location = new System.Drawing.Point(3, 20);
             this.panelHotkey.Name = "panelHotkey";
-            this.panelHotkey.Size = new System.Drawing.Size(482, 224);
+            this.panelHotkey.Size = new System.Drawing.Size(501, 224);
             this.panelHotkey.TabIndex = 7;
-            this.panelHotkey.Visible = false;
             // 
             // radioButtonShift
             // 
             this.radioButtonShift.AutoSize = true;
-            this.radioButtonShift.Location = new System.Drawing.Point(338, 47);
+            this.radioButtonShift.Location = new System.Drawing.Point(358, 41);
             this.radioButtonShift.Name = "radioButtonShift";
             this.radioButtonShift.Size = new System.Drawing.Size(55, 22);
             this.radioButtonShift.TabIndex = 14;
@@ -326,7 +329,7 @@
             // radioButtonControl
             // 
             this.radioButtonControl.AutoSize = true;
-            this.radioButtonControl.Location = new System.Drawing.Point(243, 47);
+            this.radioButtonControl.Location = new System.Drawing.Point(263, 41);
             this.radioButtonControl.Name = "radioButtonControl";
             this.radioButtonControl.Size = new System.Drawing.Size(75, 22);
             this.radioButtonControl.TabIndex = 13;
@@ -338,7 +341,7 @@
             // radioButtonAlt
             // 
             this.radioButtonAlt.AutoSize = true;
-            this.radioButtonAlt.Location = new System.Drawing.Point(172, 47);
+            this.radioButtonAlt.Location = new System.Drawing.Point(192, 41);
             this.radioButtonAlt.Name = "radioButtonAlt";
             this.radioButtonAlt.Size = new System.Drawing.Size(42, 22);
             this.radioButtonAlt.TabIndex = 12;
@@ -388,79 +391,29 @@
             "X",
             "Y",
             "Z"});
-            this.comboBox2.Location = new System.Drawing.Point(192, 88);
+            this.comboBox2.Location = new System.Drawing.Point(242, 82);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(96, 26);
             this.comboBox2.TabIndex = 11;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(113, 91);
+            this.label10.Location = new System.Drawing.Point(133, 85);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(45, 18);
             this.label10.TabIndex = 7;
             this.label10.Text = "Keys:";
             // 
-            // button15
-            // 
-            this.button15.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button15.FlatAppearance.BorderSize = 0;
-            this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button15.ForeColor = System.Drawing.Color.White;
-            this.button15.Location = new System.Drawing.Point(376, 166);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(93, 29);
-            this.button15.TabIndex = 6;
-            this.button15.Text = "Cancel";
-            this.button15.UseVisualStyleBackColor = false;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
-            // 
-            // button14
-            // 
-            this.button14.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button14.FlatAppearance.BorderSize = 0;
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.ForeColor = System.Drawing.Color.White;
-            this.button14.Location = new System.Drawing.Point(265, 166);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(93, 29);
-            this.button14.TabIndex = 5;
-            this.button14.Text = "Apply";
-            this.button14.UseVisualStyleBackColor = false;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(85, 49);
+            this.label9.Location = new System.Drawing.Point(105, 43);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(73, 18);
             this.label9.TabIndex = 2;
             this.label9.Text = "Modifiers:";
-            // 
-            // labelHotKeyConfig
-            // 
-            this.labelHotKeyConfig.AutoSize = true;
-            this.labelHotKeyConfig.Location = new System.Drawing.Point(130, 5);
-            this.labelHotKeyConfig.Name = "labelHotKeyConfig";
-            this.labelHotKeyConfig.Size = new System.Drawing.Size(228, 18);
-            this.labelHotKeyConfig.TabIndex = 1;
-            this.labelHotKeyConfig.Text = "XShort Run Hotkey Configuration";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.linkLabel1.Location = new System.Drawing.Point(399, 38);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(73, 18);
-            this.linkLabel1.TabIndex = 6;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Hotkey>>";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // checkBox7
             // 
@@ -541,12 +494,81 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox3.Controls.Add(this.panelHotkey);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(537, 10);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(507, 247);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Hotkey";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox4.Controls.Add(this.labelError);
+            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Controls.Add(this.checkBoxUseIndex);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(537, 263);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(504, 308);
+            this.groupBox4.TabIndex = 23;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Index Result";
+            // 
+            // checkBoxUseIndex
+            // 
+            this.checkBoxUseIndex.AutoSize = true;
+            this.checkBoxUseIndex.Location = new System.Drawing.Point(26, 39);
+            this.checkBoxUseIndex.Name = "checkBoxUseIndex";
+            this.checkBoxUseIndex.Size = new System.Drawing.Size(179, 22);
+            this.checkBoxUseIndex.TabIndex = 10;
+            this.checkBoxUseIndex.Text = "Use XShort Core Index";
+            this.checkBoxUseIndex.UseVisualStyleBackColor = true;
+            this.checkBoxUseIndex.CheckedChanged += new System.EventHandler(this.checkBoxUseIndex_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(23, 74);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(452, 36);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "This background app will build index of user\'s directory and let XShort use that " +
+    "data in order to show results.";
+            // 
+            // labelError
+            // 
+            this.labelError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelError.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.labelError.Location = new System.Drawing.Point(23, 116);
+            this.labelError.Name = "labelError";
+            this.labelError.Size = new System.Drawing.Size(247, 20);
+            this.labelError.TabIndex = 18;
+            this.labelError.Text = "We coudn\'t find XShortCoreIndex.exe";
+            this.labelError.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(95, 154);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(339, 22);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "New hotkey will be applied when you close this window.";
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(544, 594);
+            this.ClientSize = new System.Drawing.Size(1069, 602);
             this.Controls.Add(this.panelSetting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -566,6 +588,9 @@
             this.groupBox1.PerformLayout();
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -580,11 +605,7 @@
         private System.Windows.Forms.RadioButton radioButtonAlt;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label labelHotKeyConfig;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
@@ -607,5 +628,11 @@
         private System.Windows.Forms.Button buttonCancelBlocklist;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxSuggestNum;
         private System.Windows.Forms.Label labelMaxSuggest;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBoxUseIndex;
+        private System.Windows.Forms.Label labelError;
+        private System.Windows.Forms.Label label2;
     }
 }

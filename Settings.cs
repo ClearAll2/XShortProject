@@ -31,6 +31,11 @@ namespace XShort
             backgroundWorker.DoWork += BackgroundWorker_DoWork;
             backgroundWorker.RunWorkerAsync();
             LoadSettings();
+            if (!File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
+            {
+                checkBoxUseIndex.Enabled = false;
+                labelError.Show();
+            }
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -218,6 +223,8 @@ namespace XShort
             {
                 numericUpDownMaxSuggestNum.Value = Decimal.Parse((string)r.GetValue("MaxSuggest"));
             }
+            if (r.GetValue("UseIndex") != null)
+                checkBoxUseIndex.Checked = true;
 
             r.Close();
             r.Dispose();
@@ -236,21 +243,6 @@ namespace XShort
 
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Util.Animate(panelHotkey, Util.Effect.Slide, 100, 180);
-        }
-
-        private void button15_Click(object sender, EventArgs e)
-        {
-            Util.Animate(panelHotkey, Util.Effect.Slide, 100, 180);
-        }
 
         private void radioButtonAlt_CheckedChanged(object sender, EventArgs e)
         {
@@ -296,16 +288,8 @@ namespace XShort
 
         private void button14_Click(object sender, EventArgs e)
         {
-            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-
-
-            r1.SetValue("HKey", comboBox2.Text);
-
-
-            r1.Close();
-            r1.Dispose();
-
-            Util.Animate(panelHotkey, Util.Effect.Slide, 100, 180);
+           
+            MessageBox.Show("Hotkey has been changed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
@@ -501,6 +485,29 @@ namespace XShort
         {
             r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             r1.SetValue("MaxSuggest", numericUpDownMaxSuggestNum.Value);
+            r1.Close();
+            r1.Dispose();
+        }
+
+        private void checkBoxUseIndex_CheckedChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            if (checkBoxUseIndex.Checked)
+            {
+                r1.SetValue("UseIndex", true);
+            }
+            else
+            {
+                r1.DeleteValue("UseIndex", false);
+            }
+            r1.Close();
+            r1.Dispose();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            r1.SetValue("HKey", comboBox2.Text);
             r1.Close();
             r1.Dispose();
         }
