@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.panelSetting = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.labelLastUpdate = new System.Windows.Forms.Label();
             this.labelError = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxUseIndex = new System.Windows.Forms.CheckBox();
@@ -67,7 +68,6 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelLastUpdate = new System.Windows.Forms.Label();
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -105,6 +105,16 @@
             this.groupBox4.TabIndex = 23;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Index Result";
+            // 
+            // labelLastUpdate
+            // 
+            this.labelLastUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLastUpdate.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.labelLastUpdate.Location = new System.Drawing.Point(23, 173);
+            this.labelLastUpdate.Name = "labelLastUpdate";
+            this.labelLastUpdate.Size = new System.Drawing.Size(452, 20);
+            this.labelLastUpdate.TabIndex = 19;
+            this.labelLastUpdate.Text = "Last update: N/A";
             // 
             // labelError
             // 
@@ -563,16 +573,6 @@
             this.toolTip1.SetToolTip(this.checkBox8, "This will improve loading time");
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
-            // 
-            // labelLastUpdate
-            // 
-            this.labelLastUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLastUpdate.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelLastUpdate.Location = new System.Drawing.Point(23, 173);
-            this.labelLastUpdate.Name = "labelLastUpdate";
-            this.labelLastUpdate.Size = new System.Drawing.Size(452, 20);
-            this.labelLastUpdate.TabIndex = 19;
-            this.labelLastUpdate.Text = "Last update: N/A";
             // 
             // Settings
             // 

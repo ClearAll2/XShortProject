@@ -38,7 +38,7 @@ namespace XShort
             }
             if (File.Exists(Path.Combine(dataPath, "index")))
             {
-                labelLastUpdate.Text = "Last update: " + new FileInfo(Path.Combine(dataPath, "index")).LastAccessTime;
+                labelLastUpdate.Text = "Last update: " + new FileInfo(Path.Combine(dataPath, "index")).LastWriteTime;
             }
         }
 
