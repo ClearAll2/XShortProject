@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.panelSetting = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownInterval = new System.Windows.Forms.NumericUpDown();
+            this.labelBuildIndexInterval = new System.Windows.Forms.Label();
             this.labelLastUpdate = new System.Windows.Forms.Label();
             this.labelError = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -70,6 +72,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panelHotkey.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -94,6 +97,8 @@
             // groupBox4
             // 
             this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox4.Controls.Add(this.numericUpDownInterval);
+            this.groupBox4.Controls.Add(this.labelBuildIndexInterval);
             this.groupBox4.Controls.Add(this.labelLastUpdate);
             this.groupBox4.Controls.Add(this.labelError);
             this.groupBox4.Controls.Add(this.label1);
@@ -106,11 +111,45 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Index Result";
             // 
+            // numericUpDownInterval
+            // 
+            this.numericUpDownInterval.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.numericUpDownInterval.DecimalPlaces = 1;
+            this.numericUpDownInterval.Location = new System.Drawing.Point(245, 179);
+            this.numericUpDownInterval.Maximum = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
+            this.numericUpDownInterval.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownInterval.Name = "numericUpDownInterval";
+            this.numericUpDownInterval.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownInterval.TabIndex = 20;
+            this.numericUpDownInterval.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.numericUpDownInterval_ValueChanged);
+            // 
+            // labelBuildIndexInterval
+            // 
+            this.labelBuildIndexInterval.AutoSize = true;
+            this.labelBuildIndexInterval.Location = new System.Drawing.Point(23, 178);
+            this.labelBuildIndexInterval.Name = "labelBuildIndexInterval";
+            this.labelBuildIndexInterval.Size = new System.Drawing.Size(173, 18);
+            this.labelBuildIndexInterval.TabIndex = 17;
+            this.labelBuildIndexInterval.Text = "Build index every (hours):";
+            // 
             // labelLastUpdate
             // 
             this.labelLastUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLastUpdate.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelLastUpdate.Location = new System.Drawing.Point(23, 173);
+            this.labelLastUpdate.Location = new System.Drawing.Point(23, 224);
             this.labelLastUpdate.Name = "labelLastUpdate";
             this.labelLastUpdate.Size = new System.Drawing.Size(452, 20);
             this.labelLastUpdate.TabIndex = 19;
@@ -120,7 +159,7 @@
             // 
             this.labelError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelError.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.labelError.Location = new System.Drawing.Point(23, 205);
+            this.labelError.Location = new System.Drawing.Point(23, 272);
             this.labelError.Name = "labelError";
             this.labelError.Size = new System.Drawing.Size(194, 20);
             this.labelError.TabIndex = 18;
@@ -592,6 +631,7 @@
             this.panelSetting.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
@@ -646,5 +686,7 @@
         private System.Windows.Forms.Label labelError;
         private System.Windows.Forms.Label labelInfoForNewHotkey;
         private System.Windows.Forms.Label labelLastUpdate;
+        private System.Windows.Forms.Label labelBuildIndexInterval;
+        private System.Windows.Forms.NumericUpDown numericUpDownInterval;
     }
 }

@@ -54,6 +54,7 @@ namespace XShort
         private bool hide = false;
         private bool cases = false;
         private bool start = false;
+        private double interval = 24;
         private BackgroundWorker bw2;
         private int back;
         private int suggestNum = 4;//default = 4
@@ -266,6 +267,8 @@ namespace XShort
                 useIndex = true;
             else
                 useIndex = false;
+            if (r.GetValue("Interval") != null)
+                Double.TryParse((string)r.GetValue("Interval"), out interval);
 
             r.Close();
             r.Dispose();
@@ -290,6 +293,8 @@ namespace XShort
                 f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             }
 
+            if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
+                Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + " " + interval.ToString());
         }
 
         private void Bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -358,7 +363,7 @@ namespace XShort
         private void Bw2_DoWork(object sender, DoWorkEventArgs e)
         {
             if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
-                Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+                Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + " " + interval.ToString());
             //load data files
             ProfileOptimization.StartProfile("Startup.Profile");
             if (File.Exists(Path.Combine(dataPath, "data1.data")) && !dontload)

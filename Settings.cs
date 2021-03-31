@@ -230,6 +230,11 @@ namespace XShort
             if (r.GetValue("UseIndex") != null)
                 checkBoxUseIndex.Checked = true;
 
+            if (r.GetValue("Interval") != null)
+            {
+                numericUpDownInterval.Value = Decimal.Parse((string)r.GetValue("Interval"));
+            }
+
             r.Close();
             r.Dispose();
 
@@ -493,6 +498,8 @@ namespace XShort
             r1.Dispose();
         }
 
+
+
         private void checkBoxUseIndex_CheckedChanged(object sender, EventArgs e)
         {
             r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
@@ -512,6 +519,14 @@ namespace XShort
         {
             r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             r1.SetValue("HKey", comboBox2.Text);
+            r1.Close();
+            r1.Dispose();
+        }
+
+        private void numericUpDownInterval_ValueChanged(object sender, EventArgs e)
+        {
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            r1.SetValue("Interval", numericUpDownInterval.Value);
             r1.Close();
             r1.Dispose();
         }
