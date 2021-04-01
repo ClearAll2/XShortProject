@@ -130,11 +130,10 @@
             this.numericUpDownInterval.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownInterval.TabIndex = 20;
             this.numericUpDownInterval.Value = new decimal(new int[] {
-            5,
+            24,
             0,
             0,
-            65536});
-            this.numericUpDownInterval.ValueChanged += new System.EventHandler(this.numericUpDownInterval_ValueChanged);
+            0});
             // 
             // labelBuildIndexInterval
             // 
@@ -305,7 +304,6 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(96, 26);
             this.comboBox2.TabIndex = 11;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -446,7 +444,6 @@
             0,
             0,
             0});
-            this.numericUpDownMaxSuggestNum.ValueChanged += new System.EventHandler(this.numericUpDownMaxSuggestNum_ValueChanged);
             // 
             // labelMaxSuggest
             // 
@@ -628,6 +625,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.panelSetting.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

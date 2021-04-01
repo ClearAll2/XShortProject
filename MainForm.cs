@@ -80,7 +80,7 @@ namespace XShort
 
             bw2 = new BackgroundWorker();
             bw2.DoWork += Bw2_DoWork;
-            bw2.RunWorkerCompleted += Bw2_RunWorkerCompleted;
+            //bw2.RunWorkerCompleted += Bw2_RunWorkerCompleted;
 
             img = new ImageList();
             img.ColorDepth = ColorDepth.Depth32Bit;
@@ -95,6 +95,8 @@ namespace XShort
 
 
             loadSettings();
+            if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
+                Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + " " + interval.ToString());
 
             //BackgroundWorker bwu = new BackgroundWorker();
             //bwu.DoWork += Bwu_DoWork;
@@ -292,9 +294,6 @@ namespace XShort
                 f2.LoadBlocklist();
                 f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             }
-
-            if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
-                Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + " " + interval.ToString());
         }
 
         private void Bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -362,8 +361,7 @@ namespace XShort
         //load data
         private void Bw2_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
-                Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + " " + interval.ToString());
+
             //load data files
             ProfileOptimization.StartProfile("Startup.Profile");
             if (File.Exists(Path.Combine(dataPath, "data1.data")) && !dontload)
