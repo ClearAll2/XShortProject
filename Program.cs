@@ -46,11 +46,22 @@ namespace XShort
                 //MessageBox.Show("XShort is already running!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // send our Win32 message to make the currently running instance
                 // jump on top of all the other windows
-                NativeMethods.PostMessage(
-                    (IntPtr)NativeMethods.HWND_BROADCAST,
-                    NativeMethods.WM_SHOWME,
-                    IntPtr.Zero,
-                    IntPtr.Zero);
+                if (args.Length > 0)
+                {
+                    NativeMethods.PostMessage(
+                        (IntPtr)NativeMethods.HWND_BROADCAST,
+                        NativeMethods.WM_NEWSETTINGS,
+                        IntPtr.Zero,
+                        IntPtr.Zero);
+                }
+                else
+                {
+                    NativeMethods.PostMessage(
+                        (IntPtr)NativeMethods.HWND_BROADCAST,
+                        NativeMethods.WM_SHOWME,
+                        IntPtr.Zero,
+                        IntPtr.Zero);
+                }
                 return;
             }
         }

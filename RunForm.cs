@@ -636,8 +636,9 @@ namespace XShort
 
         }
 
-        private void LoadIndex()
+        public void LoadIndex()
         {
+            indexData.Clear();
             FileStream fs;
             StreamReader sr;
             try

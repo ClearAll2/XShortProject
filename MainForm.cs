@@ -455,6 +455,13 @@ namespace XShort
             {
                 ShowMe();
             }
+            else if (m.Msg == NativeMethods.WM_NEWSETTINGS)
+            {
+                if (f2.IsDisposed != true && f2 != null)
+                {
+                    f2.LoadIndex();
+                }
+            }
             base.WndProc(ref m);
         }
         private void ShowMe()
@@ -511,10 +518,13 @@ namespace XShort
         {
             if (e.Key == k)
             {
-                if (!f3.Visible)
+                if (IsForegroundFullScreen() && !IsTaskbarVisible() || !IsForegroundFullScreen() && IsTaskbarVisible())
                 {
-                    SendKeys.Send(""); //do not remove this
-                    runBoxToolStripMenuItem_Click(null, null);
+                    if (!f3.Visible)
+                    {
+                        SendKeys.Send(""); //do not remove this
+                        runBoxToolStripMenuItem_Click(null, null);
+                    }
                 }
             }
             if (e.Key == Keys.Tab)
@@ -522,6 +532,42 @@ namespace XShort
                 mainWindowToolStripMenuItem_Click(null, null);
             }
 
+        }
+
+        public static bool IsTaskbarVisible()
+        {
+            return Math.Abs(Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height) > 0;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool GetWindowRect(HandleRef hWnd, [In, Out] ref RECT rect);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        public static bool IsForegroundFullScreen()
+        {
+            return IsForegroundFullScreen(null);
+        }
+
+        public static bool IsForegroundFullScreen(Screen screen)
+        {
+            if (screen == null)
+            {
+                screen = Screen.PrimaryScreen;
+            }
+            RECT rect = new RECT();
+            GetWindowRect(new HandleRef(null, GetForegroundWindow()), ref rect);
+            return new Rectangle(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top).Contains(screen.Bounds);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -2143,6 +2189,8 @@ namespace XShort
     {
         public const int HWND_BROADCAST = 0xffff;
         public static readonly int WM_SHOWME = RegisterWindowMessage("WM_SHOWME");
+
+        public static readonly int WM_NEWSETTINGS = RegisterWindowMessage("WM_NEWSETTINGS");
         [DllImport("user32")]
         public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
         [DllImport("user32")]
