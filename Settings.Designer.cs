@@ -115,7 +115,7 @@
             // 
             this.numericUpDownInterval.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.numericUpDownInterval.DecimalPlaces = 1;
-            this.numericUpDownInterval.Location = new System.Drawing.Point(245, 179);
+            this.numericUpDownInterval.Location = new System.Drawing.Point(245, 204);
             this.numericUpDownInterval.Maximum = new decimal(new int[] {
             24,
             0,
@@ -138,7 +138,7 @@
             // labelBuildIndexInterval
             // 
             this.labelBuildIndexInterval.AutoSize = true;
-            this.labelBuildIndexInterval.Location = new System.Drawing.Point(23, 178);
+            this.labelBuildIndexInterval.Location = new System.Drawing.Point(23, 206);
             this.labelBuildIndexInterval.Name = "labelBuildIndexInterval";
             this.labelBuildIndexInterval.Size = new System.Drawing.Size(173, 18);
             this.labelBuildIndexInterval.TabIndex = 17;
@@ -148,7 +148,7 @@
             // 
             this.labelLastUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLastUpdate.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelLastUpdate.Location = new System.Drawing.Point(23, 224);
+            this.labelLastUpdate.Location = new System.Drawing.Point(23, 237);
             this.labelLastUpdate.Name = "labelLastUpdate";
             this.labelLastUpdate.Size = new System.Drawing.Size(452, 20);
             this.labelLastUpdate.TabIndex = 19;
@@ -157,8 +157,8 @@
             // labelError
             // 
             this.labelError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelError.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.labelError.Location = new System.Drawing.Point(23, 272);
+            this.labelError.ForeColor = System.Drawing.Color.Red;
+            this.labelError.Location = new System.Drawing.Point(169, 285);
             this.labelError.Name = "labelError";
             this.labelError.Size = new System.Drawing.Size(194, 20);
             this.labelError.TabIndex = 18;
@@ -171,7 +171,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.Location = new System.Drawing.Point(23, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(452, 94);
+            this.label1.Size = new System.Drawing.Size(452, 116);
             this.label1.TabIndex = 17;
             this.label1.Text = resources.GetString("label1.Text");
             // 

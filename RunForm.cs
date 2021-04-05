@@ -1479,10 +1479,10 @@ namespace XShort
                         for (int i = 0; i < dir.Count; i++)
                         {
                             listViewResult.Items.Add(new ListViewItem(dir[i].Substring(dir[i].LastIndexOf("\\") + 1)));
-                            if (Path.GetExtension(dir[i]) != null && Path.GetExtension(dir[i]) != String.Empty)
-                                listViewResult.Items[i].ImageIndex = 1;
+                            if (!Directory.Exists(dir[i]))
+                                listViewResult.Items[i].ImageIndex = 1;//file
                             else
-                                listViewResult.Items[i].ImageIndex = 0;
+                                listViewResult.Items[i].ImageIndex = 0;//folder
                             listViewResult.Items[i].ToolTipText = dir[i];
                         }
                         if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
@@ -1506,7 +1506,7 @@ namespace XShort
                             for (int i = 0; i < matches.Count; i++)
                             {
                                 listViewResult.Items.Add(new ListViewItem(matches[i].Substring(matches[i].LastIndexOf("\\") + 1)));
-                                if (Path.GetExtension(matches[i]) != null && Path.GetExtension(matches[i]) != String.Empty)
+                                if (!Directory.Exists(matches[i]))
                                     listViewResult.Items[i].ImageIndex = 1;
                                 else
                                     listViewResult.Items[i].ImageIndex = 0;
