@@ -148,7 +148,7 @@
             // 
             this.labelLastUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLastUpdate.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelLastUpdate.Location = new System.Drawing.Point(23, 237);
+            this.labelLastUpdate.Location = new System.Drawing.Point(23, 245);
             this.labelLastUpdate.Name = "labelLastUpdate";
             this.labelLastUpdate.Size = new System.Drawing.Size(452, 20);
             this.labelLastUpdate.TabIndex = 19;
