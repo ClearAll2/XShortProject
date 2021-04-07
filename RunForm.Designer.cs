@@ -77,6 +77,7 @@
             // 
             this.comboBoxRun.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.comboBoxRun.ContextMenuStrip = this.contextMenuStrip1;
+            this.comboBoxRun.Enabled = false;
             this.comboBoxRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxRun.ForeColor = System.Drawing.Color.DodgerBlue;
             this.comboBoxRun.FormattingEnabled = true;

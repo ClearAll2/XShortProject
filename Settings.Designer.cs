@@ -375,9 +375,9 @@
             this.checkBoxExcludeResultSuggestion.AutoSize = true;
             this.checkBoxExcludeResultSuggestion.Location = new System.Drawing.Point(13, 246);
             this.checkBoxExcludeResultSuggestion.Name = "checkBoxExcludeResultSuggestion";
-            this.checkBoxExcludeResultSuggestion.Size = new System.Drawing.Size(192, 22);
+            this.checkBoxExcludeResultSuggestion.Size = new System.Drawing.Size(186, 22);
             this.checkBoxExcludeResultSuggestion.TabIndex = 18;
-            this.checkBoxExcludeResultSuggestion.Text = "Apply Result suggestions";
+            this.checkBoxExcludeResultSuggestion.Text = "Apply result suggestions";
             this.toolTip1.SetToolTip(this.checkBoxExcludeResultSuggestion, "Blocklisted shortcuts will not show in result suggestions as well");
             this.checkBoxExcludeResultSuggestion.UseVisualStyleBackColor = true;
             this.checkBoxExcludeResultSuggestion.CheckedChanged += new System.EventHandler(this.checkBoxExcludeResultSuggestion_CheckedChanged);
@@ -483,9 +483,9 @@
             this.checkBoxSearchResult.AutoSize = true;
             this.checkBoxSearchResult.Location = new System.Drawing.Point(23, 39);
             this.checkBoxSearchResult.Name = "checkBoxSearchResult";
-            this.checkBoxSearchResult.Size = new System.Drawing.Size(268, 22);
+            this.checkBoxSearchResult.Size = new System.Drawing.Size(189, 22);
             this.checkBoxSearchResult.TabIndex = 12;
-            this.checkBoxSearchResult.Text = "Show result suggestions while typing";
+            this.checkBoxSearchResult.Text = "Show result suggestions";
             this.checkBoxSearchResult.UseVisualStyleBackColor = true;
             this.checkBoxSearchResult.CheckedChanged += new System.EventHandler(this.checkBoxSearchResult_CheckedChanged);
             // 
@@ -603,10 +603,10 @@
             this.checkBox8.AutoSize = true;
             this.checkBox8.Location = new System.Drawing.Point(23, 202);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(217, 22);
+            this.checkBox8.Size = new System.Drawing.Size(180, 22);
             this.checkBox8.TabIndex = 9;
-            this.checkBox8.Text = "Don\'t load main list at startup";
-            this.toolTip1.SetToolTip(this.checkBox8, "This will improve loading time");
+            this.checkBox8.Text = "Hide main list at startup";
+            this.toolTip1.SetToolTip(this.checkBox8, "Improve loading time");
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 

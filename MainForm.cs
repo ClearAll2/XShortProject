@@ -70,14 +70,6 @@ namespace XShort
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             System.IO.Directory.CreateDirectory(dataPath);
 
-            contextMenuStrip5.ImageList = imageList1;
-            aboutToolStripMenuItem1.ImageIndex = 1;
-            settingsToolStripMenuItem1.ImageIndex = 2;
-            exportToolStripMenuItem1.ImageIndex = 13;
-            importToolStripMenuItem1.ImageIndex = 12;
-            reloadDataToolStripMenuItem.ImageIndex = 5;
-            exitToolStripMenuItem2.ImageIndex = 6;
-
             bw2 = new BackgroundWorker();
             bw2.DoWork += Bw2_DoWork;
             //bw2.RunWorkerCompleted += Bw2_RunWorkerCompleted;
@@ -1451,16 +1443,6 @@ namespace XShort
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://myfreedom.cf");
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //if (!bw.IsBusy)
-            //    bw.RunWorkerAsync();
-        }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1474,7 +1456,6 @@ namespace XShort
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Show();
-            WindowState = FormWindowState.Normal;
             buttonAbout_Click(null, null);
         }
 
@@ -1902,7 +1883,7 @@ namespace XShort
                 textBoxPara.Text = "Not Available";
                 textBoxPara.ReadOnly = true;
                 if (textBoxPath.Text == String.Empty)
-                    textBoxPath.Text = "http://";
+                    textBoxPath.Text = "https://";
             }
 
 
@@ -1964,7 +1945,7 @@ namespace XShort
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            openToolStripMenuItem1_Click(null, null);
+            detailsToolStripMenuItem_Click(null, null);
         }
 
 
@@ -2006,30 +1987,14 @@ namespace XShort
         private void Stt_FormClosed(object sender, FormClosedEventArgs e)
         {
             loadSettings();
-            //if (!dontload)
-            //{
-            //    BackgroundWorker worker = new BackgroundWorker();
-            //    worker.DoWork += Worker_DoWork;
-            //    worker.RunWorkerAsync();
-            //}
+            if (!dontload && listViewData.Items.Count == 0)
+                buttonReload_Click(null, null);
         }
 
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             About about = new About();
             about.ShowDialog();
-        }
-
-        private void buttonBuildIndex_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void buttonMenu_Click(object sender, EventArgs e)
-        {
-            Button btnSender = (Button)sender;
-            System.Drawing.Point ptLowerLeft = new System.Drawing.Point(0, btnSender.Height);
-            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
-            contextMenuStrip5.Show(ptLowerLeft);
         }
 
 
@@ -2114,6 +2079,16 @@ namespace XShort
         {
             for (int i = 0; i < listViewData.Columns.Count; i++)
                 listViewData.Columns[i].Width = listViewData.Width / listViewData.Columns.Count;
+        }
+
+        private void openAboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void homepageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://clearallsoft.cf");
         }
     }
 

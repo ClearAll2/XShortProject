@@ -42,6 +42,7 @@ namespace XShort
         private List<String> indexData = new List<string>();
         private readonly BackgroundWordFilter _filter;
         private List<String> matches = new List<string>();
+        private bool loaded = false;
         public RunForm()
         {
             InitializeComponent();
@@ -76,6 +77,8 @@ namespace XShort
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             LoadSuggestions();
+            loaded = true;
+            comboBoxRun.Enabled = true;
         }
 
         private void LoadIcon()
