@@ -67,14 +67,11 @@
             this.addAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addUrlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadDataToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.homepageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -403,7 +400,7 @@
             this.aboutToolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(986, 25);
             this.menuStrip1.TabIndex = 28;
             this.menuStrip1.Text = "menuStrip1";
@@ -419,6 +416,7 @@
             // 
             // minimizeHideToolStripMenuItem
             // 
+            this.minimizeHideToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.minimizeHideToolStripMenuItem.Name = "minimizeHideToolStripMenuItem";
             this.minimizeHideToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
@@ -428,6 +426,7 @@
             // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
@@ -440,7 +439,6 @@
             this.addAppToolStripMenuItem,
             this.addDirToolStripMenuItem,
             this.addUrlToolStripMenuItem,
-            this.toolStripSeparator7,
             this.saveToolStripMenuItem});
             this.appToolStripMenuItem.Name = "appToolStripMenuItem";
             this.appToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
@@ -448,6 +446,7 @@
             // 
             // addAppToolStripMenuItem
             // 
+            this.addAppToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.addAppToolStripMenuItem.Name = "addAppToolStripMenuItem";
             this.addAppToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.A)));
@@ -457,6 +456,7 @@
             // 
             // addDirToolStripMenuItem
             // 
+            this.addDirToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.addDirToolStripMenuItem.Name = "addDirToolStripMenuItem";
             this.addDirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.D)));
@@ -466,6 +466,7 @@
             // 
             // addUrlToolStripMenuItem
             // 
+            this.addUrlToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.addUrlToolStripMenuItem.Name = "addUrlToolStripMenuItem";
             this.addUrlToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.C)));
@@ -473,13 +474,9 @@
             this.addUrlToolStripMenuItem.Text = "Add URL";
             this.addUrlToolStripMenuItem.Click += new System.EventHandler(this.addURLToolStripMenuItem_Click);
             // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(287, 6);
-            // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
@@ -491,10 +488,8 @@
             // 
             this.actToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reloadDataToolStripMenuItem1,
-            this.toolStripSeparator2,
             this.importToolStripMenuItem,
             this.exportToolStripMenuItem,
-            this.toolStripSeparator1,
             this.openSettingsToolStripMenuItem});
             this.actToolStripMenuItem.Name = "actToolStripMenuItem";
             this.actToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
@@ -502,6 +497,7 @@
             // 
             // reloadDataToolStripMenuItem1
             // 
+            this.reloadDataToolStripMenuItem1.BackColor = System.Drawing.Color.White;
             this.reloadDataToolStripMenuItem1.Name = "reloadDataToolStripMenuItem1";
             this.reloadDataToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.R)));
@@ -509,13 +505,9 @@
             this.reloadDataToolStripMenuItem1.Text = "Reload data";
             this.reloadDataToolStripMenuItem1.Click += new System.EventHandler(this.buttonReload_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(225, 6);
-            // 
             // importToolStripMenuItem
             // 
+            this.importToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.I)));
@@ -525,6 +517,7 @@
             // 
             // exportToolStripMenuItem
             // 
+            this.exportToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.E)));
@@ -532,13 +525,9 @@
             this.exportToolStripMenuItem.Text = "Export data";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.buttonExport_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(225, 6);
-            // 
             // openSettingsToolStripMenuItem
             // 
+            this.openSettingsToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.openSettingsToolStripMenuItem.Name = "openSettingsToolStripMenuItem";
             this.openSettingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Space)));
@@ -557,6 +546,7 @@
             // 
             // homepageToolStripMenuItem
             // 
+            this.homepageToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.homepageToolStripMenuItem.Name = "homepageToolStripMenuItem";
             this.homepageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.H)));
@@ -566,6 +556,7 @@
             // 
             // openAboutToolStripMenuItem
             // 
+            this.openAboutToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.openAboutToolStripMenuItem.Name = "openAboutToolStripMenuItem";
             this.openAboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
@@ -865,9 +856,6 @@
         private System.Windows.Forms.ToolStripMenuItem homepageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openAboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonAddURL;
         private System.Windows.Forms.Button buttonAddDir;

@@ -511,12 +511,30 @@ namespace XShort
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            r1.SetValue("HKey", comboBox2.Text);
             r1.SetValue("Interval", numericUpDownInterval.Value);
             r1.SetValue("MaxSuggest", numericUpDownMaxSuggestNum.Value);
             r1.Close();
             r1.Dispose();
             File.WriteAllText(Path.Combine(dataPath, "interval"), String.Empty);
+        }
+
+        private void linkLabelHotKey_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
+        }
+
+        private void buttonHotkeyCancel_Click(object sender, EventArgs e)
+        {
+            Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
+        }
+
+        private void buttonApplyHotkey_Click(object sender, EventArgs e)
+        {
+            Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
+            r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            r1.SetValue("HKey", comboBox2.Text);
+            r1.Close();
+            r1.Dispose();
         }
     }
 }

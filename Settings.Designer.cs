@@ -70,10 +70,12 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.linkLabelHotKey = new System.Windows.Forms.LinkLabel();
+            this.buttonApplyHotkey = new System.Windows.Forms.Button();
+            this.buttonHotkeyCancel = new System.Windows.Forms.Button();
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
-            this.groupBox3.SuspendLayout();
             this.panelHotkey.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelBlocklist.SuspendLayout();
@@ -189,17 +191,18 @@
             // groupBox3
             // 
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox3.Controls.Add(this.panelHotkey);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(537, 10);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(507, 247);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Hotkey";
+            this.groupBox3.Text = "Exclusion";
             // 
             // panelHotkey
             // 
+            this.panelHotkey.Controls.Add(this.buttonHotkeyCancel);
+            this.panelHotkey.Controls.Add(this.buttonApplyHotkey);
             this.panelHotkey.Controls.Add(this.labelInfoForNewHotkey);
             this.panelHotkey.Controls.Add(this.radioButtonShift);
             this.panelHotkey.Controls.Add(this.radioButtonControl);
@@ -210,23 +213,24 @@
             this.panelHotkey.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHotkey.Location = new System.Drawing.Point(3, 20);
             this.panelHotkey.Name = "panelHotkey";
-            this.panelHotkey.Size = new System.Drawing.Size(501, 224);
+            this.panelHotkey.Size = new System.Drawing.Size(482, 224);
             this.panelHotkey.TabIndex = 7;
+            this.panelHotkey.Visible = false;
             // 
             // labelInfoForNewHotkey
             // 
             this.labelInfoForNewHotkey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelInfoForNewHotkey.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.labelInfoForNewHotkey.Location = new System.Drawing.Point(105, 154);
+            this.labelInfoForNewHotkey.Location = new System.Drawing.Point(64, 129);
             this.labelInfoForNewHotkey.Name = "labelInfoForNewHotkey";
-            this.labelInfoForNewHotkey.Size = new System.Drawing.Size(318, 22);
+            this.labelInfoForNewHotkey.Size = new System.Drawing.Size(347, 22);
             this.labelInfoForNewHotkey.TabIndex = 19;
-            this.labelInfoForNewHotkey.Text = "New hotkey will be applied after closing this window.";
+            this.labelInfoForNewHotkey.Text = "New hotkey will be applied after closing Settings window.";
             // 
             // radioButtonShift
             // 
             this.radioButtonShift.AutoSize = true;
-            this.radioButtonShift.Location = new System.Drawing.Point(358, 41);
+            this.radioButtonShift.Location = new System.Drawing.Point(334, 40);
             this.radioButtonShift.Name = "radioButtonShift";
             this.radioButtonShift.Size = new System.Drawing.Size(55, 22);
             this.radioButtonShift.TabIndex = 14;
@@ -238,7 +242,7 @@
             // radioButtonControl
             // 
             this.radioButtonControl.AutoSize = true;
-            this.radioButtonControl.Location = new System.Drawing.Point(263, 41);
+            this.radioButtonControl.Location = new System.Drawing.Point(239, 40);
             this.radioButtonControl.Name = "radioButtonControl";
             this.radioButtonControl.Size = new System.Drawing.Size(75, 22);
             this.radioButtonControl.TabIndex = 13;
@@ -250,7 +254,7 @@
             // radioButtonAlt
             // 
             this.radioButtonAlt.AutoSize = true;
-            this.radioButtonAlt.Location = new System.Drawing.Point(192, 41);
+            this.radioButtonAlt.Location = new System.Drawing.Point(168, 40);
             this.radioButtonAlt.Name = "radioButtonAlt";
             this.radioButtonAlt.Size = new System.Drawing.Size(42, 22);
             this.radioButtonAlt.TabIndex = 12;
@@ -300,7 +304,7 @@
             "X",
             "Y",
             "Z"});
-            this.comboBox2.Location = new System.Drawing.Point(242, 82);
+            this.comboBox2.Location = new System.Drawing.Point(218, 81);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(96, 26);
             this.comboBox2.TabIndex = 11;
@@ -308,7 +312,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(133, 85);
+            this.label10.Location = new System.Drawing.Point(109, 84);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(45, 18);
             this.label10.TabIndex = 7;
@@ -317,7 +321,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(105, 43);
+            this.label9.Location = new System.Drawing.Point(81, 42);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(73, 18);
             this.label9.TabIndex = 2;
@@ -378,7 +382,7 @@
             this.checkBoxExcludeResultSuggestion.Size = new System.Drawing.Size(186, 22);
             this.checkBoxExcludeResultSuggestion.TabIndex = 18;
             this.checkBoxExcludeResultSuggestion.Text = "Apply result suggestions";
-            this.toolTip1.SetToolTip(this.checkBoxExcludeResultSuggestion, "Blocklisted shortcuts will not show in result suggestions as well");
+            this.toolTip1.SetToolTip(this.checkBoxExcludeResultSuggestion, "Blocklisted shortcuts also won\'t show in result suggestions");
             this.checkBoxExcludeResultSuggestion.UseVisualStyleBackColor = true;
             this.checkBoxExcludeResultSuggestion.CheckedChanged += new System.EventHandler(this.checkBoxExcludeResultSuggestion_CheckedChanged);
             // 
@@ -515,6 +519,8 @@
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.panelHotkey);
+            this.groupBox1.Controls.Add(this.linkLabelHotKey);
             this.groupBox1.Controls.Add(this.checkBox7);
             this.groupBox1.Controls.Add(this.checkBox5);
             this.groupBox1.Controls.Add(this.checkBox4);
@@ -610,6 +616,47 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
+            // linkLabelHotKey
+            // 
+            this.linkLabelHotKey.AutoSize = true;
+            this.linkLabelHotKey.Location = new System.Drawing.Point(417, 38);
+            this.linkLabelHotKey.Name = "linkLabelHotKey";
+            this.linkLabelHotKey.Size = new System.Drawing.Size(55, 18);
+            this.linkLabelHotKey.TabIndex = 10;
+            this.linkLabelHotKey.TabStop = true;
+            this.linkLabelHotKey.Text = "Hotkey";
+            this.linkLabelHotKey.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHotKey_LinkClicked);
+            // 
+            // buttonApplyHotkey
+            // 
+            this.buttonApplyHotkey.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonApplyHotkey.FlatAppearance.BorderSize = 0;
+            this.buttonApplyHotkey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonApplyHotkey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonApplyHotkey.ForeColor = System.Drawing.Color.White;
+            this.buttonApplyHotkey.Location = new System.Drawing.Point(265, 175);
+            this.buttonApplyHotkey.Name = "buttonApplyHotkey";
+            this.buttonApplyHotkey.Size = new System.Drawing.Size(93, 29);
+            this.buttonApplyHotkey.TabIndex = 20;
+            this.buttonApplyHotkey.Text = "Apply";
+            this.buttonApplyHotkey.UseVisualStyleBackColor = false;
+            this.buttonApplyHotkey.Click += new System.EventHandler(this.buttonApplyHotkey_Click);
+            // 
+            // buttonHotkeyCancel
+            // 
+            this.buttonHotkeyCancel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonHotkeyCancel.FlatAppearance.BorderSize = 0;
+            this.buttonHotkeyCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHotkeyCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHotkeyCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonHotkeyCancel.Location = new System.Drawing.Point(376, 175);
+            this.buttonHotkeyCancel.Name = "buttonHotkeyCancel";
+            this.buttonHotkeyCancel.Size = new System.Drawing.Size(93, 29);
+            this.buttonHotkeyCancel.TabIndex = 21;
+            this.buttonHotkeyCancel.Text = "Cancel";
+            this.buttonHotkeyCancel.UseVisualStyleBackColor = false;
+            this.buttonHotkeyCancel.Click += new System.EventHandler(this.buttonHotkeyCancel_Click);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -630,7 +677,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
-            this.groupBox3.ResumeLayout(false);
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -686,5 +732,8 @@
         private System.Windows.Forms.Label labelLastUpdate;
         private System.Windows.Forms.Label labelBuildIndexInterval;
         private System.Windows.Forms.NumericUpDown numericUpDownInterval;
+        private System.Windows.Forms.LinkLabel linkLabelHotKey;
+        private System.Windows.Forms.Button buttonHotkeyCancel;
+        private System.Windows.Forms.Button buttonApplyHotkey;
     }
 }
