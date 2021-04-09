@@ -24,7 +24,7 @@ namespace XShort
         public Settings()
         {
             InitializeComponent();
-            sImage.ImageSize = new Size(25, 25);
+            sImage.ImageSize = new Size(20, 20);
             sImage.ColorDepth = ColorDepth.Depth32Bit;
             listViewBlocklist.SmallImageList = sImage;
             BackgroundWorker backgroundWorker = new BackgroundWorker();
@@ -295,13 +295,6 @@ namespace XShort
 
             r1.Close();
             r1.Dispose();
-        }
-
-        private void button14_Click(object sender, EventArgs e)
-        {
-           
-            MessageBox.Show("Hotkey has been changed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
