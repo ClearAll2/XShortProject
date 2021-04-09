@@ -281,6 +281,7 @@ namespace XShort
             r.Close();
             r.Dispose();
 
+            LoadExclusion();
             if (f2 != null && f2.IsDisposed != true)
             {
                 f2.LoadBlocklist();
@@ -696,6 +697,30 @@ namespace XShort
             }
             return 1;
         }
+
+        private void LoadExclusion()
+        {
+            exclusion.Clear();
+
+            FileStream fs;
+            StreamReader sr;
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "exclusion"), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                exclusion.Add(sr.ReadLine());
+            }
+            fs.Close();
+            sr.Close();
+        }
+
         //cipher data
         private int LoadData()
         {

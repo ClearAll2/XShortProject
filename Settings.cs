@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace XShort
 {
@@ -18,6 +19,7 @@ namespace XShort
         private List<String> sPath = new List<String>();
         private ImageList sImage = new ImageList();
         private List<String> blockList = new List<string>();
+        private List<String> exclusion = new List<string>();
         private string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
 
@@ -49,6 +51,34 @@ namespace XShort
             LoadData();
             ReloadBlocklist();
             LoadIcon();
+
+        }
+
+        private void LoadExclusion()
+        {
+            exclusion.Clear();
+            listViewExclusion.Items.Clear();
+
+            FileStream fs;
+            StreamReader sr;
+            try
+            {
+                fs = new FileStream(Path.Combine(dataPath, "exclusion"), FileMode.Open, FileAccess.Read);
+            }
+            catch
+            {
+                return;
+            }
+            sr = new StreamReader(fs);
+            while (!sr.EndOfStream)
+            {
+                exclusion.Add(sr.ReadLine());
+                listViewExclusion.Items.Add(new ListViewItem(exclusion[exclusion.Count - 1]));
+            }
+            fs.Close();
+            sr.Close();
+
+           
         }
 
         private void LoadIcon()
@@ -78,6 +108,17 @@ namespace XShort
 
                 }
 
+            }
+        }
+
+        private void LoadRunningProcesses()
+        {
+            comboBoxRunningProcesses.Items.Clear();
+            Process[] localAll = Process.GetProcesses();
+            for (int i=0;i<localAll.Length;i++)
+            {
+                if (!comboBoxRunningProcesses.Items.Contains(localAll[i].ProcessName))
+                    comboBoxRunningProcesses.Items.Add(localAll[i].ProcessName);
             }
         }
 
@@ -161,11 +202,11 @@ namespace XShort
             {
                 string hkey = (string)r.GetValue("HKey");
                 k = (Keys)converter.ConvertFromString(hkey);
-                for (int i = 0; i < comboBox2.Items.Count; i++)
+                for (int i = 0; i < comboBoxHotkey.Items.Count; i++)
                 {
-                    if (comboBox2.Items[i].ToString() == hkey)
+                    if (comboBoxHotkey.Items[i].ToString() == hkey)
                     {
-                        comboBox2.SelectedIndex = i;
+                        comboBoxHotkey.SelectedIndex = i;
                         break;
                     }
                 }
@@ -173,11 +214,11 @@ namespace XShort
             else
             {
                 k = Keys.A;
-                for (int i = 0; i < comboBox2.Items.Count; i++)
+                for (int i = 0; i < comboBoxHotkey.Items.Count; i++)
                 {
-                    if (comboBox2.Items[i].ToString() == "A")
+                    if (comboBoxHotkey.Items[i].ToString() == "A")
                     {
-                        comboBox2.SelectedIndex = i;
+                        comboBoxHotkey.SelectedIndex = i;
                         break;
                     }
                 }
@@ -509,6 +550,7 @@ namespace XShort
             r1.Close();
             r1.Dispose();
             File.WriteAllText(Path.Combine(dataPath, "interval"), String.Empty);
+            
         }
 
         private void linkLabelHotKey_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -525,9 +567,81 @@ namespace XShort
         {
             Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
             r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
-            r1.SetValue("HKey", comboBox2.Text);
+            r1.SetValue("HKey", comboBoxHotkey.Text);
             r1.Close();
             r1.Dispose();
+        }
+
+        private void buttonBrowseExe_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog of = new OpenFileDialog();
+            of.CheckFileExists = true;
+            of.CheckPathExists = true;
+            of.Filter = "Executable (*.exe*)|*.exe*";
+            of.Title = "Select your file...";
+
+            of.Multiselect = true;
+            if (of.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string file in of.SafeFileNames)
+                {
+                    listViewExclusion.Items.Add(new ListViewItem(file.Replace(".exe", String.Empty)));
+                }
+            }
+
+            of.Dispose();
+        }
+
+        private void listViewExclusion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonRemoveEx.Enabled = listViewExclusion.FocusedItem != null;
+        }
+
+        private void comboBoxRunningProcesses_TextChanged(object sender, EventArgs e)
+        {
+            buttonAddEx.Enabled = comboBoxRunningProcesses.Text.Length > 0;
+        }
+
+        private void buttonRemoveEx_Click(object sender, EventArgs e)
+        {
+            if (listViewExclusion.FocusedItem != null)
+            {
+                if (MessageBox.Show("Are you sure want to remove " + listViewExclusion.FocusedItem.Text + " from the list?", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    listViewExclusion.Items.RemoveAt(listViewExclusion.FocusedItem.Index);
+                }
+            }
+        }
+
+        private void buttonAddEx_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < listViewExclusion.Items.Count; i++)
+            {
+                if (listViewExclusion.Items[i].Text == comboBoxRunningProcesses.Text)
+                {
+                    MessageBox.Show("This application is already in exclusion list", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            listViewExclusion.Items.Add(new ListViewItem(comboBoxRunningProcesses.Text));
+            comboBoxRunningProcesses.Text = String.Empty;
+        }
+
+        private void linkLabelBackEx_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Util.Animate(panelExIntro, Util.Effect.Center, 100, 180);
+            File.WriteAllText(Path.Combine(dataPath, "exclusion"), String.Empty);
+            for (int i = 0; i < listViewExclusion.Items.Count; i++)
+            {
+                File.AppendAllText(Path.Combine(dataPath, "exclusion"), listViewExclusion.Items[i].Text + Environment.NewLine);
+            }
+        }
+
+        private void buttonExclusionList_Click(object sender, EventArgs e)
+        {
+            Util.Animate(panelExIntro, Util.Effect.Center, 100, 180);
+            LoadRunningProcesses();
+            LoadExclusion();
         }
     }
 }

@@ -41,6 +41,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panelBlocklist = new System.Windows.Forms.Panel();
+            this.labelExplainBlocklist = new System.Windows.Forms.Label();
+            this.labelExplainBlocklistBlockResult = new System.Windows.Forms.Label();
             this.buttonCancelBlocklist = new System.Windows.Forms.Button();
             this.checkBoxExcludeResultSuggestion = new System.Windows.Forms.CheckBox();
             this.listViewBlocklist = new System.Windows.Forms.ListView();
@@ -61,7 +63,7 @@
             this.radioButtonShift = new System.Windows.Forms.RadioButton();
             this.radioButtonControl = new System.Windows.Forms.RadioButton();
             this.radioButtonAlt = new System.Windows.Forms.RadioButton();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxHotkey = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.linkLabelHotKey = new System.Windows.Forms.LinkLabel();
@@ -73,16 +75,27 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelExplain = new System.Windows.Forms.Label();
+            this.listViewExclusion = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonBrowseExe = new System.Windows.Forms.Button();
+            this.buttonAddEx = new System.Windows.Forms.Button();
+            this.buttonRemoveEx = new System.Windows.Forms.Button();
+            this.comboBoxRunningProcesses = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.panelExIntro = new System.Windows.Forms.Panel();
+            this.linkLabelBackEx = new System.Windows.Forms.LinkLabel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonExclusionList = new System.Windows.Forms.Button();
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelBlocklist.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
+            this.panelExIntro.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSetting
@@ -193,6 +206,14 @@
             // groupBox3
             // 
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox3.Controls.Add(this.panelExIntro);
+            this.groupBox3.Controls.Add(this.linkLabelBackEx);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.comboBoxRunningProcesses);
+            this.groupBox3.Controls.Add(this.buttonRemoveEx);
+            this.groupBox3.Controls.Add(this.buttonAddEx);
+            this.groupBox3.Controls.Add(this.buttonBrowseExe);
+            this.groupBox3.Controls.Add(this.listViewExclusion);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(537, 10);
             this.groupBox3.Name = "groupBox3";
@@ -222,8 +243,8 @@
             // 
             // panelBlocklist
             // 
-            this.panelBlocklist.Controls.Add(this.label2);
-            this.panelBlocklist.Controls.Add(this.labelExplain);
+            this.panelBlocklist.Controls.Add(this.labelExplainBlocklist);
+            this.panelBlocklist.Controls.Add(this.labelExplainBlocklistBlockResult);
             this.panelBlocklist.Controls.Add(this.buttonCancelBlocklist);
             this.panelBlocklist.Controls.Add(this.checkBoxExcludeResultSuggestion);
             this.panelBlocklist.Controls.Add(this.listViewBlocklist);
@@ -234,6 +255,27 @@
             this.panelBlocklist.Size = new System.Drawing.Size(482, 285);
             this.panelBlocklist.TabIndex = 15;
             this.panelBlocklist.Visible = false;
+            // 
+            // labelExplainBlocklist
+            // 
+            this.labelExplainBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelExplainBlocklist.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.labelExplainBlocklist.Location = new System.Drawing.Point(17, 22);
+            this.labelExplainBlocklist.Name = "labelExplainBlocklist";
+            this.labelExplainBlocklist.Size = new System.Drawing.Size(204, 58);
+            this.labelExplainBlocklist.TabIndex = 22;
+            this.labelExplainBlocklist.Text = "When a shortcut is selected in this list, it will not show in shortcut suggestion" +
+    "s of Run box.\r\n\r\n";
+            // 
+            // labelExplainBlocklistBlockResult
+            // 
+            this.labelExplainBlocklistBlockResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelExplainBlocklistBlockResult.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.labelExplainBlocklistBlockResult.Location = new System.Drawing.Point(17, 186);
+            this.labelExplainBlocklistBlockResult.Name = "labelExplainBlocklistBlockResult";
+            this.labelExplainBlocklistBlockResult.Size = new System.Drawing.Size(207, 42);
+            this.labelExplainBlocklistBlockResult.TabIndex = 21;
+            this.labelExplainBlocklistBlockResult.Text = "Blocklisted shortcuts also will not show in result suggestions.";
             // 
             // buttonCancelBlocklist
             // 
@@ -271,6 +313,7 @@
             this.listViewBlocklist.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewBlocklist.HideSelection = false;
             this.listViewBlocklist.Location = new System.Drawing.Point(265, 16);
+            this.listViewBlocklist.MultiSelect = false;
             this.listViewBlocklist.Name = "listViewBlocklist";
             this.listViewBlocklist.Size = new System.Drawing.Size(205, 212);
             this.listViewBlocklist.TabIndex = 17;
@@ -419,7 +462,7 @@
             this.panelHotkey.Controls.Add(this.radioButtonShift);
             this.panelHotkey.Controls.Add(this.radioButtonControl);
             this.panelHotkey.Controls.Add(this.radioButtonAlt);
-            this.panelHotkey.Controls.Add(this.comboBox2);
+            this.panelHotkey.Controls.Add(this.comboBoxHotkey);
             this.panelHotkey.Controls.Add(this.label10);
             this.panelHotkey.Controls.Add(this.label9);
             this.panelHotkey.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -505,11 +548,11 @@
             this.radioButtonAlt.UseVisualStyleBackColor = true;
             this.radioButtonAlt.CheckedChanged += new System.EventHandler(this.radioButtonAlt_CheckedChanged);
             // 
-            // comboBox2
+            // comboBoxHotkey
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.comboBoxHotkey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxHotkey.FormattingEnabled = true;
+            this.comboBoxHotkey.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
@@ -546,10 +589,10 @@
             "X",
             "Y",
             "Z"});
-            this.comboBox2.Location = new System.Drawing.Point(218, 81);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(96, 26);
-            this.comboBox2.TabIndex = 11;
+            this.comboBoxHotkey.Location = new System.Drawing.Point(218, 81);
+            this.comboBoxHotkey.Name = "comboBoxHotkey";
+            this.comboBoxHotkey.Size = new System.Drawing.Size(96, 26);
+            this.comboBoxHotkey.TabIndex = 11;
             // 
             // label10
             // 
@@ -659,26 +702,143 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
-            // labelExplain
+            // listViewExclusion
             // 
-            this.labelExplain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelExplain.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.labelExplain.Location = new System.Drawing.Point(17, 186);
-            this.labelExplain.Name = "labelExplain";
-            this.labelExplain.Size = new System.Drawing.Size(207, 42);
-            this.labelExplain.TabIndex = 21;
-            this.labelExplain.Text = "Blocklisted shortcuts also won\'t show in result suggestions.";
+            this.listViewExclusion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewExclusion.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            this.listViewExclusion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewExclusion.FullRowSelect = true;
+            this.listViewExclusion.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewExclusion.Location = new System.Drawing.Point(26, 34);
+            this.listViewExclusion.MultiSelect = false;
+            this.listViewExclusion.Name = "listViewExclusion";
+            this.listViewExclusion.Size = new System.Drawing.Size(238, 190);
+            this.listViewExclusion.TabIndex = 23;
+            this.listViewExclusion.UseCompatibleStateImageBehavior = false;
+            this.listViewExclusion.View = System.Windows.Forms.View.Details;
+            this.listViewExclusion.SelectedIndexChanged += new System.EventHandler(this.listViewExclusion_SelectedIndexChanged);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "";
+            this.columnHeader2.Width = 200;
+            // 
+            // buttonBrowseExe
+            // 
+            this.buttonBrowseExe.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonBrowseExe.FlatAppearance.BorderSize = 0;
+            this.buttonBrowseExe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBrowseExe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBrowseExe.ForeColor = System.Drawing.Color.White;
+            this.buttonBrowseExe.Location = new System.Drawing.Point(270, 118);
+            this.buttonBrowseExe.Name = "buttonBrowseExe";
+            this.buttonBrowseExe.Size = new System.Drawing.Size(38, 26);
+            this.buttonBrowseExe.TabIndex = 22;
+            this.buttonBrowseExe.Text = "...";
+            this.toolTip1.SetToolTip(this.buttonBrowseExe, "Browse and select your applications");
+            this.buttonBrowseExe.UseVisualStyleBackColor = false;
+            this.buttonBrowseExe.Click += new System.EventHandler(this.buttonBrowseExe_Click);
+            // 
+            // buttonAddEx
+            // 
+            this.buttonAddEx.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonAddEx.Enabled = false;
+            this.buttonAddEx.FlatAppearance.BorderSize = 0;
+            this.buttonAddEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEx.ForeColor = System.Drawing.Color.White;
+            this.buttonAddEx.Location = new System.Drawing.Point(270, 34);
+            this.buttonAddEx.Name = "buttonAddEx";
+            this.buttonAddEx.Size = new System.Drawing.Size(38, 27);
+            this.buttonAddEx.TabIndex = 22;
+            this.buttonAddEx.Text = "<<";
+            this.toolTip1.SetToolTip(this.buttonAddEx, "Add");
+            this.buttonAddEx.UseVisualStyleBackColor = false;
+            this.buttonAddEx.Click += new System.EventHandler(this.buttonAddEx_Click);
+            // 
+            // buttonRemoveEx
+            // 
+            this.buttonRemoveEx.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonRemoveEx.Enabled = false;
+            this.buttonRemoveEx.FlatAppearance.BorderSize = 0;
+            this.buttonRemoveEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRemoveEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveEx.ForeColor = System.Drawing.Color.White;
+            this.buttonRemoveEx.Location = new System.Drawing.Point(270, 197);
+            this.buttonRemoveEx.Name = "buttonRemoveEx";
+            this.buttonRemoveEx.Size = new System.Drawing.Size(38, 27);
+            this.buttonRemoveEx.TabIndex = 25;
+            this.buttonRemoveEx.Text = ">>";
+            this.toolTip1.SetToolTip(this.buttonRemoveEx, "Remove selected application");
+            this.buttonRemoveEx.UseVisualStyleBackColor = false;
+            this.buttonRemoveEx.Click += new System.EventHandler(this.buttonRemoveEx_Click);
+            // 
+            // comboBoxRunningProcesses
+            // 
+            this.comboBoxRunningProcesses.FormattingEnabled = true;
+            this.comboBoxRunningProcesses.Location = new System.Drawing.Point(317, 35);
+            this.comboBoxRunningProcesses.Name = "comboBoxRunningProcesses";
+            this.comboBoxRunningProcesses.Size = new System.Drawing.Size(166, 26);
+            this.comboBoxRunningProcesses.TabIndex = 22;
+            this.comboBoxRunningProcesses.TextChanged += new System.EventHandler(this.comboBoxRunningProcesses_TextChanged);
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(17, 22);
+            this.label2.Location = new System.Drawing.Point(317, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(204, 58);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "When a shortcut is selected in this list, it will not show in shortcut suggestion" +
-    "s of Run box.\r\n\r\n";
+            this.label2.Size = new System.Drawing.Size(166, 95);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Select running processes from drop-down list\r\n\r\nor click button ... to add other " +
+    "applications.\r\n";
+            // 
+            // panelExIntro
+            // 
+            this.panelExIntro.Controls.Add(this.buttonExclusionList);
+            this.panelExIntro.Controls.Add(this.label3);
+            this.panelExIntro.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelExIntro.Location = new System.Drawing.Point(3, 20);
+            this.panelExIntro.Name = "panelExIntro";
+            this.panelExIntro.Size = new System.Drawing.Size(501, 224);
+            this.panelExIntro.TabIndex = 26;
+            // 
+            // linkLabelBackEx
+            // 
+            this.linkLabelBackEx.AutoSize = true;
+            this.linkLabelBackEx.Location = new System.Drawing.Point(441, 200);
+            this.linkLabelBackEx.Name = "linkLabelBackEx";
+            this.linkLabelBackEx.Size = new System.Drawing.Size(42, 18);
+            this.linkLabelBackEx.TabIndex = 11;
+            this.linkLabelBackEx.TabStop = true;
+            this.linkLabelBackEx.Text = "Back";
+            this.linkLabelBackEx.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelBackEx_LinkClicked);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label3.Location = new System.Drawing.Point(20, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(452, 22);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "Excludes selected applications && games from triggering the Run box.\r\n\r\n";
+            // 
+            // buttonExclusionList
+            // 
+            this.buttonExclusionList.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonExclusionList.FlatAppearance.BorderSize = 0;
+            this.buttonExclusionList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExclusionList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExclusionList.ForeColor = System.Drawing.Color.White;
+            this.buttonExclusionList.Location = new System.Drawing.Point(206, 95);
+            this.buttonExclusionList.Name = "buttonExclusionList";
+            this.buttonExclusionList.Size = new System.Drawing.Size(93, 29);
+            this.buttonExclusionList.TabIndex = 22;
+            this.buttonExclusionList.Text = "Settings";
+            this.buttonExclusionList.UseVisualStyleBackColor = false;
+            this.buttonExclusionList.Click += new System.EventHandler(this.buttonExclusionList_Click);
             // 
             // Settings
             // 
@@ -700,6 +860,8 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panelBlocklist.ResumeLayout(false);
@@ -708,6 +870,7 @@
             this.groupBox1.PerformLayout();
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
+            this.panelExIntro.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -720,7 +883,7 @@
         private System.Windows.Forms.RadioButton radioButtonShift;
         private System.Windows.Forms.RadioButton radioButtonControl;
         private System.Windows.Forms.RadioButton radioButtonAlt;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBoxHotkey;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBox7;
@@ -757,7 +920,18 @@
         private System.Windows.Forms.LinkLabel linkLabelHotKey;
         private System.Windows.Forms.Button buttonHotkeyCancel;
         private System.Windows.Forms.Button buttonApplyHotkey;
+        private System.Windows.Forms.Label labelExplainBlocklist;
+        private System.Windows.Forms.Label labelExplainBlocklistBlockResult;
+        private System.Windows.Forms.ListView listViewExclusion;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Button buttonRemoveEx;
+        private System.Windows.Forms.Button buttonAddEx;
+        private System.Windows.Forms.Button buttonBrowseExe;
+        private System.Windows.Forms.ComboBox comboBoxRunningProcesses;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labelExplain;
+        private System.Windows.Forms.Panel panelExIntro;
+        private System.Windows.Forms.LinkLabel linkLabelBackEx;
+        private System.Windows.Forms.Button buttonExclusionList;
+        private System.Windows.Forms.Label label3;
     }
 }
