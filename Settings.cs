@@ -627,7 +627,14 @@ namespace XShort
             comboBoxRunningProcesses.Text = String.Empty;
         }
 
-        private void linkLabelBackEx_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void buttonExclusionList_Click(object sender, EventArgs e)
+        {
+            Util.Animate(panelExIntro, Util.Effect.Center, 100, 180);
+            LoadRunningProcesses();
+            LoadExclusion();
+        }
+
+        private void buttonExBack_Click(object sender, EventArgs e)
         {
             Util.Animate(panelExIntro, Util.Effect.Center, 100, 180);
             File.WriteAllText(Path.Combine(dataPath, "exclusion"), String.Empty);
@@ -635,13 +642,6 @@ namespace XShort
             {
                 File.AppendAllText(Path.Combine(dataPath, "exclusion"), listViewExclusion.Items[i].Text + Environment.NewLine);
             }
-        }
-
-        private void buttonExclusionList_Click(object sender, EventArgs e)
-        {
-            Util.Animate(panelExIntro, Util.Effect.Center, 100, 180);
-            LoadRunningProcesses();
-            LoadExclusion();
         }
     }
 }

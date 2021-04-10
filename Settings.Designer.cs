@@ -42,7 +42,6 @@
             this.panelExIntro = new System.Windows.Forms.Panel();
             this.buttonExclusionList = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.linkLabelBackEx = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxRunningProcesses = new System.Windows.Forms.ComboBox();
             this.buttonRemoveEx = new System.Windows.Forms.Button();
@@ -86,6 +85,7 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonExBack = new System.Windows.Forms.Button();
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
@@ -207,7 +207,7 @@
             // 
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox3.Controls.Add(this.panelExIntro);
-            this.groupBox3.Controls.Add(this.linkLabelBackEx);
+            this.groupBox3.Controls.Add(this.buttonExBack);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.comboBoxRunningProcesses);
             this.groupBox3.Controls.Add(this.buttonRemoveEx);
@@ -258,17 +258,6 @@
             this.label3.TabIndex = 21;
             this.label3.Text = "Excludes selected applications && games from triggering the Run box.\r\n\r\n";
             // 
-            // linkLabelBackEx
-            // 
-            this.linkLabelBackEx.AutoSize = true;
-            this.linkLabelBackEx.Location = new System.Drawing.Point(441, 200);
-            this.linkLabelBackEx.Name = "linkLabelBackEx";
-            this.linkLabelBackEx.Size = new System.Drawing.Size(42, 18);
-            this.linkLabelBackEx.TabIndex = 11;
-            this.linkLabelBackEx.TabStop = true;
-            this.linkLabelBackEx.Text = "Back";
-            this.linkLabelBackEx.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelBackEx_LinkClicked);
-            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -291,12 +280,12 @@
             // 
             // buttonRemoveEx
             // 
-            this.buttonRemoveEx.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonRemoveEx.BackColor = System.Drawing.SystemColors.Control;
             this.buttonRemoveEx.Enabled = false;
             this.buttonRemoveEx.FlatAppearance.BorderSize = 0;
             this.buttonRemoveEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRemoveEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveEx.ForeColor = System.Drawing.Color.White;
+            this.buttonRemoveEx.ForeColor = System.Drawing.Color.Black;
             this.buttonRemoveEx.Location = new System.Drawing.Point(270, 197);
             this.buttonRemoveEx.Name = "buttonRemoveEx";
             this.buttonRemoveEx.Size = new System.Drawing.Size(38, 27);
@@ -308,12 +297,12 @@
             // 
             // buttonAddEx
             // 
-            this.buttonAddEx.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonAddEx.BackColor = System.Drawing.SystemColors.Control;
             this.buttonAddEx.Enabled = false;
             this.buttonAddEx.FlatAppearance.BorderSize = 0;
             this.buttonAddEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddEx.ForeColor = System.Drawing.Color.White;
+            this.buttonAddEx.ForeColor = System.Drawing.Color.Black;
             this.buttonAddEx.Location = new System.Drawing.Point(270, 34);
             this.buttonAddEx.Name = "buttonAddEx";
             this.buttonAddEx.Size = new System.Drawing.Size(38, 27);
@@ -325,11 +314,11 @@
             // 
             // buttonBrowseExe
             // 
-            this.buttonBrowseExe.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonBrowseExe.BackColor = System.Drawing.SystemColors.Control;
             this.buttonBrowseExe.FlatAppearance.BorderSize = 0;
             this.buttonBrowseExe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBrowseExe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBrowseExe.ForeColor = System.Drawing.Color.White;
+            this.buttonBrowseExe.ForeColor = System.Drawing.Color.Black;
             this.buttonBrowseExe.Location = new System.Drawing.Point(270, 118);
             this.buttonBrowseExe.Name = "buttonBrowseExe";
             this.buttonBrowseExe.Size = new System.Drawing.Size(38, 26);
@@ -419,11 +408,11 @@
             // 
             // buttonCancelBlocklist
             // 
-            this.buttonCancelBlocklist.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonCancelBlocklist.BackColor = System.Drawing.SystemColors.Control;
             this.buttonCancelBlocklist.FlatAppearance.BorderSize = 0;
             this.buttonCancelBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancelBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancelBlocklist.ForeColor = System.Drawing.Color.White;
+            this.buttonCancelBlocklist.ForeColor = System.Drawing.Color.Black;
             this.buttonCancelBlocklist.Location = new System.Drawing.Point(376, 243);
             this.buttonCancelBlocklist.Name = "buttonCancelBlocklist";
             this.buttonCancelBlocklist.Size = new System.Drawing.Size(93, 29);
@@ -467,11 +456,11 @@
             // 
             // buttonSaveBlocklist
             // 
-            this.buttonSaveBlocklist.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonSaveBlocklist.BackColor = System.Drawing.SystemColors.Control;
             this.buttonSaveBlocklist.FlatAppearance.BorderSize = 0;
             this.buttonSaveBlocklist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveBlocklist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSaveBlocklist.ForeColor = System.Drawing.Color.White;
+            this.buttonSaveBlocklist.ForeColor = System.Drawing.Color.Black;
             this.buttonSaveBlocklist.Location = new System.Drawing.Point(265, 243);
             this.buttonSaveBlocklist.Name = "buttonSaveBlocklist";
             this.buttonSaveBlocklist.Size = new System.Drawing.Size(93, 29);
@@ -614,11 +603,11 @@
             // 
             // buttonHotkeyCancel
             // 
-            this.buttonHotkeyCancel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonHotkeyCancel.BackColor = System.Drawing.SystemColors.Control;
             this.buttonHotkeyCancel.FlatAppearance.BorderSize = 0;
             this.buttonHotkeyCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonHotkeyCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHotkeyCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonHotkeyCancel.ForeColor = System.Drawing.Color.Black;
             this.buttonHotkeyCancel.Location = new System.Drawing.Point(376, 175);
             this.buttonHotkeyCancel.Name = "buttonHotkeyCancel";
             this.buttonHotkeyCancel.Size = new System.Drawing.Size(93, 29);
@@ -629,11 +618,11 @@
             // 
             // buttonApplyHotkey
             // 
-            this.buttonApplyHotkey.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonApplyHotkey.BackColor = System.Drawing.SystemColors.Control;
             this.buttonApplyHotkey.FlatAppearance.BorderSize = 0;
             this.buttonApplyHotkey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonApplyHotkey.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonApplyHotkey.ForeColor = System.Drawing.Color.White;
+            this.buttonApplyHotkey.ForeColor = System.Drawing.Color.Black;
             this.buttonApplyHotkey.Location = new System.Drawing.Point(265, 175);
             this.buttonApplyHotkey.Name = "buttonApplyHotkey";
             this.buttonApplyHotkey.Size = new System.Drawing.Size(93, 29);
@@ -842,6 +831,21 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
+            // buttonExBack
+            // 
+            this.buttonExBack.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonExBack.FlatAppearance.BorderSize = 0;
+            this.buttonExBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExBack.ForeColor = System.Drawing.Color.Black;
+            this.buttonExBack.Location = new System.Drawing.Point(411, 196);
+            this.buttonExBack.Name = "buttonExBack";
+            this.buttonExBack.Size = new System.Drawing.Size(72, 27);
+            this.buttonExBack.TabIndex = 26;
+            this.buttonExBack.Text = "Back";
+            this.buttonExBack.UseVisualStyleBackColor = false;
+            this.buttonExBack.Click += new System.EventHandler(this.buttonExBack_Click);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -863,7 +867,6 @@
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.panelExIntro.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -932,8 +935,8 @@
         private System.Windows.Forms.ComboBox comboBoxRunningProcesses;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panelExIntro;
-        private System.Windows.Forms.LinkLabel linkLabelBackEx;
         private System.Windows.Forms.Button buttonExclusionList;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonExBack;
     }
 }
