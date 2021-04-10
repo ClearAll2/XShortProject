@@ -39,6 +39,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxUseIndex = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panelExIntro = new System.Windows.Forms.Panel();
+            this.buttonExclusionList = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.linkLabelBackEx = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxRunningProcesses = new System.Windows.Forms.ComboBox();
+            this.buttonRemoveEx = new System.Windows.Forms.Button();
+            this.buttonAddEx = new System.Windows.Forms.Button();
+            this.buttonBrowseExe = new System.Windows.Forms.Button();
+            this.listViewExclusion = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panelBlocklist = new System.Windows.Forms.Panel();
             this.labelExplainBlocklist = new System.Windows.Forms.Label();
@@ -75,27 +86,16 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.listViewExclusion = new System.Windows.Forms.ListView();
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonBrowseExe = new System.Windows.Forms.Button();
-            this.buttonAddEx = new System.Windows.Forms.Button();
-            this.buttonRemoveEx = new System.Windows.Forms.Button();
-            this.comboBoxRunningProcesses = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panelExIntro = new System.Windows.Forms.Panel();
-            this.linkLabelBackEx = new System.Windows.Forms.LinkLabel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonExclusionList = new System.Windows.Forms.Button();
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.panelExIntro.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelBlocklist.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxSuggestNum)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panelHotkey.SuspendLayout();
-            this.panelExIntro.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSetting
@@ -134,7 +134,7 @@
             this.numericUpDownInterval.DecimalPlaces = 1;
             this.numericUpDownInterval.Location = new System.Drawing.Point(245, 204);
             this.numericUpDownInterval.Maximum = new decimal(new int[] {
-            24,
+            72,
             0,
             0,
             0});
@@ -221,6 +221,146 @@
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Exclusion";
+            // 
+            // panelExIntro
+            // 
+            this.panelExIntro.Controls.Add(this.buttonExclusionList);
+            this.panelExIntro.Controls.Add(this.label3);
+            this.panelExIntro.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelExIntro.Location = new System.Drawing.Point(3, 20);
+            this.panelExIntro.Name = "panelExIntro";
+            this.panelExIntro.Size = new System.Drawing.Size(501, 224);
+            this.panelExIntro.TabIndex = 26;
+            // 
+            // buttonExclusionList
+            // 
+            this.buttonExclusionList.BackColor = System.Drawing.Color.White;
+            this.buttonExclusionList.FlatAppearance.BorderSize = 0;
+            this.buttonExclusionList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExclusionList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExclusionList.ForeColor = System.Drawing.Color.Black;
+            this.buttonExclusionList.Location = new System.Drawing.Point(16, 49);
+            this.buttonExclusionList.Name = "buttonExclusionList";
+            this.buttonExclusionList.Size = new System.Drawing.Size(469, 29);
+            this.buttonExclusionList.TabIndex = 22;
+            this.buttonExclusionList.Text = "Open Exclusion list";
+            this.buttonExclusionList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonExclusionList.UseVisualStyleBackColor = false;
+            this.buttonExclusionList.Click += new System.EventHandler(this.buttonExclusionList_Click);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label3.Location = new System.Drawing.Point(20, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(460, 22);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "Excludes selected applications && games from triggering the Run box.\r\n\r\n";
+            // 
+            // linkLabelBackEx
+            // 
+            this.linkLabelBackEx.AutoSize = true;
+            this.linkLabelBackEx.Location = new System.Drawing.Point(441, 200);
+            this.linkLabelBackEx.Name = "linkLabelBackEx";
+            this.linkLabelBackEx.Size = new System.Drawing.Size(42, 18);
+            this.linkLabelBackEx.TabIndex = 11;
+            this.linkLabelBackEx.TabStop = true;
+            this.linkLabelBackEx.Text = "Back";
+            this.linkLabelBackEx.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelBackEx_LinkClicked);
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(317, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(166, 95);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Select running processes from drop-down list\r\n\r\nor click button ... to add other " +
+    "applications.\r\n";
+            // 
+            // comboBoxRunningProcesses
+            // 
+            this.comboBoxRunningProcesses.FormattingEnabled = true;
+            this.comboBoxRunningProcesses.Location = new System.Drawing.Point(317, 35);
+            this.comboBoxRunningProcesses.Name = "comboBoxRunningProcesses";
+            this.comboBoxRunningProcesses.Size = new System.Drawing.Size(166, 26);
+            this.comboBoxRunningProcesses.TabIndex = 22;
+            this.comboBoxRunningProcesses.TextChanged += new System.EventHandler(this.comboBoxRunningProcesses_TextChanged);
+            // 
+            // buttonRemoveEx
+            // 
+            this.buttonRemoveEx.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonRemoveEx.Enabled = false;
+            this.buttonRemoveEx.FlatAppearance.BorderSize = 0;
+            this.buttonRemoveEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRemoveEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoveEx.ForeColor = System.Drawing.Color.White;
+            this.buttonRemoveEx.Location = new System.Drawing.Point(270, 197);
+            this.buttonRemoveEx.Name = "buttonRemoveEx";
+            this.buttonRemoveEx.Size = new System.Drawing.Size(38, 27);
+            this.buttonRemoveEx.TabIndex = 25;
+            this.buttonRemoveEx.Text = ">>";
+            this.toolTip1.SetToolTip(this.buttonRemoveEx, "Remove selected application");
+            this.buttonRemoveEx.UseVisualStyleBackColor = false;
+            this.buttonRemoveEx.Click += new System.EventHandler(this.buttonRemoveEx_Click);
+            // 
+            // buttonAddEx
+            // 
+            this.buttonAddEx.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonAddEx.Enabled = false;
+            this.buttonAddEx.FlatAppearance.BorderSize = 0;
+            this.buttonAddEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddEx.ForeColor = System.Drawing.Color.White;
+            this.buttonAddEx.Location = new System.Drawing.Point(270, 34);
+            this.buttonAddEx.Name = "buttonAddEx";
+            this.buttonAddEx.Size = new System.Drawing.Size(38, 27);
+            this.buttonAddEx.TabIndex = 22;
+            this.buttonAddEx.Text = "<<";
+            this.toolTip1.SetToolTip(this.buttonAddEx, "Add");
+            this.buttonAddEx.UseVisualStyleBackColor = false;
+            this.buttonAddEx.Click += new System.EventHandler(this.buttonAddEx_Click);
+            // 
+            // buttonBrowseExe
+            // 
+            this.buttonBrowseExe.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonBrowseExe.FlatAppearance.BorderSize = 0;
+            this.buttonBrowseExe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonBrowseExe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBrowseExe.ForeColor = System.Drawing.Color.White;
+            this.buttonBrowseExe.Location = new System.Drawing.Point(270, 118);
+            this.buttonBrowseExe.Name = "buttonBrowseExe";
+            this.buttonBrowseExe.Size = new System.Drawing.Size(38, 26);
+            this.buttonBrowseExe.TabIndex = 22;
+            this.buttonBrowseExe.Text = "...";
+            this.toolTip1.SetToolTip(this.buttonBrowseExe, "Browse and select your applications");
+            this.buttonBrowseExe.UseVisualStyleBackColor = false;
+            this.buttonBrowseExe.Click += new System.EventHandler(this.buttonBrowseExe_Click);
+            // 
+            // listViewExclusion
+            // 
+            this.listViewExclusion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listViewExclusion.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            this.listViewExclusion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewExclusion.FullRowSelect = true;
+            this.listViewExclusion.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewExclusion.HideSelection = false;
+            this.listViewExclusion.Location = new System.Drawing.Point(26, 34);
+            this.listViewExclusion.MultiSelect = false;
+            this.listViewExclusion.Name = "listViewExclusion";
+            this.listViewExclusion.Size = new System.Drawing.Size(238, 190);
+            this.listViewExclusion.TabIndex = 23;
+            this.listViewExclusion.UseCompatibleStateImageBehavior = false;
+            this.listViewExclusion.View = System.Windows.Forms.View.Details;
+            this.listViewExclusion.SelectedIndexChanged += new System.EventHandler(this.listViewExclusion_SelectedIndexChanged);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "";
+            this.columnHeader2.Width = 200;
             // 
             // groupBox2
             // 
@@ -702,144 +842,6 @@
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
-            // listViewExclusion
-            // 
-            this.listViewExclusion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listViewExclusion.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-            this.listViewExclusion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listViewExclusion.FullRowSelect = true;
-            this.listViewExclusion.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewExclusion.Location = new System.Drawing.Point(26, 34);
-            this.listViewExclusion.MultiSelect = false;
-            this.listViewExclusion.Name = "listViewExclusion";
-            this.listViewExclusion.Size = new System.Drawing.Size(238, 190);
-            this.listViewExclusion.TabIndex = 23;
-            this.listViewExclusion.UseCompatibleStateImageBehavior = false;
-            this.listViewExclusion.View = System.Windows.Forms.View.Details;
-            this.listViewExclusion.SelectedIndexChanged += new System.EventHandler(this.listViewExclusion_SelectedIndexChanged);
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "";
-            this.columnHeader2.Width = 200;
-            // 
-            // buttonBrowseExe
-            // 
-            this.buttonBrowseExe.BackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonBrowseExe.FlatAppearance.BorderSize = 0;
-            this.buttonBrowseExe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBrowseExe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBrowseExe.ForeColor = System.Drawing.Color.White;
-            this.buttonBrowseExe.Location = new System.Drawing.Point(270, 118);
-            this.buttonBrowseExe.Name = "buttonBrowseExe";
-            this.buttonBrowseExe.Size = new System.Drawing.Size(38, 26);
-            this.buttonBrowseExe.TabIndex = 22;
-            this.buttonBrowseExe.Text = "...";
-            this.toolTip1.SetToolTip(this.buttonBrowseExe, "Browse and select your applications");
-            this.buttonBrowseExe.UseVisualStyleBackColor = false;
-            this.buttonBrowseExe.Click += new System.EventHandler(this.buttonBrowseExe_Click);
-            // 
-            // buttonAddEx
-            // 
-            this.buttonAddEx.BackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonAddEx.Enabled = false;
-            this.buttonAddEx.FlatAppearance.BorderSize = 0;
-            this.buttonAddEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAddEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddEx.ForeColor = System.Drawing.Color.White;
-            this.buttonAddEx.Location = new System.Drawing.Point(270, 34);
-            this.buttonAddEx.Name = "buttonAddEx";
-            this.buttonAddEx.Size = new System.Drawing.Size(38, 27);
-            this.buttonAddEx.TabIndex = 22;
-            this.buttonAddEx.Text = "<<";
-            this.toolTip1.SetToolTip(this.buttonAddEx, "Add");
-            this.buttonAddEx.UseVisualStyleBackColor = false;
-            this.buttonAddEx.Click += new System.EventHandler(this.buttonAddEx_Click);
-            // 
-            // buttonRemoveEx
-            // 
-            this.buttonRemoveEx.BackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonRemoveEx.Enabled = false;
-            this.buttonRemoveEx.FlatAppearance.BorderSize = 0;
-            this.buttonRemoveEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRemoveEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoveEx.ForeColor = System.Drawing.Color.White;
-            this.buttonRemoveEx.Location = new System.Drawing.Point(270, 197);
-            this.buttonRemoveEx.Name = "buttonRemoveEx";
-            this.buttonRemoveEx.Size = new System.Drawing.Size(38, 27);
-            this.buttonRemoveEx.TabIndex = 25;
-            this.buttonRemoveEx.Text = ">>";
-            this.toolTip1.SetToolTip(this.buttonRemoveEx, "Remove selected application");
-            this.buttonRemoveEx.UseVisualStyleBackColor = false;
-            this.buttonRemoveEx.Click += new System.EventHandler(this.buttonRemoveEx_Click);
-            // 
-            // comboBoxRunningProcesses
-            // 
-            this.comboBoxRunningProcesses.FormattingEnabled = true;
-            this.comboBoxRunningProcesses.Location = new System.Drawing.Point(317, 35);
-            this.comboBoxRunningProcesses.Name = "comboBoxRunningProcesses";
-            this.comboBoxRunningProcesses.Size = new System.Drawing.Size(166, 26);
-            this.comboBoxRunningProcesses.TabIndex = 22;
-            this.comboBoxRunningProcesses.TextChanged += new System.EventHandler(this.comboBoxRunningProcesses_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(317, 101);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 95);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "Select running processes from drop-down list\r\n\r\nor click button ... to add other " +
-    "applications.\r\n";
-            // 
-            // panelExIntro
-            // 
-            this.panelExIntro.Controls.Add(this.buttonExclusionList);
-            this.panelExIntro.Controls.Add(this.label3);
-            this.panelExIntro.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelExIntro.Location = new System.Drawing.Point(3, 20);
-            this.panelExIntro.Name = "panelExIntro";
-            this.panelExIntro.Size = new System.Drawing.Size(501, 224);
-            this.panelExIntro.TabIndex = 26;
-            // 
-            // linkLabelBackEx
-            // 
-            this.linkLabelBackEx.AutoSize = true;
-            this.linkLabelBackEx.Location = new System.Drawing.Point(441, 200);
-            this.linkLabelBackEx.Name = "linkLabelBackEx";
-            this.linkLabelBackEx.Size = new System.Drawing.Size(42, 18);
-            this.linkLabelBackEx.TabIndex = 11;
-            this.linkLabelBackEx.TabStop = true;
-            this.linkLabelBackEx.Text = "Back";
-            this.linkLabelBackEx.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelBackEx_LinkClicked);
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point(20, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(452, 22);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "Excludes selected applications && games from triggering the Run box.\r\n\r\n";
-            // 
-            // buttonExclusionList
-            // 
-            this.buttonExclusionList.BackColor = System.Drawing.Color.DodgerBlue;
-            this.buttonExclusionList.FlatAppearance.BorderSize = 0;
-            this.buttonExclusionList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExclusionList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExclusionList.ForeColor = System.Drawing.Color.White;
-            this.buttonExclusionList.Location = new System.Drawing.Point(206, 95);
-            this.buttonExclusionList.Name = "buttonExclusionList";
-            this.buttonExclusionList.Size = new System.Drawing.Size(93, 29);
-            this.buttonExclusionList.TabIndex = 22;
-            this.buttonExclusionList.Text = "Settings";
-            this.buttonExclusionList.UseVisualStyleBackColor = false;
-            this.buttonExclusionList.Click += new System.EventHandler(this.buttonExclusionList_Click);
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -862,6 +864,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.panelExIntro.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panelBlocklist.ResumeLayout(false);
@@ -870,7 +873,6 @@
             this.groupBox1.PerformLayout();
             this.panelHotkey.ResumeLayout(false);
             this.panelHotkey.PerformLayout();
-            this.panelExIntro.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
