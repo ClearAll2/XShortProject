@@ -2050,9 +2050,19 @@ namespace XShort
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             About about = new About();
+            about.FormClosed += About_FormClosed;
             about.ShowDialog();
         }
 
+        private void About_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            About a = (About)sender;
+            if (a.exit)
+            {
+                exitToolStripMenuItem1_Click(null, null);
+                Process.Start("update.bat");
+            }
+        }
 
         private void openFileLocationToolStripMenuItem1_Click(object sender, EventArgs e)
         {

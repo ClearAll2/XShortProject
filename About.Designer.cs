@@ -31,9 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.panelAbout = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.buttonCheckUpdate = new System.Windows.Forms.Button();
             this.panelAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -41,25 +42,26 @@
             // panelAbout
             // 
             this.panelAbout.BackColor = System.Drawing.Color.White;
-            this.panelAbout.Controls.Add(this.label1);
+            this.panelAbout.Controls.Add(this.buttonCheckUpdate);
+            this.panelAbout.Controls.Add(this.labelInfo);
             this.panelAbout.Controls.Add(this.pictureBox1);
             this.panelAbout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelAbout.Location = new System.Drawing.Point(0, 0);
             this.panelAbout.Name = "panelAbout";
-            this.panelAbout.Size = new System.Drawing.Size(384, 179);
+            this.panelAbout.Size = new System.Drawing.Size(384, 192);
             this.panelAbout.TabIndex = 29;
             // 
-            // label1
+            // labelInfo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(120, 55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 57);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "XShort v1.0\r\nCopyright ©  2017\r\nClear All Soft";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInfo.ForeColor = System.Drawing.Color.Black;
+            this.labelInfo.Location = new System.Drawing.Point(120, 55);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(131, 57);
+            this.labelInfo.TabIndex = 23;
+            this.labelInfo.Text = "XShort v1.0\r\nCopyright ©  2017\r\nClear All Soft";
+            this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
@@ -77,11 +79,24 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "Bokehlicia-Captiva-Browser-web.ico");
             // 
+            // buttonCheckUpdate
+            // 
+            this.buttonCheckUpdate.FlatAppearance.BorderSize = 0;
+            this.buttonCheckUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCheckUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCheckUpdate.Location = new System.Drawing.Point(112, 152);
+            this.buttonCheckUpdate.Name = "buttonCheckUpdate";
+            this.buttonCheckUpdate.Size = new System.Drawing.Size(178, 28);
+            this.buttonCheckUpdate.TabIndex = 24;
+            this.buttonCheckUpdate.Text = "Check for update";
+            this.buttonCheckUpdate.UseVisualStyleBackColor = true;
+            this.buttonCheckUpdate.Click += new System.EventHandler(this.buttonCheckUpdate_Click);
+            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 179);
+            this.ClientSize = new System.Drawing.Size(384, 192);
             this.Controls.Add(this.panelAbout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -101,8 +116,9 @@
         #endregion
 
         private System.Windows.Forms.Panel panelAbout;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button buttonCheckUpdate;
     }
 }

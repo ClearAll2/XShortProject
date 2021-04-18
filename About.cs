@@ -1,18 +1,22 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Net;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 
 namespace XShort
 {
     public partial class About : Form
     {
+        public bool exit = false;
+        private string latest = String.Empty;
+        private string changelog = String.Empty;
         public About()
         {
             InitializeComponent();
-            label1.Text = "XShort Core v" + Application.ProductVersion + " build " + this.AssemblyDescription + "\nCopyright © 2021\nXShort Core Project\nFreedom Software";
+            labelInfo.Text = "XShort Core v" + Application.ProductVersion + " build " + this.AssemblyDescription + "\nCopyright © 2021\nXShort Core Project\nFreedom Software";
         }
 
         public string AssemblyDescription
@@ -26,6 +30,68 @@ namespace XShort
                 }
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }
+        }
+
+        private void buttonCheckUpdate_Click(object sender, EventArgs e)
+        {
+            buttonCheckUpdate.Enabled = false;
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((int)e.Result == 0)
+            {
+                MessageBox.Show("No newer version available!\nPlease check later.", "No update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                buttonCheckUpdate.Enabled = true;
+            }
+            else
+            {
+                if (MessageBox.Show(String.Join(" ", "New version is available (", latest, ").\nChangelog:\n", changelog, "\nDo you want to update now?"), "New update", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    WebClient wc = new WebClient();
+                    wc.DownloadFileAsync(new Uri("https://release.clearallsoft.cf/download/XShortCore/xshortcore.zip"), Path.Combine(Application.StartupPath, "xshortcore.zip"));
+                    wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
+                    wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
+                }
+            }
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            WebClient wc = new WebClient();
+            latest = wc.DownloadString("https://release.clearallsoft.cf/download/XShortCore/version");
+            changelog = wc.DownloadString("https://release.clearallsoft.cf/download/XShortCore/changelog");
+            if (latest.CompareTo(Application.ProductVersion) < 0)
+            {
+                e.Result = 1;
+            }
+            else
+            {
+                e.Result = 0;
+            }
+                
+        }
+
+        private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            File.WriteAllText(Application.StartupPath + "\\update.bat", String.Empty);
+            StreamWriter sw = new StreamWriter(Application.StartupPath + "\\update.bat");
+            sw.WriteLine("start powershell.exe" + " " + "Expand-Archive -Force -Path " + Application.StartupPath + "\\xshortcore.zip" + " -DestinationPath " + Application.StartupPath);
+            sw.WriteLine("timeout /T 2");
+            sw.WriteLine("start " + Application.ExecutablePath);
+            sw.WriteLine("del \"xshortcore.zip\"");
+            sw.Close();
+            exit = true;
+            this.Close();
+        }
+
+        private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            buttonCheckUpdate.Text = String.Join(" ", "Downloading", e.ProgressPercentage, "%");
         }
     }
 }
