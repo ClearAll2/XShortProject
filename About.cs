@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Net;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 
 namespace XShort
@@ -45,7 +44,7 @@ namespace XShort
         {
             if ((int)e.Result == 0)
             {
-                MessageBox.Show("No newer version available!\nPlease check later.", "No update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No newer version available!\nPlease check again later.", "No update", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 buttonCheckUpdate.Enabled = true;
             }
             else
@@ -65,7 +64,7 @@ namespace XShort
             WebClient wc = new WebClient();
             latest = wc.DownloadString("https://release.clearallsoft.cf/download/XShortCore/version");
             changelog = wc.DownloadString("https://release.clearallsoft.cf/download/XShortCore/changelog");
-            if (latest.CompareTo(Application.ProductVersion) < 0)
+            if (latest.CompareTo(Application.ProductVersion) > 0)
             {
                 e.Result = 1;
             }
@@ -73,7 +72,7 @@ namespace XShort
             {
                 e.Result = 0;
             }
-                
+            wc.Dispose(); 
         }
 
         private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -92,6 +91,12 @@ namespace XShort
         private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             buttonCheckUpdate.Text = String.Join(" ", "Downloading", e.ProgressPercentage, "%");
+        }
+
+        private void About_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!buttonCheckUpdate.Enabled)
+                e.Cancel = true;
         }
     }
 }

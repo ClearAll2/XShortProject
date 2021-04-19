@@ -31,10 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.panelAbout = new System.Windows.Forms.Panel();
+            this.buttonCheckUpdate = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.buttonCheckUpdate = new System.Windows.Forms.Button();
             this.panelAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +50,21 @@
             this.panelAbout.Name = "panelAbout";
             this.panelAbout.Size = new System.Drawing.Size(384, 192);
             this.panelAbout.TabIndex = 29;
+            // 
+            // buttonCheckUpdate
+            // 
+            this.buttonCheckUpdate.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonCheckUpdate.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.buttonCheckUpdate.FlatAppearance.BorderSize = 0;
+            this.buttonCheckUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCheckUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCheckUpdate.Location = new System.Drawing.Point(112, 152);
+            this.buttonCheckUpdate.Name = "buttonCheckUpdate";
+            this.buttonCheckUpdate.Size = new System.Drawing.Size(178, 28);
+            this.buttonCheckUpdate.TabIndex = 24;
+            this.buttonCheckUpdate.Text = "Check for update";
+            this.buttonCheckUpdate.UseVisualStyleBackColor = false;
+            this.buttonCheckUpdate.Click += new System.EventHandler(this.buttonCheckUpdate_Click);
             // 
             // labelInfo
             // 
@@ -79,19 +94,6 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "Bokehlicia-Captiva-Browser-web.ico");
             // 
-            // buttonCheckUpdate
-            // 
-            this.buttonCheckUpdate.FlatAppearance.BorderSize = 0;
-            this.buttonCheckUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCheckUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCheckUpdate.Location = new System.Drawing.Point(112, 152);
-            this.buttonCheckUpdate.Name = "buttonCheckUpdate";
-            this.buttonCheckUpdate.Size = new System.Drawing.Size(178, 28);
-            this.buttonCheckUpdate.TabIndex = 24;
-            this.buttonCheckUpdate.Text = "Check for update";
-            this.buttonCheckUpdate.UseVisualStyleBackColor = true;
-            this.buttonCheckUpdate.Click += new System.EventHandler(this.buttonCheckUpdate_Click);
-            // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -106,6 +108,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.About_FormClosing);
             this.panelAbout.ResumeLayout(false);
             this.panelAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

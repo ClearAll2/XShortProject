@@ -90,15 +90,12 @@ namespace XShort
             if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
                 Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + " " + interval.ToString());
 
-            //BackgroundWorker bwu = new BackgroundWorker();
-            //bwu.DoWork += Bwu_DoWork;
-            //bwu.RunWorkerAsync();
-
             for (int i = 0; i < listViewData.Columns.Count; i++)
                 listViewData.Columns[i].Width = listViewData.Width / listViewData.Columns.Count;
 
         }
 
+       
 
         internal struct LASTINPUTINFO
         {
@@ -288,67 +285,6 @@ namespace XShort
                 f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             }
         }
-
-        private void Bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //if (File.Exists(dataPath + "\\data1.data"))
-            //    bw.RunWorkerAsync();
-            //else
-            //{
-            //    button2_Click_2(null, null);
-
-            //}
-        }
-
-        private string GetProductVersion(string s)
-        {
-            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(s);
-            return myFileVersionInfo.ProductVersion;
-        }
-
-        //update the updater
-        private void Bwu_DoWork(object sender, DoWorkEventArgs e)
-        {
-            string ver = "https://download-cas.000webhostapp.com/download/updater.txt"; //version on the internet
-            string curr_ver;
-            if (checkValid(Application.StartupPath + "\\XShort Updater.exe") != -1)
-                curr_ver = GetProductVersion(Application.StartupPath + "\\XShort Updater.exe"); //version of updater
-            else
-                curr_ver = "0.0.0.0";
-            //MessageBox.Show(curr_ver);         
-            WebClient wc = new WebClient();
-            try
-            {
-                string sver = wc.DownloadString(ver);
-                int isLatest = curr_ver.CompareTo(sver);
-                if (isLatest < 0)
-                {
-                    wc.DownloadFile(new Uri("https://drive.google.com/uc?export=download&id=164dpM8f4uOTyWIaLvf8OIiZ-K8PS459l"), Application.StartupPath + "\\XShort Updater.exe");
-                }
-
-            }
-            catch
-            {
-                wc.Dispose();
-                //return;
-            }
-            wc.Dispose();
-
-        }
-
-        public string AssemblyDescription
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
-            }
-        }
-
 
 
         //load data
