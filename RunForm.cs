@@ -1489,7 +1489,7 @@ namespace XShort
                             listViewResult.Items[i].ToolTipText = dir[i];
                         }
                         if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
-                            this.Height += listViewResult.Height;
+                            this.Height += listViewResult.Height + listViewResult.Height / 10;//fix cutting listview
                     }
                     else
                     {
@@ -1516,7 +1516,7 @@ namespace XShort
                                 listViewResult.Items[i].ToolTipText = matches[i];
                             }
                             if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
-                                this.Height += listViewResult.Height;
+                                this.Height += listViewResult.Height + listViewResult.Height / 10;
                         }
                     }
                 }
