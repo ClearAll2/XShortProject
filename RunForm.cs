@@ -37,6 +37,7 @@ namespace XShort
         private string text1, part = String.Empty;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
         private string[] sysCmd = { "utilman", "hdwwiz", "appwiz.cpl", "netplwz", "azman.msc", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "compmgmt.msc", "control", "credwiz", "timedate.cpl", "hdwwiz", "devmgmt.msc", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
+        private string lastcalled = String.Empty;
         private BackgroundWorker bw;
         private int originalSize;
         private List<String> indexData = new List<string>();
@@ -121,6 +122,7 @@ namespace XShort
         {
             if (ss)
             {
+                List<String> addedSuggestions = new List<string>();
                 rel = 0;
                 panelSuggestions.Controls.Clear();
                 timeSuggestions.Clear();
@@ -138,10 +140,37 @@ namespace XShort
                     for (int i = 0; i < timeSuggestions.Count; i++)
                     {
                         AddNewSuggestionsItems(timeSuggestions[i].loc, sName.Contains(timeSuggestions[i].loc));
+                        addedSuggestions.Add(timeSuggestions[i].loc);
                         if (rel >= suggestNum)
                             break;
                     }
+                    if (rel < suggestNum)
+                    {
+                        int remain = suggestNum - rel;
+                        if (suggestions.Count >= remain)
+                        {
+                            for (int i = 0; i < timeSuggestions.Count; i++)
+                            {
+                                if (timeSuggestions[i].nextcall != String.Empty)
+                                {
+                                    if (!addedSuggestions.Contains(timeSuggestions[i].nextcall))//prevent duplicate 
+                                    {
+                                        if (!blockList.Contains(timeSuggestions[i].nextcall))//if it's not in blocklist
+                                        {
+                                            AddNewSuggestionsItems(timeSuggestions[i].nextcall, sName.Contains(timeSuggestions[i].nextcall));
+                                            addedSuggestions.Add(timeSuggestions[i].nextcall);
+                                            if (remain > 0)
+                                                remain -= 1;
+                                            else
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+                
                 if (rel < suggestNum)
                 {
                     int remain = suggestNum - rel;
@@ -149,11 +178,12 @@ namespace XShort
                     {
                         for (int i = 0; i < suggestions.Count; i++)
                         {
-                            if (!timeSuggestions.Contains(suggestions[i]))//prevent duplicate 
+                            if (!addedSuggestions.Contains(suggestions[i].loc))//prevent duplicate 
                             {
                                 if (!blockList.Contains(suggestions[i].loc))//if it's not in blocklist
                                 {
                                     AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
+                                    addedSuggestions.Add(suggestions[i].loc);
                                     if (remain > 0)
                                         remain -= 1;
                                     else
@@ -189,7 +219,15 @@ namespace XShort
                 {
                     string read = sr.ReadLine();
                     string[] cut = read.Split('|');
-                    suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
+                    if (cut.Length == 3)
+                        suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
+                    else
+                    {
+                        if (sName.Contains(cut[3]) || sysCmd.Contains(cut[3]))
+                            suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2]), cut[3]));
+                        else
+                            suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
+                    }
                 }
                 sr.Close();
                 fs.Close();
@@ -209,6 +247,7 @@ namespace XShort
             };
             newsuggestion.FlatAppearance.BorderSize = 0;
             newsuggestion.FlatAppearance.BorderColor = Color.White;
+            newsuggestion.Tag = text;
             if (useImageList)
             {
                 newsuggestion.ImageList = sImage;
@@ -258,6 +297,7 @@ namespace XShort
             toolTip1.SetToolTip(newsuggestion, toolTip);
             newsuggestion.AutoEllipsis = true;
             newsuggestion.Left = rel * recentWidth;
+            newsuggestion.Tag = text;
             newsuggestion.Text = text;
             newsuggestion.TabStop = false;
             newsuggestion.ContextMenuStrip = contextMenuStrip1;
@@ -291,7 +331,7 @@ namespace XShort
         private void Newsuggestion_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            SimpleRun(button.Text, sName.Contains(button.Text));
+            SimpleRun(button.Tag.ToString(), sName.Contains(button.Tag.ToString()));
             comboBoxRun.Text = String.Empty;
             ReloadSuggestions();
         }
@@ -376,6 +416,42 @@ namespace XShort
             }
         }
 
+        private void UpdateSuggestions(string name)
+        {
+            string current;
+            if (suggestions.Count > 0)
+            {
+                int position = CheckExistSuggestion(name);
+                if (position != -1)
+                {
+                    suggestions[position].count += 1;
+                    suggestions[position].lasttime = DateTime.Now;
+                    current = suggestions[position].loc;
+                }
+                else
+                {
+                    suggestions.Add(new Suggestions(name, 1, DateTime.Now));
+                    current = name;
+                }
+            }
+            else
+            {
+                suggestions.Add(new Suggestions(name, 1, DateTime.Now));
+                current = name;
+            }
+            if (lastcalled != String.Empty)
+            {
+                int previous = CheckExistSuggestion(lastcalled);//find position of last called shorcut
+                lastcalled = current;                           //set last called = current called
+                suggestions[previous].nextcall = lastcalled;    //set last called shortcut's next call = last called = current
+            }
+            else
+            {
+                lastcalled = current;
+            }
+            SortSuggestions();
+        }
+
         private void SimpleRun(string s, bool isInList)
         {
             if (isInList)
@@ -392,20 +468,7 @@ namespace XShort
                                 Process.Start(sPath[i]);
 
                             //for suggestions
-                            if (suggestions.Count > 0)
-                            {
-                                int position = CheckExistSuggestion(sName[i]);
-                                if (position != -1)
-                                {
-                                    suggestions[position].count += 1;
-                                    suggestions[position].lasttime = DateTime.Now;
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            }
-                            else
-                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            SortSuggestions();
+                            UpdateSuggestions(sName[i]);
                         }
                         catch
                         {
@@ -429,20 +492,7 @@ namespace XShort
                         Process.Start(proc);
 
                         //for suggestions
-                        if (suggestions.Count > 0)
-                        {
-                            int position = CheckExistSuggestion(s);
-                            if (position != -1)
-                            {
-                                suggestions[position].count += 1;
-                                suggestions[position].lasttime = DateTime.Now;
-                            }
-                            else
-                                suggestions.Add(new Suggestions(s, 1, DateTime.Now));
-                        }
-                        else
-                            suggestions.Add(new Suggestions(s, 1, DateTime.Now));
-                        SortSuggestions();
+                        UpdateSuggestions(s);
                     }
                     catch
                     {
@@ -716,20 +766,7 @@ namespace XShort
                     proc.Verb = "runas";
                 Process.Start(proc);
                 //for suggestions
-                if (suggestions.Count > 0)
-                {
-                    int position = CheckExistSuggestion(tmp);
-                    if (position != -1)
-                    {
-                        suggestions[position].count += 1;
-                        suggestions[position].lasttime = DateTime.Now;
-                    }
-                    else
-                        suggestions.Add(new Suggestions(tmp, 1, DateTime.Now));
-                }
-                else
-                    suggestions.Add(new Suggestions(tmp, 1, DateTime.Now));
-                SortSuggestions();
+                UpdateSuggestions(tmp);
 
                 return;
             }
@@ -750,22 +787,10 @@ namespace XShort
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
-                            
+
                             //for suggestions
-                            if (suggestions.Count > 0)
-                            {
-                                int position = CheckExistSuggestion(sName[i]);
-                                if (position != -1)
-                                {
-                                    suggestions[position].count += 1;
-                                    suggestions[position].lasttime = DateTime.Now;
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            }
-                            else
-                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            SortSuggestions();
+                            UpdateSuggestions(sName[i]);
+
                         }
                         catch
                         {
@@ -790,20 +815,8 @@ namespace XShort
                                 proc.Verb = "runas";
                             Process.Start(proc);
                             //for suggestions
-                            if (suggestions.Count > 0)
-                            {
-                                int position = CheckExistSuggestion(sName[i]);
-                                if (position != -1)
-                                {
-                                    suggestions[position].count += 1;
-                                    suggestions[position].lasttime = DateTime.Now;
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            }
-                            else
-                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            SortSuggestions();
+                            UpdateSuggestions(sName[i]);
+
 
                         }
                         catch
@@ -831,20 +844,8 @@ namespace XShort
                             Process.Start(proc);
 
                             //for suggestions
-                            if (suggestions.Count > 0)
-                            {
-                                int position = CheckExistSuggestion(sName[i]);
-                                if (position != -1)
-                                {
-                                    suggestions[position].count += 1;
-                                    suggestions[position].lasttime = DateTime.Now;
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            }
-                            else
-                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            SortSuggestions();
+                            UpdateSuggestions(sName[i]);
+
 
                         }
                         catch
@@ -878,20 +879,8 @@ namespace XShort
                             Process.Start(proc);
 
                             //for suggestions
-                            if (suggestions.Count > 0)
-                            {
-                                int position = CheckExistSuggestion(sName[i]);
-                                if (position != -1)
-                                {
-                                    suggestions[position].count += 1;
-                                    suggestions[position].lasttime = DateTime.Now;
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            }
-                            else
-                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            SortSuggestions();
+                            UpdateSuggestions(sName[i]);
+
                             return;
                         }
                         catch
@@ -917,20 +906,8 @@ namespace XShort
                             Process.Start(proc);
 
                             //for suggestions
-                            if (suggestions.Count > 0)
-                            {
-                                int position = CheckExistSuggestion(sName[i]);
-                                if (position != -1)
-                                {
-                                    suggestions[position].count += 1;
-                                    suggestions[position].lasttime = DateTime.Now;
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            }
-                            else
-                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            SortSuggestions();
+                            UpdateSuggestions(sName[i]);
+
                         }
                         catch
                         {
@@ -956,20 +933,8 @@ namespace XShort
                                 proc.Verb = "runas";
                             Process.Start(proc);
                             //for suggestions
-                            if (suggestions.Count > 0)
-                            {
-                                int position = CheckExistSuggestion(sName[i]);
-                                if (position != -1)
-                                {
-                                    suggestions[position].count += 1;
-                                    suggestions[position].lasttime = DateTime.Now;
-                                }
-                                else
-                                    suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            }
-                            else
-                                suggestions.Add(new Suggestions(sName[i], 1, DateTime.Now));
-                            SortSuggestions();
+                            UpdateSuggestions(sName[i]);
+
                         }
                         catch
                         {
@@ -1117,10 +1082,13 @@ namespace XShort
         {
             if (suggestions.Count > 0)
             {
-                System.IO.File.WriteAllText(dataPath + "\\suggestions", String.Empty);
+                string path = Path.Combine(dataPath, "suggestions");
+                System.IO.File.WriteAllText(path, String.Empty);
                 for (int i = 0; i < suggestions.Count; i++)
                 {
-                    System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
+                    string newline = String.Join("", suggestions[i].loc, "|", suggestions[i].count, "|", suggestions[i].lasttime, "|", suggestions[i].nextcall, Environment.NewLine);
+                    //System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
+                    System.IO.File.AppendAllText(path, newline);
                 }
                 
             }
