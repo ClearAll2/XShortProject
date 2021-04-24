@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -25,7 +24,6 @@ namespace XShort
         private ImageList sImage = new ImageList();
         private List<Suggestions> suggestions = new List<Suggestions>();
         private List<Suggestions> timeSuggestions = new List<Suggestions>();
-        private RegistryKey r;
         private string dataPath;
         private bool ggSearch = true;
         private bool csen = false;

@@ -5,7 +5,6 @@ namespace XShort
     public partial class ProgressForm : Form
     {
         bool close = false;
-        bool en = true;
         public ProgressForm()
         {
             InitializeComponent();
