@@ -388,7 +388,8 @@ namespace XShort
             {
                 if (f2.IsDisposed != true && f2 != null)
                 {
-                    f2.LoadIndex();
+                    f2.Close();
+                    f2 = new RunForm();
                 }
             }
             base.WndProc(ref m);
@@ -1265,7 +1266,7 @@ namespace XShort
 
 
 
-            if (f2 != null)
+            if (f2 != null && !f2.IsDisposed)
             {
                 f2.LoadData();
 

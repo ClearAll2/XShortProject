@@ -110,12 +110,29 @@ namespace XShort
             }
         }
 
+        /// <summary>
+        /// Check and remove invalid shortcuts from suggestions
+        /// </summary>
+        public void MaintainSuggestions()
+        {
+            for (int i = 0; i < suggestions.Count; i++)
+            {
+                if (!sName.Contains(suggestions[i].loc) && !sysCmd.Contains(suggestions[i].loc))
+                    suggestions.RemoveAt(i);
+                if (!sName.Contains(suggestions[i].nextcall) && !sysCmd.Contains(suggestions[i].nextcall))
+                    suggestions[i].nextcall = String.Empty;
+            }
+        }
+
 
         private void timerSuggestions_Tick(object sender, EventArgs e)
         {
             ReloadSuggestions();
         }
 
+        /// <summary>
+        /// Build shortcut suggestions from their last time, next called and order
+        /// </summary>
         public void ReloadSuggestions()
         {
             if (ss)
@@ -194,6 +211,11 @@ namespace XShort
             }
         }
 
+        /// <summary>
+        /// Check if a shortcut is in suggestions list
+        /// </summary>
+        /// <param name="loc">suggestion loc</param>
+        /// <returns></returns>
         private int CheckExistSuggestion(string loc)
         {
             for (int i = 0; i < suggestions.Count; i++)
@@ -207,6 +229,9 @@ namespace XShort
         }
 
 
+        /// <summary>
+        /// Load suggestions list from file
+        /// </summary>
         private void LoadSuggestions()
         {
             if (System.IO.File.Exists(dataPath + "\\suggestions"))
@@ -220,12 +245,7 @@ namespace XShort
                     if (cut.Length == 3)
                         suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
                     else
-                    {
-                        if (sName.Contains(cut[3]) || sysCmd.Contains(cut[3]))
-                            suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2]), cut[3]));
-                        else
-                            suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2])));
-                    }
+                        suggestions.Add(new Suggestions(cut[0], Int32.Parse(cut[1]), DateTime.Parse(cut[2]), cut[3]));
                 }
                 sr.Close();
                 fs.Close();
@@ -234,6 +254,11 @@ namespace XShort
             }
         }
 
+        /// <summary>
+        /// Create new suggestions button on the Run box
+        /// </summary>
+        /// <param name="text">Display text</param>
+        /// <param name="useImageList">Use built-in image list?</param>
         private void AddNewSuggestionsItems(string text, bool useImageList)
         {
             int recentWidth = 1 + (panelSuggestions.Width - 1) / suggestNum;//https://stackoverflow.com/questions/15100685/what-is-the-right-way-to-round-dividing-to-integers
@@ -278,6 +303,13 @@ namespace XShort
             rel += 1;
         }
 
+        /// <summary>
+        /// Create new suggestions button on the Run box
+        /// </summary>
+        /// <param name="text">Display text</param>
+        /// <param name="imageList">Image list</param>
+        /// <param name="imageIndex">Image index</param>
+        /// <param name="toolTip">Tooltip</param>
         private void AddNewSuggestionsItems(string text, ImageList imageList, int imageIndex, string toolTip)
         {
             int recentWidth = 1 + (panelSuggestions.Width - 1) / suggestNum;//https://stackoverflow.com/questions/15100685/what-is-the-right-way-to-round-dividing-to-integers
@@ -308,6 +340,11 @@ namespace XShort
             rel += 1;
         }
 
+        /// <summary>
+        /// Action of middle mouse button
+        /// </summary>
+        /// <param name="sender">Button</param>
+        /// <param name="e">Mouse</param>
         private void Newsuggestion_MouseDown(object sender, MouseEventArgs e)
         {
             Button button = (Button)sender;
@@ -334,6 +371,9 @@ namespace XShort
             ReloadSuggestions();
         }
 
+        /// <summary>
+        /// Sort suggestions list
+        /// </summary>
         private void SortSuggestions()
         {
             if (suggestions.Count > 1)
@@ -414,6 +454,10 @@ namespace XShort
             }
         }
 
+        /// <summary>
+        /// Update next called shortcut suggestions
+        /// </summary>
+        /// <param name="name">Shortcut name</param>
         private void UpdateSuggestions(string name)
         {
             string current;
@@ -441,7 +485,8 @@ namespace XShort
             {
                 int previous = CheckExistSuggestion(lastcalled);//find position of last called shorcut
                 lastcalled = current;                           //set last called = current called
-                suggestions[previous].nextcall = lastcalled;    //set last called shortcut's next call = last called = current
+                if (lastcalled != suggestions[previous].loc)    //prevent next called is itself
+                    suggestions[previous].nextcall = lastcalled;    //set last called shortcut's next call = last called = current
             }
             else
             {
@@ -683,6 +728,7 @@ namespace XShort
                 comboBoxRun.Items.Add(sName[i]);
             }
             LoadIndex();
+            MaintainSuggestions();
             return 1;
 
         }
@@ -743,7 +789,9 @@ namespace XShort
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
             {
-                blockList.Add(sr.ReadLine());
+                string read = sr.ReadLine();
+                if (sName.Contains(read) || sysCmd.Contains(read))//check if it's not an invalid shortcut
+                    blockList.Add(read);
             }
             fs.Close();
             sr.Close();
@@ -1007,7 +1055,12 @@ namespace XShort
             MessageBox.Show("Unavailable shortcut name!?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        //deprecated
+        //
+        /// <summary>
+        /// Deprecated
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="languagePair"></param>
         public void TranslateText(string input, string languagePair)
         {
             string url = String.Format("http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}", input, languagePair);
