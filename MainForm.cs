@@ -9,7 +9,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -390,6 +389,7 @@ namespace XShort
                 {
                     f2.Close();
                     f2 = new RunForm();
+                    f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
                 }
             }
             base.WndProc(ref m);

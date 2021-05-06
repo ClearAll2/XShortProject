@@ -110,6 +110,35 @@ namespace XShort
             }
         }
 
+        private void LoadIcon(ImageList imageList, List<String> path)
+        {
+            imageList.Images.Clear();
+            for (int i = 0; i < path.Count; i++)
+            {
+                try
+                {
+                    imageList.Images.Add(Icon.ExtractAssociatedIcon(path[i]));
+                }
+                catch
+                {
+                    if (path[i].Contains("http"))
+                        imageList.Images.Add(Properties.Resources.internet);
+                    else if (path[i].Contains("\\"))
+                    {
+                        if (Directory.Exists(path[i]))
+                            imageList.Images.Add(Properties.Resources.dir);
+                        else
+                            imageList.Images.Add(Properties.Resources.error);
+                    }
+                    else
+                    {
+                        imageList.Images.Add(Properties.Resources.question_help_mark_balloon_512);
+                    }
+
+                }
+            }
+        }
+
         /// <summary>
         /// Check and remove invalid shortcuts from suggestions
         /// </summary>
@@ -1483,6 +1512,7 @@ namespace XShort
                 if (this.Height > listViewResult.Height)
                     this.Height = originalSize;
                 ReloadSuggestions();
+                imageList1.Images.Clear();
             }
         }
 
@@ -1498,13 +1528,12 @@ namespace XShort
                     {
                         listViewResult.Items.Clear();
                         listViewResult.SmallImageList = imageList1;
+                        LoadIcon(imageList1, dir);
                         for (int i = 0; i < dir.Count; i++)
                         {
-                            listViewResult.Items.Add(new ListViewItem(dir[i].Substring(dir[i].LastIndexOf("\\") + 1)));
-                            if (!Directory.Exists(dir[i]))
-                                listViewResult.Items[i].ImageIndex = 1;//file
-                            else
-                                listViewResult.Items[i].ImageIndex = 0;//folder
+                            string item = Path.GetFileNameWithoutExtension(dir[i]);
+                            listViewResult.Items.Add(new ListViewItem(item.Substring(item.LastIndexOf("\\") + 1)));
+                            listViewResult.Items[i].ImageIndex = i;
                             listViewResult.Items[i].ToolTipText = dir[i];
                         }
                         if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
@@ -1525,13 +1554,12 @@ namespace XShort
                         {
                             listViewResult.Items.Clear();
                             listViewResult.SmallImageList = imageList1;
+                            LoadIcon(imageList1, matches);
                             for (int i = 0; i < matches.Count; i++)
                             {
-                                listViewResult.Items.Add(new ListViewItem(matches[i].Substring(matches[i].LastIndexOf("\\") + 1)));
-                                if (!Directory.Exists(matches[i]))
-                                    listViewResult.Items[i].ImageIndex = 1;
-                                else
-                                    listViewResult.Items[i].ImageIndex = 0;
+                                string item = Path.GetFileNameWithoutExtension(matches[i]);
+                                listViewResult.Items.Add(new ListViewItem(item.Substring(item.LastIndexOf("\\") + 1)));
+                                listViewResult.Items[i].ImageIndex = i;
                                 listViewResult.Items[i].ToolTipText = matches[i];
                             }
                             if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
