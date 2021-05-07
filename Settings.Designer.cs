@@ -77,7 +77,6 @@
             this.comboBoxHotkey = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.linkLabelHotKey = new System.Windows.Forms.LinkLabel();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -86,6 +85,7 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonHotkeySetting = new System.Windows.Forms.Button();
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
@@ -581,7 +581,6 @@
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.panelHotkey);
-            this.groupBox1.Controls.Add(this.linkLabelHotKey);
             this.groupBox1.Controls.Add(this.checkBox7);
             this.groupBox1.Controls.Add(this.checkBox5);
             this.groupBox1.Controls.Add(this.checkBox4);
@@ -589,6 +588,7 @@
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox8);
+            this.groupBox1.Controls.Add(this.buttonHotkeySetting);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(24, 10);
@@ -756,17 +756,6 @@
             this.label9.TabIndex = 2;
             this.label9.Text = "Modifiers:";
             // 
-            // linkLabelHotKey
-            // 
-            this.linkLabelHotKey.AutoSize = true;
-            this.linkLabelHotKey.Location = new System.Drawing.Point(417, 38);
-            this.linkLabelHotKey.Name = "linkLabelHotKey";
-            this.linkLabelHotKey.Size = new System.Drawing.Size(55, 18);
-            this.linkLabelHotKey.TabIndex = 10;
-            this.linkLabelHotKey.TabStop = true;
-            this.linkLabelHotKey.Text = "Hotkey";
-            this.linkLabelHotKey.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHotKey_LinkClicked);
-            // 
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
@@ -837,14 +826,31 @@
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(23, 202);
+            this.checkBox8.Location = new System.Drawing.Point(258, 34);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(180, 22);
             this.checkBox8.TabIndex = 9;
             this.checkBox8.Text = "Hide main list at startup";
             this.toolTip1.SetToolTip(this.checkBox8, "Improve loading time");
             this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.Visible = false;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
+            // buttonHotkeySetting
+            // 
+            this.buttonHotkeySetting.BackColor = System.Drawing.Color.White;
+            this.buttonHotkeySetting.FlatAppearance.BorderSize = 0;
+            this.buttonHotkeySetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHotkeySetting.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHotkeySetting.ForeColor = System.Drawing.Color.Black;
+            this.buttonHotkeySetting.Location = new System.Drawing.Point(35, 202);
+            this.buttonHotkeySetting.Name = "buttonHotkeySetting";
+            this.buttonHotkeySetting.Size = new System.Drawing.Size(421, 29);
+            this.buttonHotkeySetting.TabIndex = 23;
+            this.buttonHotkeySetting.Text = "Hotkey settings";
+            this.buttonHotkeySetting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHotkeySetting.UseVisualStyleBackColor = false;
+            this.buttonHotkeySetting.Click += new System.EventHandler(this.buttonHotkeySetting_Click);
             // 
             // Settings
             // 
@@ -922,7 +928,6 @@
         private System.Windows.Forms.Label labelLastUpdate;
         private System.Windows.Forms.Label labelBuildIndexInterval;
         private System.Windows.Forms.NumericUpDown numericUpDownInterval;
-        private System.Windows.Forms.LinkLabel linkLabelHotKey;
         private System.Windows.Forms.Button buttonHotkeyCancel;
         private System.Windows.Forms.Button buttonApplyHotkey;
         private System.Windows.Forms.Label labelExplainBlocklist;
@@ -938,5 +943,6 @@
         private System.Windows.Forms.Button buttonExclusionList;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonExBack;
+        private System.Windows.Forms.Button buttonHotkeySetting;
     }
 }

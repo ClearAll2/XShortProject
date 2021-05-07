@@ -296,6 +296,7 @@
             this.buttonSave.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.buttonSave.FlatAppearance.BorderSize = 0;
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.ForeColor = System.Drawing.Color.Black;
             this.buttonSave.ImageIndex = 9;
             this.buttonSave.ImageList = this.imageList1;
             this.buttonSave.Location = new System.Drawing.Point(625, 597);
@@ -303,7 +304,7 @@
             this.buttonSave.Size = new System.Drawing.Size(111, 28);
             this.buttonSave.TabIndex = 36;
             this.buttonSave.TabStop = false;
-            this.buttonSave.Text = "Save shortcuts";
+            this.buttonSave.Text = "Save";
             this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.buttonSave, "Save shortcuts");
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -338,6 +339,7 @@
             this.buttonAddURL.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.buttonAddURL.FlatAppearance.BorderSize = 0;
             this.buttonAddURL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddURL.ForeColor = System.Drawing.Color.Black;
             this.buttonAddURL.ImageIndex = 10;
             this.buttonAddURL.ImageList = this.imageList1;
             this.buttonAddURL.Location = new System.Drawing.Point(508, 597);
@@ -357,6 +359,7 @@
             this.buttonAddDir.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.buttonAddDir.FlatAppearance.BorderSize = 0;
             this.buttonAddDir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddDir.ForeColor = System.Drawing.Color.Black;
             this.buttonAddDir.ImageIndex = 8;
             this.buttonAddDir.ImageList = this.imageList1;
             this.buttonAddDir.Location = new System.Drawing.Point(375, 597);
@@ -376,6 +379,7 @@
             this.buttonAddApp.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.buttonAddApp.FlatAppearance.BorderSize = 0;
             this.buttonAddApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddApp.ForeColor = System.Drawing.Color.Black;
             this.buttonAddApp.ImageIndex = 11;
             this.buttonAddApp.ImageList = this.imageList1;
             this.buttonAddApp.Location = new System.Drawing.Point(251, 597);

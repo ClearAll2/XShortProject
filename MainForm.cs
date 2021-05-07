@@ -217,26 +217,26 @@ namespace XShort
             else
                 detect = false;
 
-            if (r.GetValue("DontLoad") != null)
-            {
-                dontload = true;
+            //if (r.GetValue("DontLoad") != null)
+            //{
+            //    dontload = true;
 
-                buttonSave.Enabled = false;
-                buttonAddApp.Enabled = false;
-                buttonAddDir.Enabled = false;
-                buttonAddURL.Enabled = false;
-                appToolStripMenuItem.Enabled = false;
+            //    buttonSave.Enabled = false;
+            //    buttonAddApp.Enabled = false;
+            //    buttonAddDir.Enabled = false;
+            //    buttonAddURL.Enabled = false;
+            //    appToolStripMenuItem.Enabled = false;
 
-            }
-            else
-            {
-                dontload = false;
-                buttonSave.Enabled = true;
-                buttonAddApp.Enabled = true;
-                buttonAddDir.Enabled = true;
-                buttonAddURL.Enabled = true;
-                appToolStripMenuItem.Enabled = true;
-            }
+            //}
+            //else
+            //{
+            //    dontload = false;
+            //    buttonSave.Enabled = true;
+            //    buttonAddApp.Enabled = true;
+            //    buttonAddDir.Enabled = true;
+            //    buttonAddURL.Enabled = true;
+            //    appToolStripMenuItem.Enabled = true;
+            //}
             if (r.GetValue("Suggestions") != null)
                 suggestions = true;
             else
@@ -655,6 +655,81 @@ namespace XShort
             }
             return 1;
         }
+
+        //private int LoadData2()
+        //{
+        //    int i = 0;
+        //    FileStream fs;
+        //    StreamReader sr;
+        //    f3.changeDisplay(1);
+        //    try
+        //    {
+        //        fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.Open, FileAccess.Read);
+        //    }
+        //    catch
+        //    {
+        //        return 0;
+        //    }
+        //    sr = new StreamReader(fs);
+
+        //    while (!sr.EndOfStream)
+        //    {
+        //        Shortcut shortcut = new Shortcut
+        //        {
+        //            Name = sr.ReadLine()
+        //        };
+        //        Shortcuts.Add(shortcut);
+        //    }
+        //    fs.Close();
+        //    sr.Close();
+
+        //    //
+        //    f3.changeDisplay(2);
+        //    try
+        //    {
+        //        fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
+        //    }
+        //    catch
+        //    {
+        //        return -1;
+        //    }
+        //    sr = new StreamReader(fs);
+        //    while (!sr.EndOfStream)
+        //    {
+        //        Shortcuts[i].Path = sr.ReadLine();
+        //        i++;
+        //    }
+        //    fs.Close();
+        //    sr.Close();
+
+        //    //
+        //    f3.changeDisplay(3);
+        //    i = 0;
+        //    try
+        //    {
+        //        fs = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.Open, FileAccess.Read);
+        //    }
+        //    catch
+        //    {
+        //        return -1;
+        //    }
+        //    sr = new StreamReader(fs);
+        //    while (!sr.EndOfStream)
+        //    {
+        //        Shortcuts[i].Para = sr.ReadLine();
+        //        i++;
+        //    }
+        //    fs.Close();
+        //    sr.Close();
+
+
+        //    listViewData.Items.Clear();
+        //    for (int j = 0; j < Shortcuts.Count; j++)
+        //    {
+        //        listViewData.Items.Add(new ListViewItem(new string[] { Shortcuts[j].Name, Shortcuts[j].Path, Shortcuts[j].Para }));
+        //    }
+        //    return 1;
+        //}
 
         private int importData(string path)
         {
@@ -1139,9 +1214,10 @@ namespace XShort
             for (int j = 0; j < Shortcuts.Count; j++)
             {
                 listViewData.Items.Add(new ListViewItem(new string[] { Shortcuts[j].Name, Shortcuts[j].Path, Shortcuts[j].Para }));
-                File.AppendAllText(Path.Combine(dataPath, "data1.data"), String.Join("", Shortcuts[j].Name, Environment.NewLine));
-                File.AppendAllText(Path.Combine(dataPath, "data2.data"), String.Join("", Shortcuts[j].Path, Environment.NewLine));
-                File.AppendAllText(Path.Combine(dataPath, "data3.data"), String.Join("", Shortcuts[j].Para, Environment.NewLine));
+                File.AppendAllText(Path.Combine(dataPath, "data1.data"), String.Join("", StringCipher.Encrypt(Shortcuts[j].Name, pass), Environment.NewLine));
+                File.AppendAllText(Path.Combine(dataPath, "data2.data"), String.Join("", StringCipher.Encrypt(Shortcuts[j].Path, pass), Environment.NewLine));
+                File.AppendAllText(Path.Combine(dataPath, "data3.data"), String.Join("", StringCipher.Encrypt(Shortcuts[j].Para, pass), Environment.NewLine));
+                
             }
 
             if (detect)
@@ -1164,9 +1240,9 @@ namespace XShort
             if (f2 != null && !f2.IsDisposed)
             {
                 f2.Close();
-                f2 = new RunForm(Shortcuts);
-                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             }
+            f2 = new RunForm(Shortcuts);
+            f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             img.Dispose();
             img = new ImageList();
             img.ColorDepth = ColorDepth.Depth32Bit;
@@ -1926,19 +2002,12 @@ namespace XShort
                 listViewData.Enabled = false;
                 if (File.Exists(Path.Combine(dataPath, "data1.data")))
                 {
-
-                    back = LoadData();
-                    if (back == -1)
-                    {
-
-                        MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
+                    LoadData();
+                    loadIcon();
                 }
                 listViewData.Enabled = true;
                 f3.Show();
                 f3.Hide();
-                loadIcon();
-
                 //load startup file
                 for (int i = 0; i < listViewData.Items.Count; i++)
                 {
@@ -1950,14 +2019,6 @@ namespace XShort
                         }
                     }
                 }
-
-
-
-                buttonSave.Enabled = true;
-                buttonAddApp.Enabled = true;
-                buttonAddDir.Enabled = true;
-                buttonAddURL.Enabled = true;
-                appToolStripMenuItem.Enabled = true;
             }
             else
             {

@@ -518,7 +518,7 @@ namespace XShort
             
         }
 
-        private void linkLabelHotKey_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void buttonHotkeySetting_Click(object sender, EventArgs e)
         {
             Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
         }
