@@ -17,9 +17,7 @@ namespace XShort
         private int index = 0;
         private int rel = 0;
         private List<String> dir = new List<String>();
-        private List<String> sName = new List<String>();
-        private List<String> sPath = new List<String>();
-        private List<String> sPara = new List<String>();
+        private List<Shortcut> Shortcuts;
         private List<String> blockList = new List<string>();
         private ImageList sImage = new ImageList();
         private List<Suggestions> suggestions = new List<Suggestions>();
@@ -42,9 +40,10 @@ namespace XShort
         private readonly BackgroundWordFilter _filter;
         private List<String> matches = new List<string>();
         private bool loaded = false;
-        public RunForm()
+        public RunForm(List<Shortcut> shortcuts)
         {
             InitializeComponent();
+            Shortcuts = new List<Shortcut>(shortcuts);
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             sImage.ImageSize = new Size(30, 30);
             sImage.ColorDepth = ColorDepth.Depth32Bit;
@@ -83,19 +82,19 @@ namespace XShort
         private void LoadIcon()
         {
             sImage.Images.Clear();
-            for (int i = 0; i < sPath.Count; i++)
+            for (int i = 0; i < Shortcuts.Count; i++)
             {
                 try
                 {
-                    sImage.Images.Add(Icon.ExtractAssociatedIcon(sPath[i]));
+                    sImage.Images.Add(Icon.ExtractAssociatedIcon(Shortcuts[i].Path));
                 }
                 catch
                 {
-                    if (sPath[i].Contains("http"))
+                    if (Shortcuts[i].Path.Contains("http"))
                         sImage.Images.Add(Properties.Resources.internet);
-                    else if (sPath[i].Contains("\\"))
+                    else if (Shortcuts[i].Path.Contains("\\"))
                     {
-                        if (Directory.Exists(sPath[i]))
+                        if (Directory.Exists(Shortcuts[i].Path))
                             sImage.Images.Add(Properties.Resources.dir);
                         else
                             sImage.Images.Add(Properties.Resources.error);
@@ -146,9 +145,9 @@ namespace XShort
         {
             for (int i = 0; i < suggestions.Count; i++)
             {
-                if (!sName.Contains(suggestions[i].loc) && !sysCmd.Contains(suggestions[i].loc))
+                if (Shortcuts.FindIndex(f => f.Name == suggestions[i].loc) < 0 && !sysCmd.Contains(suggestions[i].loc))
                     suggestions.RemoveAt(i);
-                if (!sName.Contains(suggestions[i].nextcall) && !sysCmd.Contains(suggestions[i].nextcall))
+                if (Shortcuts.FindIndex(f => f.Name == suggestions[i].nextcall) < 0 && !sysCmd.Contains(suggestions[i].nextcall))
                     suggestions[i].nextcall = String.Empty;
             }
         }
@@ -183,7 +182,7 @@ namespace XShort
                 {
                     for (int i = 0; i < timeSuggestions.Count; i++)
                     {
-                        AddNewSuggestionsItems(timeSuggestions[i].loc, sName.Contains(timeSuggestions[i].loc));
+                        AddNewSuggestionsItems(timeSuggestions[i].loc, Shortcuts.FindIndex(f => f.Name == timeSuggestions[i].loc) > 0);
                         addedSuggestions.Add(timeSuggestions[i].loc);
                         if (rel >= suggestNum)
                             break;
@@ -201,7 +200,7 @@ namespace XShort
                                     {
                                         if (!blockList.Contains(timeSuggestions[i].nextcall))//if it's not in blocklist
                                         {
-                                            AddNewSuggestionsItems(timeSuggestions[i].nextcall, sName.Contains(timeSuggestions[i].nextcall));
+                                            AddNewSuggestionsItems(timeSuggestions[i].nextcall, Shortcuts.FindIndex(f => f.Name == timeSuggestions[i].nextcall) > 0);
                                             addedSuggestions.Add(timeSuggestions[i].nextcall);
                                             if (remain > 0)
                                                 remain -= 1;
@@ -226,7 +225,7 @@ namespace XShort
                             {
                                 if (!blockList.Contains(suggestions[i].loc))//if it's not in blocklist
                                 {
-                                    AddNewSuggestionsItems(suggestions[i].loc, sName.Contains(suggestions[i].loc));
+                                    AddNewSuggestionsItems(suggestions[i].loc, Shortcuts.FindIndex(f => f.Name == suggestions[i].loc) > 0);
                                     addedSuggestions.Add(suggestions[i].loc);
                                     if (remain > 0)
                                         remain -= 1;
@@ -303,8 +302,8 @@ namespace XShort
             if (useImageList)
             {
                 newsuggestion.ImageList = sImage;
-                newsuggestion.ImageIndex = sName.IndexOf(text);
-                toolTip1.SetToolTip(newsuggestion, sPath[newsuggestion.ImageIndex]);
+                newsuggestion.ImageIndex = Shortcuts.FindIndex(f => f.Name == text);
+                toolTip1.SetToolTip(newsuggestion, Shortcuts[newsuggestion.ImageIndex].Path);
             }
             else
             {
@@ -395,7 +394,7 @@ namespace XShort
         private void Newsuggestion_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            SimpleRun(button.Tag.ToString(), sName.Contains(button.Tag.ToString()));
+            SimpleRun(button.Tag.ToString(), Shortcuts.FindIndex(f => f.Name == button.Tag.ToString()) > 0);
             comboBoxRun.Text = String.Empty;
             ReloadSuggestions();
         }
@@ -448,15 +447,7 @@ namespace XShort
 
         private void Bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            try
-            {
-                LoadData();
-            }
-            catch
-            {
-                loadData();
-            }
-            
+            LoadData();
             if (File.Exists(Path.Combine(dataPath, "startup.txt")))
             {
                 List<string> startup = new List<string>();
@@ -528,19 +519,19 @@ namespace XShort
         {
             if (isInList)
             {
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (s == sName[i])
+                    if (s == Shortcuts[i].Name)
                     {
                         try
                         {
-                            if (sPara[i] != "None" && sPara[i] != "Not Available")
-                                Process.Start(sPath[i], sPara[i]);
+                            if (Shortcuts[i].Para != "None" && Shortcuts[i].Para != "Not Available")
+                                Process.Start(Shortcuts[i].Path, Shortcuts[i].Para);
                             else
-                                Process.Start(sPath[i]);
+                                Process.Start(Shortcuts[i].Path);
 
                             //for suggestions
-                            UpdateSuggestions(sName[i]);
+                            UpdateSuggestions(Shortcuts[i].Name);
                         }
                         catch
                         {
@@ -613,148 +604,76 @@ namespace XShort
             
         }
 
-        private int loadData()
-        {
-            comboBoxRun.Items.Clear();
-            sName.Clear();
-            sPara.Clear(); //fucking forget to clear haha
-            sPath.Clear();
-
-            FileStream fs;
-            StreamReader sr;
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return 0;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                sName.Add(sr.ReadLine());
-
-            }
-            fs.Close();
-            sr.Close();
-
-            //
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-
-                sPath.Add(sr.ReadLine());
-
-            }
-            fs.Close();
-            sr.Close();
-
-            //
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-
-                sPara.Add(sr.ReadLine());
-
-            }
-            fs.Close();
-            sr.Close();
-
-            LoadIcon();
-            LoadBlocklist();
-
-            for (int i=0;i<sName.Count;i++)
-            {
-                comboBoxRun.Items.Add(sName[i]);
-            }
-            LoadIndex();
-            return 1;
-        }
-
-
 
         public int LoadData()
         {
-            comboBoxRun.Items.Clear();
-            sName.Clear();
-            sPara.Clear(); //fucking forget to clear haha
-            sPath.Clear();
-
-            FileStream fs;
-            StreamReader sr;
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return 0;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                sName.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
-            }
-            fs.Close();
-            sr.Close();
-
-
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                sPath.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
-            }
-            fs.Close();
-            sr.Close();
+            //comboBoxRun.Items.Clear();
+            //Shortcuts.Clear();
+            //int i = 0;
+            //FileStream fs;
+            //StreamReader sr;
+            //try
+            //{
+            //    fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.Open, FileAccess.Read);
+            //}
+            //catch
+            //{
+            //    return 0;
+            //}
+            //sr = new StreamReader(fs);
+            //while (!sr.EndOfStream)
+            //{
+            //    Shortcut shortcut = new Shortcut
+            //    {
+            //        Name = StringCipher.Decrypt(sr.ReadLine(), pass)
+            //    };
+            //    Shortcuts.Add(shortcut);
+            //}
+            //fs.Close();
+            //sr.Close();
 
 
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                sPara.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
-            }
-            fs.Close();
-            sr.Close();
+            //try
+            //{
+            //    fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
+            //}
+            //catch
+            //{
+            //    return -1;
+            //}
+            //sr = new StreamReader(fs);
+            //while (!sr.EndOfStream)
+            //{
+            //    Shortcuts[i].Path = StringCipher.Decrypt(sr.ReadLine(), pass);
+            //    i++;
+            //}
+            //fs.Close();
+            //sr.Close();
+
+            //i = 0;
+            //try
+            //{
+            //    fs = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.Open, FileAccess.Read);
+            //}
+            //catch
+            //{
+            //    return -1;
+            //}
+            //sr = new StreamReader(fs);
+            //while (!sr.EndOfStream)
+            //{
+            //    Shortcuts[i].Para = StringCipher.Decrypt(sr.ReadLine(), pass);
+            //    i++;
+            //}
+            //fs.Close();
+            //sr.Close();
 
             LoadIcon();
             LoadBlocklist();
 
-            for (int i = 0; i < sName.Count; i++)
+            for (int j = 0; j < Shortcuts.Count; j++)
             {
-                comboBoxRun.Items.Add(sName[i]);
+                comboBoxRun.Items.Add(Shortcuts[j].Name);
             }
             LoadIndex();
             MaintainSuggestions();
@@ -819,7 +738,7 @@ namespace XShort
             while (!sr.EndOfStream)
             {
                 string read = sr.ReadLine();
-                if (sName.Contains(read) || sysCmd.Contains(read))//check if it's not an invalid shortcut
+                if (Shortcuts.FindIndex(f => f.Name == read) > 0 || sysCmd.Contains(read))//check if it's not an invalid shortcut
                     blockList.Add(read);
             }
             fs.Close();
@@ -847,24 +766,24 @@ namespace XShort
             }
             if (tmp.Contains("!") != true)
             {
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (tmp == sName[i] || tmp.ToLower() == sName[i].ToLower() && !csen)
+                    if (tmp == Shortcuts[i].Name || tmp.ToLower() == Shortcuts[i].Name.ToLower() && !csen)
                     {
                         try
                         {
                             this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
-                            proc.FileName = sPath[i];
-                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                            if (sPara[i] != "None" && sPara[i] != "Not Available")
-                                proc.Arguments = sPara[i];
+                            proc.FileName = Shortcuts[i].Path;
+                            proc.WorkingDirectory = Path.GetDirectoryName(Shortcuts[i].Path);
+                            if (Shortcuts[i].Para != "None" && Shortcuts[i].Para != "Not Available")
+                                proc.Arguments = Shortcuts[i].Para;
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
 
                             //for suggestions
-                            UpdateSuggestions(sName[i]);
+                            UpdateSuggestions(Shortcuts[i].Name);
 
                         }
                         catch
@@ -874,23 +793,23 @@ namespace XShort
                         return;
                     }
                 }
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (sName[i].Contains(tmp) || sName[i].ToLower().Contains(tmp.ToLower()) && !csen)
+                    if (Shortcuts[i].Name.Contains(tmp) || Shortcuts[i].Name.ToLower().Contains(tmp.ToLower()) && !csen)
                     {
                         try
                         {
                             this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
-                            proc.FileName = sPath[i];
-                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                            if (sPara[i] != "None" && sPara[i] != "Not Available")
-                                proc.Arguments = sPara[i];
+                            proc.FileName = Shortcuts[i].Path;
+                            proc.WorkingDirectory = Path.GetDirectoryName(Shortcuts[i].Path);
+                            if (Shortcuts[i].Para != "None" && Shortcuts[i].Para != "Not Available")
+                                proc.Arguments = Shortcuts[i].Para;
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
                             //for suggestions
-                            UpdateSuggestions(sName[i]);
+                            UpdateSuggestions(Shortcuts[i].Name);
 
 
                         }
@@ -902,24 +821,24 @@ namespace XShort
                     }
                 }
 
-                for (int i = 0; i < sPath.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (sPath[i].Contains(tmp) || sPath[i].ToLower().Contains(tmp.ToLower()) && !csen)
+                    if (Shortcuts[i].Path.Contains(tmp) || Shortcuts[i].Path.ToLower().Contains(tmp.ToLower()) && !csen)
                     {
                         try
                         {
                             this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
-                            proc.FileName = sPath[i];
-                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                            if (sPara[i] != "None" && sPara[i] != "Not Available")
-                                proc.Arguments = sPara[i];
+                            proc.FileName = Shortcuts[i].Path;
+                            proc.WorkingDirectory = Path.GetDirectoryName(Shortcuts[i].Path);
+                            if (Shortcuts[i].Para != "None" && Shortcuts[i].Para != "Not Available")
+                                proc.Arguments = Shortcuts[i].Para;
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
 
                             //for suggestions
-                            UpdateSuggestions(sName[i]);
+                            UpdateSuggestions(Shortcuts[i].Name);
 
 
                         }
@@ -937,24 +856,24 @@ namespace XShort
                 string tmp2 = pieces[0].Trim(' ');
                 string tmp3 = pieces[1].Trim(' ');
 
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (tmp2 == sName[i] || tmp2.ToLower() == sName[i].ToLower() && !csen)
+                    if (tmp2 == Shortcuts[i].Name || tmp2.ToLower() == Shortcuts[i].Name.ToLower() && !csen)
                     {
                         try
                         {
                             this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
-                            proc.FileName = sPath[i];
-                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                            if (sPara[i] != "Not Available")
+                            proc.FileName = Shortcuts[i].Path;
+                            proc.WorkingDirectory = Path.GetDirectoryName(Shortcuts[i].Path);
+                            if (Shortcuts[i].Para != "Not Available")
                                 proc.Arguments = tmp3;
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
 
                             //for suggestions
-                            UpdateSuggestions(sName[i]);
+                            UpdateSuggestions(Shortcuts[i].Name);
 
                             return;
                         }
@@ -964,24 +883,24 @@ namespace XShort
                         }
                     }
                 }
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (sName[i].Contains(tmp2) || sName[i].ToLower().Contains(tmp2.ToLower()) && !csen)
+                    if (Shortcuts[i].Name.Contains(tmp2) || Shortcuts[i].Name.ToLower().Contains(tmp2.ToLower()) && !csen)
                     {
                         try
                         {
                             this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
-                            proc.FileName = sPath[i];
-                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                            if (sPara[i] != "Not Available")
+                            proc.FileName = Shortcuts[i].Path;
+                            proc.WorkingDirectory = Path.GetDirectoryName(Shortcuts[i].Path);
+                            if (Shortcuts[i].Para != "Not Available")
                                 proc.Arguments = tmp3;
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
 
                             //for suggestions
-                            UpdateSuggestions(sName[i]);
+                            UpdateSuggestions(Shortcuts[i].Name);
 
                         }
                         catch
@@ -992,23 +911,23 @@ namespace XShort
                     }
                 }
 
-                for (int i = 0; i < sPath.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (sPath[i].Contains(tmp2) || sPath[i].ToLower().Contains(tmp2.ToLower()) && !csen)
+                    if (Shortcuts[i].Path.Contains(tmp2) || Shortcuts[i].Path.ToLower().Contains(tmp2.ToLower()) && !csen)
                     {
                         try
                         {
                             this.Hide();
                             ProcessStartInfo proc = new ProcessStartInfo();
-                            proc.FileName = sPath[i];
-                            proc.WorkingDirectory = Path.GetDirectoryName(sPath[i]);
-                            if (sPara[i] != "Not Available")
+                            proc.FileName = Shortcuts[i].Path;
+                            proc.WorkingDirectory = Path.GetDirectoryName(Shortcuts[i].Path);
+                            if (Shortcuts[i].Para != "Not Available")
                                 proc.Arguments = tmp3;
                             if (runas)
                                 proc.Verb = "runas";
                             Process.Start(proc);
                             //for suggestions
-                            UpdateSuggestions(sName[i]);
+                            UpdateSuggestions(Shortcuts[i].Name);
 
                         }
                         catch
@@ -1130,20 +1049,20 @@ namespace XShort
             {
 
                 string[] pieces = dfl.Split('!');
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (pieces[1].Trim() == sName[i])
+                    if (pieces[1].Trim() == Shortcuts[i].Name)
                     {
-                        Run(pieces[0] + "!" + sPath[i], runas);
+                        Run(pieces[0] + "!" + Shortcuts[i].Path, runas);
                         comboBoxRun.Text = String.Empty;
                         return;
                     }
                 }
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (sName[i].Contains(pieces[1].Trim()))
+                    if (Shortcuts[i].Name.Contains(pieces[1].Trim()))
                     {
-                        Run(pieces[0] + "!" + sPath[i], runas);
+                        Run(pieces[0] + "!" + Shortcuts[i].Path, runas);
                         comboBoxRun.Text = String.Empty;
                         return;
                     }
@@ -1219,11 +1138,11 @@ namespace XShort
                 {
                     if (text.Contains("+") != true && text.Contains("!") != true) //if not contain , and !
                     {
-                        for (int i = index + 1; i < sName.Count; i++)
+                        for (int i = index + 1; i < Shortcuts.Count; i++)
                         {
-                            if (sName[i].Contains(text) || sName[i].ToLower().Contains(text.ToLower()) && !csen)
+                            if (Shortcuts[i].Name.Contains(text) || Shortcuts[i].Name.ToLower().Contains(text.ToLower()) && !csen)
                             {
-                                comboBoxRun.Text = sName[i];
+                                comboBoxRun.Text = Shortcuts[i].Name;
                                 index = i;
                                 comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
                                 comboBoxRun.SelectionLength = 0;
@@ -1240,11 +1159,11 @@ namespace XShort
                     }
                     else if (text.Contains("+") == true && text.Contains("!") != true)
                     {
-                        for (int i = index + 1; i < sName.Count; i++)
+                        for (int i = index + 1; i < Shortcuts.Count; i++)
                         {
-                            if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
+                            if (Shortcuts[i].Name.Contains(part) || Shortcuts[i].Name.ToLower().Contains(part.ToLower()) && !csen)
                             {
-                                comboBoxRun.Text = text1 + " " + sName[i];
+                                comboBoxRun.Text = text1 + " " + Shortcuts[i].Name;
                                 index = i;
                                 comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
                                 comboBoxRun.SelectionLength = 0;
@@ -1261,11 +1180,11 @@ namespace XShort
                     }
                     else if (text.Contains("+") != true && text.Contains("!") == true)
                     {
-                        for (int i = index + 1; i < sName.Count; i++)
+                        for (int i = index + 1; i < Shortcuts.Count; i++)
                         {
-                            if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
+                            if (Shortcuts[i].Name.Contains(part) || Shortcuts[i].Name.ToLower().Contains(part.ToLower()) && !csen)
                             {
-                                comboBoxRun.Text = text1 + " " + sName[i];
+                                comboBoxRun.Text = text1 + " " + Shortcuts[i].Name;
                                 index = i;
                                 comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
                                 comboBoxRun.SelectionLength = 0;
@@ -1329,11 +1248,11 @@ namespace XShort
                         }
                         else //if not contain \ in part
                         {
-                            for (int i = index + 1; i < sName.Count; i++)
+                            for (int i = index + 1; i < Shortcuts.Count; i++)
                             {
-                                if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
+                                if (Shortcuts[i].Name.Contains(part) || Shortcuts[i].Name.ToLower().Contains(part.ToLower()) && !csen)
                                 {
-                                    comboBoxRun.Text = text1 + " " + sName[i];
+                                    comboBoxRun.Text = text1 + " " + Shortcuts[i].Name;
                                     index = i;
                                     comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
                                     comboBoxRun.SelectionLength = 0;
@@ -1372,11 +1291,11 @@ namespace XShort
                         }
                         else //if not contain \ in part
                         {
-                            for (int i = index + 1; i < sName.Count; i++)
+                            for (int i = index + 1; i < Shortcuts.Count; i++)
                             {
-                                if (sName[i].Contains(part) || sName[i].ToLower().Contains(part.ToLower()) && !csen)
+                                if (Shortcuts[i].Name.Contains(part) || Shortcuts[i].Name.ToLower().Contains(part.ToLower()) && !csen)
                                 {
-                                    comboBoxRun.Text = text1 + " " + sName[i];
+                                    comboBoxRun.Text = text1 + " " + Shortcuts[i].Name;
                                     index = i;
                                     comboBoxRun.SelectionStart = comboBoxRun.Text.Length;
                                     comboBoxRun.SelectionLength = 0;
@@ -1579,9 +1498,9 @@ namespace XShort
                     cut = cut.Trim();
                     if (cut != String.Empty)
                     {
-                        for (int i = 0; i < sName.Count; i++)
+                        for (int i = 0; i < Shortcuts.Count; i++)
                         {
-                            if (sName[i].Contains(cut) || sName[i].ToLower().Contains(cut.ToLower()) && !csen)
+                            if (Shortcuts[i].Name.Contains(cut) || Shortcuts[i].Name.ToLower().Contains(cut.ToLower()) && !csen)
                             {
                                 if (!ifAny)//prevent reload when nothing match
                                 {
@@ -1591,8 +1510,8 @@ namespace XShort
                                 }
                                 if (rel < suggestNum)
                                 {
-                                    if (!er || !blockList.Contains(sName[i]))
-                                        AddNewSuggestionsItems(sName[i], sImage, i, sPath[i]);
+                                    if (!er || !blockList.Contains(Shortcuts[i].Name))
+                                        AddNewSuggestionsItems(Shortcuts[i].Name, sImage, i, Shortcuts[i].Path);
                                 }
                                 else//break if no more space => reduce loop time
                                     break;
@@ -1666,21 +1585,21 @@ namespace XShort
             }
             if (e.KeyCode == Keys.ControlKey)
             {
-                for (int i = 0; i < sName.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (comboBoxRun.Text == sName[i])
+                    if (comboBoxRun.Text == Shortcuts[i].Name)
                     {
-                        comboBoxRun.Text = sPath[i];
+                        comboBoxRun.Text = Shortcuts[i].Path;
                         comboBoxRun.SelectAll();
                         Clipboard.SetText(comboBoxRun.Text);
                         return;
                     }
                 }
-                for (int i = 0; i < sPath.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    if (comboBoxRun.Text == sPath[i])
+                    if (comboBoxRun.Text == Shortcuts[i].Path)
                     {
-                        comboBoxRun.Text = sName[i];
+                        comboBoxRun.Text = Shortcuts[i].Name;
                         comboBoxRun.SelectAll();
 
                         return;
@@ -1698,6 +1617,7 @@ namespace XShort
         private void RunForm_Deactivate(object sender, EventArgs e)
         {
             this.Hide();
+            comboBoxRun.Text = String.Empty;
         }
 
         private void RunForm_Paint(object sender, PaintEventArgs e)

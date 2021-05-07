@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XShortService", "..\XShortS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XShortCoreIndex", "..\XShortCoreIndex\XShortCoreIndex.csproj", "{83D6ABE9-628C-46F9-ADED-23F2FA12CA29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewXShort", "..\NewXShort\NewXShort.csproj", "{8024FC18-A459-4284-A938-B6D42B3E7521}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{83D6ABE9-628C-46F9-ADED-23F2FA12CA29}.Release|Any CPU.Build.0 = Release|Any CPU
 		{83D6ABE9-628C-46F9-ADED-23F2FA12CA29}.Release|x86.ActiveCfg = Release|Any CPU
 		{83D6ABE9-628C-46F9-ADED-23F2FA12CA29}.Release|x86.Build.0 = Release|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Debug|x86.Build.0 = Debug|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Release|x86.ActiveCfg = Release|Any CPU
+		{8024FC18-A459-4284-A938-B6D42B3E7521}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

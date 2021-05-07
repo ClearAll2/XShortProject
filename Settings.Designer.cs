@@ -42,6 +42,7 @@
             this.panelExIntro = new System.Windows.Forms.Panel();
             this.buttonExclusionList = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonExBack = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxRunningProcesses = new System.Windows.Forms.ComboBox();
             this.buttonRemoveEx = new System.Windows.Forms.Button();
@@ -85,7 +86,6 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonExBack = new System.Windows.Forms.Button();
             this.panelSetting.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInterval)).BeginInit();
@@ -258,13 +258,28 @@
             this.label3.TabIndex = 21;
             this.label3.Text = "Excludes selected applications && games from triggering the Run box.\r\n\r\n";
             // 
+            // buttonExBack
+            // 
+            this.buttonExBack.BackColor = System.Drawing.SystemColors.Control;
+            this.buttonExBack.FlatAppearance.BorderSize = 0;
+            this.buttonExBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExBack.ForeColor = System.Drawing.Color.Black;
+            this.buttonExBack.Location = new System.Drawing.Point(411, 196);
+            this.buttonExBack.Name = "buttonExBack";
+            this.buttonExBack.Size = new System.Drawing.Size(72, 27);
+            this.buttonExBack.TabIndex = 26;
+            this.buttonExBack.Text = "Back";
+            this.buttonExBack.UseVisualStyleBackColor = false;
+            this.buttonExBack.Click += new System.EventHandler(this.buttonExBack_Click);
+            // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(317, 101);
+            this.label2.Location = new System.Drawing.Point(317, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 95);
+            this.label2.Size = new System.Drawing.Size(166, 99);
             this.label2.TabIndex = 23;
             this.label2.Text = "Select running processes from drop-down list\r\n\r\nor click button ... to add other " +
     "applications.\r\n";
@@ -286,7 +301,7 @@
             this.buttonRemoveEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRemoveEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRemoveEx.ForeColor = System.Drawing.Color.Black;
-            this.buttonRemoveEx.Location = new System.Drawing.Point(270, 197);
+            this.buttonRemoveEx.Location = new System.Drawing.Point(245, 197);
             this.buttonRemoveEx.Name = "buttonRemoveEx";
             this.buttonRemoveEx.Size = new System.Drawing.Size(38, 27);
             this.buttonRemoveEx.TabIndex = 25;
@@ -303,7 +318,7 @@
             this.buttonAddEx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAddEx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAddEx.ForeColor = System.Drawing.Color.Black;
-            this.buttonAddEx.Location = new System.Drawing.Point(270, 34);
+            this.buttonAddEx.Location = new System.Drawing.Point(245, 35);
             this.buttonAddEx.Name = "buttonAddEx";
             this.buttonAddEx.Size = new System.Drawing.Size(38, 27);
             this.buttonAddEx.TabIndex = 22;
@@ -319,7 +334,7 @@
             this.buttonBrowseExe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBrowseExe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBrowseExe.ForeColor = System.Drawing.Color.Black;
-            this.buttonBrowseExe.Location = new System.Drawing.Point(270, 118);
+            this.buttonBrowseExe.Location = new System.Drawing.Point(245, 118);
             this.buttonBrowseExe.Name = "buttonBrowseExe";
             this.buttonBrowseExe.Size = new System.Drawing.Size(38, 26);
             this.buttonBrowseExe.TabIndex = 22;
@@ -340,7 +355,7 @@
             this.listViewExclusion.Location = new System.Drawing.Point(26, 34);
             this.listViewExclusion.MultiSelect = false;
             this.listViewExclusion.Name = "listViewExclusion";
-            this.listViewExclusion.Size = new System.Drawing.Size(238, 190);
+            this.listViewExclusion.Size = new System.Drawing.Size(205, 190);
             this.listViewExclusion.TabIndex = 23;
             this.listViewExclusion.UseCompatibleStateImageBehavior = false;
             this.listViewExclusion.View = System.Windows.Forms.View.Details;
@@ -830,21 +845,6 @@
             this.toolTip1.SetToolTip(this.checkBox8, "Improve loading time");
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
-            // 
-            // buttonExBack
-            // 
-            this.buttonExBack.BackColor = System.Drawing.SystemColors.Control;
-            this.buttonExBack.FlatAppearance.BorderSize = 0;
-            this.buttonExBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExBack.ForeColor = System.Drawing.Color.Black;
-            this.buttonExBack.Location = new System.Drawing.Point(411, 196);
-            this.buttonExBack.Name = "buttonExBack";
-            this.buttonExBack.Size = new System.Drawing.Size(72, 27);
-            this.buttonExBack.TabIndex = 26;
-            this.buttonExBack.Text = "Back";
-            this.buttonExBack.UseVisualStyleBackColor = false;
-            this.buttonExBack.Click += new System.EventHandler(this.buttonExBack_Click);
             // 
             // Settings
             // 

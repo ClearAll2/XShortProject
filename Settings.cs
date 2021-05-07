@@ -16,8 +16,7 @@ namespace XShort
         private RegistryKey r1;
         private global::ModifierKeys gmk;
         private Keys k;
-        private List<String> sName = new List<string>();
-        private List<String> sPath = new List<String>();
+        private List<Shortcut> Shortcuts;
         private ImageList sImage = new ImageList();
         private List<String> blockList = new List<string>();
         private List<String> exclusion = new List<string>();
@@ -25,9 +24,10 @@ namespace XShort
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
         private string[] sysCmd = { "utilman", "hdwwiz", "appwiz.cpl", "netplwz", "azman.msc", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "compmgmt.msc", "control", "credwiz", "timedate.cpl", "hdwwiz", "devmgmt.msc", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
 
-        public Settings()
+        public Settings(List<Shortcut> shortcuts)
         {
             InitializeComponent();
+            Shortcuts = new List<Shortcut>(shortcuts);
             sImage.ImageSize = new Size(20, 20);
             sImage.ColorDepth = ColorDepth.Depth32Bit;
             listViewBlocklist.SmallImageList = sImage;
@@ -50,7 +50,7 @@ namespace XShort
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            LoadData();
+            //LoadData();
             ReloadBlocklist();
             LoadIcon();
 
@@ -86,19 +86,19 @@ namespace XShort
         private void LoadIcon()
         {
             sImage.Images.Clear();
-            for (int i = 0; i < sPath.Count; i++)
+            for (int i = 0; i < Shortcuts.Count; i++)
             {
                 try
                 {
-                    sImage.Images.Add(Icon.ExtractAssociatedIcon(sPath[i]));
+                    sImage.Images.Add(Icon.ExtractAssociatedIcon(Shortcuts[i].Path));
                 }
                 catch
                 {
-                    if (sPath[i].Contains("http"))
+                    if (Shortcuts[i].Path.Contains("http"))
                         sImage.Images.Add(Properties.Resources.internet);
-                    else if (sPath[i].Contains("\\"))
+                    else if (Shortcuts[i].Path.Contains("\\"))
                     {
-                        if (Directory.Exists(sPath[i]))
+                        if (Directory.Exists(Shortcuts[i].Path))
                             sImage.Images.Add(Properties.Resources.dir);
                         else
                             sImage.Images.Add(Properties.Resources.error);
@@ -124,45 +124,6 @@ namespace XShort
             }
         }
 
-        public void LoadData()
-        {
-            sName.Clear();
-
-            FileStream fs;
-            StreamReader sr;
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                sName.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
-            }
-            fs.Close();
-            sr.Close();
-
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                sPath.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
-            }
-            fs.Close();
-            sr.Close();
-        }
-
         private void ReloadBlocklist()
         {
             blockList.Clear();
@@ -181,7 +142,7 @@ namespace XShort
             while (!sr.EndOfStream)
             {
                 string read = sr.ReadLine();
-                if (sName.Contains(read) || sysCmd.Contains(read))
+                if (Shortcuts.FindIndex(f => f.Name == read) > 0 || sysCmd.Contains(read))
                     blockList.Add(read);
             }
             fs.Close();
@@ -488,9 +449,9 @@ namespace XShort
         private void buttonBlocklist_Click(object sender, EventArgs e)
         {
             listViewBlocklist.Items.Clear();
-            for (int i = 0; i < sName.Count; i++)
+            for (int i = 0; i < Shortcuts.Count; i++)
             {
-                listViewBlocklist.Items.Add(new ListViewItem(sName[i]));
+                listViewBlocklist.Items.Add(new ListViewItem(Shortcuts[i].Name));
                 listViewBlocklist.Items[i].ImageIndex = i;
                 if (blockList.Contains(listViewBlocklist.Items[i].Text))
                     listViewBlocklist.Items[i].Checked = true;
@@ -589,7 +550,7 @@ namespace XShort
             {
                 foreach (string file in of.SafeFileNames)
                 {
-                    listViewExclusion.Items.Add(new ListViewItem(file.Replace(".exe", String.Empty)));
+                    listViewExclusion.Items.Add(new ListViewItem(Path.GetFileNameWithoutExtension(file)));
                 }
             }
 

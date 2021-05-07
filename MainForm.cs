@@ -21,9 +21,7 @@ namespace XShort
     public partial class MainForm : Form
     {
         private KeyboardHook hook = new KeyboardHook();
-        private List<String> sName = new List<String>();
-        private List<String> sPath = new List<String>();
-        private List<String> sPara = new List<String>();
+        private List<Shortcut> Shortcuts = new List<Shortcut>();
         private List<String> exclusion = new List<String>();
         private ObservableCollection<String> startup = new ObservableCollection<string>();
         private global::ModifierKeys gmk;
@@ -71,7 +69,7 @@ namespace XShort
 
             bw2 = new BackgroundWorker();
             bw2.DoWork += Bw2_DoWork;
-            //bw2.RunWorkerCompleted += Bw2_RunWorkerCompleted;
+            bw2.RunWorkerCompleted += Bw2_RunWorkerCompleted;
 
             img = new ImageList();
             img.ColorDepth = ColorDepth.Depth32Bit;
@@ -82,7 +80,7 @@ namespace XShort
 
 
             f3 = new ProgressForm();
-            f2 = new RunForm();
+            
 
 
             loadSettings();
@@ -94,7 +92,11 @@ namespace XShort
 
         }
 
-       
+        private void Bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            f2 = new RunForm(Shortcuts);
+            f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+        }
 
         internal struct LASTINPUTINFO
         {
@@ -292,16 +294,11 @@ namespace XShort
 
             //load data files
             ProfileOptimization.StartProfile("Startup.Profile");
-            if (File.Exists(Path.Combine(dataPath, "data1.data")) && !dontload)
+            if (File.Exists(Path.Combine(dataPath, "data1.data")) /*&& !dontload*/)
             {
-                try
-                {
-                    back = LoadData();
-                }
-                catch
-                {
-                    back = loadData();
-                }
+                
+                back = LoadData();
+                
                 if (back == -1)
                 {
                     MessageBox.Show("Missing data to complete operation", "Missing data", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -365,14 +362,14 @@ namespace XShort
 
         private void Run(string s)
         {
-            for (int i = 0; i < sName.Count; i++)
+            for (int i = 0; i < Shortcuts.Count; i++)
             {
-                if (s == sName[i])
+                if (s == Shortcuts[i].Name)
                 {
-                    if (sPara[i] != "None" && sPara[i] != "Not Available")
-                        Process.Start(sPath[i], sPara[i]);
+                    if (Shortcuts[i].Para != "None" && Shortcuts[i].Para != "Not Available")
+                        Process.Start(Shortcuts[i].Path, Shortcuts[i].Para);
                     else
-                        Process.Start(sPath[i]);
+                        Process.Start(Shortcuts[i].Path);
                 }
             }
         }
@@ -388,7 +385,7 @@ namespace XShort
                 if (f2.IsDisposed != true && f2 != null)
                 {
                     f2.Close();
-                    f2 = new RunForm();
+                    f2 = new RunForm(Shortcuts);
                     f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
                 }
             }
@@ -483,19 +480,19 @@ namespace XShort
         {
             listViewData.SmallImageList = img;
             img.ImageSize = new Size(25, 25);
-            for (int i = 0; i < sPath.Count; i++)
+            for (int i = 0; i < Shortcuts.Count; i++)
             {
                 try
                 {
-                    img.Images.Add(Icon.ExtractAssociatedIcon(sPath[i]));
+                    img.Images.Add(Icon.ExtractAssociatedIcon(Shortcuts[i].Path));
                 }
                 catch
                 {
-                    if (sPath[i].Contains("http"))
+                    if (Shortcuts[i].Path.Contains("http"))
                         img.Images.Add(Properties.Resources.internet);
-                    else if (sPath[i].Contains("\\"))
+                    else if (Shortcuts[i].Path.Contains("\\"))
                     {
-                        if (checkValid(sPath[i]) == 0)
+                        if (checkValid(Shortcuts[i].Path) == 0)
                             img.Images.Add(Properties.Resources.dir);
                         else
                             img.Images.Add(Properties.Resources.error);
@@ -528,8 +525,8 @@ namespace XShort
         {
             for (int i = 0; i < listViewData.Items.Count; i++)
             {
-                if (!sPath[i].Contains("http"))
-                    if (checkValid(sPath[i]) == -1)
+                if (!Shortcuts[i].Path.Contains("http"))
+                    if (checkValid(Shortcuts[i].Path) == -1)
                         changeColorListViewItem(Color.Red, i);
 
 
@@ -560,81 +557,6 @@ namespace XShort
             }
         }
 
-        //no cipher
-        private int loadData()
-        {
-            FileStream fs;
-            StreamReader sr;
-            f3.changeDisplay(1);
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return 0;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-
-                sName.Add(sr.ReadLine());
-
-
-            }
-            fs.Close();
-            sr.Close();
-
-            //
-            f3.changeDisplay(2);
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-
-                sPath.Add(sr.ReadLine());
-
-            }
-            fs.Close();
-            sr.Close();
-
-            //
-            f3.changeDisplay(3);
-            try
-            {
-                fs = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-
-                sPara.Add(sr.ReadLine());
-
-            }
-            fs.Close();
-            sr.Close();
-
-
-
-            for (int j = 0; j < sName.Count; j++)
-            {
-                listViewData.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
-
-            }
-            return 1;
-        }
-
         private void LoadExclusion()
         {
             exclusion.Clear();
@@ -661,7 +583,7 @@ namespace XShort
         //cipher data
         private int LoadData()
         {
-
+            int i = 0;
             FileStream fs;
             StreamReader sr;
             f3.changeDisplay(1);
@@ -677,8 +599,11 @@ namespace XShort
 
             while (!sr.EndOfStream)
             {
-
-                sName.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
+                Shortcut shortcut = new Shortcut
+                {
+                    Name = StringCipher.Decrypt(sr.ReadLine(), pass)
+                };
+                Shortcuts.Add(shortcut);
             }
             fs.Close();
             sr.Close();
@@ -696,13 +621,15 @@ namespace XShort
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
             {
-                sPath.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
+                Shortcuts[i].Path = StringCipher.Decrypt(sr.ReadLine(), pass);
+                i++;
             }
             fs.Close();
             sr.Close();
 
             //
             f3.changeDisplay(3);
+            i = 0;
             try
             {
                 fs = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.Open, FileAccess.Read);
@@ -714,16 +641,17 @@ namespace XShort
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
             {
-                sPara.Add(StringCipher.Decrypt(sr.ReadLine(), pass));
+                Shortcuts[i].Para = StringCipher.Decrypt(sr.ReadLine(), pass);
+                i++;
             }
             fs.Close();
             sr.Close();
 
 
             listViewData.Items.Clear();
-            for (int j = 0; j < sName.Count; j++)
+            for (int j = 0; j < Shortcuts.Count; j++)
             {
-                listViewData.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
+                listViewData.Items.Add(new ListViewItem(new string[] { Shortcuts[j].Name, Shortcuts[j].Path, Shortcuts[j].Para }));
             }
             return 1;
         }
@@ -746,7 +674,7 @@ namespace XShort
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
             {
-                sName.Add(sr.ReadLine());
+                tName.Add(sr.ReadLine());
             }
             fs.Close();
             sr.Close();
@@ -763,7 +691,7 @@ namespace XShort
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
             {
-                sPath.Add(sr.ReadLine());
+                tPath.Add(sr.ReadLine());
             }
             fs.Close();
             sr.Close();
@@ -780,7 +708,7 @@ namespace XShort
             sr = new StreamReader(fs);
             while (!sr.EndOfStream)
             {
-                sPara.Add(sr.ReadLine());
+                tPara.Add(sr.ReadLine());
             }
             fs.Close();
             sr.Close();
@@ -1187,66 +1115,33 @@ namespace XShort
 
         private void Bwt_DoWork(object sender, DoWorkEventArgs e)
         {
-            sName.Clear();
-            sPath.Clear();
-            sPara.Clear();
+            Shortcuts.Clear();
             File.WriteAllText(Path.Combine(dataPath, "data1.data"), string.Empty);
             File.WriteAllText(Path.Combine(dataPath, "data2.data"), string.Empty);
             File.WriteAllText(Path.Combine(dataPath, "data3.data"), string.Empty);
 
             for (int i = 0; i < listViewData.Items.Count; i++)
             {
-                sName.Add(listViewData.Items[i].SubItems[0].Text);
-            }
-            for (int i = 0; i < listViewData.Items.Count; i++)
-            {
-                sPath.Add(listViewData.Items[i].SubItems[1].Text);
-            }
-            for (int i = 0; i < listViewData.Items.Count; i++)
-            {
-                if (listViewData.Items[i].SubItems[2].Text != "")
-                    sPara.Add(listViewData.Items[i].SubItems[2].Text);
+                Shortcut shortcut = new Shortcut
+                {
+                    Name = listViewData.Items[i].SubItems[0].Text,
+                    Path = listViewData.Items[i].SubItems[1].Text,
+                };
+                if (listViewData.Items[i].SubItems[2].Text != String.Empty)
+                    shortcut.Para = listViewData.Items[i].SubItems[2].Text;
                 else
-                    sPara.Add("None");
+                    shortcut.Para = "None";
+                Shortcuts.Add(shortcut);
+                
             }
-            FileStream fs = new FileStream(Path.Combine(dataPath, "data1.data"), FileMode.OpenOrCreate, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs);
-            for (int i = 0; i < listViewData.Items.Count; i++)
-            {
-                sw.WriteLine(StringCipher.Encrypt(sName[i], pass));
-                //sName.Add(listView1.Items[i].SubItems[0].Text);
-            }
-            sw.Close();
-            fs.Close();
-
-            //
-
-            FileStream fs1 = new FileStream(Path.Combine(dataPath, "data2.data"), FileMode.OpenOrCreate, FileAccess.Write);
-            StreamWriter sw1 = new StreamWriter(fs1);
-            for (int i = 0; i < listViewData.Items.Count; i++)
-            {
-                sw1.WriteLine(StringCipher.Encrypt(sPath[i], pass));
-                //sPath.Add(listView1.Items[i].SubItems[1].Text);
-            }
-            sw1.Close();
-            fs1.Close();
-
-            //
-            FileStream fs2 = new FileStream(Path.Combine(dataPath, "data3.data"), FileMode.OpenOrCreate, FileAccess.Write);
-            StreamWriter sw2 = new StreamWriter(fs2);
-            for (int i = 0; i < listViewData.Items.Count; i++)
-            {
-                sw2.WriteLine(StringCipher.Encrypt(sPara[i], pass));
-                //sPath.Add(listView1.Items[i].SubItems[1].Text);
-            }
-            sw2.Close();
-            fs2.Close();
 
             listViewData.Items.Clear();
-            for (int j = 0; j < sName.Count; j++)
+            for (int j = 0; j < Shortcuts.Count; j++)
             {
-                listViewData.Items.Add(new ListViewItem(new string[] { sName[j], sPath[j], sPara[j] }));
-
+                listViewData.Items.Add(new ListViewItem(new string[] { Shortcuts[j].Name, Shortcuts[j].Path, Shortcuts[j].Para }));
+                File.AppendAllText(Path.Combine(dataPath, "data1.data"), String.Join("", Shortcuts[j].Name, Environment.NewLine));
+                File.AppendAllText(Path.Combine(dataPath, "data2.data"), String.Join("", Shortcuts[j].Path, Environment.NewLine));
+                File.AppendAllText(Path.Combine(dataPath, "data3.data"), String.Join("", Shortcuts[j].Para, Environment.NewLine));
             }
 
             if (detect)
@@ -1268,8 +1163,9 @@ namespace XShort
 
             if (f2 != null && !f2.IsDisposed)
             {
-                f2.LoadData();
-
+                f2.Close();
+                f2 = new RunForm(Shortcuts);
+                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             }
             img.Dispose();
             img = new ImageList();
@@ -1398,8 +1294,7 @@ namespace XShort
             }
             else
             {
-
-                f2 = new RunForm();
+                f2 = new RunForm(Shortcuts);
                 f2.Show();
                 f2.Activate();
             }
@@ -1972,7 +1867,7 @@ namespace XShort
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            Settings stt = new Settings();
+            Settings stt = new Settings(Shortcuts);
             stt.FormClosed += Stt_FormClosed;
             stt.ShowDialog();
         }
@@ -2026,21 +1921,13 @@ namespace XShort
             if (!bw2.IsBusy)
             {
                 f3.Show();
-                sName.Clear();
-                sPara.Clear();
-                sPath.Clear();
+                Shortcuts.Clear();
                 listViewData.Items.Clear();
                 listViewData.Enabled = false;
                 if (File.Exists(Path.Combine(dataPath, "data1.data")))
                 {
-                    try
-                    {
-                        back = LoadData();
-                    }
-                    catch
-                    {
-                        back = loadData();
-                    }
+
+                    back = LoadData();
                     if (back == -1)
                     {
 
