@@ -21,7 +21,6 @@ namespace XShort
         private List<String> blockList = new List<string>();
         private List<String> exclusion = new List<string>();
         private string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
-        private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
         private string[] sysCmd = { "utilman", "hdwwiz", "appwiz.cpl", "netplwz", "azman.msc", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "compmgmt.msc", "control", "credwiz", "timedate.cpl", "hdwwiz", "devmgmt.msc", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
 
         public Settings(List<Shortcut> shortcuts)
@@ -456,12 +455,12 @@ namespace XShort
                 if (blockList.Contains(listViewBlocklist.Items[i].Text))
                     listViewBlocklist.Items[i].Checked = true;
             }
-            Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
+            panelBlocklist.Show();
         }
 
         private void buttonSaveBlocklist_Click(object sender, EventArgs e)
         {
-            Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
+            panelBlocklist.Hide();
             File.WriteAllText(Path.Combine(dataPath, "blocklist"), String.Empty);
             for (int i = 0; i < listViewBlocklist.Items.Count; i++)
             {
@@ -488,7 +487,7 @@ namespace XShort
 
         private void buttonCancelBlocklist_Click(object sender, EventArgs e)
         {
-            Util.Animate(panelBlocklist, Util.Effect.Center, 100, 180);
+            panelBlocklist.Hide();
         }
 
 
@@ -520,17 +519,17 @@ namespace XShort
 
         private void buttonHotkeySetting_Click(object sender, EventArgs e)
         {
-            Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
+            panelHotkey.Show();
         }
 
         private void buttonHotkeyCancel_Click(object sender, EventArgs e)
         {
-            Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
+            panelHotkey.Hide();
         }
 
         private void buttonApplyHotkey_Click(object sender, EventArgs e)
         {
-            Util.Animate(panelHotkey, Util.Effect.Center, 100, 180);
+            panelHotkey.Hide();
             r1 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             r1.SetValue("HKey", comboBoxHotkey.Text);
             r1.Close();
@@ -594,14 +593,14 @@ namespace XShort
 
         private void buttonExclusionList_Click(object sender, EventArgs e)
         {
-            Util.Animate(panelExIntro, Util.Effect.Center, 100, 180);
+            panelExIntro.Hide();
             LoadRunningProcesses();
             LoadExclusion();
         }
 
         private void buttonExBack_Click(object sender, EventArgs e)
         {
-            Util.Animate(panelExIntro, Util.Effect.Center, 100, 180);
+            panelExIntro.Show();
             File.WriteAllText(Path.Combine(dataPath, "exclusion"), String.Empty);
             for (int i = 0; i < listViewExclusion.Items.Count; i++)
             {
