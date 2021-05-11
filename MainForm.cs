@@ -731,65 +731,6 @@ namespace XShort
         //    return 1;
         //}
 
-        private int importData(string path)
-        {
-            List<String> tName = new List<string>();
-            List<String> tPath = new List<string>();
-            List<String> tPara = new List<string>();
-            FileStream fs;
-            StreamReader sr;
-            try
-            {
-                fs = new FileStream(Path.Combine(path, "data1.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return 0;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                tName.Add(sr.ReadLine());
-            }
-            fs.Close();
-            sr.Close();
-
-            //
-            try
-            {
-                fs = new FileStream(Path.Combine(path, "data2.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                tPath.Add(sr.ReadLine());
-            }
-            fs.Close();
-            sr.Close();
-
-            //
-            try
-            {
-                fs = new FileStream(Path.Combine(path, "data3.data"), FileMode.Open, FileAccess.Read);
-            }
-            catch
-            {
-                return -1;
-            }
-            sr = new StreamReader(fs);
-            while (!sr.EndOfStream)
-            {
-                tPara.Add(sr.ReadLine());
-            }
-            fs.Close();
-            sr.Close();
-
-            return 1;
-        }
 
         private int ImportData(string path)
         {
@@ -848,6 +789,11 @@ namespace XShort
             fs.Close();
             sr.Close();
 
+            for (int i = 0; i < tName.Count; i++)
+            {
+                listViewData.Items.Add(new ListViewItem(new string[] { tName[i], tPath[i], tPara[i] }));
+            }
+            edit = true;
             return 1;
         }
 
@@ -1693,15 +1639,9 @@ namespace XShort
             if (fb.ShowDialog() == DialogResult.OK)
             {
                 int ret = 0;
-                try
-                {
-                    ret = ImportData(fb.SelectedPath);
-                }
-                catch
-                {
-                    ret = importData(fb.SelectedPath);
-                }
+                ret = ImportData(fb.SelectedPath);
 
+               
                 if (ret == 0)
                 {
                     MessageBox.Show("Fail to import data! Make sure you have a valid data!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

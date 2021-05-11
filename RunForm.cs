@@ -75,6 +75,7 @@ namespace XShort
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             LoadSuggestions();
+            MaintainSuggestions();
             loaded = true;
             comboBoxRun.Enabled = true;
         }
@@ -150,6 +151,7 @@ namespace XShort
                 if (Shortcuts.FindIndex(f => f.Name == suggestions[i].nextcall) < 0 && !sysCmd.Contains(suggestions[i].nextcall))
                     suggestions[i].nextcall = String.Empty;
             }
+            ReloadSuggestions();
         }
 
 
@@ -676,7 +678,7 @@ namespace XShort
                 comboBoxRun.Items.Add(Shortcuts[j].Name);
             }
             LoadIndex();
-            MaintainSuggestions();
+            
             return 1;
 
         }
