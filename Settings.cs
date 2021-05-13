@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
 using System.Linq;
+using System.Globalization;
 
 namespace XShort
 {
@@ -22,6 +23,8 @@ namespace XShort
         private List<String> exclusion = new List<string>();
         private string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
         private string[] sysCmd = { "utilman", "hdwwiz", "appwiz.cpl", "netplwz", "azman.msc", "sdctl", "fsquirt", "calc", "certmgr.msc", "charmap", "chkdsk", "cttune", "colorcpl.exe", "cmd", "dcomcnfg", "comexp.msc", "compmgmt.msc", "control", "credwiz", "timedate.cpl", "hdwwiz", "devmgmt.msc", "tabcal", "directx.cpl", "dxdiag", "cleanmgr", "dfrgui", "diskmgmt.msc", "diskpart", "dccw", "dpiscaling", "control desktop", "desk.cpl", "control color", "documents", "downloads", "verifier", "dvdplay", "sysdm.cpl", "	rekeywiz", "eventvwr.msc", "sigverif", "control folders", "control fonts", "joy.cpl", "gpedit.msc", "inetcpl.cpl", "ipconfig", "iscsicpl", "control keyboard", "lpksetup", "secpol.msc", "lusrmgr.msc", "logoff", "mrt", "mmc", "mspaint", "msdt", "control mouse", "main.cpl", "ncpa.cpl", "notepad", "perfmon.msc", "powercfg.cpl", "control printers", "regedit", "snippingtool", "wscui.cpl", "services.msc", "mmsys.cpl", "mmsys.cpl", "sndvol", "msconfig", "sfc", "msinfo32", "sysdm.cpl", "taskmgr", "explorer", "firewall.cpl", "wf.msc", "magnify", "powershell", "winver", "telnet", "rstrui" };
+        private CultureInfo culture = CultureInfo.CurrentUICulture;
+
 
         public Settings(List<Shortcut> shortcuts)
         {
@@ -43,7 +46,11 @@ namespace XShort
             }
             if (File.Exists(Path.Combine(dataPath, "index")))
             {
-                labelLastUpdate.Text = "Last update: " + new FileInfo(Path.Combine(dataPath, "index")).LastWriteTime;
+                if (culture.Name == "en")
+                    labelLastUpdate.Text = "Last update: " + new FileInfo(Path.Combine(dataPath, "index")).LastWriteTime;
+                else
+                    labelLastUpdate.Text = "Cập nhật lần cuối: " + new FileInfo(Path.Combine(dataPath, "index")).LastWriteTime;
+
             }
         }
 
@@ -148,9 +155,13 @@ namespace XShort
             sr.Close();
 
             if (blockList.Count > 0)
-                buttonBlocklist.Text = "Blocklist - " + blockList.Count.ToString() + " shortcut(s) selected";
-            else
-                buttonBlocklist.Text = "Blocklist";
+            {
+                if (culture.Name == "en")
+                    buttonBlocklist.Text = "Blocklist - " + blockList.Count.ToString() + " shortcut(s) selected";
+                else
+                    buttonBlocklist.Text = "Dánh sách chặn - " + blockList.Count.ToString() + " lối tắt đã chọn";
+
+            }
         }
 
         private void LoadSettings()

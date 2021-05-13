@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,6 +14,7 @@ using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace XShort
@@ -37,6 +39,7 @@ namespace XShort
         private string text = String.Empty;
         private string dataPath;
         private string pass = "asdewefcasdsafasfajldsjlsjakldjohfoiajskdlsakljncnalskjdlkjslka";
+        private string lang = String.Empty;
         private bool exit = false;
         private bool edit = false;
 
@@ -61,8 +64,25 @@ namespace XShort
 
         public MainForm()
         {
-
+            r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            if (r == null)
+                r = Registry.CurrentUser.CreateSubKey("SOFTWARE\\ClearAll\\XShort\\Data");
+            if (r.GetValue("Lang") != null)
+            {
+                lang = r.GetValue("Lang").ToString();
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+            }
+            else
+            {
+                r.SetValue("Lang", "en");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+            }
+            r.Close();
             InitializeComponent();
+            if (lang == "en")
+                englishToolStripMenuItem.Checked = true;
+            else
+                vietnameseToolStripMenuItem.Checked = true;
 
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             System.IO.Directory.CreateDirectory(dataPath);
@@ -113,6 +133,70 @@ namespace XShort
             GetLastInputInfo(ref lastInPut);
 
             return ((uint)Environment.TickCount - lastInPut.dwTime);
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage("en");
+            englishToolStripMenuItem.Checked = true;
+            vietnameseToolStripMenuItem.Checked = !englishToolStripMenuItem.Checked;
+        }
+
+        private void vietnameseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeLanguage("vi");
+            englishToolStripMenuItem.Checked = false;
+            vietnameseToolStripMenuItem.Checked = !englishToolStripMenuItem.Checked;
+        }
+
+        private static void ChangeLanguage2(string lang)
+        {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+            foreach (Form frm in Application.OpenForms)
+            {
+                localizeForm(frm);
+            }
+        }
+
+        private static void localizeForm(Form frm)
+        {
+            var manager = new ComponentResourceManager(frm.GetType());
+            manager.ApplyResources(frm, "$this");
+            applyResources(manager, frm.Controls);
+        }
+
+        private static void applyResources(ComponentResourceManager manager, Control.ControlCollection ctls)
+        {
+            foreach (Control ctl in ctls)
+            {
+                manager.ApplyResources(ctl, ctl.Name);
+                applyResources(manager, ctl.Controls);
+            }
+        }
+
+        private void ChangeLanguage(string lang)
+        {
+            var rm = new ComponentResourceManager(this.GetType());
+            var culture = CultureInfo.CreateSpecificCulture(lang);
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+            foreach (Control c in this.AllControls())
+            {
+                if (c is ToolStrip)
+                {
+                    var items = ((ToolStrip)c).AllItems().ToList();
+                    foreach (var item in items)
+                        rm.ApplyResources(item, item.Name);
+                }
+                rm.ApplyResources(c, c.Name);
+            }
+            if (!f2.IsDisposed && f2 != null)
+            {
+                f2.Close();
+                f2 = new RunForm(Shortcuts);
+                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+
+            }
         }
 
         protected virtual bool IsFileLocked(FileInfo file)
@@ -1380,7 +1464,12 @@ namespace XShort
                 minimizeToolStripMenuItem_Click(null, null);
                 return;
             }
-
+            r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
+            if (englishToolStripMenuItem.Checked)
+                r.SetValue("Lang", "en");
+            else
+                r.SetValue("Lang", "vi");
+            r.Close();
 
         }
 
@@ -1981,6 +2070,8 @@ namespace XShort
         {
             Process.Start("https://clearallsoft.cf");
         }
+
+     
     }
 
     //this class for sort listview
@@ -2164,4 +2255,36 @@ namespace XShort
         }
     }
 
+
+    public static class ToolStripExtensions
+    {
+        public static IEnumerable<ToolStripItem> AllItems(this ToolStrip toolStrip)
+        {
+            return toolStrip.Items.Flatten();
+        }
+        public static IEnumerable<ToolStripItem> Flatten(this ToolStripItemCollection items)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                if (item is ToolStripDropDownItem)
+                    foreach (ToolStripItem subitem in
+                        ((ToolStripDropDownItem)item).DropDownItems.Flatten())
+                        yield return subitem;
+                yield return item;
+            }
+        }
+    }
+
+    public static class ControlExtensions
+    {
+        public static IEnumerable<Control> AllControls(this Control control)
+        {
+            foreach (Control c in control.Controls)
+            {
+                yield return c;
+                foreach (Control child in c.Controls)
+                    yield return child;
+            }
+        }
+    }
 }

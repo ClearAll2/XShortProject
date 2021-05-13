@@ -116,11 +116,26 @@
     </Compile>
     <Compile Include="Shortcut.cs" />
     <Compile Include="Suggestions.cs" />
+    <EmbeddedResource Include="About.en.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="About.vi.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.vi.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunForm.en.resx">
+      <DependentUpon>RunForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RunForm.resx">
       <DependentUpon>RunForm.cs</DependentUpon>
@@ -133,7 +148,16 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="RunForm.vi.resx">
+      <DependentUpon>RunForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.en.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.vi.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="bin\Release\data1.data" />

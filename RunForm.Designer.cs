@@ -60,31 +60,24 @@
             // 
             // button1
             // 
+            resources.ApplyResources(this.button1, "button1");
             this.button1.BackColor = System.Drawing.Color.DodgerBlue;
             this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(461, 90);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 24);
-            this.button1.TabIndex = 1;
             this.button1.TabStop = false;
-            this.button1.Text = "OK";
+            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBoxRun
             // 
-            this.comboBoxRun.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            resources.ApplyResources(this.comboBoxRun, "comboBoxRun");
             this.comboBoxRun.ContextMenuStrip = this.contextMenuStrip1;
-            this.comboBoxRun.Enabled = false;
-            this.comboBoxRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxRun.ForeColor = System.Drawing.Color.DodgerBlue;
             this.comboBoxRun.FormattingEnabled = true;
-            this.comboBoxRun.Location = new System.Drawing.Point(12, 25);
             this.comboBoxRun.Name = "comboBoxRun";
-            this.comboBoxRun.Size = new System.Drawing.Size(529, 39);
-            this.comboBoxRun.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.comboBoxRun, resources.GetString("comboBoxRun.ToolTip"));
             this.comboBoxRun.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             this.comboBoxRun.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
             this.comboBoxRun.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyUp);
@@ -92,74 +85,63 @@
             // 
             // contextMenuStrip1
             // 
+            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.BackColor = System.Drawing.Color.White;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openAsAdministratorToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(194, 26);
+            this.toolTip1.SetToolTip(this.contextMenuStrip1, resources.GetString("contextMenuStrip1.ToolTip"));
             // 
             // openAsAdministratorToolStripMenuItem
             // 
+            resources.ApplyResources(this.openAsAdministratorToolStripMenuItem, "openAsAdministratorToolStripMenuItem");
             this.openAsAdministratorToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.openAsAdministratorToolStripMenuItem.Name = "openAsAdministratorToolStripMenuItem";
-            this.openAsAdministratorToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.openAsAdministratorToolStripMenuItem.Text = "Open as Administrator";
             this.openAsAdministratorToolStripMenuItem.Click += new System.EventHandler(this.openAsAdministratorToolStripMenuItem_Click);
             // 
             // button2
             // 
+            resources.ApplyResources(this.button2, "button2");
             this.button2.BackColor = System.Drawing.Color.DodgerBlue;
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(375, 90);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(80, 24);
-            this.button2.TabIndex = 2;
             this.button2.TabStop = false;
-            this.button2.Text = "Cancel";
+            this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // labelInstruction
             // 
-            this.labelInstruction.AutoSize = true;
-            this.labelInstruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.labelInstruction, "labelInstruction");
             this.labelInstruction.ForeColor = System.Drawing.Color.Gray;
-            this.labelInstruction.Location = new System.Drawing.Point(12, 7);
             this.labelInstruction.Name = "labelInstruction";
-            this.labelInstruction.Size = new System.Drawing.Size(245, 15);
-            this.labelInstruction.TabIndex = 7;
-            this.labelInstruction.Text = "Press Tab to search similar names/shorcuts";
+            this.toolTip1.SetToolTip(this.labelInstruction, resources.GetString("labelInstruction.ToolTip"));
             // 
             // panelSuggestions
             // 
-            this.panelSuggestions.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panelSuggestions.Location = new System.Drawing.Point(12, 70);
+            resources.ApplyResources(this.panelSuggestions, "panelSuggestions");
             this.panelSuggestions.Name = "panelSuggestions";
-            this.panelSuggestions.Size = new System.Drawing.Size(529, 44);
-            this.panelSuggestions.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.panelSuggestions, resources.GetString("panelSuggestions.ToolTip"));
             this.panelSuggestions.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSuggestions_Paint);
             // 
             // listViewResult
             // 
+            resources.ApplyResources(this.listViewResult, "listViewResult");
             this.listViewResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewResult.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.listViewResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewResult.FullRowSelect = true;
             this.listViewResult.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewResult.HideSelection = false;
-            this.listViewResult.Location = new System.Drawing.Point(12, 136);
             this.listViewResult.MultiSelect = false;
             this.listViewResult.Name = "listViewResult";
-            this.listViewResult.Size = new System.Drawing.Size(529, 205);
             this.listViewResult.SmallImageList = this.imageList1;
-            this.listViewResult.TabIndex = 9;
             this.listViewResult.TabStop = false;
+            this.toolTip1.SetToolTip(this.listViewResult, resources.GetString("listViewResult.ToolTip"));
             this.listViewResult.UseCompatibleStateImageBehavior = false;
             this.listViewResult.View = System.Windows.Forms.View.Details;
             this.listViewResult.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewResult_MouseClick);
@@ -167,17 +149,17 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Results";
-            this.columnHeader1.Width = 507;
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(30, 30);
+            resources.ApplyResources(this.imageList1, "imageList1");
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // contextMenuStrip2
             // 
+            resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
             this.contextMenuStrip2.BackColor = System.Drawing.Color.White;
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
@@ -186,34 +168,30 @@
             this.propertiesToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip2.Size = new System.Drawing.Size(192, 92);
+            this.toolTip1.SetToolTip(this.contextMenuStrip2, resources.GetString("contextMenuStrip2.ToolTip"));
             // 
             // openToolStripMenuItem
             // 
+            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // openAsAdministratorToolStripMenuItem1
             // 
+            resources.ApplyResources(this.openAsAdministratorToolStripMenuItem1, "openAsAdministratorToolStripMenuItem1");
             this.openAsAdministratorToolStripMenuItem1.Name = "openAsAdministratorToolStripMenuItem1";
-            this.openAsAdministratorToolStripMenuItem1.Size = new System.Drawing.Size(191, 22);
-            this.openAsAdministratorToolStripMenuItem1.Text = "Open as administrator";
             this.openAsAdministratorToolStripMenuItem1.Click += new System.EventHandler(this.openAsAdministratorToolStripMenuItem1_Click);
             // 
             // openFileLocationToolStripMenuItem
             // 
+            resources.ApplyResources(this.openFileLocationToolStripMenuItem, "openFileLocationToolStripMenuItem");
             this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
-            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.openFileLocationToolStripMenuItem.Text = "Open file location";
             this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.openFileLocationToolStripMenuItem_Click);
             // 
             // propertiesToolStripMenuItem
             // 
+            resources.ApplyResources(this.propertiesToolStripMenuItem, "propertiesToolStripMenuItem");
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.propertiesToolStripMenuItem.Text = "Properties";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // timerSuggestions
@@ -225,11 +203,10 @@
             // RunForm
             // 
             this.AcceptButton = this.button1;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(553, 130);
             this.Controls.Add(this.listViewResult);
             this.Controls.Add(this.panelSuggestions);
             this.Controls.Add(this.labelInstruction);
@@ -237,13 +214,11 @@
             this.Controls.Add(this.comboBoxRun);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RunForm";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "XShort Run";
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.TopMost = true;
             this.Activated += new System.EventHandler(this.Form2_Activated);
             this.Deactivate += new System.EventHandler(this.RunForm_Deactivate);

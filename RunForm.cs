@@ -8,6 +8,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Globalization;
+using System.Threading;
 
 namespace XShort
 {
@@ -38,7 +40,6 @@ namespace XShort
         private List<String> indexData = new List<string>();
         private readonly BackgroundWordFilter _filter;
         private List<String> matches = new List<string>();
-        private bool loaded = false;
         public RunForm(List<Shortcut> shortcuts)
         {
             InitializeComponent();
@@ -75,7 +76,6 @@ namespace XShort
         {
             LoadSuggestions();
             MaintainSuggestions();
-            loaded = true;
             comboBoxRun.Enabled = true;
         }
 
@@ -150,6 +150,7 @@ namespace XShort
                 if (Shortcuts.FindIndex(f => f.Name == suggestions[i].nextcall) < 0 && !sysCmd.Contains(suggestions[i].nextcall))
                     suggestions[i].nextcall = String.Empty;
             }
+            LoadIcon();
             ReloadSuggestions();
         }
 
@@ -1086,7 +1087,7 @@ namespace XShort
                 System.IO.File.WriteAllText(path, String.Empty);
                 for (int i = 0; i < suggestions.Count; i++)
                 {
-                    string newline = String.Join("", suggestions[i].loc, "|", suggestions[i].count, "|", suggestions[i].lasttime, "|", suggestions[i].nextcall, Environment.NewLine);
+                    string newline = String.Join("", suggestions[i].loc, "|", suggestions[i].count, "|", suggestions[i].lasttime.ToString("F", new CultureInfo("en")), "|", suggestions[i].nextcall, Environment.NewLine);
                     //System.IO.File.AppendAllText(dataPath + "\\suggestions", suggestions[i].loc + "|" + suggestions[i].count + "|" + suggestions[i].lasttime + Environment.NewLine);
                     System.IO.File.AppendAllText(path, newline);
                 }
