@@ -116,9 +116,6 @@
     </Compile>
     <Compile Include="Shortcut.cs" />
     <Compile Include="Suggestions.cs" />
-    <EmbeddedResource Include="About.en-AS.resx">
-      <DependentUpon>About.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="About.en.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
