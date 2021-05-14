@@ -149,31 +149,6 @@ namespace XShort
             vietnameseToolStripMenuItem.Checked = !englishToolStripMenuItem.Checked;
         }
 
-        private static void ChangeLanguage2(string lang)
-        {
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
-            foreach (Form frm in Application.OpenForms)
-            {
-                localizeForm(frm);
-            }
-        }
-
-        private static void localizeForm(Form frm)
-        {
-            var manager = new ComponentResourceManager(frm.GetType());
-            manager.ApplyResources(frm, "$this");
-            applyResources(manager, frm.Controls);
-        }
-
-        private static void applyResources(ComponentResourceManager manager, Control.ControlCollection ctls)
-        {
-            foreach (Control ctl in ctls)
-            {
-                manager.ApplyResources(ctl, ctl.Name);
-                applyResources(manager, ctl.Controls);
-            }
-        }
-
         private void ChangeLanguage(string lang)
         {
             var rm = new ComponentResourceManager(this.GetType());
@@ -182,9 +157,9 @@ namespace XShort
             Thread.CurrentThread.CurrentUICulture = culture;
             foreach (Control c in this.AllControls())
             {
-                if (c is ToolStrip)
+                if (c is ToolStrip strip)
                 {
-                    var items = ((ToolStrip)c).AllItems().ToList();
+                    var items = strip.AllItems().ToList();
                     foreach (var item in items)
                         rm.ApplyResources(item, item.Name);
                 }

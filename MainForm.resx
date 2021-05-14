@@ -153,8 +153,8 @@
   <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="detailsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 22</value>
+  <data name="textBoxPath.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
   <data name="textBoxPara.Size" type="System.Drawing.Size, System.Drawing">
     <value>373, 22</value>
@@ -167,9 +167,6 @@
   </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
-  </data>
-  <data name="textBoxName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
   </data>
   <data name="importToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>228, 22</value>
@@ -219,6 +216,12 @@
   <data name="addToolStripMenuItem1.Text" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="panelData.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comboBox1.Items1" xml:space="preserve">
+    <value>Directory</value>
+  </data>
   <data name="homepageToolStripMenuItem.Text" xml:space="preserve">
     <value>Homepage</value>
   </data>
@@ -236,9 +239,6 @@
   </data>
   <data name="buttonAddApp.ToolTip" xml:space="preserve">
     <value>Add App/File</value>
-  </data>
-  <data name="propertiesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 22</value>
   </data>
   <data name="&gt;&gt;labelName.Name" xml:space="preserve">
     <value>labelName</value>
@@ -309,8 +309,8 @@
   <data name="&gt;&gt;labelName.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;panelData.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="labelPara.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;button13.Parent" xml:space="preserve">
     <value>panelEditShortcut</value>
@@ -321,6 +321,9 @@
   <data name="buttonAddURL.Text" xml:space="preserve">
     <value>Add URL</value>
   </data>
+  <data name="&gt;&gt;openSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>openSettingsToolStripMenuItem</value>
+  </data>
   <data name="openAtWindowsStartupToolStripMenuItem.Text" xml:space="preserve">
     <value>Open at Windows startup</value>
   </data>
@@ -329,6 +332,12 @@
   </data>
   <data name="textBoxPath.Size" type="System.Drawing.Size, System.Drawing">
     <value>340, 22</value>
+  </data>
+  <data name="buttonAddURL.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="addDirToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>290, 22</value>
   </data>
   <data name="&gt;&gt;detailsToolStripMenuItem.Name" xml:space="preserve">
     <value>detailsToolStripMenuItem</value>
@@ -369,6 +378,9 @@
   <data name="buttonAddDir.ToolTip" xml:space="preserve">
     <value>Add Directory</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
   <data name="&gt;&gt;buttonAddApp.Name" xml:space="preserve">
     <value>buttonAddApp</value>
   </data>
@@ -399,14 +411,20 @@
   <data name="importToolStripMenuItem.Text" xml:space="preserve">
     <value>Import data</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
+  <data name="&gt;&gt;notifyIcon1.Name" xml:space="preserve">
+    <value>notifyIcon1</value>
+  </data>
+  <data name="addUrlToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+C</value>
   </data>
   <data name="&gt;&gt;textBoxPara.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="buttonAddApp.Size" type="System.Drawing.Size, System.Drawing">
     <value>118, 28</value>
+  </data>
+  <data name="&gt;&gt;textBoxPara.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;comboBox1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -473,7 +491,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADa
-        ngAAAk1TRnQBSQFMAgEBEgEAARgBAQFAAQEBFgEAARYBAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFY
+        ngAAAk1TRnQBSQFMAgEBEgEAARgBAQFEAQEBFgEAARYBAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFY
         AwABbgMAAQEBAAEgBQABQAGXGgADFAEbAVECTwGcAWIBWwFYAekBZQJeAeUBZQJeAeUBZQJeAeUBZQJe
         AeUBZQJeAeUBZQJeAeUBZQJeAeUBZQJeAeUBZQJeAeUBZQJeAeUBZQJeAeUBZQJeAeUBZAJcAecDVAGv
         Ax0BKhwAAwgBCwMZASMCPgE9AWoDVQGyAWEBXwFbAeEBZwFcAT4B+AFqAVgBQQH5AWECWgHkAlcBVgG4
@@ -1171,6 +1189,9 @@
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
     <value>233, 6</value>
   </data>
+  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="openAtWindowsStartupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 22</value>
   </data>
@@ -1191,6 +1212,9 @@
   </data>
   <data name="&gt;&gt;cloneToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileLocationToolStripMenuItem1.Name" xml:space="preserve">
+    <value>openFileLocationToolStripMenuItem1</value>
   </data>
   <data name="&gt;&gt;importToolStripMenuItem.Name" xml:space="preserve">
     <value>importToolStripMenuItem</value>
@@ -1258,6 +1282,9 @@
   <data name="addAppToolStripMenuItem.Text" xml:space="preserve">
     <value>Add App/File</value>
   </data>
+  <data name="&gt;&gt;panelData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="buttonAddApp.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -1312,9 +1339,6 @@
   <data name="menuStrip1.Text" xml:space="preserve">
     <value>menuStrip1</value>
   </data>
-  <data name="labelPath.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
   <data name="&gt;&gt;columnHeader2.Name" xml:space="preserve">
     <value>columnHeader2</value>
   </data>
@@ -1326,9 +1350,6 @@
   </data>
   <data name="&gt;&gt;saveToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="addDirToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+D</value>
   </data>
   <data name="&gt;&gt;addDirToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -10725,6 +10746,9 @@
   <data name="&gt;&gt;buttonAddURL.Name" xml:space="preserve">
     <value>buttonAddURL</value>
   </data>
+  <data name="cloneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 22</value>
+  </data>
   <data name="listViewData.Size" type="System.Drawing.Size, System.Drawing">
     <value>962, 539</value>
   </data>
@@ -10743,8 +10767,8 @@
   <data name="contextMenuStrip2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Segoe UI, 9.75pt</value>
   </data>
-  <data name="reloadDataToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Reload data</value>
+  <data name="addDirToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Shift+D</value>
   </data>
   <data name="buttonAddApp.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -10778,6 +10802,9 @@
   </data>
   <data name="contextMenuStrip1.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="textBoxPath.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 9.75pt</value>
   </data>
   <data name="&gt;&gt;createShortcutOnDesktopToolStripMenuItem.Name" xml:space="preserve">
     <value>createShortcutOnDesktopToolStripMenuItem</value>
@@ -20168,11 +20195,8 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
-  <data name="&gt;&gt;openFileLocationToolStripMenuItem1.Type" xml:space="preserve">
+  <data name="&gt;&gt;exportToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon1.Name" xml:space="preserve">
-    <value>notifyIcon1</value>
   </data>
   <data name="labelShortcutType.Location" type="System.Drawing.Point, System.Drawing">
     <value>139, 78</value>
@@ -20180,8 +20204,8 @@
   <data name="&gt;&gt;textBoxPara.Parent" xml:space="preserve">
     <value>panelEditShortcut</value>
   </data>
-  <data name="panelData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 47</value>
+  <data name="&gt;&gt;textBoxPath.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="mainWindowToolStripMenuItem.Text" xml:space="preserve">
     <value>Main Window</value>
@@ -20200,6 +20224,9 @@
   </data>
   <data name="buttonAddDir.ImageIndex" type="System.Int32, mscorlib">
     <value>8</value>
+  </data>
+  <data name="detailsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="&gt;&gt;addUrlToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -20222,6 +20249,9 @@
   <data name="panelEditShortcut.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="&gt;&gt;panelEditShortcut.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="button12.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -20234,15 +20264,6 @@
   <data name="&gt;&gt;imageList1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="labelPath.Text" xml:space="preserve">
-    <value>Path</value>
-  </data>
-  <data name="runBoxToolStripMenuItem.Text" xml:space="preserve">
-    <value>Run Box</value>
-  </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 6</value>
-  </data>
   <data name="&gt;&gt;labelPath.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
@@ -20251,9 +20272,6 @@
   </data>
   <data name="buttonSave.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
-  </data>
-  <data name="listViewData.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 11.25pt</value>
   </data>
   <data name="panelData.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -20273,20 +20291,14 @@
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>986, 25</value>
   </data>
-  <data name="addUrlToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+Shift+C</value>
-  </data>
-  <data name="textBoxPath.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="textBoxName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="&gt;&gt;button10.Name" xml:space="preserve">
     <value>button10</value>
   </data>
   <data name="appToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit</value>
-  </data>
-  <data name="button10.Text" xml:space="preserve">
-    <value>&amp;OK</value>
   </data>
   <data name="exportToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+E</value>
@@ -20336,8 +20348,8 @@
   <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="labelPara.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="detailsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 22</value>
   </data>
   <data name="buttonAddURL.Location" type="System.Drawing.Point, System.Drawing">
     <value>508, 597</value>
@@ -20384,23 +20396,26 @@
   <data name="&gt;&gt;panelData.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="panelData.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 47</value>
+  </data>
   <data name="&gt;&gt;button10.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelShortcutType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;exitToolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="comboBox1.Items1" xml:space="preserve">
-    <value>Directory</value>
+  <data name="&gt;&gt;listViewData.Name" xml:space="preserve">
+    <value>listViewData</value>
+  </data>
+  <data name="reloadDataToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Reload data</value>
   </data>
   <data name="&gt;&gt;propertiesToolStripMenuItem.Name" xml:space="preserve">
     <value>propertiesToolStripMenuItem</value>
   </data>
-  <data name="cloneToolStripMenuItem.Text" xml:space="preserve">
-    <value>Clone shortcut</value>
+  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="button13.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -20440,9 +20455,6 @@
   </data>
   <data name="&gt;&gt;textBoxName.Name" xml:space="preserve">
     <value>textBoxName</value>
-  </data>
-  <data name="&gt;&gt;buttonAddURL.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save &amp;&amp; Apply Shortcuts</value>
@@ -20489,10 +20501,7 @@
   <data name="button13.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 22</value>
   </data>
-  <data name="&gt;&gt;textBoxPath.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="cloneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="propertiesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>236, 22</value>
   </data>
   <data name="addToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
@@ -20537,8 +20546,8 @@
   <data name="comboBox1.Items2" xml:space="preserve">
     <value>URL</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="runBoxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Run Box</value>
   </data>
   <data name="&gt;&gt;minimizeHideToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -20552,8 +20561,8 @@
   <data name="&gt;&gt;detailsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panelEditShortcut.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;buttonAddURL.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;englishToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -20564,9 +20573,6 @@
   <data name="openAboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="&gt;&gt;textBoxName.Parent" xml:space="preserve">
-    <value>panelEditShortcut</value>
-  </data>
   <data name="notifyIcon1.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -20576,11 +20582,8 @@
   <data name="columnHeader3.Width" type="System.Int32, mscorlib">
     <value>92</value>
   </data>
-  <data name="&gt;&gt;exportToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;propertiesToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="labelPath.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="&gt;&gt;addAppToolStripMenuItem.Name" xml:space="preserve">
     <value>addAppToolStripMenuItem</value>
@@ -20603,8 +20606,8 @@
   <data name="importToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Shift+I</value>
   </data>
-  <data name="textBoxPath.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 9.75pt</value>
+  <data name="&gt;&gt;labelShortcutType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonSave.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -20618,8 +20621,8 @@
   <data name="&gt;&gt;labelName.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxPara.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="labelPath.Text" xml:space="preserve">
+    <value>Path</value>
   </data>
   <data name="textBoxPara.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -20663,8 +20666,8 @@
   <data name="&gt;&gt;columnHeader1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;listViewData.Name" xml:space="preserve">
-    <value>listViewData</value>
+  <data name="&gt;&gt;openFileLocationToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>XShort Core</value>
@@ -20687,9 +20690,6 @@
   <data name="&gt;&gt;textBoxPath.Name" xml:space="preserve">
     <value>textBoxPath</value>
   </data>
-  <data name="button13.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
   <data name="notifyIcon1.Text" xml:space="preserve">
     <value>Click to open XShort Run</value>
   </data>
@@ -20711,8 +20711,8 @@
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 22</value>
   </data>
-  <data name="addDirToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 22</value>
+  <data name="button10.Text" xml:space="preserve">
+    <value>&amp;OK</value>
   </data>
   <data name="panelData.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -20741,26 +20741,26 @@
   <data name="textBoxName.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt</value>
   </data>
-  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
-    <value>About</value>
+  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 6</value>
   </data>
-  <data name="detailsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Edit</value>
+  <data name="listViewData.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 11.25pt</value>
   </data>
-  <data name="&gt;&gt;openSettingsToolStripMenuItem.Name" xml:space="preserve">
-    <value>openSettingsToolStripMenuItem</value>
+  <data name="&gt;&gt;propertiesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="listViewData.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="buttonAddURL.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
+  <data name="button13.Text" xml:space="preserve">
+    <value>...</value>
   </data>
   <data name="&gt;&gt;columnHeader3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;openFileLocationToolStripMenuItem1.Name" xml:space="preserve">
-    <value>openFileLocationToolStripMenuItem1</value>
+  <data name="cloneToolStripMenuItem.Text" xml:space="preserve">
+    <value>Clone shortcut</value>
   </data>
   <data name="labelPath.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 16</value>
@@ -20786,8 +20786,8 @@
   <data name="button10.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="panelData.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;textBoxName.Parent" xml:space="preserve">
+    <value>panelEditShortcut</value>
   </data>
   <data name="labelPath.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
