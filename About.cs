@@ -89,6 +89,7 @@ namespace XShort
             sw.WriteLine("del \"xshortcore.zip\"");
             sw.Close();
             exit = true;
+            buttonCheckUpdate.Enabled = true;
             this.Close();
         }
 
