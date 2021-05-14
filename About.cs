@@ -56,6 +56,10 @@ namespace XShort
                     wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
                     wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
                 }
+                else
+                {
+                    buttonCheckUpdate.Enabled = true;
+                }
             }
         }
 
