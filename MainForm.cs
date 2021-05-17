@@ -75,6 +75,7 @@ namespace XShort
             else
             {
                 r.SetValue("Lang", "en");
+                lang = "en";
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             }
             r.Close();
