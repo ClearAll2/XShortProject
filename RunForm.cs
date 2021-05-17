@@ -184,7 +184,7 @@ namespace XShort
                 {
                     for (int i = 0; i < timeSuggestions.Count; i++)
                     {
-                        AddNewSuggestionsItems(timeSuggestions[i].loc, Shortcuts.FindIndex(f => f.Name == timeSuggestions[i].loc) > 0);
+                        AddNewSuggestionsItems(timeSuggestions[i].loc, Shortcuts.FindIndex(f => f.Name == timeSuggestions[i].loc) >= 0);
                         addedSuggestions.Add(timeSuggestions[i].loc);
                         if (rel >= suggestNum)
                             break;
@@ -202,7 +202,7 @@ namespace XShort
                                     {
                                         if (!blockList.Contains(timeSuggestions[i].nextcall))//if it's not in blocklist
                                         {
-                                            AddNewSuggestionsItems(timeSuggestions[i].nextcall, Shortcuts.FindIndex(f => f.Name == timeSuggestions[i].nextcall) > 0);
+                                            AddNewSuggestionsItems(timeSuggestions[i].nextcall, Shortcuts.FindIndex(f => f.Name == timeSuggestions[i].nextcall) >= 0);
                                             addedSuggestions.Add(timeSuggestions[i].nextcall);
                                             if (remain > 0)
                                                 remain -= 1;
@@ -227,7 +227,7 @@ namespace XShort
                             {
                                 if (!blockList.Contains(suggestions[i].loc))//if it's not in blocklist
                                 {
-                                    AddNewSuggestionsItems(suggestions[i].loc, Shortcuts.FindIndex(f => f.Name == suggestions[i].loc) > 0);
+                                    AddNewSuggestionsItems(suggestions[i].loc, Shortcuts.FindIndex(f => f.Name == suggestions[i].loc) >= 0);
                                     addedSuggestions.Add(suggestions[i].loc);
                                     if (remain > 0)
                                         remain -= 1;
@@ -396,7 +396,7 @@ namespace XShort
         private void Newsuggestion_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            SimpleRun(button.Tag.ToString(), Shortcuts.FindIndex(f => f.Name == button.Tag.ToString()) > 0);
+            SimpleRun(button.Tag.ToString(), Shortcuts.FindIndex(f => f.Name == button.Tag.ToString()) >= 0);
             comboBoxRun.Text = String.Empty;
             ReloadSuggestions();
         }
@@ -740,7 +740,7 @@ namespace XShort
             while (!sr.EndOfStream)
             {
                 string read = sr.ReadLine();
-                if (Shortcuts.FindIndex(f => f.Name == read) > 0 || sysCmd.Contains(read))//check if it's not an invalid shortcut
+                if (Shortcuts.FindIndex(f => f.Name == read) >= 0 || sysCmd.Contains(read))//check if it's not an invalid shortcut
                     blockList.Add(read);
             }
             fs.Close();

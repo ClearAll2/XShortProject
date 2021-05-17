@@ -1171,13 +1171,6 @@ namespace XShort
                 f3.TopMost = false;
                 f3.Show();
 
-
-
-                //button11.Enabled = false;
-
-                //button8.Enabled = false;
-                //button7.Enabled = false;
-                //panelSub.Enabled = false;
                 panelData.Enabled = false;
 
                 BackgroundWorker bwt = new BackgroundWorker();
@@ -1190,6 +1183,12 @@ namespace XShort
 
         private void Bwt_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (f2 != null && !f2.IsDisposed)
+            {
+                f2.Close();
+            }
+            f2 = new RunForm(Shortcuts);
+            f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             f2.ReloadSuggestions();
         }
 
@@ -1210,7 +1209,7 @@ namespace XShort
                 if (listViewData.Items[i].SubItems[2].Text != String.Empty)
                     shortcut.Para = listViewData.Items[i].SubItems[2].Text;
                 else
-                    shortcut.Para = "None";
+                    shortcut.Para = String.Empty;
                 Shortcuts.Add(shortcut);
                 
             }
@@ -1239,15 +1238,7 @@ namespace XShort
                     }
                 }
             }
-
-
-
-            if (f2 != null && !f2.IsDisposed)
-            {
-                f2.Close();
-            }
-            f2 = new RunForm(Shortcuts);
-            f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+           
             img.Dispose();
             img = new ImageList();
             img.ColorDepth = ColorDepth.Depth32Bit;
