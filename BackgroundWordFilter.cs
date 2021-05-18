@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace XShort
 {
@@ -11,6 +14,7 @@ namespace XShort
         private readonly Thread _workerThread;
         private readonly int _maxItemsToMatch;
         private readonly Action<List<string>> _callback;
+        private readonly Action<ImageList> _imageList;
 
         private volatile bool _shouldRun = true;
         private volatile string _currentEntry = null;
@@ -18,11 +22,12 @@ namespace XShort
         public BackgroundWordFilter(
             List<string> items,
             int maxItemsToMatch,
-            Action<List<string>> callback)
+            Action<List<string>> callback, Action<ImageList> imageList)
         {
             _items = items;
             _callback = callback;
             _maxItemsToMatch = maxItemsToMatch;
+            _imageList = imageList;
 
             // start the long-lived backgroud thread
             _workerThread = new Thread(WorkerLoop)
@@ -41,6 +46,35 @@ namespace XShort
             _signal.Set();
         }
 
+        public void LoadIcon(ImageList imageList, List<String> path)
+        {
+            imageList.Images.Clear();
+            for (int i = 0; i < path.Count; i++)
+            {
+                try
+                {
+                    imageList.Images.Add(Icon.ExtractAssociatedIcon(path[i]));
+                }
+                catch
+                {
+                    if (path[i].Contains("http"))
+                        imageList.Images.Add(Properties.Resources.internet);
+                    else if (path[i].Contains("\\"))
+                    {
+                        if (Directory.Exists(path[i]))
+                            imageList.Images.Add(Properties.Resources.dir);
+                        else
+                            imageList.Images.Add(Properties.Resources.error);
+                    }
+                    else
+                    {
+                        imageList.Images.Add(Properties.Resources.question_help_mark_balloon_512);
+                    }
+
+                }
+            }
+        }
+
         void WorkerLoop()
         {
             while (_shouldRun)
@@ -52,12 +86,18 @@ namespace XShort
 
                 var entry = _currentEntry;
                 var results = new List<string>();
+                var imageList = new ImageList
+                {
+                    ColorDepth = ColorDepth.Depth32Bit,
+                    ImageSize = new Size(30, 30)
+                };
 
                 // if there is nothing to process,
                 // return an empty list
                 if (string.IsNullOrEmpty(entry))
                 {
                     _callback(results);
+                    _imageList(imageList);
                     continue;
                 }
 
@@ -75,9 +115,12 @@ namespace XShort
                     if (entry != _currentEntry || results.Count >= _maxItemsToMatch)
                         break;
                 }
-
+                LoadIcon(imageList, results);
                 if (entry == _currentEntry)
+                {
                     _callback(results);
+                    _imageList(imageList);
+                }
             }
         }
 

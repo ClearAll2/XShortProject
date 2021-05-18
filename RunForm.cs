@@ -47,8 +47,6 @@ namespace XShort
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
             sImage.ImageSize = new Size(30, 30);
             sImage.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.Images.Add(Properties.Resources.dir);
-            imageList1.Images.Add(Properties.Resources.file);
             comboBoxRun.DropDownHeight = comboBoxRun.Font.Height * 5;
             originalSize = this.Height;
 
@@ -64,11 +62,16 @@ namespace XShort
             (
                 items: indexData,
                 maxItemsToMatch: 15,
-                callback: results =>
-                  this.Invoke(new Action(() => {
+                callback: results => this.Invoke(new Action(() => 
+                {
                       matches.Clear();
                       matches = results;
-                      }))
+                })),
+                imageList: imageResults => this.Invoke(new Action(() =>
+                {
+                    imageList1.Images.Clear();
+                    imageList1 = imageResults;
+                }))
             );
         }
 
@@ -1449,7 +1452,6 @@ namespace XShort
                     {
                         listViewResult.Items.Clear();
                         listViewResult.SmallImageList = imageList1;
-                        LoadIcon(imageList1, dir);
                         for (int i = 0; i < dir.Count; i++)
                         {
                             string item = Path.GetFileNameWithoutExtension(dir[i]);
@@ -1475,7 +1477,6 @@ namespace XShort
                         {
                             listViewResult.Items.Clear();
                             listViewResult.SmallImageList = imageList1;
-                            LoadIcon(imageList1, matches);
                             for (int i = 0; i < matches.Count; i++)
                             {
                                 string item = Path.GetFileNameWithoutExtension(matches[i]);
@@ -1779,28 +1780,28 @@ namespace XShort
         }
 
 
-        private void buttonBackToParent_Click(object sender, EventArgs e)
-        {
-            if (!comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("\\"))
-            {
-                string currentPath = comboBoxRun.Text;
-                string parentPath = String.Empty;
-                if (Path.GetExtension(currentPath) != null && Path.GetExtension(currentPath) != String.Empty)// if it's a file path
-                {
-                    currentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
-                    parentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
-                }
-                else//it's a directory
-                {
-                    if (currentPath.EndsWith("\\"))
-                        currentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
-                    parentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
-                }
-                comboBoxRun.Text = parentPath;
-                searchDir(parentPath);
-                ShowResult();
-            }
-        }
+        //private void buttonBackToParent_Click(object sender, EventArgs e)
+        //{
+        //    if (!comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("\\"))
+        //    {
+        //        string currentPath = comboBoxRun.Text;
+        //        string parentPath = String.Empty;
+        //        if (Path.GetExtension(currentPath) != null && Path.GetExtension(currentPath) != String.Empty)// if it's a file path
+        //        {
+        //            currentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
+        //            parentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
+        //        }
+        //        else//it's a directory
+        //        {
+        //            if (currentPath.EndsWith("\\"))
+        //                currentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
+        //            parentPath = currentPath.Substring(0, currentPath.LastIndexOf("\\"));
+        //        }
+        //        comboBoxRun.Text = parentPath;
+        //        searchDir(parentPath);
+        //        ShowResult();
+        //    }
+        //}
 
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
