@@ -125,7 +125,7 @@
     <value>Mở bằng quyền admin</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 48</value>
+    <value>196, 26</value>
   </data>
   <data name="labelInstruction.Size" type="System.Drawing.Size, System.Drawing">
     <value>161, 15</value>

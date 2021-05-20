@@ -39,6 +39,19 @@ namespace XShort
             _workerThread.Start();
         }
 
+        public BackgroundWordFilter(Action<List<string>> callback, Action<ImageList> imageList)
+        {
+            _callback = callback;
+            _imageList = imageList;
+            _workerThread = new Thread(WorkerLoop2)
+            {
+                IsBackground = true,
+                Priority = ThreadPriority.BelowNormal
+            };
+
+            _workerThread.Start();
+        }
+
         public void SetCurrentEntry(string currentEntry)
         {
             // set the current entry and signal the worker thread
@@ -71,6 +84,55 @@ namespace XShort
                         imageList.Images.Add(Properties.Resources.question_help_mark_balloon_512);
                     }
 
+                }
+            }
+        }
+
+
+        void WorkerLoop2()
+        {
+            while (_shouldRun)
+            {
+                // wait here until there is a new entry
+                _signal.WaitOne();
+                if (!_shouldRun)
+                    return;
+
+                var entry = _currentEntry;
+                var results = new List<string>();
+                var imageList = new ImageList
+                {
+                    ColorDepth = ColorDepth.Depth32Bit,
+                    ImageSize = new Size(30, 30)
+                };
+
+                // if there is nothing to process,
+                // return an empty list
+                if (string.IsNullOrEmpty(entry))
+                {
+                    _callback(results);
+                    _imageList(imageList);
+                    continue;
+                }
+
+                if (Directory.Exists(entry))
+                {
+                    var fileArray = Directory.EnumerateFileSystemEntries(entry);
+                    IEnumerator<string> enumerator = fileArray.GetEnumerator();
+                    while (enumerator.MoveNext())
+                    { 
+                        if (((File.GetAttributes(enumerator.Current) & FileAttributes.Hidden) != FileAttributes.Hidden))
+                            results.Add(enumerator.Current);
+                        if (entry != _currentEntry)
+                            break;
+                    }
+                    LoadIcon(imageList, results);
+                    
+                }
+                if (entry == _currentEntry)
+                {
+                    _callback(results);
+                    _imageList(imageList);
                 }
             }
         }
@@ -115,7 +177,8 @@ namespace XShort
                     if (entry != _currentEntry || results.Count >= _maxItemsToMatch)
                         break;
                 }
-                LoadIcon(imageList, results);
+                if (results.Count > 0)
+                    LoadIcon(imageList, results);
                 if (entry == _currentEntry)
                 {
                     _callback(results);

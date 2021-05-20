@@ -39,6 +39,7 @@ namespace XShort
         private int originalSize;
         private List<String> indexData = new List<string>();
         private readonly BackgroundWordFilter _filter;
+        private readonly BackgroundWordFilter _getdir;
         private List<String> matches = new List<string>();
         public RunForm(List<Shortcut> shortcuts)
         {
@@ -71,6 +72,19 @@ namespace XShort
                 {
                     imageList1.Images.Clear();
                     imageList1 = imageResults;
+                }))
+            );
+            _getdir = new BackgroundWordFilter
+            (
+                callback: results => this.Invoke(new Action(() =>
+                {
+                    dir.Clear();
+                    dir = results;
+                })),
+                imageList: imageResults => this.Invoke(new Action(() =>
+                {
+                    imageList2.Images.Clear();
+                    imageList2 = imageResults;
                 }))
             );
         }
@@ -1342,20 +1356,12 @@ namespace XShort
                     {
                         if (Directory.Exists(text))
                         {
-                            searchDir(text);
+                            _getdir.SetCurrentEntry(text);
                         }
                         else //in case user input a pre-directory text
                         {
                             string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            try
-                            {
-                                searchDir(cut);
-                            }
-                            catch
-                            {
-                                dir.Clear();
-
-                            }
+                            _getdir.SetCurrentEntry(cut);
                         }
                     }
                 }
@@ -1372,19 +1378,13 @@ namespace XShort
                     {
                         if (Directory.Exists(part))
                         {
-                            searchDir(part);
+                            _getdir.SetCurrentEntry(part);
                         }
                         else //in case user input a pre-directory text
                         {
                             string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            try
-                            {
-                                searchDir(cut);
-                            }
-                            catch
-                            {
-                                dir.Clear();
-                            }
+                            _getdir.SetCurrentEntry(cut);
+                            
                         }
                     }
 
@@ -1401,19 +1401,13 @@ namespace XShort
                     {
                         if (Directory.Exists(part))
                         {
-                            searchDir(part);
+                            _getdir.SetCurrentEntry(part);
                         }
                         else //in case user input a pre-directory text
                         {
                             string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            try
-                            {
-                                searchDir(cut);
-                            }
-                            catch
-                            {
-                                dir.Clear();
-                            }
+                            _getdir.SetCurrentEntry(cut);
+                           
                         }
                     }
                 }
@@ -1431,6 +1425,7 @@ namespace XShort
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
             _filter.SetCurrentEntry(comboBoxRun.Text);
+            
             if (comboBoxRun.Text.Length == 0)
             {
                 if (this.Height > listViewResult.Height)
@@ -1451,7 +1446,7 @@ namespace XShort
                     if (dir.Count > 0)
                     {
                         listViewResult.Items.Clear();
-                        listViewResult.SmallImageList = imageList1;
+                        listViewResult.SmallImageList = imageList2;
                         for (int i = 0; i < dir.Count; i++)
                         {
                             string item = Path.GetFileNameWithoutExtension(dir[i]);
@@ -1555,22 +1550,16 @@ namespace XShort
         private void searchDir(string _path)
         {
             dir.Clear();
-            try
+            if (Directory.Exists(_path))
             {
-                string[] dirArray = Directory.GetDirectories(_path);
-                for (int i = 0; i < dirArray.Length; i++)
+                var fileArray = Directory.EnumerateFileSystemEntries(_path);
+                IEnumerator<string> enumerator = fileArray.GetEnumerator();
+                while (enumerator.MoveNext())
                 {
-                    if (((File.GetAttributes(dirArray[i]) & FileAttributes.Hidden) != FileAttributes.Hidden))
-                        dir.Add(dirArray[i]);
-                }
-                string[] fileArray = Directory.GetFiles(_path);
-                for (int i = 0; i < fileArray.Length; i++)
-                {
-                    if (((File.GetAttributes(fileArray[i]) & FileAttributes.Hidden) != FileAttributes.Hidden))
-                        dir.Add(fileArray[i]);
+                    if (((File.GetAttributes(enumerator.Current) & FileAttributes.Hidden) != FileAttributes.Hidden))
+                        dir.Add(enumerator.Current);
                 }
             }
-            catch { }
         }
 
         private void comboBox1_KeyDown(object sender, KeyEventArgs e)
