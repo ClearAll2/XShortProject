@@ -1335,6 +1335,7 @@ namespace XShort
 
         }
 
+        private string entry = String.Empty;
         private void comboBox1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Tab)
@@ -1344,7 +1345,6 @@ namespace XShort
                     text = comboBoxRun.Text;
                     text1 = text.Substring(0, text.LastIndexOf("#") + 1); //from 0 to last index of ,
                     part = text.Substring(text.LastIndexOf("#") + 1); //from last index of ,
-
                     part = part.Trim();
                     index = -1;
                 }
@@ -1352,64 +1352,22 @@ namespace XShort
                 {
                     text = comboBoxRun.Text;
                     index = -1;
-                    if (text.Contains("\\")) //if input is a directory or a file
-                    {
-                        if (Directory.Exists(text))
-                        {
-                            _getdir.SetCurrentEntry(text);
-                        }
-                        else //in case user input a pre-directory text
-                        {
-                            string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            _getdir.SetCurrentEntry(cut);
-                        }
-                    }
                 }
                 else if (comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("!") != true)
                 {
-
                     text = comboBoxRun.Text;
                     text1 = text.Substring(0, text.LastIndexOf("+") + 1); //from 0 to last index of ,
                     part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
-
                     part = part.Trim();
                     index = -1;
-                    if (part.Contains("\\")) //if input is a directory or a file
-                    {
-                        if (Directory.Exists(part))
-                        {
-                            _getdir.SetCurrentEntry(part);
-                        }
-                        else //in case user input a pre-directory text
-                        {
-                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            _getdir.SetCurrentEntry(cut);
-                            
-                        }
-                    }
-
                 }
                 else if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!"))
                 {
                     text = comboBoxRun.Text;
                     text1 = text.Substring(0, text.LastIndexOf("!") + 1); //from 0 to last index of !
                     part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !
-                    //MessageBox.Show(text + " " + text1 + " " + part);
                     part = part.Trim();
                     index = -1;
-                    if (part.Contains("\\")) //if input is a directory or a file
-                    {
-                        if (Directory.Exists(part))
-                        {
-                            _getdir.SetCurrentEntry(part);
-                        }
-                        else //in case user input a pre-directory text
-                        {
-                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            _getdir.SetCurrentEntry(cut);
-                           
-                        }
-                    }
                 }
                 ShowResult();
             }
@@ -1604,6 +1562,73 @@ namespace XShort
                 openAsAdministratorToolStripMenuItem_Click(null, null);
             }
 
+            if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!") != true)
+            {
+                string text = comboBoxRun.Text;
+                if (text.Contains("\\")) //if input is a directory or a file
+                {
+                    if (Directory.Exists(text))
+                        entry = text;
+                    else
+                    {
+                        string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                        if (Directory.Exists(cut))
+                            entry = cut;
+                        else
+                        {
+                            //dir.Clear();
+                            entry = String.Empty;
+                        }
+                    }
+                }
+            }
+            else if (comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("!") != true)
+            {
+                string text = comboBoxRun.Text;
+                string part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
+                part = part.Trim();
+                if (part.Contains("\\")) //if input is a directory or a file
+                {
+                    if (Directory.Exists(part))
+                        entry = part;
+                    else
+                    {
+                        string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                        if (Directory.Exists(cut))
+                            entry = cut;
+                        else
+                        {
+                            //dir.Clear();
+                            entry = String.Empty;
+                        }
+                    }
+                }
+                
+
+            }
+            else if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!"))
+            {
+                string text  = comboBoxRun.Text;
+                string part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !                                             
+                part = part.Trim();
+                if (part.Contains("\\")) //if input is a directory or a file
+                {
+                    if (Directory.Exists(part))
+                        entry = part;
+                    else
+                    {
+                        string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                        if (Directory.Exists(cut))
+                            entry = cut;
+                        else
+                        {
+                            //dir.Clear();
+                            entry = String.Empty;
+                        }
+                    }
+                }
+            }
+            _getdir.SetCurrentEntry(entry);
         }
 
         private void RunForm_Deactivate(object sender, EventArgs e)
