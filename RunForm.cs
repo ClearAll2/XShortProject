@@ -39,8 +39,9 @@ namespace XShort
         private int originalSize;
         private List<String> indexData = new List<string>();
         private readonly BackgroundWordFilter _filter;
-        private readonly BackgroundWordFilter _getdir;
+        //private readonly BackgroundWordFilter _getdir;
         private List<String> matches = new List<string>();
+        private bool loaded = false;
         public RunForm(List<Shortcut> shortcuts)
         {
             InitializeComponent();
@@ -74,19 +75,19 @@ namespace XShort
                     imageList1 = imageResults;
                 }))
             );
-            _getdir = new BackgroundWordFilter
-            (
-                callback: results => this.Invoke(new Action(() =>
-                {
-                    dir.Clear();
-                    dir = results;
-                })),
-                imageList: imageResults => this.Invoke(new Action(() =>
-                {
-                    imageList2.Images.Clear();
-                    imageList2 = imageResults;
-                }))
-            );
+            //_getdir = new BackgroundWordFilter
+            //(
+            //    callback: results => this.Invoke(new Action(() =>
+            //    {
+            //        dir.Clear();
+            //        dir = results;
+            //    })),
+            //    imageList: imageResults => this.Invoke(new Action(() =>
+            //    {
+            //        imageList2.Images.Clear();
+            //        imageList2 = imageResults;
+            //    }))
+            //);
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -94,6 +95,7 @@ namespace XShort
             LoadSuggestions();
             MaintainSuggestions();
             comboBoxRun.Enabled = true;
+            loaded = true;
         }
 
         private void LoadIcon()
@@ -612,15 +614,15 @@ namespace XShort
             er = _er;
             ss = _ss;
             ui = _ui;
-            if (ss)
-                ReloadSuggestions();
-            else
+            if (loaded)//should fix startup error
             {
-                panelSuggestions.Controls.Clear();
+                if (ss)
+                    ReloadSuggestions();
+                else
+                {
+                    panelSuggestions.Controls.Clear();
+                }
             }
-
-            
-            
         }
 
 
@@ -1346,12 +1348,30 @@ namespace XShort
                     text1 = text.Substring(0, text.LastIndexOf("#") + 1); //from 0 to last index of ,
                     part = text.Substring(text.LastIndexOf("#") + 1); //from last index of ,
                     part = part.Trim();
-                    index = -1;
+                    index = -1;                    
                 }
                 if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!") != true)
                 {
                     text = comboBoxRun.Text;
                     index = -1;
+
+                    //string text = comboBoxRun.Text;
+                    if (text.Contains("\\")) //if input is a directory or a file
+                    {
+                        if (Directory.Exists(text))
+                            entry = text;
+                        else
+                        {
+                            string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                            if (Directory.Exists(cut))
+                                entry = cut;
+                            else
+                            {
+                                //dir.Clear();
+                                entry = String.Empty;
+                            }
+                        }
+                    }
                 }
                 else if (comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("!") != true)
                 {
@@ -1360,6 +1380,24 @@ namespace XShort
                     part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
                     part = part.Trim();
                     index = -1;
+
+                    
+                    if (part.Contains("\\")) //if input is a directory or a file
+                    {
+                        if (Directory.Exists(part))
+                            entry = part;
+                        else
+                        {
+                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                            if (Directory.Exists(cut))
+                                entry = cut;
+                            else
+                            {
+                                //dir.Clear();
+                                entry = String.Empty;
+                            }
+                        }
+                    }
                 }
                 else if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!"))
                 {
@@ -1368,7 +1406,26 @@ namespace XShort
                     part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !
                     part = part.Trim();
                     index = -1;
+                               
+                    part = part.Trim();
+                    if (part.Contains("\\")) //if input is a directory or a file
+                    {
+                        if (Directory.Exists(part))
+                            entry = part;
+                        else
+                        {
+                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                            if (Directory.Exists(cut))
+                                entry = cut;
+                            else
+                            {
+                                //dir.Clear();
+                                entry = String.Empty;
+                            }
+                        }
+                    }
                 }
+                searchDir(entry);
                 ShowResult();
             }
             
@@ -1401,26 +1458,26 @@ namespace XShort
                 string cut = comboBoxRun.Text;
                 if (cut.Contains("\\"))
                 {
-                    if (dir.Count > 0)
-                    {
-                        listViewResult.Items.Clear();
-                        listViewResult.SmallImageList = imageList2;
-                        for (int i = 0; i < dir.Count; i++)
-                        {
-                            string item = Path.GetFileNameWithoutExtension(dir[i]);
-                            listViewResult.Items.Add(new ListViewItem(item.Substring(item.LastIndexOf("\\") + 1)));
-                            listViewResult.Items[i].ImageIndex = i;
-                            listViewResult.Items[i].ToolTipText = dir[i];
-                        }
-                        if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
-                            this.Height += listViewResult.Height + listViewResult.Height / 10;//fix cutting listview
-                    }
-                    else
-                    {
-                        listViewResult.Items.Clear();
-                        if (this.Height > listViewResult.Height)
-                            this.Height = originalSize;
-                    }
+                    //if (dir.Count > 0)
+                    //{
+                    //    listViewResult.Items.Clear();
+                    //    listViewResult.SmallImageList = imageList2;
+                    //    for (int i = 0; i < dir.Count; i++)
+                    //    {
+                    //        string item = Path.GetFileNameWithoutExtension(dir[i]);
+                    //        listViewResult.Items.Add(new ListViewItem(item.Substring(item.LastIndexOf("\\") + 1)));
+                    //        listViewResult.Items[i].ImageIndex = i;
+                    //        listViewResult.Items[i].ToolTipText = dir[i];
+                    //    }
+                    //    if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
+                    //        this.Height += listViewResult.Height + listViewResult.Height / 10;//fix cutting listview
+                    //}
+                    //else
+                    //{
+                    listViewResult.Items.Clear();
+                    if (this.Height > listViewResult.Height)
+                        this.Height = originalSize;
+                    //}
                 }
                 else//find result in index files
                 {
@@ -1562,73 +1619,7 @@ namespace XShort
                 openAsAdministratorToolStripMenuItem_Click(null, null);
             }
 
-            if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!") != true)
-            {
-                string text = comboBoxRun.Text;
-                if (text.Contains("\\")) //if input is a directory or a file
-                {
-                    if (Directory.Exists(text))
-                        entry = text;
-                    else
-                    {
-                        string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                        if (Directory.Exists(cut))
-                            entry = cut;
-                        else
-                        {
-                            //dir.Clear();
-                            entry = String.Empty;
-                        }
-                    }
-                }
-            }
-            else if (comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("!") != true)
-            {
-                string text = comboBoxRun.Text;
-                string part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
-                part = part.Trim();
-                if (part.Contains("\\")) //if input is a directory or a file
-                {
-                    if (Directory.Exists(part))
-                        entry = part;
-                    else
-                    {
-                        string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                        if (Directory.Exists(cut))
-                            entry = cut;
-                        else
-                        {
-                            //dir.Clear();
-                            entry = String.Empty;
-                        }
-                    }
-                }
-                
-
-            }
-            else if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!"))
-            {
-                string text  = comboBoxRun.Text;
-                string part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !                                             
-                part = part.Trim();
-                if (part.Contains("\\")) //if input is a directory or a file
-                {
-                    if (Directory.Exists(part))
-                        entry = part;
-                    else
-                    {
-                        string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                        if (Directory.Exists(cut))
-                            entry = cut;
-                        else
-                        {
-                            //dir.Clear();
-                            entry = String.Empty;
-                        }
-                    }
-                }
-            }
-            _getdir.SetCurrentEntry(entry);
+            //_getdir.SetCurrentEntry(entry);
         }
 
         private void RunForm_Deactivate(object sender, EventArgs e)
