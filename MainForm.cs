@@ -329,7 +329,8 @@ namespace XShort
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             if (r.GetValue("XShort") != null)
             {
-                if (r.GetValue("XShort").ToString().Equals(Application.ExecutablePath))
+                string xshort = r.GetValue("XShort").ToString();
+                if (xshort.Substring(0, xshort.LastIndexOf(" ")).Equals(Application.ExecutablePath))
                 {
                     start = true;
                 }
@@ -381,42 +382,28 @@ namespace XShort
                 sr.Dispose();
                 fs.Dispose();
 
-                startup.CollectionChanged += Startup_CollectionChanged;
-
-                //optimize from foreach
-                for (int i = 0; i < startup.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    for (int j = 0; j < listViewData.Items.Count; j++)
+                    if (startup.Contains(Shortcuts[i].Name))
                     {
-                        if (startup[i] == listViewData.Items[j].SubItems[0].Text)
+                        listViewData.Items[i].ForeColor = Color.SlateBlue;
+
+                        if (Program.FileName == "startup")
                         {
-                            listViewData.Items[j].ForeColor = Color.SlateBlue;
+                            if (Shortcuts[i].Para != "None" && Shortcuts[i].Para != "Not Available")
+                                Process.Start(Shortcuts[i].Path, Shortcuts[i].Para);
+                            else
+                                Process.Start(Shortcuts[i].Path);
                         }
                     }
                 }
+                
             }
 
             f3.Show();
             f3.Hide();
             loadIcon();
 
-
-        }
-
-        //detect change in startup file
-        private void Startup_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            File.WriteAllText(Path.Combine(dataPath, "startup.txt"), string.Empty);
-            FileStream fs1;
-            StreamWriter sw1;
-            fs1 = new FileStream(Path.Combine(dataPath, "startup.txt"), FileMode.Open, FileAccess.Write);
-            sw1 = new StreamWriter(fs1);
-            for (int i = 0; i < startup.Count; i++)
-            {
-                sw1.WriteLine(startup[i]);
-            }
-            sw1.Close();
-            fs1.Close();
         }
 
 
@@ -1431,6 +1418,15 @@ namespace XShort
                 minimizeToolStripMenuItem_Click(null, null);
                 return;
             }
+            File.WriteAllText(Path.Combine(dataPath, "startup.txt"), string.Empty);
+            StreamWriter sw;
+            sw = new StreamWriter(Path.Combine(dataPath, "startup.txt"));
+            for (int i = 0; i < startup.Count; i++)
+            {
+                sw.WriteLine(startup[i]);
+            }
+            sw.Close();
+
             r = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ClearAll\\XShort\\Data", true);
             if (englishToolStripMenuItem.Checked)
                 r.SetValue("Lang", "en");
@@ -2005,14 +2001,11 @@ namespace XShort
                 f3.Show();
                 f3.Hide();
                 //load startup file
-                for (int i = 0; i < listViewData.Items.Count; i++)
+                for (int i = 0; i < Shortcuts.Count; i++)
                 {
-                    for (int j = 0; j < startup.Count; j++)
+                    if (startup.Contains(Shortcuts[i].Name))
                     {
-                        if (startup[j] == listViewData.Items[i].SubItems[0].Text)
-                        {
-                            listViewData.Items[i].ForeColor = Color.SlateBlue;
-                        }
+                        listViewData.Items[i].ForeColor = Color.SlateBlue;
                     }
                 }
             }
