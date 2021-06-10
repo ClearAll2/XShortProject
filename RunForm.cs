@@ -485,11 +485,11 @@ namespace XShort
                 sr.Dispose();
                 fs.Dispose();
 
-                for (int i=0;i<startup.Count;i++)
+                if (Program.FileName == "startup")//manual open -> no FileName
                 {
-                    if (Program.FileName == "startup")//manual open -> no FileName
+                    for (int i=0;i<startup.Count;i++)
                     {
-                        SimpleRun(startup[i], true);
+                        SimpleRun(startup[i], Shortcuts.FindIndex(f => f.Name == startup[i]) >= 0);
                     }
                 }
             }
@@ -1448,6 +1448,7 @@ namespace XShort
                     this.Height = originalSize;
                 ReloadSuggestions();
                 imageList1.Images.Clear();
+                imageList2.Images.Clear();
             }
         }
 
@@ -1457,7 +1458,7 @@ namespace XShort
             {
                 bool ifAny = false;
                 string cut = comboBoxRun.Text;
-                //clear items from last result
+                //set to default size before another search
                 if (this.Height > listViewResult.Height)
                     this.Height = originalSize;
 
