@@ -39,7 +39,7 @@ namespace XShort
         private int originalSize;
         private List<String> indexData = new List<string>();
         private readonly BackgroundWordFilter _filter;
-        //private readonly BackgroundWordFilter _getdir;
+        private readonly BackgroundWordFilter _getdir;
         private List<String> matches = new List<string>();
         private bool loaded = false;
         public RunForm(List<Shortcut> shortcuts)
@@ -75,19 +75,19 @@ namespace XShort
                     imageList1 = imageResults;
                 }))
             );
-            //_getdir = new BackgroundWordFilter
-            //(
-            //    callback: results => this.Invoke(new Action(() =>
-            //    {
-            //        dir.Clear();
-            //        dir = results;
-            //    })),
-            //    imageList: imageResults => this.Invoke(new Action(() =>
-            //    {
-            //        imageList2.Images.Clear();
-            //        imageList2 = imageResults;
-            //    }))
-            //);
+            _getdir = new BackgroundWordFilter
+            (
+                callback: results => this.Invoke(new Action(() =>
+                {
+                    dir.Clear();
+                    dir = results;
+                })),
+                imageList: imageResults => this.Invoke(new Action(() =>
+                {
+                    imageList2.Images.Clear();
+                    imageList2 = imageResults;
+                }))
+            );
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1425,7 +1425,8 @@ namespace XShort
                         }
                     }
                 }
-                searchDir(entry);
+                _getdir.SetCurrentEntry(entry);
+                //searchDir(entry);
                 ShowResult();
             }
             
@@ -1456,30 +1457,29 @@ namespace XShort
             {
                 bool ifAny = false;
                 string cut = comboBoxRun.Text;
+                //clear items from last result
+                if (this.Height > listViewResult.Height)
+                    this.Height = originalSize;
+
                 if (cut.Contains("\\"))
                 {
-                    //if (dir.Count > 0)
-                    //{
-                    //    listViewResult.Items.Clear();
-                    //    listViewResult.SmallImageList = imageList2;
-                    //    for (int i = 0; i < dir.Count; i++)
-                    //    {
-                    //        string item = Path.GetFileNameWithoutExtension(dir[i]);
-                    //        listViewResult.Items.Add(new ListViewItem(item.Substring(item.LastIndexOf("\\") + 1)));
-                    //        listViewResult.Items[i].ImageIndex = i;
-                    //        listViewResult.Items[i].ToolTipText = dir[i];
-                    //    }
-                    //    if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
-                    //        this.Height += listViewResult.Height + listViewResult.Height / 10;//fix cutting listview
-                    //}
-                    //else
-                    //{
-                    listViewResult.Items.Clear();
-                    if (this.Height > listViewResult.Height)
-                        this.Height = originalSize;
-                    //}
+                    if (dir.Count > 0)
+                    {
+                        listViewResult.Items.Clear();
+                        listViewResult.SmallImageList = imageList2;
+                        for (int i = 0; i < dir.Count; i++)
+                        {
+                            string item = Path.GetFileNameWithoutExtension(dir[i]);
+                            listViewResult.Items.Add(new ListViewItem(item.Substring(item.LastIndexOf("\\") + 1)));
+                            listViewResult.Items[i].ImageIndex = i;
+                            listViewResult.Items[i].ToolTipText = dir[i];
+                        }
+                        if (this.Height < listViewResult.Height && listViewResult.Items.Count > 0)
+                            this.Height += listViewResult.Height + listViewResult.Height / 10;//fix cutting listview
+                    }
+
                 }
-                else//find result in index files
+                else
                 {
                     if (ui)
                     {
@@ -1499,9 +1499,7 @@ namespace XShort
                         }
                     }
                 }
-
-                if (this.Height > listViewResult.Height && listViewResult.Items.Count == 0)
-                    this.Height -= panelSuggestions.Bottom;
+                //shortcut suggestions
                 if (cut.Length > 0 && !cut.Contains("#"))
                 {
                     if (cut.Contains("!"))
