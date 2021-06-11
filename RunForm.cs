@@ -469,30 +469,6 @@ namespace XShort
         private void Bw_DoWork(object sender, DoWorkEventArgs e)
         {
             LoadData();
-            if (File.Exists(Path.Combine(dataPath, "startup.txt")))
-            {
-                List<string> startup = new List<string>();
-                FileStream fs;
-                StreamReader sr;
-                fs = new FileStream(Path.Combine(dataPath, "startup.txt"), FileMode.Open, FileAccess.Read);
-                sr = new StreamReader(fs);
-                while (!sr.EndOfStream)
-                {
-                    startup.Add(sr.ReadLine());
-                }
-                sr.Close();
-                fs.Close();
-                sr.Dispose();
-                fs.Dispose();
-
-                if (Program.FileName == "startup")//manual open -> no FileName
-                {
-                    for (int i=0;i<startup.Count;i++)
-                    {
-                        SimpleRun(startup[i], Shortcuts.FindIndex(f => f.Name == startup[i]) >= 0);
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -1462,7 +1438,7 @@ namespace XShort
                 if (this.Height > listViewResult.Height)
                     this.Height = originalSize;
 
-                if (cut.Contains("\\"))
+                if (cut.Contains(":\\"))
                 {
                     if (dir.Count > 0)
                     {

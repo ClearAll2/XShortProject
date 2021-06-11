@@ -115,20 +115,24 @@ namespace XShort
                     continue;
                 }
 
-                if (!Directory.Exists(entry))
-                    continue;
-               
-                var fileArray = Directory.EnumerateFileSystemEntries(entry);
-                IEnumerator<string> enumerator = fileArray.GetEnumerator();
-                while (enumerator.MoveNext())
-                { 
-                    if (((File.GetAttributes(enumerator.Current) & FileAttributes.Hidden) != FileAttributes.Hidden))
-                        results.Add(enumerator.Current);
-                    if (entry != _currentEntry)
-                        break;
+                try
+                {
+                    var fileArray = Directory.EnumerateFileSystemEntries(entry);
+                    IEnumerator<string> enumerator = fileArray.GetEnumerator();
+                    while (enumerator.MoveNext())
+                    {
+                        if (((File.GetAttributes(enumerator.Current) & FileAttributes.Hidden) != FileAttributes.Hidden))
+                            results.Add(enumerator.Current);
+                        if (entry != _currentEntry)
+                            break;
+                    }
+                    if (results.Count > 0)
+                        LoadIcon(imageList, results);
                 }
-                if (results.Count > 0)
-                    LoadIcon(imageList, results);
+                catch
+                {
+                    continue;
+                }
                     
                 
                 if (entry == _currentEntry)

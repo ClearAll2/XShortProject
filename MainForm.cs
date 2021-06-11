@@ -366,7 +366,7 @@ namespace XShort
                 }
             }
 
-            //load startup file
+            //load and run startup shortcuts
             if (File.Exists(Path.Combine(dataPath, "startup.txt")))
             {
                 FileStream fs;
@@ -387,6 +387,13 @@ namespace XShort
                     if (startup.Contains(Shortcuts[i].Name))
                     {
                         listViewData.Items[i].ForeColor = Color.SlateBlue;
+                        if (Program.FileName == "startup")
+                        {
+                            if (Shortcuts[i].Para != "None" && Shortcuts[i].Para != "Not Available")
+                                Process.Start(Shortcuts[i].Path, Shortcuts[i].Para);
+                            else
+                                Process.Start(Shortcuts[i].Path);
+                        }
                     }
                 }
                 
