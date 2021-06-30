@@ -115,8 +115,9 @@ namespace XShort
 
         private void Bw2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            f2 = new RunForm(Shortcuts);
-            f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+            f2 = new RunForm(Shortcuts, ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+            //f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+            loadIcon();
         }
 
         internal struct LASTINPUTINFO
@@ -169,8 +170,8 @@ namespace XShort
             if (!f2.IsDisposed && f2 != null)
             {
                 f2.Close();
-                f2 = new RunForm(Shortcuts);
-                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+                f2 = new RunForm(Shortcuts, ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+                //f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
 
             }
         }
@@ -277,26 +278,7 @@ namespace XShort
             else
                 detect = false;
 
-            //if (r.GetValue("DontLoad") != null)
-            //{
-            //    dontload = true;
 
-            //    buttonSave.Enabled = false;
-            //    buttonAddApp.Enabled = false;
-            //    buttonAddDir.Enabled = false;
-            //    buttonAddURL.Enabled = false;
-            //    appToolStripMenuItem.Enabled = false;
-
-            //}
-            //else
-            //{
-            //    dontload = false;
-            //    buttonSave.Enabled = true;
-            //    buttonAddApp.Enabled = true;
-            //    buttonAddDir.Enabled = true;
-            //    buttonAddURL.Enabled = true;
-            //    appToolStripMenuItem.Enabled = true;
-            //}
             if (r.GetValue("Suggestions") != null)
                 suggestions = true;
             else
@@ -343,8 +325,8 @@ namespace XShort
             LoadExclusion();
             if (f2 != null && f2.IsDisposed != true)
             {
-                f2.LoadBlocklist();
-                f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+                f2.Close();
+                f2 = new RunForm(Shortcuts, ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             }
         }
 
@@ -401,7 +383,7 @@ namespace XShort
 
             f3.Show();
             f3.Hide();
-            loadIcon();
+            
 
         }
 
@@ -431,8 +413,8 @@ namespace XShort
                 if (f2.IsDisposed != true && f2 != null)
                 {
                     f2.Close();
-                    f2 = new RunForm(Shortcuts);
-                    f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+                    f2 = new RunForm(Shortcuts, ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+                    //f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
                 }
             }
             base.WndProc(ref m);
@@ -1174,8 +1156,8 @@ namespace XShort
             {
                 f2.Close();
             }
-            f2 = new RunForm(Shortcuts);
-            f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+            f2 = new RunForm(Shortcuts, ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
+            //f2.ChangeSetting(ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
             f2.ReloadSuggestions();
         }
 
@@ -1342,9 +1324,12 @@ namespace XShort
             {
                 if (f2.Visible != true)
                 {
-                    f2.Show();
-                    f2.WindowState = FormWindowState.Normal;
-                    f2.Activate();
+                    if (f2.loaded)
+                    {
+                        f2.Show();
+                        f2.WindowState = FormWindowState.Normal;
+                        f2.Activate();
+                    }
                 }
                 else
                 {
@@ -1353,7 +1338,7 @@ namespace XShort
             }
             else
             {
-                f2 = new RunForm(Shortcuts);
+                f2 = new RunForm(Shortcuts, ggs, cases, suggestions, showResult, excludeResult, suggestNum, useIndex);
                 f2.Show();
                 f2.Activate();
             }
@@ -2029,8 +2014,6 @@ namespace XShort
         {
             Process.Start("https://clearallsoft.cf");
         }
-
-     
     }
 
     //this class for sort listview

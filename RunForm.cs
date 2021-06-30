@@ -41,14 +41,38 @@ namespace XShort
         private readonly BackgroundWordFilter _filter;
         private readonly BackgroundWordFilter _getdir;
         private List<String> matches = new List<string>();
-        private bool loaded = false;
-        public RunForm(List<Shortcut> shortcuts)
+        public bool loaded = false;
+        public RunForm(List<Shortcut> shortcuts, bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss, bool _ui)
         {
             InitializeComponent();
+            if (maxss >= 2 && maxss <= 8)
+                suggestNum = maxss;
+            else
+                suggestNum = 4;
+            if (suggestNum > 6)
+            {
+                sImage.Images.Clear();
+                sImage.ColorDepth = ColorDepth.Depth32Bit;
+                sImage.ImageSize = new Size(20, 20);
+            }
+            else
+            {
+                if (sImage.ImageSize.Height != 30)
+                {
+                    sImage.Images.Clear();
+                    sImage.ColorDepth = ColorDepth.Depth32Bit;
+                    sImage.ImageSize = new Size(30, 30);
+                }
+            }
+            ggSearch = _gg;
+            csen = _csen;
+            sr = _sr;
+            er = _er;
+            ss = _ss;
+            ui = _ui;
+
             Shortcuts = new List<Shortcut>(shortcuts);
             dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "XShort");
-            sImage.ImageSize = new Size(30, 30);
-            sImage.ColorDepth = ColorDepth.Depth32Bit;
             comboBoxRun.DropDownHeight = comboBoxRun.Font.Height * 5;
             originalSize = this.Height;
 
@@ -88,6 +112,44 @@ namespace XShort
                     imageList2 = imageResults;
                 }))
             );
+        }
+
+        public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss, bool _ui)
+        {
+            if (maxss >= 2 && maxss <= 8)
+                suggestNum = maxss;
+            else
+                suggestNum = 4;
+            if (suggestNum > 6)
+            {
+                sImage.Images.Clear();
+                sImage.ImageSize = new Size(20, 20);
+                LoadIcon();
+            }
+            else
+            {
+                if (sImage.ImageSize.Height != 30)
+                {
+                    sImage.Images.Clear();
+                    sImage.ImageSize = new Size(30, 30);
+                    LoadIcon();
+                }
+            }
+            ggSearch = _gg;
+            csen = _csen;
+            sr = _sr;
+            er = _er;
+            ss = _ss;
+            ui = _ui;
+            if (loaded)//should fix startup error
+            {
+                if (ss)
+                    ReloadSuggestions();
+                else
+                {
+                    panelSuggestions.Controls.Clear();
+                }
+            }
         }
 
         private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -563,43 +625,7 @@ namespace XShort
         }
 
 
-        public void ChangeSetting(bool _gg, bool _csen, bool _ss, bool _sr, bool _er, int maxss, bool _ui)
-        {
-            if (maxss >= 2 && maxss <= 8)
-                suggestNum = maxss;
-            else
-                suggestNum = 4;
-            if (suggestNum > 6)
-            {
-                sImage.Images.Clear();
-                sImage.ImageSize = new Size(20, 20);
-                LoadIcon();
-            }
-            else 
-            {
-                if (sImage.ImageSize.Height != 30)
-                {
-                    sImage.Images.Clear();
-                    sImage.ImageSize = new Size(30, 30);
-                    LoadIcon();
-                }
-            }
-            ggSearch = _gg;
-            csen = _csen;
-            sr = _sr;
-            er = _er;
-            ss = _ss;
-            ui = _ui;
-            if (loaded)//should fix startup error
-            {
-                if (ss)
-                    ReloadSuggestions();
-                else
-                {
-                    panelSuggestions.Controls.Clear();
-                }
-            }
-        }
+        
 
 
         public int LoadData()
@@ -1438,7 +1464,7 @@ namespace XShort
                 if (this.Height > listViewResult.Height)
                     this.Height = originalSize;
 
-                if (cut.Contains(":\\"))
+                if (cut.Contains("\\"))
                 {
                     if (dir.Count > 0)
                     {
