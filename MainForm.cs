@@ -102,8 +102,6 @@ namespace XShort
 
             f3 = new ProgressForm();
             
-
-
             loadSettings();
             if (File.Exists(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe")))
                 Process.Start(Path.Combine(Application.StartupPath, "XShortCoreIndex.exe"), dataPath + " " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + " " + interval.ToString());

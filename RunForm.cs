@@ -1356,24 +1356,6 @@ namespace XShort
                 {
                     text = comboBoxRun.Text;
                     index = -1;
-
-                    //string text = comboBoxRun.Text;
-                    if (text.Contains("\\")) //if input is a directory or a file
-                    {
-                        if (Directory.Exists(text))
-                            entry = text;
-                        else
-                        {
-                            string cut = text.Substring(0, text.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            if (Directory.Exists(cut))
-                                entry = cut;
-                            else
-                            {
-                                //dir.Clear();
-                                entry = String.Empty;
-                            }
-                        }
-                    }
                 }
                 else if (comboBoxRun.Text.Contains("+") && comboBoxRun.Text.Contains("!") != true)
                 {
@@ -1382,24 +1364,6 @@ namespace XShort
                     part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
                     part = part.Trim();
                     index = -1;
-
-                    
-                    if (part.Contains("\\")) //if input is a directory or a file
-                    {
-                        if (Directory.Exists(part))
-                            entry = part;
-                        else
-                        {
-                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            if (Directory.Exists(cut))
-                                entry = cut;
-                            else
-                            {
-                                //dir.Clear();
-                                entry = String.Empty;
-                            }
-                        }
-                    }
                 }
                 else if (comboBoxRun.Text.Contains("+") != true && comboBoxRun.Text.Contains("!"))
                 {
@@ -1408,27 +1372,8 @@ namespace XShort
                     part = text.Substring(text.LastIndexOf("!") + 1); //from last index of !
                     part = part.Trim();
                     index = -1;
-                               
-                    part = part.Trim();
-                    if (part.Contains("\\")) //if input is a directory or a file
-                    {
-                        if (Directory.Exists(part))
-                            entry = part;
-                        else
-                        {
-                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
-                            if (Directory.Exists(cut))
-                                entry = cut;
-                            else
-                            {
-                                //dir.Clear();
-                                entry = String.Empty;
-                            }
-                        }
-                    }
+
                 }
-                _getdir.SetCurrentEntry(entry);
-                //searchDir(entry);
                 ShowResult();
             }
             
@@ -1443,14 +1388,14 @@ namespace XShort
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
             _filter.SetCurrentEntry(comboBoxRun.Text);
-            
+            _getdir.SetCurrentEntry(comboBoxRun.Text);
             if (comboBoxRun.Text.Length == 0)
             {
                 if (this.Height > listViewResult.Height)
                     this.Height = originalSize;
-                ReloadSuggestions();
                 imageList1.Images.Clear();
                 imageList2.Images.Clear();
+                ReloadSuggestions();
             }
         }
 

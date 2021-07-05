@@ -99,12 +99,81 @@ namespace XShort
                     return;
 
                 var entry = _currentEntry;
+                var temp = _currentEntry;
                 var results = new List<string>();
                 var imageList = new ImageList
                 {
                     ColorDepth = ColorDepth.Depth32Bit,
                     ImageSize = new Size(30, 30)
                 };
+
+                if (temp.Contains("+") != true && temp.Contains("!") != true)
+                {
+                    //string text = comboBoxRun.Text;
+                    if (temp.Contains("\\")) //if input is a directory or a file
+                    {
+                        if (Directory.Exists(temp))
+                            entry = temp;
+                        else
+                        {
+                            string cut = temp.Substring(0, temp.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                            if (Directory.Exists(cut))
+                                entry = cut;
+                            else
+                            {
+                                //dir.Clear();
+                                entry = String.Empty;
+                            }
+                        }
+                    }
+                }
+                else if (temp.Contains("+") && temp.Contains("!") != true)
+                {
+                    string text = temp;
+                    string part = text.Substring(text.LastIndexOf("+") + 1); //from last index of ,
+                    part = part.Trim();
+
+
+                    if (part.Contains("\\")) //if input is a directory or a file
+                    {
+                        if (Directory.Exists(part))
+                            entry = part;
+                        else
+                        {
+                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                            if (Directory.Exists(cut))
+                                entry = cut;
+                            else
+                            {
+                                //dir.Clear();
+                                entry = String.Empty;
+                            }
+                        }
+                    }
+                }
+                else if (temp.Contains("+") != true && temp.Contains("!"))
+                {
+                    string text = temp;
+                    string part = text.Substring(text.LastIndexOf("!") + 1); //from last index of ,
+                    part = part.Trim();
+
+                    if (part.Contains("\\")) //if input is a directory or a file
+                    {
+                        if (Directory.Exists(part))
+                            entry = part;
+                        else
+                        {
+                            string cut = part.Substring(0, part.LastIndexOf("\\") + 1); //cut from "text" start from 0 to last index of \ => find all directory, then compare
+                            if (Directory.Exists(cut))
+                                entry = cut;
+                            else
+                            {
+                                //dir.Clear();
+                                entry = String.Empty;
+                            }
+                        }
+                    }
+                }
 
                 // if there is nothing to process,
                 // return an empty list
