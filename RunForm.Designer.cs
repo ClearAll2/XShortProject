@@ -61,12 +61,13 @@
             // 
             // button1
             // 
+            resources.ApplyResources(this.button1, "button1");
             this.button1.BackColor = System.Drawing.Color.DodgerBlue;
             this.button1.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.button1, "button1");
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Name = "button1";
             this.button1.TabStop = false;
+            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -77,6 +78,7 @@
             this.comboBoxRun.ForeColor = System.Drawing.Color.DodgerBlue;
             this.comboBoxRun.FormattingEnabled = true;
             this.comboBoxRun.Name = "comboBoxRun";
+            this.toolTip1.SetToolTip(this.comboBoxRun, resources.GetString("comboBoxRun.ToolTip"));
             this.comboBoxRun.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             this.comboBoxRun.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
             this.comboBoxRun.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyUp);
@@ -84,30 +86,32 @@
             // 
             // contextMenuStrip1
             // 
+            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.BackColor = System.Drawing.Color.White;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openAsAdministratorToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
+            this.toolTip1.SetToolTip(this.contextMenuStrip1, resources.GetString("contextMenuStrip1.ToolTip"));
             // 
             // openAsAdministratorToolStripMenuItem
             // 
+            resources.ApplyResources(this.openAsAdministratorToolStripMenuItem, "openAsAdministratorToolStripMenuItem");
             this.openAsAdministratorToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.openAsAdministratorToolStripMenuItem.Name = "openAsAdministratorToolStripMenuItem";
-            resources.ApplyResources(this.openAsAdministratorToolStripMenuItem, "openAsAdministratorToolStripMenuItem");
             this.openAsAdministratorToolStripMenuItem.Click += new System.EventHandler(this.openAsAdministratorToolStripMenuItem_Click);
             // 
             // button2
             // 
+            resources.ApplyResources(this.button2, "button2");
             this.button2.BackColor = System.Drawing.Color.DodgerBlue;
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.button2.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.button2, "button2");
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Name = "button2";
             this.button2.TabStop = false;
+            this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -116,19 +120,21 @@
             resources.ApplyResources(this.labelInstruction, "labelInstruction");
             this.labelInstruction.ForeColor = System.Drawing.Color.Gray;
             this.labelInstruction.Name = "labelInstruction";
+            this.toolTip1.SetToolTip(this.labelInstruction, resources.GetString("labelInstruction.ToolTip"));
             // 
             // panelSuggestions
             // 
             resources.ApplyResources(this.panelSuggestions, "panelSuggestions");
             this.panelSuggestions.Name = "panelSuggestions";
+            this.toolTip1.SetToolTip(this.panelSuggestions, resources.GetString("panelSuggestions.ToolTip"));
             this.panelSuggestions.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSuggestions_Paint);
             // 
             // listViewResult
             // 
+            resources.ApplyResources(this.listViewResult, "listViewResult");
             this.listViewResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewResult.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            resources.ApplyResources(this.listViewResult, "listViewResult");
             this.listViewResult.FullRowSelect = true;
             this.listViewResult.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewResult.HideSelection = false;
@@ -136,6 +142,7 @@
             this.listViewResult.Name = "listViewResult";
             this.listViewResult.SmallImageList = this.imageList1;
             this.listViewResult.TabStop = false;
+            this.toolTip1.SetToolTip(this.listViewResult, resources.GetString("listViewResult.ToolTip"));
             this.listViewResult.UseCompatibleStateImageBehavior = false;
             this.listViewResult.View = System.Windows.Forms.View.Details;
             this.listViewResult.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewResult_MouseClick);
@@ -153,6 +160,7 @@
             // 
             // contextMenuStrip2
             // 
+            resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
             this.contextMenuStrip2.BackColor = System.Drawing.Color.White;
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
@@ -161,30 +169,30 @@
             this.propertiesToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
+            this.toolTip1.SetToolTip(this.contextMenuStrip2, resources.GetString("contextMenuStrip2.ToolTip"));
             // 
             // openToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // openAsAdministratorToolStripMenuItem1
             // 
-            this.openAsAdministratorToolStripMenuItem1.Name = "openAsAdministratorToolStripMenuItem1";
             resources.ApplyResources(this.openAsAdministratorToolStripMenuItem1, "openAsAdministratorToolStripMenuItem1");
+            this.openAsAdministratorToolStripMenuItem1.Name = "openAsAdministratorToolStripMenuItem1";
             this.openAsAdministratorToolStripMenuItem1.Click += new System.EventHandler(this.openAsAdministratorToolStripMenuItem1_Click);
             // 
             // openFileLocationToolStripMenuItem
             // 
-            this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
             resources.ApplyResources(this.openFileLocationToolStripMenuItem, "openFileLocationToolStripMenuItem");
+            this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
             this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.openFileLocationToolStripMenuItem_Click);
             // 
             // propertiesToolStripMenuItem
             // 
-            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
             resources.ApplyResources(this.propertiesToolStripMenuItem, "propertiesToolStripMenuItem");
+            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // timerSuggestions
@@ -217,6 +225,7 @@
             this.MinimizeBox = false;
             this.Name = "RunForm";
             this.ShowInTaskbar = false;
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.TopMost = true;
             this.Activated += new System.EventHandler(this.Form2_Activated);
             this.Deactivate += new System.EventHandler(this.RunForm_Deactivate);

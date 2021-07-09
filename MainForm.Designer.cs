@@ -54,6 +54,7 @@
             this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.button13 = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.controlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizeHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +92,6 @@
             this.button10 = new System.Windows.Forms.Button();
             this.labelShortcutType = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.buttonAddURL = new System.Windows.Forms.Button();
             this.buttonAddDir = new System.Windows.Forms.Button();
             this.buttonAddApp = new System.Windows.Forms.Button();
@@ -270,6 +270,29 @@
             this.toolTip1.SetToolTip(this.button13, resources.GetString("button13.ToolTip"));
             this.button13.UseVisualStyleBackColor = false;
             this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "home2.png");
+            this.imageList1.Images.SetKeyName(1, "info.png");
+            this.imageList1.Images.SetKeyName(2, "setting.png");
+            this.imageList1.Images.SetKeyName(3, "menu2.png");
+            this.imageList1.Images.SetKeyName(4, "back.png");
+            this.imageList1.Images.SetKeyName(5, "refresh-512.png");
+            this.imageList1.Images.SetKeyName(6, "exit.png");
+            this.imageList1.Images.SetKeyName(7, "Bokehlicia-Captiva-Browser-web.ico");
+            this.imageList1.Images.SetKeyName(8, "folder.png");
+            this.imageList1.Images.SetKeyName(9, "save.png");
+            this.imageList1.Images.SetKeyName(10, "link.png");
+            this.imageList1.Images.SetKeyName(11, "app.png");
+            this.imageList1.Images.SetKeyName(12, "import.png");
+            this.imageList1.Images.SetKeyName(13, "export.png");
+            this.imageList1.Images.SetKeyName(14, "info.png");
+            this.imageList1.Images.SetKeyName(15, "search.png");
+            this.imageList1.Images.SetKeyName(16, "log.png");
+            this.imageList1.Images.SetKeyName(17, "list.png");
             // 
             // menuStrip1
             // 
@@ -585,29 +608,6 @@
             this.toolTip1.SetToolTip(this.buttonSave, resources.GetString("buttonSave.ToolTip"));
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.saveShortcutsToolStripMenuItem_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "home2.png");
-            this.imageList1.Images.SetKeyName(1, "info.png");
-            this.imageList1.Images.SetKeyName(2, "setting.png");
-            this.imageList1.Images.SetKeyName(3, "menu2.png");
-            this.imageList1.Images.SetKeyName(4, "back.png");
-            this.imageList1.Images.SetKeyName(5, "refresh-512.png");
-            this.imageList1.Images.SetKeyName(6, "exit.png");
-            this.imageList1.Images.SetKeyName(7, "Bokehlicia-Captiva-Browser-web.ico");
-            this.imageList1.Images.SetKeyName(8, "folder.png");
-            this.imageList1.Images.SetKeyName(9, "save.png");
-            this.imageList1.Images.SetKeyName(10, "link.png");
-            this.imageList1.Images.SetKeyName(11, "app.png");
-            this.imageList1.Images.SetKeyName(12, "import.png");
-            this.imageList1.Images.SetKeyName(13, "export.png");
-            this.imageList1.Images.SetKeyName(14, "info.png");
-            this.imageList1.Images.SetKeyName(15, "search.png");
-            this.imageList1.Images.SetKeyName(16, "log.png");
-            this.imageList1.Images.SetKeyName(17, "list.png");
             // 
             // buttonAddURL
             // 

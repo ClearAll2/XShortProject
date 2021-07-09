@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressForm));
             this.circularProgressBar1 = new CircularProgressBar.CircularProgressBar();
             this.SuspendLayout();
             // 
@@ -72,7 +71,6 @@
             this.ClientSize = new System.Drawing.Size(280, 163);
             this.Controls.Add(this.circularProgressBar1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProgressForm";
             this.Opacity = 0.95D;
             this.ShowInTaskbar = false;

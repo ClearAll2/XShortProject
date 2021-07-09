@@ -51,7 +51,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Core.ico</ApplicationIcon>
+    <ApplicationIcon>xshort.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CircularProgressBar, Version=2.5.6403.13419, Culture=neutral, processorArchitecture=MSIL">
@@ -116,6 +116,9 @@
     </Compile>
     <Compile Include="Shortcut.cs" />
     <Compile Include="Suggestions.cs" />
+    <EmbeddedResource Include="About.bin-NG.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="About.en.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,8 +181,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="circleicon.ico" />
-    <Content Include="Core.ico" />
     <None Include="Resources\file.png" />
     <None Include="Resources\terminal.png" />
     <None Include="Resources\Core.png" />
@@ -244,6 +245,10 @@
       <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newlogo.png" />
+    <Content Include="xshort.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
